@@ -9,6 +9,7 @@
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 
 <style>
+
 *{
 box-sizing:border-box;
 }
@@ -330,6 +331,11 @@ color:#164d7d;
 margin:5px 0;
 color:#718096;
 font-size:13px;
+}
+
+.zone-card p b{
+color:#164d7d;
+font-size:14px;
 }
 
 .zone-select-btn{
@@ -1001,6 +1007,16 @@ FNS0281-3
 إجمالي السعة: 720 مشترك
 </p>
 
+<p>
+المشتركين:
+<b id="zone1Count">0</b> / 720
+</p>
+
+<p>
+المنافذ الفارغة:
+<b id="zone1Empty">720</b>
+</p>
+
 <button
 class="zone-select-btn"
 data-zone="FNS0281-3">
@@ -1024,6 +1040,16 @@ FNS0284-3
 
 <p>
 إجمالي السعة: 720 مشترك
+</p>
+
+<p>
+المشتركين:
+<b id="zone2Count">0</b> / 720
+</p>
+
+<p>
+المنافذ الفارغة:
+<b id="zone2Empty">720</b>
 </p>
 
 <button
@@ -1642,6 +1668,45 @@ $('app')
 
 
 /* =========================
+   إحصائيات المناطق
+========================= */
+
+function updateZoneStats(){
+
+const zone1Count=
+rows.filter(item=>
+normalizeZone(item.zone)==='FNS0281-3'
+).length;
+
+const zone2Count=
+rows.filter(item=>
+normalizeZone(item.zone)==='FNS0284-3'
+).length;
+
+
+$('zone1Count').textContent=
+zone1Count;
+
+$('zone1Empty').textContent=
+Math.max(
+0,
+720-zone1Count
+);
+
+
+$('zone2Count').textContent=
+zone2Count;
+
+$('zone2Empty').textContent=
+Math.max(
+0,
+720-zone2Count
+);
+
+}
+
+
+/* =========================
    إحصائيات لوحة التحكم
 ========================= */
 
@@ -1651,12 +1716,19 @@ const total=rows.length;
 
 const empty=1440-total;
 
-$('totalSubscribers').textContent=total;
+$('totalSubscribers').textContent=
+total;
 
-$('usedPorts').textContent=total;
+$('usedPorts').textContent=
+total;
 
 $('emptyPorts').textContent=
 empty<0 ? 0 : empty;
+
+
+/* تحديث إحصائيات المناطق */
+
+updateZoneStats();
 
 }
 
