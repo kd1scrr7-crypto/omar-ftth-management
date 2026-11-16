@@ -9,6 +9,7 @@
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 
 <style>
+
 *{
 box-sizing:border-box;
 }
@@ -152,6 +153,7 @@ background:#b7791f;
 padding:10px;
 overflow-wrap:anywhere;
 white-space:pre-wrap;
+line-height:1.8;
 }
 
 .import-box{
@@ -174,7 +176,22 @@ color:#667085;
 line-height:1.8;
 }
 
+.import-progress{
+margin-top:12px;
+padding:12px;
+background:#eef6ff;
+border-radius:10px;
+font-size:14px;
+line-height:1.8;
+}
+
+.zone-title{
+font-weight:bold;
+color:#164d7d;
+}
+
 @media(max-width:650px){
+
 .grid{
 grid-template-columns:repeat(2,1fr);
 }
@@ -182,20 +199,28 @@ grid-template-columns:repeat(2,1fr);
 .import-buttons{
 grid-template-columns:1fr;
 }
+
 }
+
 </style>
 </head>
 
 <body>
 
 <header>
+
 <h2>إدارة مشتركين الوكيل عمر لازم</h2>
+
 <p>FTTH الوطني | برمجة عباس جواد</p>
+
 </header>
+
 
 <main>
 
+
 <!-- تسجيل الدخول -->
+
 <div class="card" id="loginCard">
 
 <h3>تسجيل الدخول</h3>
@@ -203,12 +228,14 @@ grid-template-columns:1fr;
 <input
 id="email"
 type="email"
-placeholder="البريد الإلكتروني">
+placeholder="البريد الإلكتروني"
+autocomplete="username">
 
 <input
 id="password"
 type="password"
-placeholder="كلمة المرور">
+placeholder="كلمة المرور"
+autocomplete="current-password">
 
 <button id="loginBtn">
 دخول إلى البرنامج
@@ -219,49 +246,81 @@ placeholder="كلمة المرور">
 </div>
 
 
+
 <!-- التطبيق -->
+
 <div id="app" class="hidden">
+
+
+<!-- لوحة الإدارة -->
 
 <div class="card">
 
-<div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:8px;
+">
 
 <h3>لوحة الإدارة</h3>
 
-<button id="logoutBtn" class="danger">
+<button
+id="logoutBtn"
+class="danger">
+
 خروج
+
 </button>
 
 </div>
 
+
 <div class="stats">
 
 <div class="stat">
+
 <strong>2</strong>
+
 المناطق
+
 </div>
 
+
 <div class="stat">
+
 <strong>90</strong>
+
 FAT
+
 </div>
 
+
 <div class="stat">
+
 <strong>1440</strong>
+
 السعة الكلية
+
 </div>
+
 
 <div class="stat">
+
 <strong>16</strong>
+
 مشترك لكل FAT
-</div>
 
 </div>
 
 </div>
+
+</div>
+
 
 
 <!-- المنطقة -->
+
 <div class="card">
 
 <h3>اختر المنطقة</h3>
@@ -281,7 +340,9 @@ FNS0284-3
 </div>
 
 
-<!-- استيراد وتصدير Excel -->
+
+<!-- Excel -->
+
 <div class="card">
 
 <h3>استيراد وتصدير Excel</h3>
@@ -290,34 +351,54 @@ FNS0284-3
 
 <p class="small-note">
 
-ملف Excel يجب أن يحتوي على الأعمدة التالية:
+ملف Excel يجب أن يحتوي على:
+
+<br><br>
+
+<b>المشترك</b>
+=
+اسم المشترك
 
 <br>
 
-<b>المشترك</b> = اسم المشترك
+<b>المنطقة</b>
+=
+FNS0281-3 أو FNS0284-3
 
 <br>
 
-<b>المنطقة</b> = FNS0281-3 أو FNS0284-3
+<b>FAT</b>
+=
+FAT1 إلى FAT45
 
 <br>
 
-<b>FAT</b> = FAT1 إلى FAT45
+<b>رقم الهاتف</b>
+=
+اختياري
 
 <br>
 
-<b>رقم الهاتف</b> اختياري
+<b>رقم الفتحة</b>
+=
+اختياري
+
+<br><br>
+
+إذا لم يوجد رقم الفتحة، يقوم البرنامج تلقائيًا باختيار أول فتحة فارغة من 1 إلى 16.
 
 <br>
 
-إذا لم يوجد رقم الفتحة، سيقوم البرنامج بتعيين أول فتحة فارغة من 1 إلى 16 تلقائيًا.
+إذا كانت الفتحة المحددة مشغولة، لن يتم الكتابة فوق المشترك الموجود.
 
 </p>
+
 
 <input
 id="excelFile"
 type="file"
 accept=".xlsx,.xls">
+
 
 <div class="import-buttons">
 
@@ -329,6 +410,7 @@ class="success">
 
 </button>
 
+
 <button
 id="templateBtn"
 class="excel">
@@ -336,6 +418,7 @@ class="excel">
 تحميل قالب Excel
 
 </button>
+
 
 <button
 id="exportBtn"
@@ -347,12 +430,20 @@ class="excel">
 
 </div>
 
+
+<div
+id="importProgress"
+class="import-progress hidden">
 </div>
 
 </div>
+
+</div>
+
 
 
 <!-- البحث -->
+
 <div class="card">
 
 <h3>البحث عن مشترك</h3>
@@ -366,22 +457,32 @@ placeholder="اسم المشترك أو رقم الهاتف">
 </div>
 
 
+
 <!-- FAT -->
+
 <div class="card">
 
 <h3>قائمة FAT</h3>
 
-<div class="grid" id="fats"></div>
+<div
+class="grid"
+id="fats">
+</div>
 
 </div>
 
 
+
 <!-- التفاصيل -->
-<div class="card hidden" id="details">
+
+<div
+class="card hidden"
+id="details">
 
 <h3 id="fatTitle"></h3>
 
 <div id="subscribers"></div>
+
 
 <h3>إضافة مشترك</h3>
 
@@ -389,48 +490,71 @@ placeholder="اسم المشترك أو رقم الهاتف">
 id="subName"
 placeholder="اسم المشترك">
 
+
 <input
 id="subPhone"
 type="tel"
 placeholder="رقم الهاتف">
 
+
 <button id="addBtn">
+
 حفظ المشترك
+
 </button>
 
 </div>
 
+
 </div>
 
 
-<div id="status" class="muted"></div>
+<div
+id="status"
+class="muted">
+</div>
 
-<p class="muted" style="text-align:center">
+
+<p
+class="muted"
+style="text-align:center">
+
 شركة الوطني للكيبل الضوئي FTTH
+
 </p>
 
 </main>
 
 
+
 <script type="module">
 
-import { createClient } from
+
+import {
+createClient
+}
+from
 'https://esm.sh/@supabase/supabase-js@2';
 
 
-/* =========================
+
+/* =====================================================
    الاتصال بـ Supabase
-========================= */
+===================================================== */
 
 const db=createClient(
+
 'https://igiqayqztxcubhnaowmq.supabase.co',
+
 'sb_publishable_Ukwzfz-clPz-Q56yvdaBPQ_8KAaur4s'
+
 );
 
 
-/* =========================
-   متغيرات البرنامج
-========================= */
+
+/* =====================================================
+   المتغيرات
+===================================================== */
 
 const $=id=>document.getElementById(id);
 
@@ -441,26 +565,28 @@ let zone='FNS0281-3';
 let fat=1;
 
 
-/* =========================
+
+/* =====================================================
    الحالة
-========================= */
+===================================================== */
 
-function status(t){
+function status(text){
 
-$('status').textContent=t;
+$('status').textContent=text;
 
 }
 
 
-/* =========================
+
+/* =====================================================
    حماية النص
-========================= */
+===================================================== */
 
-function esc(s){
+function esc(value){
 
-return String(s??'').replace(
+return String(value??'').replace(
 /[&<>"']/g,
-c=>({
+char=>({
 
 '&':'&amp;',
 '<':'&lt;',
@@ -468,25 +594,83 @@ c=>({
 '"':'&quot;',
 "'":'&#39;'
 
-})[c]
+})[char]
 );
 
 }
 
 
-/* =========================
-   تحويل رقم FAT
-========================= */
+
+/* =====================================================
+   تنظيف النص
+===================================================== */
+
+function cleanText(value){
+
+return String(value??'')
+.trim()
+.replace(/\s+/g,' ');
+
+}
+
+
+
+/* =====================================================
+   تطبيع اسم المنطقة
+   مهم جدًا:
+   لا توجد أي تحويلات للأسماء القديمة
+===================================================== */
+
+function normalizeZone(value){
+
+return String(value??'')
+.trim()
+.toUpperCase()
+.replace(/\s+/g,'');
+
+}
+
+
+
+/* =====================================================
+   التحقق من المنطقة
+===================================================== */
+
+function isValidZone(value){
+
+return value==='FNS0281-3' ||
+value==='FNS0284-3';
+
+}
+
+
+
+/* =====================================================
+   تحويل FAT
+===================================================== */
 
 function normalizeFat(value){
 
 let text=String(value??'')
 .trim()
-.toUpperCase();
+.toUpperCase()
+.replace(/\s+/g,'');
 
-if(!text)return 0;
+if(!text){
 
-text=text.replace(/\s+/g,'');
+return 0;
+
+}
+
+
+/*
+   يقبل:
+
+   FAT1
+   FAT01
+   1
+   01
+*/
 
 if(text.startsWith('FAT')){
 
@@ -494,80 +678,65 @@ text=text.substring(3);
 
 }
 
-let n=parseInt(text,10);
 
-if(!Number.isInteger(n))return 0;
+const match=text.match(/\d+/);
 
-if(n<1 || n>45)return 0;
+if(!match){
+
+return 0;
+
+}
+
+
+const n=parseInt(
+match[0],
+10
+);
+
+
+if(!Number.isInteger(n)){
+
+return 0;
+
+}
+
+
+if(n<1 || n>45){
+
+return 0;
+
+}
+
 
 return n;
 
 }
 
 
-/* =========================
-   اسم المنطقة
-   بدون تحويلات قديمة
-========================= */
 
-function normalizeZone(value){
-
-let text=String(value??'')
-.trim()
-.toUpperCase()
-.replace(/\s+/g,'');
-
-/*
-   الأسماء المعتمدة في البرنامج وExcel
-*/
-
-if(text==='FNS0281-3'){
-return 'FNS0281-3';
-}
-
-if(text==='FNS0284-3'){
-return 'FNS0284-3';
-}
-
-/*
-   قبول الأسماء القديمة فقط للمساعدة
-   في الملفات القديمة، ثم حفظ الاسم الجديد.
-*/
-
-if(
-text==='FNS281-3' ||
-text==='FNS028-1-3' ||
-text==='FNS02813'
-){
-return 'FNS0281-3';
-}
-
-if(
-text==='FNS284-3' ||
-text==='FNS028-4-3' ||
-text==='FNS02843'
-){
-return 'FNS0284-3';
-}
-
-return text;
-
-}
-
-
-/* =========================
-   قراءة قيمة من Excel
-========================= */
+/* =====================================================
+   قراءة قيمة Excel
+===================================================== */
 
 function getExcelValue(row,names){
 
-for(const name of names){
+const keys=Object.keys(row);
+
+
+/*
+   أولاً البحث المباشر
+*/
+
+for(const wanted of names){
 
 if(
-Object.prototype.hasOwnProperty.call(row,name)
+Object.prototype.hasOwnProperty.call(
+row,
+wanted
+)
 ){
 
-const value=row[name];
+const value=row[wanted];
 
 if(
 value!==undefined &&
@@ -585,31 +754,43 @@ return String(value).trim();
 
 
 /*
-   البحث غير حساس للمسافات
+   تنظيف اسم العمود للمقارنة
 */
 
-const keys=Object.keys(row);
+function normalizeHeader(value){
+
+return String(value??'')
+
+.trim()
+
+.toLowerCase()
+
+.replace(/^\uFEFF/,'')
+
+.replace(/\s+/g,'')
+
+.replace(/[_-]/g,'');
+
+}
+
 
 for(const wanted of names){
 
 const cleanWanted=
-String(wanted)
-.trim()
-.toLowerCase()
-.replace(/\s+/g,'');
+normalizeHeader(wanted);
+
 
 for(const key of keys){
 
 const cleanKey=
-String(key)
-.trim()
-.toLowerCase()
-.replace(/\s+/g,'');
+normalizeHeader(key);
+
 
 if(cleanKey===cleanWanted){
 
 const value=row[key];
 
+
 if(
 value!==undefined &&
 value!==null &&
@@ -625,27 +806,31 @@ return String(value).trim();
 }
 
 }
+
 
 return '';
 
 }
 
 
-/* =========================
+
+/* =====================================================
    تسجيل الدخول
-========================= */
+===================================================== */
 
 async function login(){
 
-const email=$('email').value.trim();
+const email=
+$('email').value.trim();
 
-const password=$('password').value;
+const password=
+$('password').value;
 
 
 if(!email || !password){
 
 $('loginMessage').textContent=
-'اكتب البريد وكلمة المرور';
+'اكتب البريد الإلكتروني وكلمة المرور';
 
 return;
 
@@ -655,18 +840,18 @@ return;
 $('loginBtn').disabled=true;
 
 $('loginMessage').textContent=
-'جارٍ الدخول...';
+'جارٍ تسجيل الدخول...';
 
 
-const {error}=await db.auth.signInWithPassword({
+try{
+
+const {error}=
+await db.auth.signInWithPassword({
 
 email,
 password
 
 });
-
-
-$('loginBtn').disabled=false;
 
 
 if(error){
@@ -681,12 +866,27 @@ return;
 
 $('password').value='';
 
+$('loginMessage').textContent='';
+
+
+}catch(error){
+
+$('loginMessage').textContent=
+'حدث خطأ: '+error.message;
+
+}finally{
+
+$('loginBtn').disabled=false;
+
+}
+
 }
 
 
-/* =========================
+
+/* =====================================================
    تسجيل الخروج
-========================= */
+===================================================== */
 
 async function logout(){
 
@@ -695,35 +895,55 @@ await db.auth.signOut();
 }
 
 
-/* =========================
+
+/* =====================================================
    إظهار البرنامج
-========================= */
+===================================================== */
 
 function showApp(on){
 
 $('loginCard')
-.classList.toggle('hidden',on);
+.classList.toggle(
+'hidden',
+on
+);
+
 
 $('app')
-.classList.toggle('hidden',!on);
+.classList.toggle(
+'hidden',
+!on
+);
 
 }
 
 
-/* =========================
+
+/* =====================================================
    تحميل البيانات
-========================= */
+===================================================== */
 
 async function loadRows(){
 
-status('جارٍ تحميل المشتركين...');
+status(
+'جارٍ تحميل المشتركين من قاعدة البيانات...'
+);
 
 
-const {data,error}=await db
+const {
+data,
+error
+}=
+await db
+
 .from('subscribers')
+
 .select('*')
+
 .order('zone')
+
 .order('fat_number')
+
 .order('slot_number');
 
 
@@ -734,7 +954,7 @@ status(
 error.message
 );
 
-return;
+return false;
 
 }
 
@@ -750,15 +970,19 @@ searchSubs();
 
 
 status(
-'تم تحميل البيانات السحابية بنجاح'
+`تم تحميل البيانات بنجاح\nعدد المشتركين: ${rows.length}`
 );
+
+
+return true;
 
 }
 
 
-/* =========================
+
+/* =====================================================
    عرض FAT
-========================= */
+===================================================== */
 
 function renderFats(){
 
@@ -767,23 +991,39 @@ let html='';
 
 for(let n=1;n<=45;n++){
 
-const count=rows.filter(x=>
+const count=
+rows.filter(item=>
 
-normalizeZone(x.zone)===zone &&
-Number(x.fat_number)===n
+normalizeZone(item.zone)===zone &&
+
+Number(item.fat_number)===n
 
 ).length;
 
 
+let buttonClass='';
+
+
+if(count>=16){
+
+buttonClass='danger';
+
+}
+
+
 html+=`
 
-<button data-fat="${n}">
+<button
+data-fat="${n}"
+class="${buttonClass}">
 
 FAT${n}
 
 <br>
 
-<small>${count}/16</small>
+<small>
+${count}/16
+</small>
 
 </button>
 
@@ -797,20 +1037,24 @@ $('fats').innerHTML=html;
 }
 
 
-/* =========================
+
+/* =====================================================
    فتح FAT
-========================= */
+===================================================== */
 
-function openFAT(n){
+function openFAT(number){
 
-fat=n;
+fat=number;
+
 
 $('details')
-.classList.remove('hidden');
+.classList.remove(
+'hidden'
+);
 
 
 $('fatTitle').textContent=
-zone+' — FAT'+fat;
+`${zone} — FAT${fat}`;
 
 
 $('subName').value='';
@@ -822,20 +1066,24 @@ renderDetails();
 
 
 $('details').scrollIntoView({
-behavior:'smooth'
+behavior:'smooth',
+block:'start'
 });
 
 }
 
 
-/* =========================
+
+/* =====================================================
    تفاصيل FAT
-========================= */
+===================================================== */
 
 function renderDetails(){
 
 if(
-$('details').classList.contains('hidden')
+$('details').classList.contains(
+'hidden'
+)
 ){
 
 return;
@@ -843,10 +1091,12 @@ return;
 }
 
 
-const list=rows.filter(x=>
+const list=
+rows.filter(item=>
 
-normalizeZone(x.zone)===zone &&
-Number(x.fat_number)===fat
+normalizeZone(item.zone)===zone &&
+
+Number(item.fat_number)===fat
 
 );
 
@@ -856,8 +1106,11 @@ let html='';
 
 for(let i=1;i<=16;i++){
 
-const s=list.find(x=>
-Number(x.slot_number)===i
+const subscriber=
+list.find(item=>
+
+Number(item.slot_number)===i
+
 );
 
 
@@ -865,32 +1118,45 @@ html+=`
 
 <div class="sub">
 
-<b>المشترك ${i}:</b>
+<b>
+المشترك ${i}:
+</b>
 
 `;
 
 
-if(s){
+if(subscriber){
 
 html+=`
 
 <br>
 
-${esc(s.subscriber_name)}
+${esc(
+subscriber.subscriber_name
+)}
 
 <br>
 
-${esc(s.phone||'')}
+${subscriber.phone
+?
+esc(subscriber.phone)
+:
+'<span class="muted">لا يوجد رقم هاتف</span>'
+}
 
 <br>
 
-<button data-edit="${s.id}">
+<button
+data-edit="${subscriber.id}">
+
 تعديل
+
 </button>
+
 
 <button
 class="danger"
-data-delete="${s.id}">
+data-delete="${subscriber.id}">
 
 حذف
 
@@ -913,7 +1179,10 @@ html+=`
 }
 
 
-html+='</div>';
+html+=`
+
+</div>
+`;
 
 }
 
@@ -923,32 +1192,42 @@ $('subscribers').innerHTML=html;
 }
 
 
-/* =========================
+
+/* =====================================================
    إضافة مشترك يدوي
-========================= */
+===================================================== */
 
 async function addSub(){
 
 const name=
-$('subName').value.trim();
+cleanText(
+$('subName').value
+);
+
 
 const phone=
-$('subPhone').value.trim();
+cleanText(
+$('subPhone').value
+);
 
 
 if(!name){
 
-alert('يرجى كتابة اسم المشترك');
+alert(
+'يرجى كتابة اسم المشترك'
+);
 
 return;
 
 }
 
 
-const list=rows.filter(x=>
+const list=
+rows.filter(item=>
 
-normalizeZone(x.zone)===zone &&
-Number(x.fat_number)===fat
+normalizeZone(item.zone)===zone &&
+
+Number(item.fat_number)===fat
 
 );
 
@@ -959,10 +1238,12 @@ let slot=0;
 for(let i=1;i<=16;i++){
 
 if(
-!list.some(x=>
-Number(x.slot_number)===i
+!list.some(item=>
+
+Number(item.slot_number)===i
+
 )
-{
+){
 
 slot=i;
 
@@ -975,7 +1256,9 @@ break;
 
 if(!slot){
 
-alert('هذا FAT ممتلئ');
+alert(
+'هذا FAT ممتلئ بالكامل'
+);
 
 return;
 
@@ -985,8 +1268,13 @@ return;
 $('addBtn').disabled=true;
 
 
-const {error}=await db
+const {
+error
+}=
+await db
+
 .from('subscribers')
+
 .insert({
 
 zone:zone,
@@ -1008,7 +1296,7 @@ $('addBtn').disabled=false;
 if(error){
 
 alert(
-'تعذر الحفظ:\n'+
+'تعذر حفظ المشترك:\n'+
 error.message
 );
 
@@ -1025,68 +1313,100 @@ $('subPhone').value='';
 await loadRows();
 
 
-alert('تم حفظ المشترك بنجاح');
+alert(
+`تم حفظ المشترك بنجاح\n\nالمنطقة: ${zone}\nFAT: FAT${fat}\nالفتحة: ${slot}`
+);
 
 }
 
 
-/* =========================
+
+/* =====================================================
    تعديل مشترك
-========================= */
+===================================================== */
 
 async function editSub(id){
 
-const s=rows.find(x=>
-String(x.id)===String(id)
+const subscriber=
+rows.find(item=>
+
+String(item.id)===String(id)
+
 );
 
 
-if(!s)return;
-
-
-const name=prompt(
-'اسم المشترك',
-s.subscriber_name
-);
-
-
-if(name===null)return;
-
-
-if(!name.trim()){
-
-alert('الاسم مطلوب');
+if(!subscriber){
 
 return;
 
 }
 
 
-const phone=prompt(
-'رقم الهاتف',
-s.phone||''
+const name=
+prompt(
+'اسم المشترك',
+subscriber.subscriber_name||''
 );
 
 
-if(phone===null)return;
+if(name===null){
+
+return;
+
+}
 
 
-const {error}=await db
+const cleanName=
+cleanText(name);
+
+
+if(!cleanName){
+
+alert(
+'الاسم مطلوب'
+);
+
+return;
+
+}
+
+
+const phone=
+prompt(
+'رقم الهاتف',
+subscriber.phone||''
+);
+
+
+if(phone===null){
+
+return;
+
+}
+
+
+const {
+error
+}=
+await db
+
 .from('subscribers')
+
 .update({
 
-subscriber_name:name.trim(),
+subscriber_name:cleanName,
 
-phone:phone.trim()
+phone:cleanText(phone)
 
 })
+
 .eq('id',id);
 
 
 if(error){
 
 alert(
-'خطأ:\n'+
+'حدث خطأ:\n'+
 error.message
 );
 
@@ -1100,14 +1420,17 @@ await loadRows();
 }
 
 
-/* =========================
+
+/* =====================================================
    حذف مشترك
-========================= */
+===================================================== */
 
 async function deleteSub(id){
 
 if(
-!confirm('هل تريد حذف المشترك؟')
+!confirm(
+'هل تريد حذف هذا المشترك؟'
+)
 ){
 
 return;
@@ -1115,16 +1438,22 @@ return;
 }
 
 
-const {error}=await db
+const {
+error
+}=
+await db
+
 .from('subscribers')
+
 .delete()
+
 .eq('id',id);
 
 
 if(error){
 
 alert(
-'خطأ:\n'+
+'حدث خطأ أثناء الحذف:\n'+
 error.message
 );
 
@@ -1138,13 +1467,15 @@ await loadRows();
 }
 
 
-/* =========================
+
+/* =====================================================
    البحث
-========================= */
+===================================================== */
 
 function searchSubs(){
 
-const q=$('search')
+const q=
+$('search')
 .value
 .trim()
 .toLowerCase();
@@ -1159,120 +1490,171 @@ return;
 }
 
 
-const found=rows.filter(s=>
+const found=
+rows.filter(item=>{
 
-(s.subscriber_name||'')
-.toLowerCase()
-.includes(q)
+const name=
+String(
+item.subscriber_name||''
+)
+.toLowerCase();
 
-||
 
-(s.phone||'')
-.toLowerCase()
-.includes(q)
+const phone=
+String(
+item.phone||''
+)
+.toLowerCase();
 
-);
+
+return name.includes(q) ||
+phone.includes(q);
+
+});
+
+
+if(!found.length){
+
+$('results').innerHTML=
+'<p>لا توجد نتائج</p>';
+
+return;
+
+}
 
 
 $('results').innerHTML=
-
-found.length
-
-?
-
-found.map(s=>`
+found.map(item=>`
 
 <div class="sub">
 
 <b>
-${esc(s.subscriber_name)}
+${esc(item.subscriber_name||'')}
 </b>
 
 <br>
 
-${esc(s.phone||'')}
+${item.phone
+?
+esc(item.phone)
+:
+'<span class="muted">لا يوجد رقم هاتف</span>'
+}
 
 <p class="muted">
 
-${esc(normalizeZone(s.zone))}
+${esc(
+normalizeZone(item.zone)
+)}
 
 —
 
-FAT${s.fat_number}
+FAT${Number(item.fat_number)}
 
 —
 
-المشترك ${s.slot_number}
+المشترك ${Number(item.slot_number)}
 
 </p>
 
 </div>
 
-`).join('')
-
-:
-
-'<p>لا توجد نتائج</p>';
+`).join('');
 
 }
 
 
-/* =========================================================
-   Excel
-========================================================= */
 
-
-/* =========================
-   تحميل قالب Excel
-========================= */
+/* =====================================================
+   قالب Excel
+===================================================== */
 
 function downloadTemplate(){
 
 const data=[
 
 {
-'المشترك':'مثال: أحمد محمد',
+
+'المشترك':'أحمد محمد',
+
 'المنطقة':'FNS0281-3',
+
 'FAT':'FAT1',
+
+'رقم الفتحة':'',
+
 'رقم الهاتف':''
+
 },
 
 {
-'المشترك':'مثال: علي حسن',
+
+'المشترك':'علي حسن',
+
 'المنطقة':'FNS0284-3',
+
 'FAT':'FAT2',
+
+'رقم الفتحة':'',
+
 'رقم الهاتف':''
+
 }
 
 ];
 
 
-const ws=
-XLSX.utils.json_to_sheet(data);
+const worksheet=
+XLSX.utils.json_to_sheet(
+data
+);
 
 
-const wb=
+worksheet['!cols']=[
+
+{wch:28},
+
+{wch:18},
+
+{wch:12},
+
+{wch:15},
+
+{wch:20}
+
+];
+
+
+const workbook=
 XLSX.utils.book_new();
 
 
 XLSX.utils.book_append_sheet(
-wb,
-ws,
+
+workbook,
+
+worksheet,
+
 'المشتركين'
+
 );
 
 
 XLSX.writeFile(
-wb,
+
+workbook,
+
 'قالب_المشتركين.xlsx'
+
 );
 
 }
 
 
-/* =========================
-   تصدير كل البيانات
-========================= */
+
+/* =====================================================
+   تصدير Excel
+===================================================== */
 
 function exportExcel(){
 
@@ -1287,52 +1669,135 @@ return;
 }
 
 
-const data=rows.map(s=>({
+const data=
+rows.map(item=>({
 
 'المشترك':
-s.subscriber_name||'',
+item.subscriber_name||'',
 
 'المنطقة':
-normalizeZone(s.zone),
+normalizeZone(item.zone),
 
 'FAT':
-'FAT'+s.fat_number,
+'FAT'+Number(item.fat_number),
 
 'رقم الفتحة':
-s.slot_number,
+Number(item.slot_number),
 
 'رقم الهاتف':
-s.phone||''
+item.phone||''
 
 }));
 
 
-const ws=
-XLSX.utils.json_to_sheet(data);
+const worksheet=
+XLSX.utils.json_to_sheet(
+data
+);
 
 
-const wb=
+worksheet['!cols']=[
+
+{wch:28},
+
+{wch:18},
+
+{wch:12},
+
+{wch:15},
+
+{wch:20}
+
+];
+
+
+const workbook=
 XLSX.utils.book_new();
 
 
 XLSX.utils.book_append_sheet(
-wb,
-ws,
+
+workbook,
+
+worksheet,
+
 'المشتركين'
+
 );
 
 
 XLSX.writeFile(
-wb,
+
+workbook,
+
 'بيانات_المشتركين.xlsx'
+
 );
 
 }
 
 
-/* =========================
+
+/* =====================================================
+   استخراج رقم الفتحة من Excel
+===================================================== */
+
+function normalizeSlot(value){
+
+if(
+value===undefined ||
+value===null ||
+String(value).trim()===''
+){
+
+return 0;
+
+}
+
+
+const text=
+String(value)
+.trim();
+
+
+const match=
+text.match(/\d+/);
+
+
+if(!match){
+
+return 0;
+
+}
+
+
+const number=
+parseInt(
+match[0],
+10
+);
+
+
+if(
+!Number.isInteger(number) ||
+number<1 ||
+number>16
+){
+
+return 0;
+
+}
+
+
+return number;
+
+}
+
+
+
+/* =====================================================
    استيراد Excel
-========================= */
+===================================================== */
 
 async function importExcel(){
 
@@ -1367,12 +1832,25 @@ return;
 $('importBtn').disabled=true;
 
 
+$('importProgress')
+.classList.remove(
+'hidden'
+);
+
+
+$('importProgress').textContent=
+'جارٍ قراءة ملف Excel...';
+
+
 status(
 'جارٍ قراءة ملف Excel...'
 );
 
 
 try{
+
+
+/* قراءة الملف */
 
 const buffer=
 await file.arrayBuffer();
@@ -1387,11 +1865,9 @@ type:'array'
 );
 
 
-const sheetName=
-workbook.SheetNames[0];
-
-
-if(!sheetName){
+if(
+!workbook.SheetNames.length
+){
 
 throw new Error(
 'لم يتم العثور على ورقة داخل ملف Excel'
@@ -1401,14 +1877,17 @@ throw new Error(
 
 
 const sheet=
-workbook.Sheets[sheetName];
+workbook.Sheets[
+workbook.SheetNames[0]
+];
 
 
 const data=
 XLSX.utils.sheet_to_json(
 sheet,
 {
-defval:''
+defval:'',
+raw:false
 }
 );
 
@@ -1422,37 +1901,38 @@ throw new Error(
 }
 
 
-let added=0;
 
-let skipped=0;
-
-let errors=[];
-
-
-/*
-   نستخدم البيانات الموجودة حاليًا
-   لمنع الكتابة فوق المشتركين.
-*/
+/* =================================================
+   تجهيز الأماكن المشغولة
+================================================= */
 
 const occupied=new Set();
 
 
-for(const s of rows){
+for(const item of rows){
 
-const z=
-normalizeZone(s.zone);
-
-const f=
-Number(s.fat_number);
-
-const sl=
-Number(s.slot_number);
+const itemZone=
+normalizeZone(item.zone);
 
 
-if(z && f && sl){
+const itemFat=
+Number(item.fat_number);
+
+
+const itemSlot=
+Number(item.slot_number);
+
+
+if(
+isValidZone(itemZone) &&
+itemFat>=1 &&
+itemFat<=45 &&
+itemSlot>=1 &&
+itemSlot<=16
+){
 
 occupied.add(
-`${z}|${f}|${sl}`
+`${itemZone}|${itemFat}|${itemSlot}`
 );
 
 }
@@ -1460,9 +1940,31 @@ occupied.add(
 }
 
 
-/*
-   معالجة الصفوف واحدًا واحدًا
-*/
+
+/* =================================================
+   الإحصائيات
+================================================= */
+
+let added=0;
+
+let skipped=0;
+
+let errors=[];
+
+
+/* =================================================
+   تجهيز الصفوف للإضافة
+================================================= */
+
+const recordsToInsert=[];
+
+const recordKeys=new Set();
+
+
+
+/* =================================================
+   معالجة Excel
+================================================= */
 
 for(
 let index=0;
@@ -1471,9 +1973,6 @@ index++
 ){
 
 const row=data[index];
-
-
-/* اسم المشترك */
 
 const excelName=
 getExcelValue(
@@ -1489,8 +1988,6 @@ row,
 ]
 );
 
-
-/* المنطقة */
 
 const excelZoneRaw=
 getExcelValue(
@@ -1510,9 +2007,7 @@ excelZoneRaw
 );
 
 
-/* FAT */
-
-const excelFat=
+const excelFatRaw=
 getExcelValue(
 row,
 [
@@ -1521,16 +2016,17 @@ row,
 'fat',
 'FAT Number',
 'رقم FAT',
-'الفات'
+'الفات',
+'رقم الفات'
 ]
 );
 
 
 const fatNumber=
-normalizeFat(excelFat);
+normalizeFat(
+excelFatRaw
+);
 
-
-/* الهاتف */
 
 const excelPhone=
 getExcelValue(
@@ -1548,12 +2044,6 @@ row,
 );
 
 
-/*
-   رقم الفتحة اختياري.
-   لا نستخدم "المشترك" هنا حتى لا
-   يتم تفسير اسم المشترك كرقم فتحة.
-*/
-
 const excelSlotRaw=
 getExcelValue(
 row,
@@ -1569,33 +2059,16 @@ row,
 );
 
 
-let slotNumber=0;
-
-
-if(excelSlotRaw){
-
-const parsed=
-parseInt(
-String(excelSlotRaw)
-.replace(/[^\d]/g,''),
-10
+let slotNumber=
+normalizeSlot(
+excelSlotRaw
 );
 
 
-if(
-Number.isInteger(parsed) &&
-parsed>=1 &&
-parsed<=16
-){
 
-slotNumber=parsed;
-
-}
-
-}
-
-
-/* التحقق من الاسم */
+/* -----------------------------------------------
+   الاسم
+------------------------------------------------ */
 
 if(!excelName){
 
@@ -1610,17 +2083,17 @@ continue;
 }
 
 
-/* التحقق من المنطقة */
 
-if(
-excelZone!=='FNS0281-3' &&
-excelZone!=='FNS0284-3'
-){
+/* -----------------------------------------------
+   المنطقة
+------------------------------------------------ */
+
+if(!isValidZone(excelZone)){
 
 skipped++;
 
 errors.push(
-`السطر ${index+2}: المنطقة غير صحيحة (${excelZoneRaw})`
+`السطر ${index+2}: المنطقة غير صحيحة (${excelZoneRaw||'فارغة'})`
 );
 
 continue;
@@ -1628,7 +2101,10 @@ continue;
 }
 
 
-/* التحقق من FAT */
+
+/* -----------------------------------------------
+   FAT
+------------------------------------------------ */
 
 if(
 fatNumber<1 ||
@@ -1638,7 +2114,7 @@ fatNumber>45
 skipped++;
 
 errors.push(
-`السطر ${index+2}: رقم FAT غير صحيح (${excelFat})`
+`السطر ${index+2}: رقم FAT غير صحيح (${excelFatRaw||'فارغ'})`
 );
 
 continue;
@@ -1646,10 +2122,11 @@ continue;
 }
 
 
-/*
-   إذا لم يحدد Excel رقم الفتحة
-   نبحث عن أول فتحة فارغة.
-*/
+
+/* =================================================
+   إذا لم تحدد الفتحة
+   نبحث عن أول فتحة فارغة
+================================================= */
 
 if(!slotNumber){
 
@@ -1676,16 +2153,17 @@ break;
 }
 
 
-/* إذا لم توجد فتحة */
 
-if(
-!slotNumber
-){
+/* -----------------------------------------------
+   FAT ممتلئ
+------------------------------------------------ */
+
+if(!slotNumber){
 
 skipped++;
 
 errors.push(
-`السطر ${index+2}: FAT${fatNumber} في المنطقة ${excelZone} ممتلئ`
+`السطر ${index+2}: ${excelZone} - FAT${fatNumber} ممتلئ`
 );
 
 continue;
@@ -1693,22 +2171,21 @@ continue;
 }
 
 
-/*
-   التأكد أن الفتحة غير مشغولة
-*/
+
+/* =================================================
+   التأكد من عدم وجود التكرار
+================================================= */
 
 const key=
 `${excelZone}|${fatNumber}|${slotNumber}`;
 
 
-if(
-occupied.has(key)
-){
+if(occupied.has(key)){
 
 skipped++;
 
 errors.push(
-`السطر ${index+2}: الفتحة ${slotNumber} في ${excelZone} - FAT${fatNumber} مشغولة مسبقًا`
+`السطر ${index+2}: ${excelZone} - FAT${fatNumber} - الفتحة ${slotNumber} مشغولة`
 );
 
 continue;
@@ -1716,13 +2193,28 @@ continue;
 }
 
 
-/*
-   الإضافة إلى Supabase
-*/
+/* =================================================
+   منع تكرار الصف نفسه داخل Excel
+================================================= */
 
-const {error}=await db
-.from('subscribers')
-.insert({
+if(recordKeys.has(key)){
+
+skipped++;
+
+errors.push(
+`السطر ${index+2}: تكرار نفس المنطقة وFAT والفتحة داخل ملف Excel`
+);
+
+continue;
+
+}
+
+
+/* =================================================
+   تجهيز السجل
+================================================= */
+
+recordsToInsert.push({
 
 zone:excelZone,
 
@@ -1730,49 +2222,37 @@ fat_number:fatNumber,
 
 slot_number:slotNumber,
 
-subscriber_name:excelName,
+subscriber_name:cleanText(
+excelName
+),
 
-phone:excelPhone||''
+phone:cleanText(
+excelPhone
+)
 
 });
 
 
-if(error){
-
-skipped++;
-
-errors.push(
-`السطر ${index+2}: ${error.message}`
-);
-
-continue;
-
-}
-
-
-/*
-   نضيفها إلى occupied مباشرة
-   حتى لا يحصل تعارض مع الصف التالي.
-*/
+recordKeys.add(key);
 
 occupied.add(key);
 
-added++;
-
 }
 
 
-/* تحديث البيانات */
 
-await loadRows();
+/* =================================================
+   لا توجد سجلات صالحة
+================================================= */
 
+if(!recordsToInsert.length){
 
 let message=
-`انتهى الاستيراد.
+`انتهى فحص الملف.
 
 عدد الصفوف: ${data.length}
 
-تمت الإضافة: ${added}
+تمت الإضافة: 0
 
 تم التجاهل: ${skipped}`;
 
@@ -1786,11 +2266,148 @@ errors.join('\n');
 }
 
 
+$('importProgress').textContent=
+message;
+
+
 status(message);
 
 
 alert(
-`تمت عملية الاستيراد.
+'لم تتم إضافة أي مشترك.\n\n'+
+'افتح الملاحظات لمعرفة السبب.'
+);
+
+
+return;
+
+}
+
+
+
+/* =================================================
+   إدخال البيانات على دفعات
+================================================= */
+
+const batchSize=100;
+
+
+for(
+let start=0;
+start<recordsToInsert.length;
+start+=batchSize
+){
+
+const batch=
+recordsToInsert.slice(
+start,
+start+batchSize
+);
+
+
+$('importProgress').textContent=
+`جارٍ رفع البيانات إلى قاعدة البيانات...\n\n`+
+`تم تجهيز ${start} من ${recordsToInsert.length} سجل`;
+
+
+const {
+error
+}=
+await db
+
+.from('subscribers')
+
+.insert(batch);
+
+
+if(error){
+
+/*
+   إذا فشلت الدفعة، نحاول إضافة
+   الصفوف واحدًا واحدًا حتى نعرف
+   الصف الذي تسبب بالمشكلة.
+*/
+
+for(
+const record of batch
+){
+
+const {
+error:singleError
+}=
+await db
+
+.from('subscribers')
+
+.insert(record);
+
+
+if(singleError){
+
+skipped++;
+
+errors.push(
+`${record.zone} - FAT${record.fat_number} - الفتحة ${record.slot_number}: ${singleError.message}`
+);
+
+}else{
+
+added++;
+
+}
+
+}
+
+}else{
+
+added+=batch.length;
+
+}
+
+}
+
+
+
+/* =================================================
+   تحديث البيانات
+================================================= */
+
+await loadRows();
+
+
+
+/* =================================================
+   النتيجة
+================================================= */
+
+let message=
+`انتهى الاستيراد بنجاح.
+
+عدد الصفوف في Excel: ${data.length}
+
+تمت الإضافة: ${added}
+
+تم التجاهل: ${skipped}`;
+
+
+if(errors.length){
+
+message+=
+`\n\nالملاحظات (${errors.length}):\n`+
+errors.join('\n');
+
+}
+
+
+$('importProgress').textContent=
+message;
+
+
+status(message);
+
+
+alert(
+`انتهى الاستيراد.
 
 عدد الصفوف: ${data.length}
 
@@ -1802,28 +2419,34 @@ alert(
 
 }catch(error){
 
-status(
+const message=
 'فشل الاستيراد:\n'+
-(error.message||error)
-);
+(error?.message||String(error));
 
 
-alert(
-'فشل الاستيراد:\n'+
-(error.message||error)
-);
+$('importProgress').textContent=
+message;
 
-}
 
+status(message);
+
+
+alert(message);
+
+
+}finally{
 
 $('importBtn').disabled=false;
 
 }
 
+}
 
-/* =========================================================
+
+
+/* =====================================================
    الأحداث
-========================================================= */
+===================================================== */
 
 $('loginBtn')
 .addEventListener(
@@ -1877,7 +2500,9 @@ $('zone').value;
 
 
 $('details')
-.classList.add('hidden');
+.classList.add(
+'hidden'
+);
 
 
 renderFats();
@@ -1893,21 +2518,28 @@ searchSubs
 );
 
 
-/* الضغط على FAT */
+
+/* =====================================================
+   الضغط على FAT
+===================================================== */
 
 $('fats')
 .addEventListener(
 'click',
-e=>{
+event=>{
 
-const b=
-e.target.closest('[data-fat]');
+const button=
+event.target.closest(
+'[data-fat]'
+);
 
 
-if(b){
+if(button){
 
 openFAT(
-Number(b.dataset.fat)
+Number(
+button.dataset.fat
+)
 );
 
 }
@@ -1916,18 +2548,26 @@ Number(b.dataset.fat)
 );
 
 
-/* تعديل وحذف */
+
+/* =====================================================
+   تعديل وحذف
+===================================================== */
 
 $('subscribers')
 .addEventListener(
 'click',
-e=>{
+event=>{
 
 const edit=
-e.target.closest('[data-edit]');
+event.target.closest(
+'[data-edit]'
+);
+
 
 const del=
-e.target.closest('[data-delete]');
+event.target.closest(
+'[data-delete]'
+);
 
 
 if(edit){
@@ -1951,14 +2591,17 @@ del.dataset.delete
 );
 
 
-/* =========================================================
+
+/* =====================================================
    Supabase Auth
-========================================================= */
+===================================================== */
 
 db.auth.onAuthStateChange(
-(_event,session)=>{
+(event,session)=>{
 
-showApp(!!session);
+showApp(
+!!session
+);
 
 
 if(session){
@@ -1971,17 +2614,22 @@ loadRows();
 );
 
 
-/* =========================================================
+
+/* =====================================================
    بدء البرنامج
-========================================================= */
+===================================================== */
 
 const {
-data:{session}
+data:{
+session
+}
 }=
 await db.auth.getSession();
 
 
-showApp(!!session);
+showApp(
+!!session
+);
 
 
 if(session){
