@@ -315,11 +315,11 @@ accept=".xlsx,.xls,.csv"
 
 <div class="notice">
 
-<b>يمكن أن يكون ملف Excel بهذا الشكل:</b>
+<b>شكل ملف Excel المقبول:</b>
 
 <br><br>
 
-الاسم | المنطقة | FAT
+المشترك | المنطقة | FAT
 
 <br><br>
 
@@ -327,15 +327,15 @@ accept=".xlsx,.xls,.csv"
 
 <br>
 
-أحمد علي | FNS281-3 | 1
+أحمد علي | FNS028-1-3 | FAT21
 
 <br>
 
-محمد حسن | FNS281-3 | 1
+محمد حسن | FNS028-1-3 | FAT21
 
 <br>
 
-علي كريم | FNS281-3 | 2
+علي كريم | FNS028-1-3 | FAT26
 
 <br><br>
 
@@ -343,6 +343,18 @@ accept=".xlsx,.xls,.csv"
 
 رقم المشترك لا تحتاج إلى كتابته.
 البرنامج سيعطي كل مشترك أول Slot فارغ من 1 إلى 16.
+
+<br><br>
+
+سيتم تحويل:
+
+<br>
+
+FNS028-1-3 → FNS281-3
+
+<br>
+
+FNS028-4-3 → FNS284-3
 
 <br><br>
 
@@ -1128,6 +1140,55 @@ return '';
 
 
 /* =========================================
+   تحويل المنطقة
+========================================= */
+
+function normalizeZone(value){
+
+let text=String(value??'')
+.trim()
+.toUpperCase()
+.replace(/\s+/g,'');
+
+
+/*
+المنطقة الموجودة في ملف Excel
+FNS028-1-3
+تعني FNS281-3
+*/
+
+if(
+text==='FNS028-1-3' ||
+text==='FNS02813' ||
+text==='FNS281-3'
+){
+
+return 'FNS281-3';
+
+}
+
+
+/*
+المنطقة الثانية
+*/
+
+if(
+text==='FNS028-4-3' ||
+text==='FNS02843' ||
+text==='FNS284-3'
+){
+
+return 'FNS284-3';
+
+}
+
+
+return text;
+
+}
+
+
+/* =========================================
    تحويل رقم FAT
 ========================================= */
 
@@ -1308,16 +1369,14 @@ return;
 
 
 /*
-مهم جدًا:
-
-نحن نعمل نسخة من البيانات الحالية.
-
-هذه النسخة تستخدم أثناء الاستيراد
-حتى يتم توزيع عدة أسماء من نفس FAT
-على Slot 1 ثم 2 ثم 3 ... إلخ.
+نسخة من البيانات الحالية.
+نستخدمها أثناء الاستيراد
+حتى يتم توزيع عدة أسماء
+من نفس FAT على Slots مختلفة.
 */
 
-const workingRows=rows.map(x=>({...x}));
+const workingRows=
+rows.map(x=>({...x}));
 
 
 let added=0;
@@ -1362,7 +1421,9 @@ getExcelValue(row,[
 
 'ZONE',
 
-'اسم المنطقة'
+'اسم المنطقة',
+
+'اسم المنطقه'
 
 ]);
 
@@ -1402,8 +1463,6 @@ getExcelValue(row,[
 
 'رقم المشترك',
 
-'المشترك',
-
 'slot',
 
 'Slot',
@@ -1419,6 +1478,16 @@ getExcelValue(row,[
 ]);
 
 
+/*
+مهم:
+
+لا نضع كلمة "المشترك" هنا.
+
+لأن ملف المستخدم يستخدم "المشترك"
+كاسم الشخص وليس كرقم Slot.
+*/
+
+
 /* =====================================
    قراءة الاسم
 ===================================== */
@@ -1427,6 +1496,8 @@ let excelName=
 getExcelValue(row,[
 
 'اسم المشترك',
+
+'المشترك',
 
 'الاسم',
 
@@ -1468,7 +1539,7 @@ getExcelValue(row,[
 ===================================== */
 
 excelZone=
-String(excelZone||'').trim();
+normalizeZone(excelZone);
 
 
 excelName=
@@ -1478,11 +1549,6 @@ String(excelName||'').trim();
 excelPhone=
 String(excelPhone||'').trim();
 
-
-/*
-إذا لم يوجد الهاتف في Excel
-يبقى فارغًا
-*/
 
 if(!excelPhone){
 
@@ -1509,6 +1575,27 @@ skipped++;
 
 errors.push(
 `السطر ${index+2}: المنطقة فارغة`
+);
+
+continue;
+
+}
+
+
+/*
+نتأكد أن المنطقة الموجودة
+واحدة من مناطق البرنامج.
+*/
+
+if(
+excelZone!=='FNS281-3' &&
+excelZone!=='FNS284-3'
+){
+
+skipped++;
+
+errors.push(
+`السطر ${index+2}: المنطقة غير معروفة (${excelZone})`
 );
 
 continue;
@@ -1558,19 +1645,18 @@ continue;
    تحديد Slot
 ===================================== */
 
-/*
-إذا كان Excel يحتوي على رقم المشترك
-نستخدمه.
+const slotWasProvided=
+!isNaN(slotNumber) &&
+slotNumber>=1 &&
+slotNumber<=16;
 
-أما إذا لم يكن موجودًا
-فنبحث تلقائيًا عن أول Slot فارغ.
+
+/*
+إذا لم يوجد Slot
+نختار أول Slot فارغ.
 */
 
-if(
-isNaN(slotNumber) ||
-slotNumber<1 ||
-slotNumber>16
-){
+if(!slotWasProvided){
 
 slotNumber=
 findFirstFreeSlot(
@@ -1609,10 +1695,10 @@ continue;
 
 
 /* =====================================
-   التأكد من أن Slot غير مستخدم
+   البحث عن Slot موجود
 ===================================== */
 
-const existing=
+let existing=
 workingRows.find(x=>
 
 String(x.zone).trim()===
@@ -1628,21 +1714,13 @@ slotNumber
 
 
 /*
-إذا كان Excel يحتوي Slot بشكل صريح
-يمكن تحديث المشترك الموجود.
+إذا كان Slot مكتوبًا في Excel
+نسمح بالتحديث للموجود.
 
-أما إذا كان Slot غير موجود في Excel
-وكان البرنامج اختاره تلقائيًا
-فلا نريد الكتابة فوق أي مشترك.
+إذا لم يكن Slot مكتوبًا
+نبحث دائمًا عن Slot جديد
+ولا نستبدل الموجود.
 */
-
-const slotWasProvided=
-!isNaN(
-parseSlot(excelSlot)
-) &&
-parseSlot(excelSlot)>=1 &&
-parseSlot(excelSlot)<=16;
-
 
 if(existing && slotWasProvided){
 
@@ -1680,15 +1758,15 @@ excelPhone;
 
 }
 
-}else if(existing){
+}else{
 
 /*
-هذا يعني أن البرنامج اختار Slot
-ولكنه موجود أصلًا.
-
-لا نستبدله.
-نبحث عن Slot آخر.
+إذا كان Slot تلقائيًا
+أو Slot المكتوب غير موجود،
+نضمن أن المكان فارغ.
 */
+
+if(existing){
 
 slotNumber=
 findFirstFreeSlot(
@@ -1715,56 +1793,12 @@ errors.push(
 `السطر ${index+2}: ${fullText} ممتلئ`
 );
 
-}else{
-
-const {error}=await db
-.from('subscribers')
-.insert({
-
-zone:excelZone,
-
-fat_number:fatNumber,
-
-slot_number:slotNumber,
-
-subscriber_name:excelName,
-
-phone:excelPhone
-
-});
-
-
-if(error){
-
-skipped++;
-
-errors.push(
-`السطر ${index+2}: ${error.message}`
-);
-
-}else{
-
-added++;
-
-workingRows.push({
-
-zone:excelZone,
-
-fat_number:fatNumber,
-
-slot_number:slotNumber,
-
-subscriber_name:excelName,
-
-phone:excelPhone
-
-});
+continue;
 
 }
 
 }
 
-}else{
 
 const {error}=await db
 .from('subscribers')
@@ -1828,11 +1862,6 @@ $('progressBar')
 .style
 .width=percent+'%';
 
-
-/*
-نعطي المتصفح فرصة لتحديث الشاشة
-عند الملفات الكبيرة.
-*/
 
 if(index%10===0){
 
@@ -1952,11 +1981,6 @@ return;
 
 }
 
-
-/*
-ترتيب البيانات قبل التصدير:
-المنطقة ثم FAT ثم Slot
-*/
 
 const sortedRows=
 [...rows].sort((a,b)=>{
@@ -2095,50 +2119,45 @@ return;
 }
 
 
-/*
-القالب يحتوي على الاسم والمنطقة وFAT فقط.
-يمكن إضافة الهاتف إذا رغبت.
-*/
-
 const template=[
 
 {
 
-'الاسم':'أحمد علي',
+'المشترك':'أحمد علي',
 
-'المنطقة':'FNS281-3',
+'المنطقة':'FNS028-1-3',
 
-'FAT':1
-
-},
-
-{
-
-'الاسم':'محمد حسن',
-
-'المنطقة':'FNS281-3',
-
-'FAT':1
+'FAT':'FAT1'
 
 },
 
 {
 
-'الاسم':'علي كريم',
+'المشترك':'محمد حسن',
 
-'المنطقة':'FNS281-3',
+'المنطقة':'FNS028-1-3',
 
-'FAT':2
+'FAT':'FAT1'
 
 },
 
 {
 
-'الاسم':'حسن جاسم',
+'المشترك':'علي كريم',
 
-'المنطقة':'FNS284-3',
+'المنطقة':'FNS028-1-3',
 
-'FAT':1
+'FAT':'FAT2'
+
+},
+
+{
+
+'المشترك':'حسن جاسم',
+
+'المنطقة':'FNS028-4-3',
+
+'FAT':'FAT1'
 
 }
 
@@ -2239,10 +2258,6 @@ await importExcel(file);
 
 }
 
-
-/*
-السماح باختيار نفس الملف مرة أخرى
-*/
 
 e.target.value='';
 
