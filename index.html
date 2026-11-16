@@ -418,18 +418,38 @@ gap:10px;
 
 .fat-grid button{
 padding:14px 5px;
-background:#164d7d;
 color:white;
 border-radius:10px;
 font-weight:bold;
+transition:.15s;
 }
 
 .fat-grid button:hover{
-transform:translateY(-1px);
+transform:translateY(-2px);
+box-shadow:0 5px 12px #00000018;
+}
+
+/* FAT فارغ */
+
+.fat-grid button.fat-empty{
+background:#217a45;
+}
+
+/* FAT مستخدم جزئياً */
+
+.fat-grid button.fat-partial{
+background:#b7791f;
+}
+
+/* FAT ممتلئ */
+
+.fat-grid button.fat-full{
+background:#a83232;
 }
 
 .fat-grid small{
-opacity:.8;
+opacity:.9;
+font-size:12px;
 }
 
 /* =========================
@@ -1725,9 +1745,6 @@ total;
 $('emptyPorts').textContent=
 empty<0 ? 0 : empty;
 
-
-/* تحديث إحصائيات المناطق */
-
 updateZoneStats();
 
 }
@@ -1808,13 +1825,23 @@ Number(item.fat_number)===n
 
 ).length;
 
-let buttonClass='';
+
+/*
+   تحديد حالة FAT
+*/
+
+let buttonClass='fat-empty';
 
 if(count>=16){
 
-buttonClass='danger';
+buttonClass='fat-full';
+
+}else if(count>0){
+
+buttonClass='fat-partial';
 
 }
+
 
 html+=`
 
@@ -3162,8 +3189,7 @@ searchSubs
 
 /* FAT */
 
-$('fats')
-.addEventListener(
+$('fats').addEventListener(
 'click',
 event=>{
 
@@ -3188,8 +3214,7 @@ button.dataset.fat
 
 /* تعديل وحذف */
 
-$('subscribers')
-.addEventListener(
+$('subscribers').addEventListener(
 'click',
 event=>{
 
