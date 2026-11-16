@@ -642,9 +642,14 @@ gap:12px;
 margin-top:15px;
 }
 
+/* =========================
+   SUBSCRIBER SLOT CARD
+   السماوي
+========================= */
+
 .slot-card{
 position:relative;
-border:1px solid #e3e8ef;
+border:1px solid #dce8f0;
 border-radius:13px;
 padding:14px;
 min-height:145px;
@@ -664,11 +669,19 @@ transform:translateY(-2px);
 box-shadow:0 7px 18px #0000000b;
 }
 
+/* المشترك */
 .slot-card.used{
-background:#f4fbf7;
-border-color:#c8e5d3;
+background:linear-gradient(
+135deg,
+#e8faff,
+#c9f1fb
+);
+border-color:#8ed8ea;
+box-shadow:
+0 4px 12px rgba(14,165,190,.10);
 }
 
+/* الفتحة الفارغة */
 .slot-card.empty{
 background:#fbfcfe;
 border-color:#dfe5ec;
@@ -701,8 +714,8 @@ font-weight:bold;
 }
 
 .slot-card.used .slot-number-badge{
-background:#dcefe4;
-color:#217a45;
+background:#b7eaf5;
+color:#08657a;
 }
 
 .slot-card.empty .slot-number-badge{
@@ -717,7 +730,7 @@ font-weight:bold;
 }
 
 .slot-card.used .slot-status{
-color:#217a45;
+color:#07809a;
 }
 
 .slot-card.empty .slot-status{
@@ -728,7 +741,7 @@ color:#8a96a6;
 font-size:13px;
 font-weight:bold;
 margin-top:9px;
-color:#1e2c3d;
+color:#075985;
 white-space:nowrap;
 overflow:hidden;
 text-overflow:ellipsis;
@@ -736,7 +749,7 @@ text-overflow:ellipsis;
 
 .slot-phone{
 font-size:11px;
-color:#748195;
+color:#397383;
 margin-top:5px;
 direction:ltr;
 text-align:right;
@@ -759,12 +772,12 @@ font-weight:bold;
 }
 
 .edit-btn{
-background:#eaf3fb;
-color:#1769aa;
+background:#e0f6fb;
+color:#08748a;
 }
 
 .edit-btn:hover{
-background:#dcecf9;
+background:#cceff6;
 }
 
 .delete-btn{
@@ -1050,10 +1063,6 @@ display:none;
 display:block;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-
 @media(max-width:1100px){
 
 .stats{
@@ -1204,10 +1213,6 @@ flex-direction:column;
 
 <body>
 
-<!-- =========================
-     LOGIN
-========================= -->
-
 <div id="loginPage" class="login-page">
 
 <div class="login-box">
@@ -1258,11 +1263,6 @@ class="login-error hidden">
 </div>
 
 </div>
-
-
-<!-- =========================
-     APP
-========================= -->
 
 <div id="app" class="app hidden">
 
@@ -1322,7 +1322,6 @@ class="logout-menu">
 
 </aside>
 
-
 <main class="main">
 
 <div class="topbar">
@@ -1346,9 +1345,6 @@ class="mobile-menu">
 </button>
 
 </div>
-
-
-<!-- DASHBOARD -->
 
 <section
 id="dashboardSection"
@@ -1449,9 +1445,6 @@ class="zone-grid">
 
 </section>
 
-
-<!-- ZONES -->
-
 <section
 id="zonesSection"
 class="section hidden">
@@ -1478,9 +1471,6 @@ class="zone-grid">
 </div>
 
 </section>
-
-
-<!-- FATS -->
 
 <section
 id="fatsSection"
@@ -1539,9 +1529,6 @@ class="fat-grid">
 
 </div>
 
-
-<!-- FAT DETAILS -->
-
 <div
 id="fatDetailsCard"
 class="card hidden">
@@ -1568,9 +1555,6 @@ id="detailsContent">
 </div>
 
 </section>
-
-
-<!-- SEARCH -->
 
 <section
 id="searchSection"
@@ -1609,9 +1593,6 @@ class="search-results">
 </div>
 
 </section>
-
-
-<!-- EXCEL -->
 
 <section
 id="excelSection"
@@ -1688,9 +1669,6 @@ class="secondary-btn">
 </div>
 
 </section>
-
-
-<!-- ADD SUBSCRIBER -->
 
 <section
 id="addSection"
@@ -1793,9 +1771,6 @@ style="margin-top:14px">
 
 </div>
 
-
-<!-- EDIT MODAL -->
-
 <div
 id="editModal"
 class="modal hidden">
@@ -1861,19 +1836,13 @@ class="secondary-btn">
 
 </div>
 
-
 <div
 id="toast"
 class="toast">
 تم التنفيذ
 </div>
 
-
 <script>
-
-/* =========================
-   SUPABASE
-========================= */
 
 const SUPABASE_URL =
 'https://igiqayqztxcubhnaowmq.supabase.co';
@@ -1886,11 +1855,6 @@ supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
-
-
-/* =========================
-   CONSTANTS
-========================= */
 
 const ZONES = [
 'FNS0281-3',
@@ -1905,15 +1869,9 @@ let zone = 'FNS0281-3';
 let selectedFat = null;
 let editingId = null;
 
-
-/* =========================
-   HELPERS
-========================= */
-
 function $(id){
 return document.getElementById(id);
 }
-
 
 function esc(value){
 
@@ -1926,14 +1884,12 @@ return String(value ?? '')
 
 }
 
-
 function cleanText(value){
 
 return String(value ?? '')
 .trim();
 
 }
-
 
 function normalizeZone(value){
 
@@ -1947,7 +1903,6 @@ return v;
 
 }
 
-
 function isValidZone(value){
 
 return ZONES.includes(
@@ -1955,7 +1910,6 @@ normalizeZone(value)
 );
 
 }
-
 
 function normalizeFat(value){
 
@@ -1987,7 +1941,6 @@ return n;
 
 }
 
-
 function normalizeSlot(value){
 
 if(
@@ -2016,7 +1969,6 @@ return n;
 
 }
 
-
 function showToast(message){
 
 const toast = $('toast');
@@ -2031,11 +1983,6 @@ toast.classList.remove('show');
 
 }
 
-
-/* =========================
-   EXCEL HEADER
-========================= */
-
 function normalizeHeader(value){
 
 return String(value ?? '')
@@ -2045,7 +1992,6 @@ return String(value ?? '')
 .replace(/[ـ]/g,'')
 .replace(/_/g,'');
 }
-
 
 function getExcelValue(row, names){
 
@@ -2074,11 +2020,6 @@ return row[key];
 return '';
 
 }
-
-
-/* =========================
-   AUTH
-========================= */
 
 async function login(){
 
@@ -2130,7 +2071,6 @@ return;
 
 }
 
-
 async function logout(){
 
 await db.auth.signOut();
@@ -2143,11 +2083,6 @@ $('loginPage').classList.remove(
 
 }
 
-
-/* =========================
-   SHOW APP
-========================= */
-
 function showApp(){
 
 $('loginPage').classList.add(
@@ -2159,11 +2094,6 @@ $('app').classList.remove(
 );
 
 }
-
-
-/* =========================
-   UPDATE DASHBOARD
-========================= */
 
 function updateZoneStats(){
 
@@ -2194,7 +2124,6 @@ $('fatCount').textContent =
 renderZones();
 
 }
-
 
 function renderZones(){
 
@@ -2279,17 +2208,11 @@ html;
 
 }
 
-
 function updateDashboard(){
 
 updateZoneStats();
 
 }
-
-
-/* =========================
-   LOAD ROWS
-========================= */
 
 async function loadRows(){
 
@@ -2330,17 +2253,11 @@ normalizeSlot(item.slot_number)
 
 }));
 
-
 updateDashboard();
 
 renderFats();
 
 }
-
-
-/* =========================
-   RENDER FATS
-========================= */
 
 function renderFats(){
 
@@ -2423,7 +2340,6 @@ ${emptySlots} منافذ متاحة
 $('fats').innerHTML =
 html;
 
-
 if($('currentZoneLabel')){
 
 $('currentZoneLabel').textContent =
@@ -2432,11 +2348,6 @@ zone;
 }
 
 }
-
-
-/* =========================
-   OPEN FAT
-========================= */
 
 function openFAT(fat){
 
@@ -2458,11 +2369,6 @@ block:'start'
 });
 
 }
-
-
-/* =========================
-   RENDER DETAILS
-========================= */
 
 function renderDetails(){
 
@@ -2697,11 +2603,6 @@ html;
 
 }
 
-
-/* =========================
-   ADD SUBSCRIBER
-========================= */
-
 async function addSub(){
 
 const name =
@@ -2862,11 +2763,6 @@ await loadRows();
 
 }
 
-
-/* =========================
-   EDIT SUBSCRIBER
-========================= */
-
 function editSub(id){
 
 const item =
@@ -2928,11 +2824,6 @@ $('editModal')
 .classList.remove('hidden');
 
 }
-
-
-/* =========================
-   SAVE EDIT
-========================= */
 
 async function saveEdit(){
 
@@ -3045,11 +2936,6 @@ renderDetails();
 
 }
 
-
-/* =========================
-   DELETE
-========================= */
-
 async function deleteSub(id){
 
 const item =
@@ -3112,11 +2998,6 @@ renderDetails();
 }
 
 }
-
-
-/* =========================
-   SEARCH
-========================= */
 
 function searchSubs(){
 
@@ -3226,11 +3107,6 @@ item.phone_number ||
 
 }
 
-
-/* =========================
-   EXCEL TEMPLATE
-========================= */
-
 function downloadTemplate(){
 
 const data = [
@@ -3271,11 +3147,6 @@ wb,
 );
 
 }
-
-
-/* =========================
-   EXPORT EXCEL
-========================= */
 
 function exportExcel(){
 
@@ -3334,17 +3205,10 @@ showToast(
 
 }
 
-
-/* =========================
-   IMPORT EXCEL
-========================= */
-
 async function importExcel(file){
 
 if(!file){
-
 return;
-
 }
 
 try{
@@ -3588,11 +3452,6 @@ showToast(
 
 }
 
-
-/* =========================
-   NAVIGATION
-========================= */
-
 function showSection(sectionId){
 
 document
@@ -3649,11 +3508,6 @@ renderZones();
 
 }
 
-
-/* =========================
-   ZONE SELECT
-========================= */
-
 function selectZone(newZone){
 
 newZone =
@@ -3679,11 +3533,6 @@ showSection(
 renderFats();
 
 }
-
-
-/* =========================
-   ADD FORM FAT LIST
-========================= */
 
 function fillAddFatSelect(){
 
@@ -3714,7 +3563,6 @@ select.appendChild(option);
 fillAddSlotSelect();
 
 }
-
 
 function fillAddSlotSelect(){
 
@@ -3775,11 +3623,6 @@ select.appendChild(option);
 
 }
 
-
-/* =========================
-   EVENTS
-========================= */
-
 $('loginBtn')
 .addEventListener(
 'click',
@@ -3819,9 +3662,6 @@ $('sidebar')
 }
 );
 
-
-/* MENU */
-
 document
 .querySelectorAll('.menu-btn')
 .forEach(
@@ -3844,9 +3684,6 @@ $('sidebar')
 }
 );
 
-
-/* ZONE CARDS */
-
 document.addEventListener(
 'click',
 event => {
@@ -3866,9 +3703,6 @@ zoneCard.dataset.zone
 
 }
 );
-
-
-/* FAT */
 
 document.addEventListener(
 'click',
@@ -3892,9 +3726,6 @@ fatButton.dataset.fat
 
 }
 );
-
-
-/* DETAILS ACTIONS */
 
 document.addEventListener(
 'click',
@@ -3957,9 +3788,6 @@ showSection(
 }
 );
 
-
-/* BACK */
-
 $('backToFatsBtn')
 .addEventListener(
 'click',
@@ -3973,9 +3801,6 @@ null;
 
 }
 );
-
-
-/* EDIT MODAL */
 
 $('cancelEditBtn')
 .addEventListener(
@@ -3996,9 +3821,6 @@ $('saveEditBtn')
 'click',
 saveEdit
 );
-
-
-/* SEARCH */
 
 $('searchBtn')
 .addEventListener(
@@ -4021,9 +3843,6 @@ searchSubs();
 
 }
 );
-
-
-/* EXCEL */
 
 $('downloadTemplateBtn')
 .addEventListener(
@@ -4057,9 +3876,6 @@ event.target.value =
 }
 );
 
-
-/* ADD */
-
 $('addSubscriberBtn')
 .addEventListener(
 'click',
@@ -4077,11 +3893,6 @@ $('addFat')
 'change',
 fillAddSlotSelect
 );
-
-
-/* =========================
-   AUTH STATE
-========================= */
 
 db.auth.onAuthStateChange(
 async (
@@ -4108,11 +3919,6 @@ $('loginPage')
 
 }
 );
-
-
-/* =========================
-   INITIAL SESSION
-========================= */
 
 (async function(){
 
