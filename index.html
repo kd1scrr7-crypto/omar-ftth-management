@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1">
 
 <title>إدارة مشتركين الوكيل عمر لازم</title>
 
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
@@ -14,35 +20,33 @@
 box-sizing:border-box;
 }
 
-html{
-scroll-behavior:smooth;
-}
-
 body{
 margin:0;
+font-family:
+"Tajawal",
+"Segoe UI",
+Arial,
+sans-serif;
 background:#f4f7fb;
-font-family:Arial,Tahoma,sans-serif;
-color:#17243a;
+color:#1f2937;
 }
 
 button,
 input,
 select{
-font:inherit;
+font-family:inherit;
 }
 
 button{
-border:0;
 cursor:pointer;
 }
 
-button:disabled{
-opacity:.5;
-cursor:not-allowed;
+.hidden{
+display:none!important;
 }
 
 /* =========================
-   تسجيل الدخول
+   LOGIN
 ========================= */
 
 .login-page{
@@ -51,167 +55,184 @@ display:flex;
 align-items:center;
 justify-content:center;
 padding:20px;
-background:linear-gradient(135deg,#0d2b4d,#164d7d);
+background:
+linear-gradient(135deg,#eef5ff,#f7fafc);
 }
 
 .login-box{
 width:100%;
-max-width:430px;
-background:white;
-border-radius:22px;
+max-width:420px;
+background:#fff;
+border-radius:18px;
 padding:30px;
-box-shadow:0 20px 60px #00000030;
-text-align:center;
+box-shadow:
+0 15px 45px rgba(15,23,42,.10);
+border:1px solid #e8edf3;
 }
 
 .login-logo{
-width:75px;
-height:75px;
+width:70px;
+height:70px;
+border-radius:18px;
 margin:0 auto 18px;
-border-radius:20px;
-background:#164d7d;
-color:white;
 display:flex;
 align-items:center;
 justify-content:center;
+background:#1769aa;
+color:white;
 font-size:30px;
 font-weight:bold;
 }
 
 .login-box h2{
+text-align:center;
 margin:0 0 8px;
-color:#102d50;
+color:#172033;
 }
 
 .login-box p{
-color:#718096;
-margin:0 0 24px;
+text-align:center;
+color:#7a8797;
+font-size:13px;
+margin:0 0 25px;
 }
 
-.login-box input{
+.form-group{
+margin-bottom:15px;
+}
+
+.form-group label{
+display:block;
+font-size:13px;
+font-weight:bold;
+margin-bottom:7px;
+color:#455468;
+}
+
+.form-group input,
+.form-group select{
 width:100%;
-padding:14px;
-margin:7px 0;
-border:1px solid #d5dce5;
+padding:12px 13px;
+border:1px solid #dce3eb;
 border-radius:10px;
 outline:none;
+font-size:14px;
+background:#fff;
+transition:.2s;
 }
 
-.login-box input:focus{
-border-color:#164d7d;
-box-shadow:0 0 0 3px #164d7d15;
+.form-group input:focus,
+.form-group select:focus{
+border-color:#2980b9;
+box-shadow:0 0 0 3px #2980b914;
 }
 
 .login-btn{
 width:100%;
-padding:14px;
-margin-top:10px;
-background:#164d7d;
+padding:13px;
+border:0;
+border-radius:11px;
+background:#1769aa;
 color:white;
-border-radius:10px;
 font-weight:bold;
+font-size:14px;
+margin-top:5px;
+}
+
+.login-btn:hover{
+background:#12588f;
+}
+
+.login-error{
+margin-top:12px;
+padding:10px;
+background:#fff1f1;
+color:#a83232;
+border-radius:9px;
+font-size:13px;
+text-align:center;
 }
 
 /* =========================
-   التطبيق
+   APP
 ========================= */
 
-.hidden{
-display:none !important;
-}
-
-.app-layout{
-min-height:100vh;
+.app{
 display:flex;
+min-height:100vh;
 }
 
 /* =========================
-   القائمة الجانبية
+   SIDEBAR
 ========================= */
 
 .sidebar{
-width:255px;
-background:#102d50;
+width:250px;
+background:#132238;
 color:white;
 position:fixed;
 right:0;
 top:0;
 bottom:0;
 z-index:100;
-padding:22px 15px;
-overflow-y:auto;
+padding:20px 14px;
 }
 
-.sidebar-brand{
-padding:10px 8px 25px;
-border-bottom:1px solid #ffffff18;
+.logo-area{
+padding:8px 10px 25px;
+border-bottom:1px solid rgba(255,255,255,.08);
 margin-bottom:18px;
 }
 
-.sidebar-brand h2{
-font-size:19px;
-margin:0 0 8px;
+.logo-title{
+font-size:18px;
+font-weight:bold;
 }
 
-.sidebar-brand p{
-font-size:12px;
-color:#bcd0e5;
-margin:0;
-}
-
-.menu-title{
+.logo-subtitle{
 font-size:11px;
-color:#8faac4;
-margin:18px 10px 8px;
+color:#9fb0c5;
+margin-top:5px;
 }
 
-.nav-btn{
+.menu{
 display:flex;
-align-items:center;
-gap:10px;
+flex-direction:column;
+gap:6px;
+}
+
+.menu button{
 width:100%;
-padding:12px;
-margin:5px 0;
+border:0;
 background:transparent;
-color:#dce8f5;
+color:#cbd6e3;
+padding:12px 13px;
 border-radius:10px;
 text-align:right;
+font-size:13px;
+transition:.2s;
 }
 
-.nav-btn:hover,
-.nav-btn.active{
-background:#ffffff14;
-color:white;
+.menu button:hover,
+.menu button.active{
+background:#1c3857;
+color:#fff;
 }
 
-.nav-icon{
-width:28px;
-text-align:center;
-font-size:17px;
-}
-
-.sidebar-bottom{
-margin-top:30px;
-padding-top:15px;
-border-top:1px solid #ffffff18;
-}
-
-.logout-side{
-width:100%;
-padding:12px;
-border-radius:10px;
-background:#a83232;
-color:white;
+.logout-menu{
+margin-top:20px;
+border-top:1px solid rgba(255,255,255,.08)!important;
+padding-top:18px!important;
 }
 
 /* =========================
-   المحتوى
+   MAIN
 ========================= */
 
-.main-content{
-width:calc(100% - 255px);
-margin-right:255px;
-padding:25px;
+.main{
+width:calc(100% - 250px);
+margin-right:250px;
+padding:24px;
 }
 
 .topbar{
@@ -219,94 +240,107 @@ display:flex;
 align-items:center;
 justify-content:space-between;
 gap:15px;
-margin-bottom:25px;
+margin-bottom:22px;
 }
 
-.topbar h1{
+.topbar-title h1{
+font-size:23px;
 margin:0;
-font-size:25px;
-color:#102d50;
+color:#172033;
 }
 
-.topbar p{
+.topbar-title p{
 margin:5px 0 0;
-color:#718096;
-font-size:13px;
+font-size:12px;
+color:#7b8796;
 }
 
 .mobile-menu{
 display:none;
-background:#102d50;
-color:white;
-padding:11px 15px;
+border:0;
+background:#fff;
+width:42px;
+height:42px;
 border-radius:10px;
+box-shadow:0 3px 12px #0000000c;
+font-size:20px;
 }
 
 /* =========================
-   بطاقات
+   CARDS
 ========================= */
 
 .card{
-background:white;
-border-radius:16px;
+background:#fff;
+border:1px solid #e6ebf1;
+border-radius:15px;
 padding:20px;
-margin:16px 0;
-box-shadow:0 3px 15px #0000000b;
-border:1px solid #edf1f5;
+margin-bottom:20px;
+box-shadow:0 4px 18px #00000008;
 }
 
 .card-title{
 display:flex;
-justify-content:space-between;
 align-items:center;
+justify-content:space-between;
 gap:10px;
-margin-bottom:16px;
+margin-bottom:18px;
 }
 
 .card-title h3{
 margin:0;
-color:#102d50;
+font-size:16px;
+color:#202b3c;
 }
 
 .card-title span{
+background:#eef5ff;
+color:#1769aa;
 font-size:12px;
-color:#718096;
+font-weight:bold;
+padding:7px 10px;
+border-radius:8px;
 }
+
+/* =========================
+   STATS
+========================= */
 
 .stats{
 display:grid;
 grid-template-columns:repeat(4,1fr);
-gap:15px;
+gap:14px;
+margin-bottom:20px;
 }
 
 .stat-card{
-background:white;
-border-radius:16px;
-padding:20px;
-box-shadow:0 3px 15px #0000000b;
-border:1px solid #edf1f5;
+background:#fff;
+border:1px solid #e6ebf1;
+border-radius:14px;
+padding:18px;
+box-shadow:0 4px 18px #00000007;
 }
 
 .stat-label{
-font-size:13px;
-color:#718096;
-margin-bottom:10px;
-}
-
-.stat-number{
-font-size:28px;
-font-weight:bold;
-color:#164d7d;
-}
-
-.stat-sub{
 font-size:12px;
-color:#8a96a6;
-margin-top:6px;
+color:#7b8796;
+margin-bottom:8px;
+}
+
+.stat-value{
+font-size:25px;
+font-weight:bold;
+color:#172033;
+}
+
+.stat-note{
+font-size:11px;
+color:#8c98a8;
+margin-top:4px;
 }
 
 /* =========================
-   المناطق
+   ZONES
 ========================= */
 
 .zone-grid{
@@ -316,189 +350,236 @@ gap:15px;
 }
 
 .zone-card{
-background:#f8fbff;
-border:1px solid #dce8f5;
-border-radius:14px;
-padding:20px;
+border:1px solid #e0e7ef;
+border-radius:13px;
+padding:17px;
+background:#fff;
+transition:.2s;
+cursor:pointer;
 }
 
-.zone-card h3{
-margin:0 0 8px;
-color:#164d7d;
+.zone-card:hover{
+transform:translateY(-2px);
+box-shadow:0 8px 22px #0000000d;
+border-color:#bdd2e8;
 }
 
-.zone-card p{
-margin:5px 0;
-color:#718096;
-font-size:13px;
+.zone-name{
+font-size:17px;
+font-weight:bold;
+color:#1769aa;
+margin-bottom:8px;
 }
 
-.zone-card p b{
-color:#164d7d;
-font-size:14px;
+.zone-info{
+font-size:12px;
+color:#69778a;
+margin-bottom:13px;
 }
 
-.zone-select-btn{
-margin-top:12px;
-padding:10px 16px;
-background:#164d7d;
-color:white;
-border-radius:9px;
+.zone-progress{
+height:8px;
+background:#edf1f5;
+border-radius:99px;
+overflow:hidden;
 }
 
-/* =========================
-   الأزرار
-========================= */
-
-.primary{
-background:#164d7d;
-color:white;
-padding:11px 16px;
-border-radius:9px;
+.zone-progress-fill{
+height:100%;
+background:#1769aa;
+border-radius:99px;
+transition:.3s;
 }
 
-.success{
-background:#217a45;
-color:white;
-padding:11px 16px;
-border-radius:9px;
-}
-
-.danger{
-background:#a83232 !important;
-color:white;
-}
-
-.excel{
-background:#087f5b;
-color:white;
-}
-
-.warning{
-background:#b7791f;
-color:white;
+.zone-footer{
+display:flex;
+justify-content:space-between;
+margin-top:9px;
+font-size:11px;
+color:#7c8998;
 }
 
 /* =========================
-   النماذج
+   FAT STATUS
 ========================= */
 
-input,
-select{
-width:100%;
-padding:12px;
-border:1px solid #d5dce5;
-border-radius:9px;
-background:white;
-outline:none;
-margin:5px 0;
-}
-
-input:focus,
-select:focus{
-border-color:#164d7d;
-box-shadow:0 0 0 3px #164d7d12;
-}
-
-.form-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
+.fat-status-bar{
+display:flex;
+align-items:center;
+flex-wrap:wrap;
 gap:10px;
+margin-bottom:18px;
+}
+
+.fat-status-title{
+font-size:13px;
+font-weight:bold;
+color:#526274;
+margin-left:5px;
+}
+
+.fat-status-item{
+display:flex;
+align-items:center;
+gap:8px;
+padding:8px 12px;
+background:#fff;
+border:1px solid #e4e9f0;
+border-radius:10px;
+box-shadow:0 2px 8px #00000008;
+font-size:12px;
+font-weight:bold;
+color:#526274;
+}
+
+.fat-status-dot{
+width:9px;
+height:9px;
+border-radius:50%;
+flex-shrink:0;
+}
+
+.fat-status-dot.empty{
+background:#217a45;
+box-shadow:0 0 0 3px #217a4518;
+}
+
+.fat-status-dot.partial{
+background:#b7791f;
+box-shadow:0 0 0 3px #b7791f18;
+}
+
+.fat-status-dot.full{
+background:#a83232;
+box-shadow:0 0 0 3px #a8323218;
 }
 
 /* =========================
-   FAT
+   FAT GRID
 ========================= */
 
 .fat-grid{
 display:grid;
 grid-template-columns:repeat(5,1fr);
-gap:10px;
+gap:12px;
 }
 
 .fat-grid button{
-padding:14px 5px;
-color:white;
-border-radius:10px;
+position:relative;
+overflow:hidden;
+border:0;
+min-height:112px;
+padding:14px 10px 12px;
+border-radius:13px;
 font-weight:bold;
-transition:.15s;
+transition:
+transform .18s,
+box-shadow .18s,
+filter .18s;
+display:flex;
+flex-direction:column;
+align-items:flex-start;
+justify-content:flex-start;
+text-align:right;
+color:#fff;
 }
 
 .fat-grid button:hover{
-transform:translateY(-2px);
-box-shadow:0 5px 12px #00000018;
+transform:translateY(-3px);
+box-shadow:0 9px 20px #00000018;
+filter:brightness(1.04);
 }
 
-/* FAT فارغ */
+.fat-grid button:active{
+transform:translateY(-1px);
+}
+
+/* FAT COLORS */
 
 .fat-grid button.fat-empty{
 background:#217a45;
 }
 
-/* FAT مستخدم جزئياً */
-
 .fat-grid button.fat-partial{
 background:#b7791f;
 }
-
-/* FAT ممتلئ */
 
 .fat-grid button.fat-full{
 background:#a83232;
 }
 
-.fat-grid small{
-opacity:.95;
+/* FAT CONTENT */
+
+.fat-name{
+font-size:15px;
+font-weight:bold;
+line-height:1.2;
+}
+
+.fat-count{
 font-size:12px;
+margin-top:6px;
+opacity:.95;
+font-weight:bold;
+}
+
+.fat-progress{
+width:100%;
+height:5px;
+margin-top:12px;
+background:rgba(255,255,255,.24);
+border-radius:99px;
+overflow:hidden;
+}
+
+.fat-progress-fill{
+height:100%;
+border-radius:99px;
+background:rgba(255,255,255,.92);
+transition:width .3s;
 }
 
 .fat-empty-count{
 display:block;
-margin-top:5px;
+margin-top:8px;
 font-size:11px;
 font-weight:normal;
-}
-
-.fat-legend{
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin-bottom:15px;
-}
-
-.fat-legend-item{
-display:flex;
-align-items:center;
-gap:6px;
-padding:7px 10px;
-border-radius:8px;
-background:#f8fafc;
-border:1px solid #e1e7ef;
-font-size:12px;
-color:#526274;
-}
-
-.fat-legend-color{
-width:12px;
-height:12px;
-border-radius:50%;
-display:inline-block;
-}
-
-.fat-legend-empty{
-background:#217a45;
-}
-
-.fat-legend-partial{
-background:#b7791f;
-}
-
-.fat-legend-full{
-background:#a83232;
+opacity:.95;
 }
 
 /* =========================
-   فتحات FAT
+   DETAILS
+========================= */
+
+.details-header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.details-title{
+font-size:18px;
+font-weight:bold;
+color:#1c293b;
+}
+
+.back-btn{
+border:0;
+background:#edf4fb;
+color:#1769aa;
+padding:9px 13px;
+border-radius:9px;
+font-weight:bold;
+}
+
+.back-btn:hover{
+background:#dfeefb;
+}
+
+/* =========================
+   SLOT GRID
 ========================= */
 
 .slot-grid{
@@ -509,34 +590,36 @@ margin-top:15px;
 }
 
 .slot-card{
-background:#f8fafc;
-border:1px solid #dce4ed;
+border:1px solid #e3e8ef;
 border-radius:12px;
-padding:14px;
-min-height:105px;
+padding:13px;
+min-height:125px;
+background:#fafbfd;
+display:flex;
+flex-direction:column;
+justify-content:flex-start;
 }
 
 .slot-card.used{
-background:#eef8f2;
-border-color:#9bd0af;
+background:#f2fbf6;
+border-color:#c9e8d5;
 }
 
 .slot-card.empty{
-background:#f8fafc;
-border-color:#dce4ed;
+background:#fafbfd;
+border-color:#e3e8ef;
 }
 
 .slot-number{
 font-size:13px;
 font-weight:bold;
-color:#526274;
-margin-bottom:8px;
+color:#37465a;
 }
 
 .slot-status{
-font-size:12px;
+font-size:11px;
+margin-top:5px;
 font-weight:bold;
-margin-bottom:7px;
 }
 
 .slot-card.used .slot-status{
@@ -548,126 +631,327 @@ color:#8a96a6;
 }
 
 .slot-name{
+font-size:13px;
 font-weight:bold;
-color:#102d50;
-font-size:14px;
-overflow-wrap:anywhere;
+margin-top:9px;
+color:#1e2c3d;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
 }
 
 .slot-phone{
-font-size:12px;
-color:#718096;
-margin-top:5px;
-overflow-wrap:anywhere;
+font-size:11px;
+color:#748195;
+margin-top:4px;
+direction:ltr;
+text-align:right;
 }
 
 .slot-actions{
-margin-top:8px;
+display:flex;
+gap:6px;
+margin-top:auto;
+padding-top:10px;
 }
 
 .slot-actions button{
-padding:6px 9px;
-font-size:12px;
-margin:2px;
+border:0;
+padding:6px 8px;
 border-radius:7px;
-background:#164d7d;
-color:white;
+font-size:10px;
+font-weight:bold;
+}
+
+.edit-btn{
+background:#eaf3fb;
+color:#1769aa;
+}
+
+.delete-btn{
+background:#fff0f0;
+color:#a83232;
+}
+
+.add-slot-btn{
+width:100%;
+border:1px dashed #cfd8e3;
+background:#fff;
+color:#1769aa;
+padding:7px;
+border-radius:8px;
+font-size:11px;
+margin-top:auto;
 }
 
 /* =========================
-   المشتركين
+   FORMS
 ========================= */
 
-.sub{
-border-bottom:1px solid #edf0f4;
-padding:14px 5px;
-overflow-wrap:anywhere;
+.add-form{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:10px;
+align-items:end;
 }
 
-.sub:last-child{
+.form-field label{
+display:block;
+font-size:11px;
+font-weight:bold;
+color:#667589;
+margin-bottom:5px;
+}
+
+.form-field input,
+.form-field select{
+width:100%;
+padding:10px;
+border:1px solid #dce3eb;
+border-radius:9px;
+outline:none;
+background:#fff;
+font-size:13px;
+}
+
+.form-field input:focus,
+.form-field select:focus{
+border-color:#2980b9;
+box-shadow:0 0 0 3px #2980b914;
+}
+
+.primary-btn{
+border:0;
+background:#1769aa;
+color:#fff;
+padding:10px 14px;
+border-radius:9px;
+font-weight:bold;
+font-size:13px;
+min-height:40px;
+}
+
+.primary-btn:hover{
+background:#12588f;
+}
+
+.secondary-btn{
+border:0;
+background:#edf2f7;
+color:#3c4b60;
+padding:10px 14px;
+border-radius:9px;
+font-weight:bold;
+font-size:13px;
+}
+
+.danger-btn{
+border:0;
+background:#fff0f0;
+color:#a83232;
+padding:10px 14px;
+border-radius:9px;
+font-weight:bold;
+font-size:13px;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box{
+display:flex;
+gap:10px;
+}
+
+.search-box input{
+flex:1;
+padding:12px;
+border:1px solid #dce3eb;
+border-radius:10px;
+outline:none;
+}
+
+.search-results{
+margin-top:15px;
+}
+
+.result-item{
+padding:13px;
+border:1px solid #e3e8ef;
+border-radius:10px;
+margin-bottom:8px;
+background:#fff;
+}
+
+.result-name{
+font-weight:bold;
+color:#1d2a3b;
+}
+
+.result-info{
+font-size:11px;
+color:#7a8797;
+margin-top:5px;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrap{
+overflow:auto;
+border:1px solid #e4e9ef;
+border-radius:10px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:700px;
+}
+
+th,
+td{
+padding:11px;
+border-bottom:1px solid #edf0f4;
+font-size:12px;
+text-align:right;
+}
+
+th{
+background:#f7f9fb;
+color:#536276;
+font-weight:bold;
+}
+
+td{
+color:#37465a;
+}
+
+tr:last-child td{
 border-bottom:0;
 }
 
-.sub button{
-padding:7px 10px;
-margin:5px 3px 0;
-border-radius:7px;
-background:#164d7d;
-color:white;
-}
-
-.muted{
-color:#718096;
-font-size:13px;
-}
-
-.results-box{
-margin-top:12px;
-}
-
 /* =========================
-   Excel
+   EXCEL
 ========================= */
 
-.import-box{
-border:2px dashed #b9c7d8;
-border-radius:14px;
-padding:18px;
-background:#f8fafc;
-}
-
-.import-buttons{
+.excel-grid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:10px;
-margin-top:12px;
+gap:14px;
 }
 
-.import-buttons button{
-padding:12px;
-border-radius:9px;
+.excel-box{
+border:1px solid #e2e8ef;
+border-radius:12px;
+padding:18px;
+background:#fafbfd;
 }
 
-.small-note{
-font-size:13px;
-color:#667085;
-line-height:1.9;
-}
-
-.import-progress{
-margin-top:12px;
-padding:12px;
-background:#eef6ff;
-border-radius:10px;
+.excel-box h4{
+margin:0 0 8px;
 font-size:14px;
-line-height:1.8;
-white-space:pre-wrap;
-overflow-wrap:anywhere;
+color:#263448;
+}
+
+.excel-box p{
+font-size:11px;
+color:#7c8998;
+line-height:1.7;
+margin:0 0 13px;
+}
+
+.file-input{
+width:100%;
+font-size:11px;
 }
 
 /* =========================
-   الحالة
+   MODAL
 ========================= */
 
-#status{
-padding:12px;
-line-height:1.8;
-white-space:pre-wrap;
-overflow-wrap:anywhere;
-}
-
-.footer{
-text-align:center;
-color:#8a96a6;
-font-size:12px;
+.modal{
+position:fixed;
+inset:0;
+background:rgba(15,23,42,.45);
+display:flex;
+align-items:center;
+justify-content:center;
 padding:20px;
+z-index:500;
+}
+
+.modal-box{
+width:100%;
+max-width:500px;
+background:#fff;
+border-radius:16px;
+padding:22px;
+box-shadow:0 20px 60px #00000020;
+}
+
+.modal-title{
+font-size:17px;
+font-weight:bold;
+margin-bottom:18px;
+}
+
+.modal-actions{
+display:flex;
+justify-content:flex-start;
+gap:8px;
+margin-top:18px;
 }
 
 /* =========================
-   الهاتف
+   TOAST
 ========================= */
 
-@media(max-width:900px){
+.toast{
+position:fixed;
+bottom:22px;
+left:22px;
+z-index:1000;
+background:#172033;
+color:white;
+padding:12px 16px;
+border-radius:10px;
+font-size:12px;
+box-shadow:0 8px 25px #00000022;
+display:none;
+}
+
+.toast.show{
+display:block;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1100px){
+
+.stats{
+grid-template-columns:repeat(2,1fr);
+}
+
+.fat-grid{
+grid-template-columns:repeat(4,1fr);
+}
+
+.add-form{
+grid-template-columns:repeat(3,1fr);
+}
+
+.excel-grid{
+grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:800px){
 
 .sidebar{
 transform:translateX(100%);
@@ -678,7 +962,7 @@ transition:.25s;
 transform:translateX(0);
 }
 
-.main-content{
+.main{
 width:100%;
 margin-right:0;
 padding:15px;
@@ -688,40 +972,11 @@ padding:15px;
 display:block;
 }
 
-.stats{
-grid-template-columns:repeat(2,1fr);
-}
-
-.fat-grid{
-grid-template-columns:repeat(4,1fr);
-}
-
-}
-
-@media(max-width:600px){
-
-.topbar h1{
-font-size:20px;
-}
-
-.stats{
-grid-template-columns:repeat(2,1fr);
-gap:9px;
-}
-
-.stat-card{
-padding:15px;
-}
-
-.stat-number{
-font-size:23px;
+.topbar{
+align-items:flex-start;
 }
 
 .zone-grid{
-grid-template-columns:1fr;
-}
-
-.form-grid{
 grid-template-columns:1fr;
 }
 
@@ -729,13 +984,62 @@ grid-template-columns:1fr;
 grid-template-columns:repeat(3,1fr);
 }
 
-.fat-legend{
-gap:6px;
+.slot-grid{
+grid-template-columns:repeat(2,1fr);
 }
 
-.fat-legend-item{
+.add-form{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:600px){
+
+.stats{
+grid-template-columns:repeat(2,1fr);
+gap:9px;
+}
+
+.stat-card{
+padding:13px;
+}
+
+.stat-value{
+font-size:21px;
+}
+
+.card{
+padding:14px;
+border-radius:12px;
+}
+
+.topbar-title h1{
+font-size:19px;
+}
+
+.fat-status-bar{
+gap:7px;
+}
+
+.fat-status-title{
+width:100%;
+margin-bottom:2px;
+}
+
+.fat-status-item{
+padding:7px 9px;
 font-size:11px;
-padding:6px 8px;
+}
+
+.fat-grid{
+grid-template-columns:repeat(2,1fr);
+gap:9px;
+}
+
+.fat-grid button{
+min-height:105px;
+padding:12px 9px;
 }
 
 .slot-grid{
@@ -745,64 +1049,75 @@ gap:9px;
 
 .slot-card{
 padding:11px;
-min-height:95px;
+min-height:110px;
 }
 
-.import-buttons{
+.add-form{
 grid-template-columns:1fr;
 }
 
-.card{
-padding:15px;
+.search-box{
+flex-direction:column;
 }
 
 }
 
 </style>
+
 </head>
 
 <body>
 
 <!-- =========================
-     تسجيل الدخول
+     LOGIN
 ========================= -->
 
-<div class="login-page" id="loginCard">
+<div id="loginPage" class="login-page">
 
 <div class="login-box">
 
 <div class="login-logo">
-FTTH
+O
 </div>
 
-<h2>إدارة مشتركين الوكيل</h2>
+<h2>إدارة المشتركين</h2>
 
-<p>عمر لازم</p>
+<p>الوكيل عمر لازم</p>
+
+<div class="form-group">
+
+<label>البريد الإلكتروني</label>
 
 <input
-id="email"
+id="loginEmail"
 type="email"
 placeholder="البريد الإلكتروني"
-autocomplete="username">
+autocomplete="email">
+
+</div>
+
+<div class="form-group">
+
+<label>كلمة المرور</label>
 
 <input
-id="password"
+id="loginPassword"
 type="password"
 placeholder="كلمة المرور"
 autocomplete="current-password">
 
+</div>
+
 <button
 id="loginBtn"
 class="login-btn">
-
-دخول إلى البرنامج
-
+تسجيل الدخول
 </button>
 
-<p
-id="loginMessage"
-class="muted">
-</p>
+<div
+id="loginError"
+class="login-error hidden">
+</div>
 
 </div>
 
@@ -810,137 +1125,104 @@ class="muted">
 
 
 <!-- =========================
-     التطبيق
+     APP
 ========================= -->
 
-<div
-id="app"
-class="app-layout hidden">
+<div id="app" class="app hidden">
 
+<!-- SIDEBAR -->
 
-<!-- القائمة الجانبية -->
+<aside id="sidebar" class="sidebar">
 
-<aside
-id="sidebar"
-class="sidebar">
+<div class="logo-area">
 
-<div class="sidebar-brand">
+<div class="logo-title">
+عمر لازم
+</div>
 
-<h2>إدارة عمر لازم</h2>
-
-<p>نظام إدارة مشتركي FTTH</p>
+<div class="logo-subtitle">
+إدارة شبكة FTTH
+</div>
 
 </div>
 
-
-<div class="menu-title">
-الرئيسية
-</div>
+<nav class="menu">
 
 <button
-class="nav-btn active"
-data-scroll="dashboard">
-
-<span class="nav-icon">⌂</span>
+data-section="dashboardSection"
+class="menu-btn active">
 الرئيسية
-
 </button>
 
-
-<div class="menu-title">
-الإدارة
-</div>
-
 <button
-class="nav-btn"
-data-scroll="zones">
-
-<span class="nav-icon">▦</span>
+data-section="zonesSection"
+class="menu-btn">
 المناطق
-
 </button>
 
 <button
-class="nav-btn"
-data-scroll="fatsSection">
-
-<span class="nav-icon">◫</span>
+data-section="fatsSection"
+class="menu-btn">
 قائمة FAT
-
 </button>
 
 <button
-class="nav-btn"
-data-scroll="searchSection">
-
-<span class="nav-icon">⌕</span>
+data-section="searchSection"
+class="menu-btn">
 البحث عن مشترك
-
 </button>
 
-
-<div class="menu-title">
-البيانات
-</div>
-
 <button
-class="nav-btn"
-data-scroll="excelSection">
-
-<span class="nav-icon">▤</span>
+data-section="excelSection"
+class="menu-btn">
 Excel
-
 </button>
-
-
-<div class="sidebar-bottom">
 
 <button
-id="logoutSideBtn"
-class="logout-side">
-
+id="logoutBtn"
+class="logout-menu">
 تسجيل الخروج
-
 </button>
 
-</div>
+</nav>
 
 </aside>
 
 
-<!-- المحتوى -->
+<!-- MAIN -->
 
-<main class="main-content">
-
+<main class="main">
 
 <div class="topbar">
 
-<div>
+<div class="topbar-title">
 
-<h1>لوحة التحكم</h1>
+<h1>
+لوحة إدارة المشتركين
+</h1>
 
 <p>
-إدارة مشتركي الوكيل عمر لازم
+إدارة مناطق وفاتات ومنافذ شبكة FTTH
 </p>
 
 </div>
 
 <button
-id="mobileMenu"
+id="mobileMenuBtn"
 class="mobile-menu">
-
-☰ القائمة
-
+☰
 </button>
 
 </div>
 
 
 <!-- =========================
-     لوحة الإحصائيات
+     DASHBOARD
 ========================= -->
 
-<section id="dashboard">
+<section
+id="dashboardSection"
+class="section">
 
 <div class="stats">
 
@@ -952,11 +1234,11 @@ class="mobile-menu">
 
 <div
 id="totalSubscribers"
-class="stat-number">
+class="stat-value">
 0
 </div>
 
-<div class="stat-sub">
+<div class="stat-note">
 جميع المناطق
 </div>
 
@@ -971,12 +1253,12 @@ class="stat-number">
 
 <div
 id="usedPorts"
-class="stat-number">
+class="stat-value">
 0
 </div>
 
-<div class="stat-sub">
-من أصل 1440
+<div class="stat-note">
+من أصل 1440 منفذ
 </div>
 
 </div>
@@ -990,12 +1272,12 @@ class="stat-number">
 
 <div
 id="emptyPorts"
-class="stat-number">
+class="stat-value">
 1440
 </div>
 
-<div class="stat-sub">
-متاح للإضافة
+<div class="stat-note">
+متاحة للاشتراك
 </div>
 
 </div>
@@ -1007,12 +1289,14 @@ class="stat-number">
 عدد FAT
 </div>
 
-<div class="stat-number">
+<div
+id="fatCount"
+class="stat-value">
 90
 </div>
 
-<div class="stat-sub">
-45 لكل منطقة
+<div class="stat-note">
+45 FAT لكل منطقة
 </div>
 
 </div>
@@ -1025,18 +1309,15 @@ class="stat-number">
 <div class="card-title">
 
 <h3>
-مرحباً بك في لوحة الإدارة
+ملخص المناطق
 </h3>
-
-<span>
-FTTH
-</span>
 
 </div>
 
-<p class="muted">
-من هنا يمكنك إدارة المناطق وFAT والمشتركين واستيراد وتصدير بيانات Excel.
-</p>
+<div
+id="dashboardZones"
+class="zone-grid">
+</div>
 
 </div>
 
@@ -1044,12 +1325,14 @@ FTTH
 
 
 <!-- =========================
-     المناطق
+     ZONES
 ========================= -->
 
 <section
-id="zones"
-class="card">
+id="zonesSection"
+class="section hidden">
+
+<div class="card">
 
 <div class="card-title">
 
@@ -1063,77 +1346,9 @@ class="card">
 
 </div>
 
-
-<div class="zone-grid">
-
-
-<div class="zone-card">
-
-<h3>
-FNS0281-3
-</h3>
-
-<p>
-45 FAT × 16 فتحة
-</p>
-
-<p>
-إجمالي السعة: 720 مشترك
-</p>
-
-<p>
-المشتركين:
-<b id="zone1Count">0</b> / 720
-</p>
-
-<p>
-المنافذ الفارغة:
-<b id="zone1Empty">720</b>
-</p>
-
-<button
-class="zone-select-btn"
-data-zone="FNS0281-3">
-
-فتح المنطقة
-
-</button>
-
-</div>
-
-
-<div class="zone-card">
-
-<h3>
-FNS0284-3
-</h3>
-
-<p>
-45 FAT × 16 فتحة
-</p>
-
-<p>
-إجمالي السعة: 720 مشترك
-</p>
-
-<p>
-المشتركين:
-<b id="zone2Count">0</b> / 720
-</p>
-
-<p>
-المنافذ الفارغة:
-<b id="zone2Empty">720</b>
-</p>
-
-<button
-class="zone-select-btn"
-data-zone="FNS0284-3">
-
-فتح المنطقة
-
-</button>
-
+<div
+id="zones"
+class="zone-grid">
 </div>
 
 </div>
@@ -1142,45 +1357,14 @@ data-zone="FNS0284-3">
 
 
 <!-- =========================
-     اختيار المنطقة
-========================= -->
-
-<div class="card">
-
-<div class="card-title">
-
-<h3>
-المنطقة الحالية
-</h3>
-
-<span>
-اختر المنطقة لإدارة FAT
-</span>
-
-</div>
-
-<select id="zone">
-
-<option value="FNS0281-3">
-FNS0281-3
-</option>
-
-<option value="FNS0284-3">
-FNS0284-3
-</option>
-
-</select>
-
-</div>
-
-
-<!-- =========================
-     FAT
+     FATS
 ========================= -->
 
 <section
 id="fatsSection"
-class="card">
+class="section hidden">
+
+<div class="card">
 
 <div class="card-title">
 
@@ -1195,39 +1379,35 @@ FNS0281-3
 </div>
 
 
-<!-- دليل ألوان FAT -->
+<!-- MODERN STATUS -->
 
-<div class="fat-legend">
+<div class="fat-status-bar">
 
-<div class="fat-legend-item">
+<div class="fat-status-title">
+حالة منافذ FAT
+</div>
 
-<span
-class="fat-legend-color fat-legend-empty">
-</span>
+<div class="fat-status-item">
 
-🟢 فارغة
+<span class="fat-status-dot empty"></span>
+
+فارغة
 
 </div>
 
+<div class="fat-status-item">
 
-<div class="fat-legend-item">
+<span class="fat-status-dot partial"></span>
 
-<span
-class="fat-legend-color fat-legend-partial">
-</span>
-
-🟡 مستخدمة جزئيًا
+مستخدمة جزئيًا
 
 </div>
 
+<div class="fat-status-item">
 
-<div class="fat-legend-item">
+<span class="fat-status-dot full"></span>
 
-<span
-class="fat-legend-color fat-legend-full">
-</span>
-
-🔴 ممتلئة
+ممتلئة
 
 </div>
 
@@ -1235,67 +1415,53 @@ class="fat-legend-color fat-legend-full">
 
 
 <div
-class="fat-grid"
-id="fats">
+id="fats"
+class="fat-grid">
+</div>
+
+</div>
+
+
+<!-- FAT DETAILS -->
+
+<div
+id="fatDetailsCard"
+class="card hidden">
+
+<div class="details-header">
+
+<div
+id="detailsTitle"
+class="details-title">
+</div>
+
+<button
+id="backToFatsBtn"
+class="back-btn">
+العودة إلى قائمة FAT
+</button>
+
+</div>
+
+
+<div
+id="detailsContent">
+</div>
+
 </div>
 
 </section>
 
 
 <!-- =========================
-     تفاصيل FAT
-========================= -->
-
-<div
-class="card hidden"
-id="details">
-
-<div class="card-title">
-
-<h3 id="fatTitle">
-تفاصيل FAT
-</h3>
-
-</div>
-
-<div id="subscribers"></div>
-
-
-<h3>
-إضافة مشترك
-</h3>
-
-<div class="form-grid">
-
-<input
-id="subName"
-placeholder="اسم المشترك">
-
-<input
-id="subPhone"
-type="tel"
-placeholder="رقم الهاتف">
-
-</div>
-
-<button
-id="addBtn"
-class="primary">
-
-حفظ المشترك
-
-</button>
-
-</div>
-
-
-<!-- =========================
-     البحث
+     SEARCH
 ========================= -->
 
 <section
 id="searchSection"
-class="card">
+class="section hidden">
+
+<div class="card">
 
 <div class="card-title">
 
@@ -1303,132 +1469,112 @@ class="card">
 البحث عن مشترك
 </h3>
 
-<span>
-الاسم أو رقم الهاتف
-</span>
+</div>
+
+<div class="search-box">
+
+<input
+id="searchInput"
+type="text"
+placeholder="اكتب اسم المشترك أو رقم الهاتف">
+
+<button
+id="searchBtn"
+class="primary-btn">
+بحث
+</button>
 
 </div>
 
-<input
-id="search"
-placeholder="اكتب اسم المشترك أو رقم الهاتف">
-
 <div
-id="results"
-class="results-box">
+id="searchResults"
+class="search-results">
+</div>
+
 </div>
 
 </section>
 
 
 <!-- =========================
-     Excel
+     EXCEL
 ========================= -->
 
 <section
 id="excelSection"
-class="card">
+class="section hidden">
+
+<div class="card">
 
 <div class="card-title">
 
 <h3>
-استيراد وتصدير Excel
+إدارة Excel
 </h3>
-
-<span>
-إدارة البيانات
-</span>
 
 </div>
 
+<div class="excel-grid">
 
-<div class="import-box">
+<div class="excel-box">
 
-<p class="small-note">
+<h4>
+استيراد المشتركين
+</h4>
 
-ملف Excel يجب أن يحتوي على:
-
-<br><br>
-
-<b>المشترك</b>
-=
-اسم المشترك
-
-<br>
-
-<b>المنطقة</b>
-=
-FNS0281-3 أو FNS0284-3
-
-<br>
-
-<b>FAT</b>
-=
-FAT1 إلى FAT45
-
-<br>
-
-<b>رقم الهاتف</b>
-=
-اختياري
-
-<br>
-
-<b>رقم الفتحة</b>
-=
-اختياري
-
-<br><br>
-
-إذا لم يوجد رقم الفتحة، يقوم البرنامج تلقائيًا باختيار أول فتحة فارغة من 1 إلى 16.
-
-<br>
-
-إذا كانت الفتحة المحددة مشغولة، لن يتم الكتابة فوق المشترك الموجود.
-
+<p>
+استيراد ملف Excel يحتوي على المشترك وال
+منطقة و FAT ورقم الهاتف ورقم الفتحة.
 </p>
-
 
 <input
 id="excelFile"
+class="file-input"
 type="file"
 accept=".xlsx,.xls">
 
-
-<div class="import-buttons">
-
-<button
-id="importBtn"
-class="success">
-
-استيراد Excel
-
-</button>
+</div>
 
 
-<button
-id="templateBtn"
-class="excel">
+<div class="excel-box">
 
-تحميل قالب Excel
+<h4>
+تصدير البيانات
+</h4>
 
-</button>
-
+<p>
+تحميل جميع المشتركين الموجودين في النظام
+بصيغة Excel.
+</p>
 
 <button
-id="exportBtn"
-class="excel">
-
-تصدير جميع البيانات
-
+id="exportExcelBtn"
+class="primary-btn">
+تصدير Excel
 </button>
 
 </div>
 
 
-<div
-id="importProgress"
-class="import-progress hidden">
+<div class="excel-box">
+
+<h4>
+نموذج Excel
+</h4>
+
+<p>
+تحميل نموذج جاهز بالحقول الصحيحة
+لاستخدامه في الاستيراد.
+</p>
+
+<button
+id="downloadTemplateBtn"
+class="secondary-btn">
+تحميل النموذج
+</button>
+
+</div>
+
 </div>
 
 </div>
@@ -1436,17 +1582,106 @@ class="import-progress hidden">
 </section>
 
 
-<div
-id="status"
-class="muted">
+<!-- =========================
+     ADD SUBSCRIBER
+========================= -->
+
+<section
+id="addSection"
+class="section hidden">
+
+<div class="card">
+
+<div class="card-title">
+
+<h3>
+إضافة مشترك
+</h3>
+
 </div>
 
+<div class="add-form">
 
-<div class="footer">
-شركة الوطني للكيبل الضوئي FTTH
-<br>
-إدارة مشتركين الوكيل عمر لازم
+<div class="form-field">
+
+<label>
+اسم المشترك
+</label>
+
+<input
+id="addName"
+type="text"
+placeholder="اسم المشترك">
+
 </div>
+
+<div class="form-field">
+
+<label>
+المنطقة
+</label>
+
+<select id="addZone">
+
+<option value="FNS0281-3">
+FNS0281-3
+</option>
+
+<option value="FNS0284-3">
+FNS0284-3
+</option>
+
+</select>
+
+</div>
+
+<div class="form-field">
+
+<label>
+FAT
+</label>
+
+<select id="addFat">
+</select>
+
+</div>
+
+<div class="form-field">
+
+<label>
+رقم الفتحة
+</label>
+
+<select id="addSlot">
+</select>
+
+</div>
+
+<div class="form-field">
+
+<label>
+رقم الهاتف
+</label>
+
+<input
+id="addPhone"
+type="text"
+placeholder="اختياري">
+
+</div>
+
+</div>
+
+<button
+id="addSubscriberBtn"
+class="primary-btn"
+style="margin-top:14px">
+إضافة المشترك
+</button>
+
+</div>
+
+</section>
 
 
 </main>
@@ -1454,152 +1689,197 @@ class="muted">
 </div>
 
 
-<script type="module">
+<!-- =========================
+     EDIT MODAL
+========================= -->
 
-import {
-createClient
-}
-from
-'https://esm.sh/@supabase/supabase-js@2';
+<div
+id="editModal"
+class="modal hidden">
 
+<div class="modal-box">
+
+<div class="modal-title">
+تعديل بيانات المشترك
+</div>
+
+<div class="form-group">
+
+<label>
+اسم المشترك
+</label>
+
+<input
+id="editName"
+type="text">
+
+</div>
+
+<div class="form-group">
+
+<label>
+رقم الهاتف
+</label>
+
+<input
+id="editPhone"
+type="text">
+
+</div>
+
+<div class="form-group">
+
+<label>
+رقم الفتحة
+</label>
+
+<select id="editSlot">
+</select>
+
+</div>
+
+<div class="modal-actions">
+
+<button
+id="saveEditBtn"
+class="primary-btn">
+حفظ التعديل
+</button>
+
+<button
+id="cancelEditBtn"
+class="secondary-btn">
+إلغاء
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+id="toast"
+class="toast">
+تم التنفيذ
+</div>
+
+
+<script>
 
 /* =========================
-   Supabase
+   SUPABASE
 ========================= */
 
-const db=createClient(
+const SUPABASE_URL =
+'https://igiqayqztxcubhnaowmq.supabase.co';
 
-'https://igiqayqztxcubhnaowmq.supabase.co',
+const SUPABASE_KEY =
+'sb_publishable_Ukwzfz-clPz-Q56yvdaBPQ_8KAaur4s';
 
-'sb_publishable_Ukwzfz-clPz-Q56yvdaBPQ_8KAaur4s'
-
+const db =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
 );
 
 
 /* =========================
-   المتغيرات
+   CONSTANTS
 ========================= */
 
-const $=id=>document.getElementById(id);
+const ZONES = [
+'FNS0281-3',
+'FNS0284-3'
+];
 
-let rows=[];
+const FATS_PER_ZONE = 45;
+const SLOTS_PER_FAT = 16;
 
-let zone='FNS0281-3';
-
-let fat=1;
+let rows = [];
+let zone = 'FNS0281-3';
+let selectedFat = null;
+let editingId = null;
 
 
 /* =========================
-   الحالة
+   HELPERS
 ========================= */
 
-function status(text){
-
-$('status').textContent=text;
-
+function $(id){
+return document.getElementById(id);
 }
 
-
-/* =========================
-   حماية النص
-========================= */
 
 function esc(value){
 
-return String(value??'').replace(
-/[&<>"']/g,
-char=>({
-
-'&':'&amp;',
-'<':'&lt;',
-'>':'&gt;',
-'"':'&quot;',
-"'":'&#39;'
-
-})[char]
-);
+return String(value ?? '')
+.replace(/&/g,'&amp;')
+.replace(/</g,'&lt;')
+.replace(/>/g,'&gt;')
+.replace(/"/g,'&quot;')
+.replace(/'/g,'&#039;');
 
 }
 
-
-/* =========================
-   تنظيف النص
-========================= */
 
 function cleanText(value){
 
-return String(value??'')
-.trim()
-.replace(/\s+/g,' ');
+return String(value ?? '')
+.trim();
 
 }
 
 
-/* =========================
-   المنطقة
-========================= */
-
 function normalizeZone(value){
 
-return String(value??'')
-.trim()
-.toUpperCase()
-.replace(/\s+/g,'');
+let v = cleanText(value);
+
+if(v === 'FNS281-3'){
+v = 'FNS0281-3';
+}
+
+return v;
 
 }
 
 
 function isValidZone(value){
 
-return value==='FNS0281-3' ||
-value==='FNS0284-3';
+return ZONES.includes(
+normalizeZone(value)
+);
 
 }
 
-
-/* =========================
-   FAT
-========================= */
 
 function normalizeFat(value){
 
-let text=String(value??'')
+if(value === null || value === undefined){
+return null;
+}
+
+let text =
+String(value)
 .trim()
-.toUpperCase()
-.replace(/\s+/g,'');
+.toUpperCase();
 
-if(!text){
+text =
+text.replace('FAT','')
+.trim();
 
-return 0;
+let n =
+parseInt(text,10);
 
-}
-
-if(text.startsWith('FAT')){
-
-text=text.substring(3);
-
-}
-
-const match=text.match(/\d+/);
-
-if(!match){
-
-return 0;
-
-}
-
-const n=parseInt(match[0],10);
-
-if(!Number.isInteger(n)){
-
-return 0;
-
-}
-
-if(n<1 || n>45){
-
-return 0;
-
+if(
+Number.isNaN(n) ||
+n < 1 ||
+n > 45
+){
+return null;
 }
 
 return n;
@@ -1607,78 +1887,85 @@ return n;
 }
 
 
+function normalizeSlot(value){
+
+if(
+value === null ||
+value === undefined ||
+value === ''
+){
+return null;
+}
+
+let n =
+parseInt(
+String(value).trim(),
+10
+);
+
+if(
+Number.isNaN(n) ||
+n < 1 ||
+n > 16
+){
+return null;
+}
+
+return n;
+
+}
+
+
+function showToast(message){
+
+const toast = $('toast');
+
+toast.textContent = message;
+
+toast.classList.add('show');
+
+setTimeout(()=>{
+toast.classList.remove('show');
+},2500);
+
+}
+
+
 /* =========================
-   قراءة Excel
+   EXCEL HEADER
 ========================= */
-
-function getExcelValue(row,names){
-
-const keys=Object.keys(row);
-
-for(const wanted of names){
-
-if(
-Object.prototype.hasOwnProperty.call(
-row,
-wanted
-)
-){
-
-const value=row[wanted];
-
-if(
-value!==undefined &&
-value!==null &&
-String(value).trim()!==''
-){
-
-return String(value).trim();
-
-}
-
-}
-
-}
-
 
 function normalizeHeader(value){
 
-return String(value??'')
+return String(value ?? '')
 .trim()
 .toLowerCase()
-.replace(/^\uFEFF/,'')
 .replace(/\s+/g,'')
-.replace(/[_-]/g,'');
-
+.replace(/[ـ]/g,'')
+.replace(/_/g,'');
 }
 
 
-for(const wanted of names){
+function getExcelValue(row, names){
 
-const cleanWanted=
-normalizeHeader(wanted);
+const keys =
+Object.keys(row);
 
-for(const key of keys){
-
-const cleanKey=
-normalizeHeader(key);
-
-if(cleanKey===cleanWanted){
-
-const value=row[key];
-
-if(
-value!==undefined &&
-value!==null &&
-String(value).trim()!==''
+for(
+const name of names
 ){
 
-return String(value).trim();
+const target =
+normalizeHeader(name);
 
-}
+const key =
+keys.find(
+k =>
+normalizeHeader(k) === target
+);
 
-}
-
+if(key !== undefined){
+return row[key];
 }
 
 }
@@ -1689,155 +1976,210 @@ return '';
 
 
 /* =========================
-   تسجيل الدخول
+   AUTH
 ========================= */
 
 async function login(){
 
-const email=$('email').value.trim();
+const email =
+cleanText(
+$('loginEmail').value
+);
 
-const password=$('password').value;
+const password =
+$('loginPassword').value;
+
+$('loginError').classList.add(
+'hidden'
+);
 
 if(!email || !password){
 
-$('loginMessage').textContent=
-'اكتب البريد الإلكتروني وكلمة المرور';
+$('loginError').textContent =
+'أدخل البريد الإلكتروني وكلمة المرور';
+
+$('loginError').classList.remove(
+'hidden'
+);
 
 return;
 
 }
 
-$('loginBtn').disabled=true;
-
-$('loginMessage').textContent=
-'جارٍ تسجيل الدخول...';
-
-try{
-
-const {error}=
+const {
+error
+} =
 await db.auth.signInWithPassword({
-
 email,
 password
-
 });
 
 if(error){
 
-$('loginMessage').textContent=
-'تعذر الدخول: '+error.message;
+$('loginError').textContent =
+error.message;
+
+$('loginError').classList.remove(
+'hidden'
+);
 
 return;
 
 }
 
-$('password').value='';
-
-$('loginMessage').textContent='';
-
-}catch(error){
-
-$('loginMessage').textContent=
-'حدث خطأ: '+error.message;
-
-}finally{
-
-$('loginBtn').disabled=false;
-
 }
 
-}
-
-
-/* =========================
-   تسجيل الخروج
-========================= */
 
 async function logout(){
 
 await db.auth.signOut();
 
+$('app').classList.add('hidden');
+
+$('loginPage').classList.remove(
+'hidden'
+);
+
 }
 
 
 /* =========================
-   إظهار التطبيق
+   SHOW APP
 ========================= */
 
-function showApp(on){
+function showApp(){
 
-$('loginCard')
-.classList.toggle(
-'hidden',
-on
+$('loginPage').classList.add(
+'hidden'
 );
 
-$('app')
-.classList.toggle(
-'hidden',
-!on
+$('app').classList.remove(
+'hidden'
 );
 
 }
 
 
 /* =========================
-   إحصائيات المناطق
+   UPDATE DASHBOARD
 ========================= */
 
 function updateZoneStats(){
 
-const zone1Count=
-rows.filter(item=>
-normalizeZone(item.zone)==='FNS0281-3'
+const total =
+rows.length;
+
+const used =
+rows.filter(
+r =>
+isValidZone(r.zone)
 ).length;
 
-const zone2Count=
-rows.filter(item=>
-normalizeZone(item.zone)==='FNS0284-3'
-).length;
+const empty =
+(2 * 45 * 16) - used;
 
+$('totalSubscribers').textContent =
+total;
 
-$('zone1Count').textContent=
-zone1Count;
+$('usedPorts').textContent =
+used;
 
-$('zone1Empty').textContent=
-Math.max(
-0,
-720-zone1Count
-);
+$('emptyPorts').textContent =
+Math.max(0,empty);
 
+$('fatCount').textContent =
+90;
 
-$('zone2Count').textContent=
-zone2Count;
-
-$('zone2Empty').textContent=
-Math.max(
-0,
-720-zone2Count
-);
+renderZones();
 
 }
 
 
-/* =========================
-   إحصائيات لوحة التحكم
-========================= */
+function renderZones(){
+
+const container =
+$('zones');
+
+const dashboard =
+$('dashboardZones');
+
+let html = '';
+
+for(
+const z of ZONES
+){
+
+const count =
+rows.filter(
+item =>
+normalizeZone(item.zone) === z
+).length;
+
+const capacity =
+FATS_PER_ZONE *
+SLOTS_PER_FAT;
+
+const empty =
+capacity - count;
+
+const percentage =
+Math.min(
+100,
+(count / capacity) * 100
+);
+
+html += `
+
+<div
+class="zone-card"
+data-zone="${esc(z)}">
+
+<div class="zone-name">
+${esc(z)}
+</div>
+
+<div class="zone-info">
+45 FAT × 16 فتحة
+</div>
+
+<div class="zone-progress">
+
+<div
+class="zone-progress-fill"
+style="width:${percentage}%">
+</div>
+
+</div>
+
+<div class="zone-footer">
+
+<span>
+${count} / ${capacity}
+مشترك
+</span>
+
+<span>
+${empty} فارغة
+</span>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+container.innerHTML =
+html;
+
+dashboard.innerHTML =
+html;
+
+}
+
 
 function updateDashboard(){
-
-const total=rows.length;
-
-const empty=1440-total;
-
-$('totalSubscribers').textContent=
-total;
-
-$('usedPorts').textContent=
-total;
-
-$('emptyPorts').textContent=
-empty<0 ? 0 : empty;
 
 updateZoneStats();
 
@@ -1845,121 +2187,135 @@ updateZoneStats();
 
 
 /* =========================
-   تحميل البيانات
+   LOAD ROWS
 ========================= */
 
 async function loadRows(){
 
-status(
-'جارٍ تحميل المشتركين من قاعدة البيانات...'
-);
-
 const {
 data,
 error
-}=
+} =
 await db
-
 .from('subscribers')
-
 .select('*')
-
-.order('zone')
-
-.order('fat_number')
-
-.order('slot_number');
+.order('id',{ascending:true});
 
 if(error){
 
-status(
-'خطأ في تحميل البيانات:\n'+
-error.message
+console.error(error);
+
+showToast(
+'حدث خطأ أثناء تحميل البيانات'
 );
 
-return false;
+return;
 
 }
 
-rows=data||[];
+rows =
+(data || []).map(item =>({
+
+...item,
+
+zone:
+normalizeZone(item.zone),
+
+fat_number:
+normalizeFat(item.fat_number),
+
+slot_number:
+normalizeSlot(item.slot_number)
+
+}));
+
 
 updateDashboard();
 
 renderFats();
 
-renderDetails();
-
-searchSubs();
-
-status(
-`تم تحميل البيانات بنجاح\nعدد المشتركين: ${rows.length}`
-);
-
-return true;
-
 }
 
 
 /* =========================
-   عرض FAT
+   RENDER FATS
 ========================= */
 
 function renderFats(){
 
-let html='';
+let html = '';
 
-for(let n=1;n<=45;n++){
+for(
+let n=1;
+n<=FATS_PER_ZONE;
+n++
+){
 
-const count=
-rows.filter(item=>
-
-normalizeZone(item.zone)===zone &&
-
-Number(item.fat_number)===n
-
+const count =
+rows.filter(
+item =>
+normalizeZone(item.zone) === zone &&
+Number(item.fat_number) === n
 ).length;
 
 
-/* عدد الفتحات الفارغة */
-
-const emptySlots=
+const emptySlots =
 Math.max(
 0,
-16-count
+SLOTS_PER_FAT - count
 );
 
 
-/* تحديد حالة FAT */
+const percentage =
+Math.min(
+100,
+(count / SLOTS_PER_FAT) * 100
+);
 
-let buttonClass='fat-empty';
 
-if(count>=16){
+let buttonClass =
+'fat-empty';
 
-buttonClass='fat-full';
 
-}else if(count>0){
+if(count >= SLOTS_PER_FAT){
 
-buttonClass='fat-partial';
+buttonClass =
+'fat-full';
+
+}
+else if(count > 0){
+
+buttonClass =
+'fat-partial';
 
 }
 
 
-html+=`
+html += `
 
 <button
 data-fat="${n}"
 class="${buttonClass}">
 
+<span class="fat-name">
 FAT${n}
+</span>
 
-<br>
+<span class="fat-count">
+${count} / ${SLOTS_PER_FAT}
+</span>
 
-<small>
-${count}/16
-</small>
+<span class="fat-progress">
+
+<span
+class="fat-progress-fill"
+style="width:${percentage}%">
+</span>
+
+</span>
 
 <span class="fat-empty-count">
-${emptySlots} فارغة
+${emptySlots} منافذ متاحة
 </span>
 
 </button>
@@ -1968,11 +2324,14 @@ ${emptySlots} فارغة
 
 }
 
-$('fats').innerHTML=html;
+$('fats').innerHTML =
+html;
+
 
 if($('currentZoneLabel')){
 
-$('currentZoneLabel').textContent=zone;
+$('currentZoneLabel').textContent =
+zone;
 
 }
 
@@ -1980,25 +2339,24 @@ $('currentZoneLabel').textContent=zone;
 
 
 /* =========================
-   فتح FAT
+   OPEN FAT
 ========================= */
 
-function openFAT(number){
+function openFAT(fat){
 
-fat=number;
+selectedFat =
+Number(fat);
 
-$('details')
-.classList.remove(
-'hidden'
-);
+$('fatDetailsCard')
+.classList.remove('hidden');
 
-$('subName').value='';
-
-$('subPhone').value='';
+$('detailsTitle').textContent =
+`${zone} — FAT${selectedFat}`;
 
 renderDetails();
 
-$('details').scrollIntoView({
+$('fatDetailsCard')
+.scrollIntoView({
 behavior:'smooth',
 block:'start'
 });
@@ -2007,95 +2365,107 @@ block:'start'
 
 
 /* =========================
-   تفاصيل FAT والفتحات 1-16
+   RENDER DETAILS
 ========================= */
 
 function renderDetails(){
 
-if(
-$('details').classList.contains(
-'hidden'
-)
-){
-
+if(!selectedFat){
 return;
-
 }
 
-const list=
-rows.filter(item=>
 
-normalizeZone(item.zone)===zone &&
-
-Number(item.fat_number)===fat
-
+const fatRows =
+rows.filter(
+item =>
+normalizeZone(item.zone) === zone &&
+Number(item.fat_number) === selectedFat
 );
 
-const usedCount=list.length;
 
-$('fatTitle').textContent=
-`${zone} — FAT${fat} — ${usedCount}/16 مستخدم`;
+const usedCount =
+fatRows.length;
 
-let html=`
 
-<div class="muted" style="margin-bottom:12px;">
-الفتحات المستخدمة:
-<b>${usedCount}</b>
-من أصل 16
+let html = `
+
+<div style="
+margin-top:18px;
+font-size:12px;
+color:#718096;
+font-weight:bold;
+">
+
+FAT${selectedFat}
+—
+${usedCount}/16 مستخدم
+
 </div>
 
 <div class="slot-grid">
 `;
 
-for(let i=1;i<=16;i++){
 
-const subscriber=
-list.find(item=>
+for(
+let slot=1;
+slot<=SLOTS_PER_FAT;
+slot++
+){
 
-Number(item.slot_number)===i
-
+const item =
+fatRows.find(
+r =>
+Number(r.slot_number) === slot
 );
 
-if(subscriber){
 
-html+=`
+if(item){
+
+html += `
 
 <div class="slot-card used">
 
 <div class="slot-number">
-الفتحة ${i}
+الفتحة ${slot}
 </div>
 
 <div class="slot-status">
 🟢 مشغولة
 </div>
 
-<div class="slot-name">
+<div
+class="slot-name"
+title="${esc(item.subscriber_name || item.name || '')}">
+
 ${esc(
-subscriber.subscriber_name
+item.subscriber_name ||
+item.name ||
+'بدون اسم'
 )}
+
 </div>
 
 <div class="slot-phone">
-${
-subscriber.phone
-?
-esc(subscriber.phone)
-:
-'لا يوجد رقم هاتف'
-}
+
+${esc(
+item.phone ||
+item.phone_number ||
+'لا يوجد رقم'
+)}
+
 </div>
 
 <div class="slot-actions">
 
 <button
-data-edit="${subscriber.id}">
+class="edit-btn"
+data-edit="${item.id}">
 تعديل
 </button>
 
 <button
-class="danger"
-data-delete="${subscriber.id}">
+class="delete-btn"
+data-delete="${item.id}">
 حذف
 </button>
 
@@ -2105,24 +2475,32 @@ data-delete="${subscriber.id}">
 
 `;
 
-}else{
+}
+else{
 
-html+=`
+html += `
 
 <div class="slot-card empty">
 
 <div class="slot-number">
-الفتحة ${i}
+الفتحة ${slot}
 </div>
 
 <div class="slot-status">
 ⚪ فارغة
 </div>
 
-<div class="slot-name muted">
+<div class="slot-name"
+style="color:#9aa5b4">
 متاحة للإضافة
 </div>
 
+<button
+class="add-slot-btn"
+data-add-slot="${slot}">
+إضافة مشترك
+</button>
+
 </div>
 
 `;
@@ -2131,64 +2509,124 @@ html+=`
 
 }
 
-html+=`
 
+html += `
 </div>
 `;
 
-$('subscribers').innerHTML=html;
+
+$('detailsContent').innerHTML =
+html;
 
 }
 
 
 /* =========================
-   إضافة مشترك
+   ADD SUBSCRIBER
 ========================= */
 
 async function addSub(){
 
-const name=
+const name =
 cleanText(
-$('subName').value
+$('addName').value
 );
 
-const phone=
-cleanText(
-$('subPhone').value
+const selectedZone =
+normalizeZone(
+$('addZone').value
 );
+
+const fat =
+normalizeFat(
+$('addFat').value
+);
+
+const requestedSlot =
+normalizeSlot(
+$('addSlot').value
+);
+
+const phone =
+cleanText(
+$('addPhone').value
+);
+
 
 if(!name){
 
-alert(
-'يرجى كتابة اسم المشترك'
+showToast(
+'أدخل اسم المشترك'
 );
 
 return;
 
 }
 
-const list=
-rows.filter(item=>
 
-normalizeZone(item.zone)===zone &&
+if(!isValidZone(selectedZone)){
 
-Number(item.fat_number)===fat
-
+showToast(
+'المنطقة غير صحيحة'
 );
 
-let slot=0;
+return;
 
-for(let i=1;i<=16;i++){
+}
 
-if(
-!list.some(item=>
 
-Number(item.slot_number)===i
+if(!fat){
 
+showToast(
+'اختر FAT'
+);
+
+return;
+
+}
+
+
+let slot =
+requestedSlot;
+
+
+const usedSlots =
+rows
+.filter(
+r =>
+normalizeZone(r.zone) === selectedZone &&
+Number(r.fat_number) === fat
 )
+.map(
+r =>
+Number(r.slot_number)
+);
+
+
+if(slot){
+
+if(usedSlots.includes(slot)){
+
+showToast(
+'هذه الفتحة مشغولة'
+);
+
+return;
+
+}
+
+}
+else{
+
+for(
+let i=1;
+i<=16;
+i++
 ){
 
-slot=i;
+if(!usedSlots.includes(i)){
+
+slot = i;
 
 break;
 
@@ -2196,142 +2634,49 @@ break;
 
 }
 
+}
+
+
 if(!slot){
 
-alert(
-'هذا FAT ممتلئ بالكامل'
+showToast(
+'لا توجد فتحة متاحة في هذه FAT'
 );
 
 return;
 
 }
 
-$('addBtn').disabled=true;
 
-const {
-error
-}=
-await db
+const payload = {
 
-.from('subscribers')
+subscriber_name:name,
 
-.insert({
-
-zone:zone,
+zone:selectedZone,
 
 fat_number:fat,
 
 slot_number:slot,
 
-subscriber_name:name,
+phone:phone || null
 
-phone:phone
+};
 
-});
-
-$('addBtn').disabled=false;
-
-if(error){
-
-alert(
-'تعذر حفظ المشترك:\n'+
-error.message
-);
-
-return;
-
-}
-
-$('subName').value='';
-
-$('subPhone').value='';
-
-await loadRows();
-
-alert(
-`تم حفظ المشترك بنجاح\n\nالمنطقة: ${zone}\nFAT: FAT${fat}\nالفتحة: ${slot}`
-);
-
-}
-
-
-/* =========================
-   تعديل مشترك
-========================= */
-
-async function editSub(id){
-
-const subscriber=
-rows.find(item=>
-
-String(item.id)===String(id)
-
-);
-
-if(!subscriber){
-
-return;
-
-}
-
-const name=
-prompt(
-'اسم المشترك',
-subscriber.subscriber_name||''
-);
-
-if(name===null){
-
-return;
-
-}
-
-const cleanName=
-cleanText(name);
-
-if(!cleanName){
-
-alert(
-'الاسم مطلوب'
-);
-
-return;
-
-}
-
-const phone=
-prompt(
-'رقم الهاتف',
-subscriber.phone||''
-);
-
-if(phone===null){
-
-return;
-
-}
 
 const {
 error
-}=
+} =
 await db
-
 .from('subscribers')
+.insert(payload);
 
-.update({
-
-subscriber_name:cleanName,
-
-phone:cleanText(phone)
-
-})
-
-.eq('id',id);
 
 if(error){
 
-alert(
-'حدث خطأ:\n'+
+console.error(error);
+
+showToast(
+'فشل إضافة المشترك: ' +
 error.message
 );
 
@@ -2339,405 +2684,549 @@ return;
 
 }
 
+
+showToast(
+`تمت إضافة ${name} في FAT${fat} — الفتحة ${slot}`
+);
+
+
+$('addName').value = '';
+$('addPhone').value = '';
+
 await loadRows();
 
 }
 
 
 /* =========================
-   حذف مشترك
+   EDIT SUBSCRIBER
+========================= */
+
+function editSub(id){
+
+const item =
+rows.find(
+r =>
+String(r.id) === String(id)
+);
+
+if(!item){
+return;
+}
+
+
+editingId =
+id;
+
+
+$('editName').value =
+item.subscriber_name ||
+item.name ||
+'';
+
+
+$('editPhone').value =
+item.phone ||
+item.phone_number ||
+'';
+
+
+const select =
+$('editSlot');
+
+select.innerHTML = '';
+
+
+for(
+let slot=1;
+slot<=16;
+slot++
+){
+
+const option =
+document.createElement('option');
+
+option.value =
+slot;
+
+option.textContent =
+`الفتحة ${slot}`;
+
+
+if(
+Number(item.slot_number) === slot
+){
+
+option.selected = true;
+
+}
+
+
+select.appendChild(option);
+
+}
+
+
+$('editModal')
+.classList.remove('hidden');
+
+}
+
+
+/* =========================
+   SAVE EDIT
+========================= */
+
+async function saveEdit(){
+
+if(!editingId){
+return;
+}
+
+
+const name =
+cleanText(
+$('editName').value
+);
+
+const phone =
+cleanText(
+$('editPhone').value
+);
+
+const slot =
+normalizeSlot(
+$('editSlot').value
+);
+
+
+if(!name){
+
+showToast(
+'أدخل اسم المشترك'
+);
+
+return;
+
+}
+
+
+const item =
+rows.find(
+r =>
+String(r.id) === String(editingId)
+);
+
+
+if(!item){
+return;
+}
+
+
+const conflict =
+rows.find(
+r =>
+String(r.id) !== String(editingId) &&
+normalizeZone(r.zone) === normalizeZone(item.zone) &&
+Number(r.fat_number) === Number(item.fat_number) &&
+Number(r.slot_number) === Number(slot)
+);
+
+
+if(conflict){
+
+showToast(
+'الفتحة المحددة مشغولة بمشترك آخر'
+);
+
+return;
+
+}
+
+
+const {
+error
+} =
+await db
+.from('subscribers')
+.update({
+
+subscriber_name:name,
+
+phone:phone || null,
+
+slot_number:slot
+
+})
+.eq(
+'id',
+editingId
+);
+
+
+if(error){
+
+console.error(error);
+
+showToast(
+'فشل حفظ التعديل'
+);
+
+return;
+
+}
+
+
+$('editModal')
+.classList.add('hidden');
+
+editingId =
+null;
+
+
+showToast(
+'تم حفظ التعديل بنجاح'
+);
+
+
+await loadRows();
+
+if(selectedFat){
+
+renderDetails();
+
+}
+
+}
+
+
+/* =========================
+   DELETE
 ========================= */
 
 async function deleteSub(id){
 
-if(
-!confirm(
-'هل تريد حذف هذا المشترك؟'
-)
-){
+const item =
+rows.find(
+r =>
+String(r.id) === String(id)
+);
 
+if(!item){
 return;
-
 }
+
+
+const name =
+item.subscriber_name ||
+item.name ||
+'هذا المشترك';
+
+
+const confirmed =
+confirm(
+`هل أنت متأكد من حذف المشترك:\n${name} ؟`
+);
+
+
+if(!confirmed){
+return;
+}
+
 
 const {
 error
-}=
+} =
 await db
-
 .from('subscribers')
-
 .delete()
+.eq(
+'id',
+id
+);
 
-.eq('id',id);
 
 if(error){
 
-alert(
-'حدث خطأ أثناء الحذف:\n'+
-error.message
+console.error(error);
+
+showToast(
+'فشل حذف المشترك'
 );
 
 return;
 
 }
 
+
+showToast(
+'تم حذف المشترك'
+);
+
+
 await loadRows();
+
+
+if(selectedFat){
+
+renderDetails();
+
+}
 
 }
 
 
 /* =========================
-   البحث
+   SEARCH
 ========================= */
 
 function searchSubs(){
 
-const q=
-$('search')
-.value
-.trim()
+const query =
+cleanText(
+$('searchInput').value
+)
 .toLowerCase();
 
-if(!q){
 
-$('results').innerHTML='';
+if(!query){
+
+$('searchResults').innerHTML =
+'<div class="result-item">اكتب اسم المشترك أو رقم الهاتف للبحث.</div>';
 
 return;
 
 }
 
-const found=
-rows.filter(item=>{
 
-const name=
+const results =
+rows.filter(
+item => {
+
+const name =
 String(
-item.subscriber_name||''
-)
-.toLowerCase();
+item.subscriber_name ||
+item.name ||
+''
+).toLowerCase();
 
-const phone=
+const phone =
 String(
-item.phone||''
-)
-.toLowerCase();
+item.phone ||
+item.phone_number ||
+''
+).toLowerCase();
 
-return name.includes(q) ||
-phone.includes(q);
+const z =
+String(
+item.zone ||
+''
+).toLowerCase();
 
-});
+return (
+name.includes(query) ||
+phone.includes(query) ||
+z.includes(query)
+);
 
-if(!found.length){
+}
+);
 
-$('results').innerHTML=
-'<p>لا توجد نتائج</p>';
+
+if(!results.length){
+
+$('searchResults').innerHTML =
+'<div class="result-item">لا توجد نتائج.</div>';
 
 return;
 
 }
 
-$('results').innerHTML=
-found.map(item=>`
 
-<div class="sub">
+$('searchResults').innerHTML =
+results.map(
+item => `
 
-<b>
-${esc(item.subscriber_name||'')}
-</b>
+<div class="result-item">
 
-<br>
-
-${item.phone
-?
-esc(item.phone)
-:
-'<span class="muted">لا يوجد رقم هاتف</span>'
-}
-
-<p class="muted">
+<div class="result-name">
 
 ${esc(
-normalizeZone(item.zone)
+item.subscriber_name ||
+item.name ||
+'بدون اسم'
 )}
-
-—
-
-FAT${Number(item.fat_number)}
-
-—
-
-الفتحة ${Number(item.slot_number)}
-
-</p>
 
 </div>
 
-`).join('');
+<div class="result-info">
+
+المنطقة:
+${esc(item.zone)}
+
+&nbsp; | &nbsp;
+
+FAT:
+${esc(item.fat_number)}
+
+&nbsp; | &nbsp;
+
+الفتحة:
+${esc(item.slot_number)}
+
+&nbsp; | &nbsp;
+
+الهاتف:
+${esc(
+item.phone ||
+item.phone_number ||
+'غير موجود'
+)}
+
+</div>
+
+</div>
+
+`
+).join('');
 
 }
 
 
 /* =========================
-   قالب Excel
+   EXCEL TEMPLATE
 ========================= */
 
 function downloadTemplate(){
 
-const data=[
+const data = [
 
 {
 
-'المشترك':'أحمد محمد',
+'المشترك':'اسم المشترك',
 
 'المنطقة':'FNS0281-3',
 
 'FAT':'FAT1',
 
-'رقم الفتحة':'',
+'رقم الهاتف':'',
 
-'رقم الهاتف':''
-
-},
-
-{
-
-'المشترك':'علي حسن',
-
-'المنطقة':'FNS0284-3',
-
-'FAT':'FAT2',
-
-'رقم الفتحة':'',
-
-'رقم الهاتف':''
+'رقم الفتحة':''
 
 }
 
 ];
 
-const worksheet=
+
+const ws =
 XLSX.utils.json_to_sheet(
 data
 );
 
-worksheet['!cols']=[
-
-{wch:28},
-
-{wch:18},
-
-{wch:12},
-
-{wch:15},
-
-{wch:20}
-
-];
-
-const workbook=
+const wb =
 XLSX.utils.book_new();
 
 XLSX.utils.book_append_sheet(
-
-workbook,
-
-worksheet,
-
+wb,
+ws,
 'المشتركين'
-
 );
 
 XLSX.writeFile(
-
-workbook,
-
-'قالب_المشتركين.xlsx'
-
+wb,
+'نموذج_المشتركين.xlsx'
 );
 
 }
 
 
 /* =========================
-   تصدير Excel
+   EXPORT EXCEL
 ========================= */
 
 function exportExcel(){
 
-if(!rows.length){
-
-alert(
-'لا توجد بيانات لتصديرها'
-);
-
-return;
-
-}
-
-const data=
-rows.map(item=>({
+const data =
+rows.map(
+item => ({
 
 'المشترك':
-item.subscriber_name||'',
+item.subscriber_name ||
+item.name ||
+'',
 
 'المنطقة':
-normalizeZone(item.zone),
+item.zone || '',
 
 'FAT':
-'FAT'+Number(item.fat_number),
-
-'رقم الفتحة':
-Number(item.slot_number),
+item.fat_number
+?
+`FAT${item.fat_number}`
+:
+'',
 
 'رقم الهاتف':
-item.phone||''
+item.phone ||
+item.phone_number ||
+'',
 
-}));
+'رقم الفتحة':
+item.slot_number || ''
 
-const worksheet=
+})
+);
+
+
+const ws =
 XLSX.utils.json_to_sheet(
 data
 );
 
-worksheet['!cols']=[
 
-{wch:28},
-
-{wch:18},
-
-{wch:12},
-
-{wch:15},
-
-{wch:20}
-
-];
-
-const workbook=
+const wb =
 XLSX.utils.book_new();
 
+
 XLSX.utils.book_append_sheet(
-
-workbook,
-
-worksheet,
-
+wb,
+ws,
 'المشتركين'
-
 );
+
 
 XLSX.writeFile(
+wb,
+'المشتركين_عمر_لازم.xlsx'
+);
 
-workbook,
 
-'بيانات_المشتركين.xlsx'
-
+showToast(
+'تم تصدير البيانات بنجاح'
 );
 
 }
 
 
 /* =========================
-   رقم الفتحة
+   IMPORT EXCEL
 ========================= */
 
-function normalizeSlot(value){
-
-if(
-value===undefined ||
-value===null ||
-String(value).trim()===''
-){
-
-return 0;
-
-}
-
-const text=
-String(value)
-.trim();
-
-const match=
-text.match(/\d+/);
-
-if(!match){
-
-return 0;
-
-}
-
-const number=
-parseInt(
-match[0],
-10
-);
-
-if(
-!Number.isInteger(number) ||
-number<1 ||
-number>16
-){
-
-return 0;
-
-}
-
-return number;
-
-}
-
-
-/* =========================
-   استيراد Excel
-========================= */
-
-async function importExcel(){
-
-const file=
-$('excelFile').files[0];
+async function importExcel(file){
 
 if(!file){
 
-alert(
-'اختر ملف Excel أولاً'
-);
-
 return;
 
 }
 
-if(
-typeof XLSX==='undefined'
-){
-
-alert(
-'مكتبة Excel لم يتم تحميلها'
-);
-
-return;
-
-}
-
-$('importBtn').disabled=true;
-
-$('importProgress')
-.classList.remove(
-'hidden'
-);
-
-$('importProgress').textContent=
-'جارٍ قراءة ملف Excel...';
-
-status(
-'جارٍ قراءة ملف Excel...'
-);
 
 try{
 
-const buffer=
+const buffer =
 await file.arrayBuffer();
 
-const workbook=
+
+const workbook =
 XLSX.read(
 buffer,
 {
@@ -2745,234 +3234,163 @@ type:'array'
 }
 );
 
-if(
-!workbook.SheetNames.length
-){
 
-throw new Error(
-'لم يتم العثور على ورقة داخل ملف Excel'
-);
+const sheetName =
+workbook.SheetNames[0];
 
-}
 
-const sheet=
-workbook.Sheets[
-workbook.SheetNames[0]
-];
+const worksheet =
+workbook.Sheets[sheetName];
 
-const data=
+
+const data =
 XLSX.utils.sheet_to_json(
-sheet,
+worksheet,
 {
-defval:'',
-raw:false
+defval:''
 }
 );
+
 
 if(!data.length){
 
-throw new Error(
-'ملف Excel لا يحتوي على بيانات'
+showToast(
+'ملف Excel فارغ'
 );
 
-}
-
-
-/* الأماكن المشغولة */
-
-const occupied=new Set();
-
-for(const item of rows){
-
-const itemZone=
-normalizeZone(item.zone);
-
-const itemFat=
-Number(item.fat_number);
-
-const itemSlot=
-Number(item.slot_number);
-
-if(
-isValidZone(itemZone) &&
-itemFat>=1 &&
-itemFat<=45 &&
-itemSlot>=1 &&
-itemSlot<=16
-){
-
-occupied.add(
-`${itemZone}|${itemFat}|${itemSlot}`
-);
-
-}
+return;
 
 }
 
 
-let added=0;
+let added = 0;
+let skipped = 0;
 
-let skipped=0;
-
-let errors=[];
-
-const recordsToInsert=[];
-
-const recordKeys=new Set();
-
-
-/* معالجة الصفوف */
 
 for(
-let index=0;
-index<data.length;
-index++
+const excelRow of data
 ){
 
-const row=data[index];
-
-const excelName=
+const name =
+cleanText(
 getExcelValue(
-row,
+excelRow,
 [
 'المشترك',
 'اسم المشترك',
-'الاسم',
-'name',
-'Name',
-'subscriber_name',
-'اسم'
+'الاسم'
 ]
+)
 );
 
-const excelZoneRaw=
+
+const importedZone =
+normalizeZone(
 getExcelValue(
-row,
+excelRow,
 [
 'المنطقة',
-'منطقة',
-'zone',
-'Zone'
+'zone'
 ]
+)
 );
 
-const excelZone=
-normalizeZone(
-excelZoneRaw
-);
 
-const excelFatRaw=
+const fat =
+normalizeFat(
 getExcelValue(
-row,
+excelRow,
 [
 'FAT',
-'Fat',
-'fat',
-'FAT Number',
-'رقم FAT',
 'الفات',
-'رقم الفات'
+'fat_number'
 ]
+)
 );
 
-const fatNumber=
-normalizeFat(
-excelFatRaw
-);
 
-const excelPhone=
+const phone =
+cleanText(
 getExcelValue(
-row,
+excelRow,
 [
 'رقم الهاتف',
 'الهاتف',
-'رقم الموبايل',
-'الموبايل',
 'phone',
-'Phone',
-'mobile',
-'Mobile'
+'phone_number'
 ]
+)
 );
 
-const excelSlotRaw=
+
+const requestedSlot =
+normalizeSlot(
 getExcelValue(
-row,
+excelRow,
 [
 'رقم الفتحة',
 'الفتحة',
-'رقم المشترك داخل FAT',
 'slot',
-'Slot',
-'slot_number',
-'رقم المشترك'
+'slot_number'
 ]
+)
 );
-
-let slotNumber=
-normalizeSlot(
-excelSlotRaw
-);
-
-
-if(!excelName){
-
-skipped++;
-
-errors.push(
-`السطر ${index+2}: اسم المشترك فارغ`
-);
-
-continue;
-
-}
-
-
-if(!isValidZone(excelZone)){
-
-skipped++;
-
-errors.push(
-`السطر ${index+2}: المنطقة غير صحيحة (${excelZoneRaw||'فارغة'})`
-);
-
-continue;
-
-}
 
 
 if(
-fatNumber<1 ||
-fatNumber>45
+!name ||
+!isValidZone(importedZone) ||
+!fat
 ){
 
 skipped++;
-
-errors.push(
-`السطر ${index+2}: رقم FAT غير صحيح (${excelFatRaw||'فارغ'})`
-);
 
 continue;
 
 }
 
 
-/* اختيار أول فتحة فارغة */
+const currentFatRows =
+rows.filter(
+r =>
+normalizeZone(r.zone) === importedZone &&
+Number(r.fat_number) === fat
+);
 
-if(!slotNumber){
+
+const usedSlots =
+currentFatRows.map(
+r =>
+Number(r.slot_number)
+);
+
+
+let slot =
+requestedSlot;
+
+
+if(slot){
+
+if(usedSlots.includes(slot)){
+
+skipped++;
+
+continue;
+
+}
+
+}
+else{
 
 for(
-let s=1;
-s<=16;
-s++
+let i=1;
+i<=16;
+i++
 ){
 
-const key=
-`${excelZone}|${fatNumber}|${s}`;
+if(!usedSlots.includes(i)){
 
-if(!occupied.has(key)){
-
-slotNumber=s;
+slot = i;
 
 break;
 
@@ -2983,174 +3401,65 @@ break;
 }
 
 
-if(!slotNumber){
+if(!slot){
 
 skipped++;
-
-errors.push(
-`السطر ${index+2}: ${excelZone} - FAT${fatNumber} ممتلئ`
-);
 
 continue;
 
 }
 
-
-const key=
-`${excelZone}|${fatNumber}|${slotNumber}`;
-
-
-if(occupied.has(key)){
-
-skipped++;
-
-errors.push(
-`السطر ${index+2}: ${excelZone} - FAT${fatNumber} - الفتحة ${slotNumber} مشغولة`
-);
-
-continue;
-
-}
-
-
-if(recordKeys.has(key)){
-
-skipped++;
-
-errors.push(
-`السطر ${index+2}: تكرار نفس المنطقة وFAT والفتحة داخل ملف Excel`
-);
-
-continue;
-
-}
-
-
-recordsToInsert.push({
-
-zone:excelZone,
-
-fat_number:fatNumber,
-
-slot_number:slotNumber,
-
-subscriber_name:cleanText(
-excelName
-),
-
-phone:cleanText(
-excelPhone
-)
-
-});
-
-recordKeys.add(key);
-
-occupied.add(key);
-
-}
-
-
-/* لا توجد سجلات */
-
-if(!recordsToInsert.length){
-
-let message=
-`انتهى فحص الملف.
-
-عدد الصفوف: ${data.length}
-
-تمت الإضافة: 0
-
-تم التجاهل: ${skipped}`;
-
-if(errors.length){
-
-message+=
-'\n\nالملاحظات:\n'+
-errors.join('\n');
-
-}
-
-$('importProgress').textContent=
-message;
-
-status(message);
-
-alert(
-'لم تتم إضافة أي مشترك.\n\nافتح الملاحظات لمعرفة السبب.'
-);
-
-return;
-
-}
-
-
-/* الإدخال على دفعات */
-
-const batchSize=100;
-
-for(
-let start=0;
-start<recordsToInsert.length;
-start+=batchSize
-){
-
-const batch=
-recordsToInsert.slice(
-start,
-start+batchSize
-);
-
-$('importProgress').textContent=
-`جارٍ رفع البيانات إلى قاعدة البيانات...\n\n`+
-`تم تجهيز ${start} من ${recordsToInsert.length} سجل`;
 
 const {
 error
-}=
+} =
 await db
-
 .from('subscribers')
+.insert({
 
-.insert(batch);
+subscriber_name:name,
+
+zone:importedZone,
+
+fat_number:fat,
+
+slot_number:slot,
+
+phone:phone || null
+
+});
+
 
 if(error){
 
-for(
-const record of batch
-){
-
-const {
-error:singleError
-}=
-await db
-
-.from('subscribers')
-
-.insert(record);
-
-if(singleError){
+console.error(
+'Import error:',
+error
+);
 
 skipped++;
 
-errors.push(
-`${record.zone} - FAT${record.fat_number} - الفتحة ${record.slot_number}: ${singleError.message}`
-);
+continue;
 
-}else{
+}
+
+
+rows.push({
+
+subscriber_name:name,
+
+zone:importedZone,
+
+fat_number:fat,
+
+slot_number:slot,
+
+phone:phone || null
+
+});
+
 
 added++;
-
-}
-
-}
-
-}else{
-
-added+=batch.length;
-
-}
 
 }
 
@@ -3158,54 +3467,19 @@ added+=batch.length;
 await loadRows();
 
 
-let message=
-`انتهى الاستيراد بنجاح.
-
-عدد الصفوف في Excel: ${data.length}
-
-تمت الإضافة: ${added}
-
-تم التجاهل: ${skipped}`;
-
-if(errors.length){
-
-message+=
-`\n\nالملاحظات (${errors.length}):\n`+
-errors.join('\n');
-
-}
-
-$('importProgress').textContent=
-message;
-
-status(message);
-
-alert(
-`انتهى الاستيراد.
-
-عدد الصفوف: ${data.length}
-
-تمت الإضافة: ${added}
-
-تم التجاهل: ${skipped}`
+showToast(
+`تم الاستيراد: ${added} إضافة، ${skipped} تجاهل`
 );
 
-}catch(error){
 
-const message=
-'فشل الاستيراد:\n'+
-(error?.message||String(error));
+}
+catch(error){
 
-$('importProgress').textContent=
-message;
+console.error(error);
 
-status(message);
-
-alert(message);
-
-}finally{
-
-$('importBtn').disabled=false;
+showToast(
+'حدث خطأ أثناء قراءة ملف Excel'
+);
 
 }
 
@@ -3213,7 +3487,212 @@ $('importBtn').disabled=false;
 
 
 /* =========================
-   أحداث الدخول
+   NAVIGATION
+========================= */
+
+function showSection(sectionId){
+
+document
+.querySelectorAll('.section')
+.forEach(
+section =>
+section.classList.add('hidden')
+);
+
+
+const section =
+$(sectionId);
+
+if(section){
+
+section.classList.remove(
+'hidden'
+);
+
+}
+
+
+document
+.querySelectorAll('.menu-btn')
+.forEach(
+btn =>
+btn.classList.remove('active')
+);
+
+
+const activeBtn =
+document.querySelector(
+`[data-section="${sectionId}"]`
+);
+
+
+if(activeBtn){
+
+activeBtn.classList.add(
+'active'
+);
+
+}
+
+
+if(
+sectionId === 'fatsSection'
+){
+
+renderFats();
+
+}
+
+
+if(
+sectionId === 'zonesSection'
+){
+
+renderZones();
+
+}
+
+}
+
+
+/* =========================
+   ZONE SELECT
+========================= */
+
+function selectZone(newZone){
+
+newZone =
+normalizeZone(newZone);
+
+
+if(!isValidZone(newZone)){
+return;
+}
+
+
+zone =
+newZone;
+
+
+selectedFat =
+null;
+
+
+$('fatDetailsCard')
+.classList.add('hidden');
+
+
+showSection(
+'fatsSection'
+);
+
+
+renderFats();
+
+}
+
+
+/* =========================
+   ADD FORM FAT LIST
+========================= */
+
+function fillAddFatSelect(){
+
+const select =
+$('addFat');
+
+select.innerHTML = '';
+
+for(
+let n=1;
+n<=45;
+n++
+){
+
+const option =
+document.createElement('option');
+
+option.value =
+n;
+
+option.textContent =
+`FAT${n}`;
+
+select.appendChild(option);
+
+}
+
+
+fillAddSlotSelect();
+
+}
+
+
+function fillAddSlotSelect(){
+
+const fat =
+normalizeFat(
+$('addFat').value
+);
+
+const select =
+$('addSlot');
+
+select.innerHTML =
+'<option value="">تلقائي - أول فتحة متاحة</option>';
+
+
+if(!fat){
+return;
+}
+
+
+const usedSlots =
+rows
+.filter(
+r =>
+normalizeZone(r.zone) ===
+normalizeZone(
+$('addZone').value
+) &&
+Number(r.fat_number) === fat
+)
+.map(
+r =>
+Number(r.slot_number)
+);
+
+
+for(
+let slot=1;
+slot<=16;
+slot++
+){
+
+if(
+!usedSlots.includes(slot)
+){
+
+const option =
+document.createElement('option');
+
+option.value =
+slot;
+
+option.textContent =
+`الفتحة ${slot}`;
+
+select.appendChild(option);
+
+}
+
+}
+
+}
+
+
+/* =========================
+   EVENTS
 ========================= */
 
 $('loginBtn')
@@ -3223,93 +3702,279 @@ login
 );
 
 
-/* الخروج من القائمة */
+$('loginPassword')
+.addEventListener(
+'keydown',
+event => {
 
-$('logoutSideBtn')
+if(
+event.key === 'Enter'
+){
+
+login();
+
+}
+
+}
+);
+
+
+$('logoutBtn')
 .addEventListener(
 'click',
 logout
 );
 
 
-/* إضافة */
-
-$('addBtn')
+$('mobileMenuBtn')
 .addEventListener(
 'click',
-addSub
+()=>{
+
+$('sidebar')
+.classList.toggle('open');
+
+}
 );
 
 
-/* Excel */
+/* MENU */
 
-$('importBtn')
-.addEventListener(
+document
+.querySelectorAll('.menu-btn')
+.forEach(
+button => {
+
+button.addEventListener(
 'click',
-importExcel
+()=>{
+
+showSection(
+button.dataset.section
 );
 
-$('templateBtn')
+$('sidebar')
+.classList.remove('open');
+
+}
+);
+
+}
+);
+
+
+/* ZONE CARDS */
+
+document.addEventListener(
+'click',
+event => {
+
+const zoneCard =
+event.target.closest(
+'.zone-card'
+);
+
+if(zoneCard){
+
+selectZone(
+zoneCard.dataset.zone
+);
+
+}
+
+}
+);
+
+
+/* FAT */
+
+document.addEventListener(
+'click',
+event => {
+
+const fatButton =
+event.target.closest(
+'[data-fat]'
+);
+
+if(
+fatButton &&
+fatButton.closest('#fats')
+){
+
+openFAT(
+fatButton.dataset.fat
+);
+
+}
+
+}
+);
+
+
+/* DETAILS ACTIONS */
+
+document.addEventListener(
+'click',
+event => {
+
+const editButton =
+event.target.closest(
+'[data-edit]'
+);
+
+if(editButton){
+
+editSub(
+editButton.dataset.edit
+);
+
+return;
+
+}
+
+
+const deleteButton =
+event.target.closest(
+'[data-delete]'
+);
+
+if(deleteButton){
+
+deleteSub(
+deleteButton.dataset.delete
+);
+
+return;
+
+}
+
+
+const addSlotButton =
+event.target.closest(
+'[data-add-slot]'
+);
+
+if(addSlotButton){
+
+$('addZone').value =
+zone;
+
+$('addFat').value =
+selectedFat;
+
+fillAddSlotSelect();
+
+$('addSlot').value =
+addSlotButton.dataset.addSlot;
+
+showSection(
+'addSection'
+);
+
+}
+
+}
+);
+
+
+/* BACK */
+
+$('backToFatsBtn')
+.addEventListener(
+'click',
+()=>{
+
+$('fatDetailsCard')
+.classList.add('hidden');
+
+selectedFat =
+null;
+
+}
+);
+
+
+/* EDIT MODAL */
+
+$('cancelEditBtn')
+.addEventListener(
+'click',
+()=>{
+
+$('editModal')
+.classList.add('hidden');
+
+editingId =
+null;
+
+}
+);
+
+
+$('saveEditBtn')
+.addEventListener(
+'click',
+saveEdit
+);
+
+
+/* SEARCH */
+
+$('searchBtn')
+.addEventListener(
+'click',
+searchSubs
+);
+
+
+$('searchInput')
+.addEventListener(
+'keydown',
+event => {
+
+if(
+event.key === 'Enter'
+){
+
+searchSubs();
+
+}
+
+}
+);
+
+
+/* EXCEL */
+
+$('downloadTemplateBtn')
 .addEventListener(
 'click',
 downloadTemplate
 );
 
-$('exportBtn')
+
+$('exportExcelBtn')
 .addEventListener(
 'click',
 exportExcel
 );
 
 
-/* المنطقة */
-
-$('zone')
+$('excelFile')
 .addEventListener(
 'change',
-()=>{
+async event => {
 
-zone=
-$('zone').value;
+const file =
+event.target.files[0];
 
-$('details')
-.classList.add(
-'hidden'
-);
+if(file){
 
-renderFats();
+await importExcel(file);
 
-}
-);
-
-
-/* البحث */
-
-$('search')
-.addEventListener(
-'input',
-searchSubs
-);
-
-
-/* FAT */
-
-$('fats').addEventListener(
-'click',
-event=>{
-
-const button=
-event.target.closest(
-'[data-fat]'
-);
-
-if(button){
-
-openFAT(
-Number(
-button.dataset.fat
-)
-);
+event.target.value =
+'';
 
 }
 
@@ -3317,198 +3982,103 @@ button.dataset.fat
 );
 
 
-/* تعديل وحذف */
+/* ADD */
 
-$('subscribers').addEventListener(
-'click',
-event=>{
-
-const edit=
-event.target.closest(
-'[data-edit]'
-);
-
-const del=
-event.target.closest(
-'[data-delete]'
-);
-
-if(edit){
-
-editSub(
-edit.dataset.edit
-);
-
-}
-
-if(del){
-
-deleteSub(
-del.dataset.delete
-);
-
-}
-
-}
-);
-
-
-/* =========================
-   أزرار المناطق
-========================= */
-
-document
-.querySelectorAll(
-'[data-zone]'
-)
-.forEach(button=>{
-
-button.addEventListener(
-'click',
-()=>{
-
-zone=
-button.dataset.zone;
-
-$('zone').value=zone;
-
-$('details')
-.classList.add(
-'hidden'
-);
-
-renderFats();
-
-$('fatsSection')
-.scrollIntoView({
-behavior:'smooth',
-block:'start'
-});
-
-}
-);
-
-});
-
-
-/* =========================
-   القائمة الجانبية
-========================= */
-
-document
-.querySelectorAll(
-'[data-scroll]'
-)
-.forEach(button=>{
-
-button.addEventListener(
-'click',
-()=>{
-
-const target=
-document.getElementById(
-button.dataset.scroll
-);
-
-if(target){
-
-target.scrollIntoView({
-behavior:'smooth',
-block:'start'
-});
-
-}
-
-if(
-window.innerWidth<=900
-){
-
-$('sidebar')
-.classList.remove(
-'open'
-);
-
-}
-
-document
-.querySelectorAll(
-'.nav-btn'
-)
-.forEach(item=>
-item.classList.remove(
-'active'
-)
-);
-
-button.classList.add('active');
-
-}
-);
-
-});
-
-
-/* القائمة على الهاتف */
-
-$('mobileMenu')
+$('addSubscriberBtn')
 .addEventListener(
 'click',
-()=>{
-
-$('sidebar')
-.classList.toggle(
-'open'
+addSub
 );
 
-}
+
+$('addZone')
+.addEventListener(
+'change',
+fillAddSlotSelect
+);
+
+
+$('addFat')
+.addEventListener(
+'change',
+fillAddSlotSelect
 );
 
 
 /* =========================
-   Supabase Auth
+   AUTH STATE
 ========================= */
 
 db.auth.onAuthStateChange(
-(event,session)=>{
-
-showApp(
-!!session
-);
-
-if(session){
-
-loadRows();
-
-}
-
-}
-);
-
-
-/* =========================
-   بدء البرنامج
-========================= */
-
-const {
-data:{
+async (
+event,
 session
-}
-}=
-await db.auth.getSession();
-
-
-showApp(
-!!session
-);
-
+)=>{
 
 if(session){
+
+showApp();
 
 await loadRows();
 
 }
+else{
+
+$('app')
+.classList.add('hidden');
+
+$('loginPage')
+.classList.remove(
+'hidden'
+);
+
+}
+
+}
+);
+
+
+/* =========================
+   INITIAL SESSION
+========================= */
+
+(async function(){
+
+const {
+data
+} =
+await db.auth.getSession();
+
+
+if(
+data &&
+data.session
+){
+
+showApp();
+
+await loadRows();
+
+}
+else{
+
+$('app')
+.classList.add('hidden');
+
+$('loginPage')
+.classList.remove(
+'hidden'
+);
+
+}
+
+
+fillAddFatSelect();
+
+})();
 
 </script>
 
 </body>
+
 </html>
