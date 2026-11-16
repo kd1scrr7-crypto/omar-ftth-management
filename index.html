@@ -494,8 +494,6 @@ filter:brightness(1.04);
 transform:translateY(-1px);
 }
 
-/* FAT COLORS */
-
 .fat-grid button.fat-empty{
 background:#217a45;
 }
@@ -507,8 +505,6 @@ background:#b7791f;
 .fat-grid button.fat-full{
 background:#a83232;
 }
-
-/* FAT CONTENT */
 
 .fat-name{
 font-size:15px;
@@ -548,7 +544,7 @@ opacity:.95;
 }
 
 /* =========================
-   DETAILS
+   DETAILS HEADER
 ========================= */
 
 .details-header{
@@ -579,6 +575,63 @@ background:#dfeefb;
 }
 
 /* =========================
+   FAT SUMMARY
+========================= */
+
+.fat-summary{
+margin-top:18px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+}
+
+.fat-summary-card{
+border:1px solid #e4e9ef;
+background:#f9fbfd;
+border-radius:12px;
+padding:14px;
+}
+
+.fat-summary-label{
+font-size:11px;
+color:#7b8796;
+margin-bottom:5px;
+}
+
+.fat-summary-value{
+font-size:20px;
+font-weight:bold;
+color:#1c293b;
+}
+
+.fat-summary-card.used .fat-summary-value{
+color:#1769aa;
+}
+
+.fat-summary-card.available .fat-summary-value{
+color:#217a45;
+}
+
+.fat-summary-card.percent .fat-summary-value{
+color:#b7791f;
+}
+
+.fat-details-progress{
+height:8px;
+margin-top:15px;
+background:#edf1f5;
+border-radius:99px;
+overflow:hidden;
+}
+
+.fat-details-progress-fill{
+height:100%;
+background:#1769aa;
+border-radius:99px;
+transition:width .3s;
+}
+
+/* =========================
    SLOT GRID
 ========================= */
 
@@ -590,24 +643,42 @@ margin-top:15px;
 }
 
 .slot-card{
+position:relative;
 border:1px solid #e3e8ef;
-border-radius:12px;
-padding:13px;
-min-height:125px;
+border-radius:13px;
+padding:14px;
+min-height:145px;
 background:#fafbfd;
 display:flex;
 flex-direction:column;
 justify-content:flex-start;
+overflow:hidden;
+transition:
+transform .18s,
+box-shadow .18s,
+border-color .18s;
+}
+
+.slot-card:hover{
+transform:translateY(-2px);
+box-shadow:0 7px 18px #0000000b;
 }
 
 .slot-card.used{
-background:#f2fbf6;
-border-color:#c9e8d5;
+background:#f4fbf7;
+border-color:#c8e5d3;
 }
 
 .slot-card.empty{
-background:#fafbfd;
-border-color:#e3e8ef;
+background:#fbfcfe;
+border-color:#dfe5ec;
+}
+
+.slot-top{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:8px;
 }
 
 .slot-number{
@@ -616,9 +687,32 @@ font-weight:bold;
 color:#37465a;
 }
 
-.slot-status{
+.slot-number-badge{
+min-width:31px;
+height:27px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:8px;
+background:#eef2f6;
+color:#46566b;
 font-size:11px;
-margin-top:5px;
+font-weight:bold;
+}
+
+.slot-card.used .slot-number-badge{
+background:#dcefe4;
+color:#217a45;
+}
+
+.slot-card.empty .slot-number-badge{
+background:#eef2f6;
+color:#788597;
+}
+
+.slot-status{
+font-size:10px;
+margin-top:9px;
 font-weight:bold;
 }
 
@@ -643,7 +737,7 @@ text-overflow:ellipsis;
 .slot-phone{
 font-size:11px;
 color:#748195;
-margin-top:4px;
+margin-top:5px;
 direction:ltr;
 text-align:right;
 }
@@ -652,12 +746,13 @@ text-align:right;
 display:flex;
 gap:6px;
 margin-top:auto;
-padding-top:10px;
+padding-top:12px;
 }
 
 .slot-actions button{
+flex:1;
 border:0;
-padding:6px 8px;
+padding:7px 8px;
 border-radius:7px;
 font-size:10px;
 font-weight:bold;
@@ -668,20 +763,48 @@ background:#eaf3fb;
 color:#1769aa;
 }
 
+.edit-btn:hover{
+background:#dcecf9;
+}
+
 .delete-btn{
 background:#fff0f0;
 color:#a83232;
 }
 
+.delete-btn:hover{
+background:#ffe3e3;
+}
+
 .add-slot-btn{
 width:100%;
-border:1px dashed #cfd8e3;
+border:1px dashed #c9d4df;
 background:#fff;
 color:#1769aa;
-padding:7px;
+padding:8px;
 border-radius:8px;
 font-size:11px;
+font-weight:bold;
 margin-top:auto;
+transition:.15s;
+}
+
+.add-slot-btn:hover{
+background:#edf6ff;
+border-color:#9fc4e3;
+}
+
+.empty-slot-icon{
+width:30px;
+height:30px;
+border-radius:8px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#f0f3f6;
+color:#8793a2;
+font-size:16px;
+margin-top:9px;
 }
 
 /* =========================
@@ -988,6 +1111,10 @@ grid-template-columns:repeat(3,1fr);
 grid-template-columns:repeat(2,1fr);
 }
 
+.fat-summary{
+grid-template-columns:repeat(3,1fr);
+}
+
 .add-form{
 grid-template-columns:repeat(2,1fr);
 }
@@ -1049,7 +1176,16 @@ gap:9px;
 
 .slot-card{
 padding:11px;
-min-height:110px;
+min-height:125px;
+}
+
+.fat-summary{
+grid-template-columns:1fr 1fr;
+gap:8px;
+}
+
+.fat-summary-card.percent{
+grid-column:span 2;
 }
 
 .add-form{
@@ -1130,8 +1266,6 @@ class="login-error hidden">
 
 <div id="app" class="app hidden">
 
-<!-- SIDEBAR -->
-
 <aside id="sidebar" class="sidebar">
 
 <div class="logo-area">
@@ -1189,8 +1323,6 @@ class="logout-menu">
 </aside>
 
 
-<!-- MAIN -->
-
 <main class="main">
 
 <div class="topbar">
@@ -1216,9 +1348,7 @@ class="mobile-menu">
 </div>
 
 
-<!-- =========================
-     DASHBOARD
-========================= -->
+<!-- DASHBOARD -->
 
 <section
 id="dashboardSection"
@@ -1244,7 +1374,6 @@ class="stat-value">
 
 </div>
 
-
 <div class="stat-card">
 
 <div class="stat-label">
@@ -1263,7 +1392,6 @@ class="stat-value">
 
 </div>
 
-
 <div class="stat-card">
 
 <div class="stat-label">
@@ -1281,7 +1409,6 @@ class="stat-value">
 </div>
 
 </div>
-
 
 <div class="stat-card">
 
@@ -1303,7 +1430,6 @@ class="stat-value">
 
 </div>
 
-
 <div class="card">
 
 <div class="card-title">
@@ -1324,9 +1450,7 @@ class="zone-grid">
 </section>
 
 
-<!-- =========================
-     ZONES
-========================= -->
+<!-- ZONES -->
 
 <section
 id="zonesSection"
@@ -1356,9 +1480,7 @@ class="zone-grid">
 </section>
 
 
-<!-- =========================
-     FATS
-========================= -->
+<!-- FATS -->
 
 <section
 id="fatsSection"
@@ -1377,9 +1499,6 @@ FNS0281-3
 </span>
 
 </div>
-
-
-<!-- MODERN STATUS -->
 
 <div class="fat-status-bar">
 
@@ -1413,7 +1532,6 @@ FNS0281-3
 
 </div>
 
-
 <div
 id="fats"
 class="fat-grid">
@@ -1443,7 +1561,6 @@ class="back-btn">
 
 </div>
 
-
 <div
 id="detailsContent">
 </div>
@@ -1453,9 +1570,7 @@ id="detailsContent">
 </section>
 
 
-<!-- =========================
-     SEARCH
-========================= -->
+<!-- SEARCH -->
 
 <section
 id="searchSection"
@@ -1496,9 +1611,7 @@ class="search-results">
 </section>
 
 
-<!-- =========================
-     EXCEL
-========================= -->
+<!-- EXCEL -->
 
 <section
 id="excelSection"
@@ -1523,8 +1636,7 @@ class="section hidden">
 </h4>
 
 <p>
-استيراد ملف Excel يحتوي على المشترك وال
-منطقة و FAT ورقم الهاتف ورقم الفتحة.
+استيراد ملف Excel يحتوي على المشترك والمنطقة و FAT ورقم الهاتف ورقم الفتحة.
 </p>
 
 <input
@@ -1535,7 +1647,6 @@ accept=".xlsx,.xls">
 
 </div>
 
-
 <div class="excel-box">
 
 <h4>
@@ -1543,8 +1654,7 @@ accept=".xlsx,.xls">
 </h4>
 
 <p>
-تحميل جميع المشتركين الموجودين في النظام
-بصيغة Excel.
+تحميل جميع المشتركين الموجودين في النظام بصيغة Excel.
 </p>
 
 <button
@@ -1555,7 +1665,6 @@ class="primary-btn">
 
 </div>
 
-
 <div class="excel-box">
 
 <h4>
@@ -1563,8 +1672,7 @@ class="primary-btn">
 </h4>
 
 <p>
-تحميل نموذج جاهز بالحقول الصحيحة
-لاستخدامه في الاستيراد.
+تحميل نموذج جاهز بالحقول الصحيحة لاستخدامه في الاستيراد.
 </p>
 
 <button
@@ -1582,9 +1690,7 @@ class="secondary-btn">
 </section>
 
 
-<!-- =========================
-     ADD SUBSCRIBER
-========================= -->
+<!-- ADD SUBSCRIBER -->
 
 <section
 id="addSection"
@@ -1683,15 +1789,12 @@ style="margin-top:14px">
 
 </section>
 
-
 </main>
 
 </div>
 
 
-<!-- =========================
-     EDIT MODAL
-========================= -->
+<!-- EDIT MODAL -->
 
 <div
 id="editModal"
@@ -1758,8 +1861,6 @@ class="secondary-btn">
 
 </div>
 
-
-<!-- TOAST -->
 
 <div
 id="toast"
@@ -2258,13 +2359,11 @@ normalizeZone(item.zone) === zone &&
 Number(item.fat_number) === n
 ).length;
 
-
 const emptySlots =
 Math.max(
 0,
 SLOTS_PER_FAT - count
 );
-
 
 const percentage =
 Math.min(
@@ -2272,10 +2371,8 @@ Math.min(
 (count / SLOTS_PER_FAT) * 100
 );
 
-
 let buttonClass =
 'fat-empty';
-
 
 if(count >= SLOTS_PER_FAT){
 
@@ -2289,7 +2386,6 @@ buttonClass =
 'fat-partial';
 
 }
-
 
 html += `
 
@@ -2374,7 +2470,6 @@ if(!selectedFat){
 return;
 }
 
-
 const fatRows =
 rows.filter(
 item =>
@@ -2382,29 +2477,85 @@ normalizeZone(item.zone) === zone &&
 Number(item.fat_number) === selectedFat
 );
 
-
 const usedCount =
 fatRows.length;
 
+const availableCount =
+Math.max(
+0,
+SLOTS_PER_FAT - usedCount
+);
+
+const percentage =
+Math.min(
+100,
+(usedCount / SLOTS_PER_FAT) * 100
+);
 
 let html = `
 
+<div class="fat-summary">
+
+<div class="fat-summary-card used">
+
+<div class="fat-summary-label">
+المنافذ المستخدمة
+</div>
+
+<div class="fat-summary-value">
+${usedCount}
+</div>
+
+</div>
+
+<div class="fat-summary-card available">
+
+<div class="fat-summary-label">
+المنافذ المتاحة
+</div>
+
+<div class="fat-summary-value">
+${availableCount}
+</div>
+
+</div>
+
+<div class="fat-summary-card percent">
+
+<div class="fat-summary-label">
+نسبة الإشغال
+</div>
+
+<div class="fat-summary-value">
+${percentage.toFixed(0)}%
+</div>
+
+</div>
+
+</div>
+
+<div class="fat-details-progress">
+
+<div
+class="fat-details-progress-fill"
+style="width:${percentage}%">
+</div>
+
+</div>
+
 <div style="
 margin-top:18px;
-font-size:12px;
-color:#718096;
+font-size:13px;
 font-weight:bold;
+color:#526274;
 ">
 
-FAT${selectedFat}
-—
-${usedCount}/16 مستخدم
+منافذ FAT${selectedFat}
 
 </div>
 
 <div class="slot-grid">
 `;
-
 
 for(
 let slot=1;
@@ -2418,6 +2569,8 @@ r =>
 Number(r.slot_number) === slot
 );
 
+const slotNumber =
+String(slot).padStart(2,'0');
 
 if(item){
 
@@ -2425,17 +2578,29 @@ html += `
 
 <div class="slot-card used">
 
+<div class="slot-top">
+
 <div class="slot-number">
 الفتحة ${slot}
 </div>
 
+<div class="slot-number-badge">
+${slotNumber}
+</div>
+
+</div>
+
 <div class="slot-status">
-🟢 مشغولة
+● مشغولة
 </div>
 
 <div
 class="slot-name"
-title="${esc(item.subscriber_name || item.name || '')}">
+title="${esc(
+item.subscriber_name ||
+item.name ||
+''
+)}">
 
 ${esc(
 item.subscriber_name ||
@@ -2482,17 +2647,31 @@ html += `
 
 <div class="slot-card empty">
 
+<div class="slot-top">
+
 <div class="slot-number">
 الفتحة ${slot}
 </div>
 
+<div class="slot-number-badge">
+${slotNumber}
+</div>
+
+</div>
+
 <div class="slot-status">
-⚪ فارغة
+○ متاحة
+</div>
+
+<div class="empty-slot-icon">
++
 </div>
 
 <div class="slot-name"
 style="color:#9aa5b4">
+
 متاحة للإضافة
+
 </div>
 
 <button
@@ -2509,11 +2688,9 @@ data-add-slot="${slot}">
 
 }
 
-
 html += `
 </div>
 `;
-
 
 $('detailsContent').innerHTML =
 html;
@@ -2552,7 +2729,6 @@ cleanText(
 $('addPhone').value
 );
 
-
 if(!name){
 
 showToast(
@@ -2562,7 +2738,6 @@ showToast(
 return;
 
 }
-
 
 if(!isValidZone(selectedZone)){
 
@@ -2574,7 +2749,6 @@ return;
 
 }
 
-
 if(!fat){
 
 showToast(
@@ -2585,10 +2759,8 @@ return;
 
 }
 
-
 let slot =
 requestedSlot;
-
 
 const usedSlots =
 rows
@@ -2601,7 +2773,6 @@ Number(r.fat_number) === fat
 r =>
 Number(r.slot_number)
 );
-
 
 if(slot){
 
@@ -2636,7 +2807,6 @@ break;
 
 }
 
-
 if(!slot){
 
 showToast(
@@ -2646,7 +2816,6 @@ showToast(
 return;
 
 }
-
 
 const payload = {
 
@@ -2662,14 +2831,12 @@ phone:phone || null
 
 };
 
-
 const {
 error
 } =
 await db
 .from('subscribers')
 .insert(payload);
-
 
 if(error){
 
@@ -2684,11 +2851,9 @@ return;
 
 }
 
-
 showToast(
 `تمت إضافة ${name} في FAT${fat} — الفتحة ${slot}`
 );
-
 
 $('addName').value = '';
 $('addPhone').value = '';
@@ -2714,28 +2879,23 @@ if(!item){
 return;
 }
 
-
 editingId =
 id;
-
 
 $('editName').value =
 item.subscriber_name ||
 item.name ||
 '';
 
-
 $('editPhone').value =
 item.phone ||
 item.phone_number ||
 '';
 
-
 const select =
 $('editSlot');
 
 select.innerHTML = '';
-
 
 for(
 let slot=1;
@@ -2752,7 +2912,6 @@ slot;
 option.textContent =
 `الفتحة ${slot}`;
 
-
 if(
 Number(item.slot_number) === slot
 ){
@@ -2761,11 +2920,9 @@ option.selected = true;
 
 }
 
-
 select.appendChild(option);
 
 }
-
 
 $('editModal')
 .classList.remove('hidden');
@@ -2783,7 +2940,6 @@ if(!editingId){
 return;
 }
 
-
 const name =
 cleanText(
 $('editName').value
@@ -2799,7 +2955,6 @@ normalizeSlot(
 $('editSlot').value
 );
 
-
 if(!name){
 
 showToast(
@@ -2810,18 +2965,15 @@ return;
 
 }
 
-
 const item =
 rows.find(
 r =>
 String(r.id) === String(editingId)
 );
 
-
 if(!item){
 return;
 }
-
 
 const conflict =
 rows.find(
@@ -2832,7 +2984,6 @@ Number(r.fat_number) === Number(item.fat_number) &&
 Number(r.slot_number) === Number(slot)
 );
 
-
 if(conflict){
 
 showToast(
@@ -2842,7 +2993,6 @@ showToast(
 return;
 
 }
-
 
 const {
 error
@@ -2863,7 +3013,6 @@ slot_number:slot
 editingId
 );
 
-
 if(error){
 
 console.error(error);
@@ -2876,18 +3025,15 @@ return;
 
 }
 
-
 $('editModal')
 .classList.add('hidden');
 
 editingId =
 null;
 
-
 showToast(
 'تم حفظ التعديل بنجاح'
 );
-
 
 await loadRows();
 
@@ -2916,23 +3062,19 @@ if(!item){
 return;
 }
 
-
 const name =
 item.subscriber_name ||
 item.name ||
 'هذا المشترك';
-
 
 const confirmed =
 confirm(
 `هل أنت متأكد من حذف المشترك:\n${name} ؟`
 );
 
-
 if(!confirmed){
 return;
 }
-
 
 const {
 error
@@ -2944,7 +3086,6 @@ await db
 'id',
 id
 );
-
 
 if(error){
 
@@ -2958,14 +3099,11 @@ return;
 
 }
 
-
 showToast(
 'تم حذف المشترك'
 );
 
-
 await loadRows();
-
 
 if(selectedFat){
 
@@ -2988,7 +3126,6 @@ $('searchInput').value
 )
 .toLowerCase();
 
-
 if(!query){
 
 $('searchResults').innerHTML =
@@ -2997,7 +3134,6 @@ $('searchResults').innerHTML =
 return;
 
 }
-
 
 const results =
 rows.filter(
@@ -3032,7 +3168,6 @@ z.includes(query)
 }
 );
 
-
 if(!results.length){
 
 $('searchResults').innerHTML =
@@ -3041,7 +3176,6 @@ $('searchResults').innerHTML =
 return;
 
 }
-
 
 $('searchResults').innerHTML =
 results.map(
@@ -3117,7 +3251,6 @@ const data = [
 
 ];
 
-
 const ws =
 XLSX.utils.json_to_sheet(
 data
@@ -3176,16 +3309,13 @@ item.slot_number || ''
 })
 );
 
-
 const ws =
 XLSX.utils.json_to_sheet(
 data
 );
 
-
 const wb =
 XLSX.utils.book_new();
-
 
 XLSX.utils.book_append_sheet(
 wb,
@@ -3193,12 +3323,10 @@ ws,
 'المشتركين'
 );
 
-
 XLSX.writeFile(
 wb,
 'المشتركين_عمر_لازم.xlsx'
 );
-
 
 showToast(
 'تم تصدير البيانات بنجاح'
@@ -3219,12 +3347,10 @@ return;
 
 }
 
-
 try{
 
 const buffer =
 await file.arrayBuffer();
-
 
 const workbook =
 XLSX.read(
@@ -3234,14 +3360,11 @@ type:'array'
 }
 );
 
-
 const sheetName =
 workbook.SheetNames[0];
 
-
 const worksheet =
 workbook.Sheets[sheetName];
-
 
 const data =
 XLSX.utils.sheet_to_json(
@@ -3250,7 +3373,6 @@ worksheet,
 defval:''
 }
 );
-
 
 if(!data.length){
 
@@ -3262,10 +3384,8 @@ return;
 
 }
 
-
 let added = 0;
 let skipped = 0;
-
 
 for(
 const excelRow of data
@@ -3283,7 +3403,6 @@ excelRow,
 )
 );
 
-
 const importedZone =
 normalizeZone(
 getExcelValue(
@@ -3294,7 +3413,6 @@ excelRow,
 ]
 )
 );
-
 
 const fat =
 normalizeFat(
@@ -3307,7 +3425,6 @@ excelRow,
 ]
 )
 );
-
 
 const phone =
 cleanText(
@@ -3322,7 +3439,6 @@ excelRow,
 )
 );
 
-
 const requestedSlot =
 normalizeSlot(
 getExcelValue(
@@ -3336,7 +3452,6 @@ excelRow,
 )
 );
 
-
 if(
 !name ||
 !isValidZone(importedZone) ||
@@ -3349,7 +3464,6 @@ continue;
 
 }
 
-
 const currentFatRows =
 rows.filter(
 r =>
@@ -3357,17 +3471,14 @@ normalizeZone(r.zone) === importedZone &&
 Number(r.fat_number) === fat
 );
 
-
 const usedSlots =
 currentFatRows.map(
 r =>
 Number(r.slot_number)
 );
 
-
 let slot =
 requestedSlot;
-
 
 if(slot){
 
@@ -3400,7 +3511,6 @@ break;
 
 }
 
-
 if(!slot){
 
 skipped++;
@@ -3408,7 +3518,6 @@ skipped++;
 continue;
 
 }
-
 
 const {
 error
@@ -3429,7 +3538,6 @@ phone:phone || null
 
 });
 
-
 if(error){
 
 console.error(
@@ -3442,7 +3550,6 @@ skipped++;
 continue;
 
 }
-
 
 rows.push({
 
@@ -3458,19 +3565,15 @@ phone:phone || null
 
 });
 
-
 added++;
 
 }
 
-
 await loadRows();
-
 
 showToast(
 `تم الاستيراد: ${added} إضافة، ${skipped} تجاهل`
 );
-
 
 }
 catch(error){
@@ -3499,7 +3602,6 @@ section =>
 section.classList.add('hidden')
 );
 
-
 const section =
 $(sectionId);
 
@@ -3511,7 +3613,6 @@ section.classList.remove(
 
 }
 
-
 document
 .querySelectorAll('.menu-btn')
 .forEach(
@@ -3519,21 +3620,16 @@ btn =>
 btn.classList.remove('active')
 );
 
-
 const activeBtn =
 document.querySelector(
 `[data-section="${sectionId}"]`
 );
 
-
 if(activeBtn){
 
-activeBtn.classList.add(
-'active'
-);
+activeBtn.classList.add('active');
 
 }
-
 
 if(
 sectionId === 'fatsSection'
@@ -3542,7 +3638,6 @@ sectionId === 'fatsSection'
 renderFats();
 
 }
-
 
 if(
 sectionId === 'zonesSection'
@@ -3564,28 +3659,22 @@ function selectZone(newZone){
 newZone =
 normalizeZone(newZone);
 
-
 if(!isValidZone(newZone)){
 return;
 }
 
-
 zone =
 newZone;
-
 
 selectedFat =
 null;
 
-
 $('fatDetailsCard')
 .classList.add('hidden');
-
 
 showSection(
 'fatsSection'
 );
-
 
 renderFats();
 
@@ -3622,7 +3711,6 @@ select.appendChild(option);
 
 }
 
-
 fillAddSlotSelect();
 
 }
@@ -3641,11 +3729,9 @@ $('addSlot');
 select.innerHTML =
 '<option value="">تلقائي - أول فتحة متاحة</option>';
 
-
 if(!fat){
 return;
 }
-
 
 const usedSlots =
 rows
@@ -3661,7 +3747,6 @@ Number(r.fat_number) === fat
 r =>
 Number(r.slot_number)
 );
-
 
 for(
 let slot=1;
@@ -3701,7 +3786,6 @@ $('loginBtn')
 login
 );
 
-
 $('loginPassword')
 .addEventListener(
 'keydown',
@@ -3718,13 +3802,11 @@ login();
 }
 );
 
-
 $('logoutBtn')
 .addEventListener(
 'click',
 logout
 );
-
 
 $('mobileMenuBtn')
 .addEventListener(
@@ -3833,7 +3915,6 @@ return;
 
 }
 
-
 const deleteButton =
 event.target.closest(
 '[data-delete]'
@@ -3848,7 +3929,6 @@ deleteButton.dataset.delete
 return;
 
 }
-
 
 const addSlotButton =
 event.target.closest(
@@ -3911,7 +3991,6 @@ null;
 }
 );
 
-
 $('saveEditBtn')
 .addEventListener(
 'click',
@@ -3926,7 +4005,6 @@ $('searchBtn')
 'click',
 searchSubs
 );
-
 
 $('searchInput')
 .addEventListener(
@@ -3953,13 +4031,11 @@ $('downloadTemplateBtn')
 downloadTemplate
 );
 
-
 $('exportExcelBtn')
 .addEventListener(
 'click',
 exportExcel
 );
-
 
 $('excelFile')
 .addEventListener(
@@ -3990,13 +4066,11 @@ $('addSubscriberBtn')
 addSub
 );
 
-
 $('addZone')
 .addEventListener(
 'change',
 fillAddSlotSelect
 );
-
 
 $('addFat')
 .addEventListener(
@@ -4028,9 +4102,7 @@ $('app')
 .classList.add('hidden');
 
 $('loginPage')
-.classList.remove(
-'hidden'
-);
+.classList.remove('hidden');
 
 }
 
@@ -4049,7 +4121,6 @@ data
 } =
 await db.auth.getSession();
 
-
 if(
 data &&
 data.session
@@ -4066,12 +4137,9 @@ $('app')
 .classList.add('hidden');
 
 $('loginPage')
-.classList.remove(
-'hidden'
-);
+.classList.remove('hidden');
 
 }
-
 
 fillAddFatSelect();
 
