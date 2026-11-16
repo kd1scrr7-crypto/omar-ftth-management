@@ -468,7 +468,7 @@ gap:12px;
 position:relative;
 overflow:hidden;
 border:0;
-min-height:112px;
+min-height:126px;
 padding:14px 10px 12px;
 border-radius:13px;
 font-weight:bold;
@@ -535,12 +535,19 @@ background:rgba(255,255,255,.92);
 transition:width .3s;
 }
 
+.fat-status-label{
+font-size:11px;
+margin-top:8px;
+font-weight:bold;
+opacity:.96;
+}
+
 .fat-empty-count{
 display:block;
-margin-top:8px;
-font-size:11px;
+margin-top:3px;
+font-size:10px;
 font-weight:normal;
-opacity:.95;
+opacity:.9;
 }
 
 /* =========================
@@ -644,7 +651,6 @@ margin-top:15px;
 
 /* =========================
    SUBSCRIBER SLOT CARD
-   السماوي
 ========================= */
 
 .slot-card{
@@ -680,7 +686,8 @@ box-shadow:
 0 4px 12px rgba(14,165,190,.10);
 }
 
-/* فتحة المشترك الذي تم الوصول إليه من البحث */
+/* تمييز المشترك القادم من البحث */
+
 .slot-card.highlighted{
 background:linear-gradient(
 135deg,
@@ -712,7 +719,6 @@ color:#064e63;
 color:#056b82;
 }
 
-/* الفتحة الفارغة */
 .slot-card.empty{
 background:#fbfcfe;
 border-color:#dfe5ec;
@@ -1235,7 +1241,7 @@ gap:9px;
 }
 
 .fat-grid button{
-min-height:105px;
+min-height:118px;
 padding:12px 9px;
 }
 
@@ -1928,10 +1934,7 @@ const SLOTS_PER_FAT = 16;
 let rows = [];
 let zone = 'FNS0281-3';
 let selectedFat = null;
-
-/* الفتحة التي سيتم تمييزها عند الوصول من البحث */
 let highlightedSlot = null;
-
 let editingId = null;
 
 function $(id){
@@ -1958,7 +1961,8 @@ return String(value ?? '')
 
 function normalizeZone(value){
 
-let v = cleanText(value);
+let v =
+cleanText(value);
 
 if(v === 'FNS281-3'){
 v = 'FNS0281-3';
@@ -1978,7 +1982,10 @@ normalizeZone(value)
 
 function normalizeFat(value){
 
-if(value === null || value === undefined){
+if(
+value === null ||
+value === undefined
+){
 return null;
 }
 
@@ -2036,11 +2043,15 @@ return n;
 
 function showToast(message){
 
-const toast = $('toast');
+const toast =
+$('toast');
 
-toast.textContent = message;
+toast.textContent =
+message;
 
-toast.classList.add('show');
+toast.classList.add(
+'show'
+);
 
 setTimeout(()=>{
 toast.classList.remove('show');
@@ -2056,9 +2067,10 @@ return String(value ?? '')
 .replace(/\s+/g,'')
 .replace(/[ـ]/g,'')
 .replace(/_/g,'');
+
 }
 
-function getExcelValue(row, names){
+function getExcelValue(row,names){
 
 const keys =
 Object.keys(row);
@@ -2076,7 +2088,9 @@ k =>
 normalizeHeader(k) === target
 );
 
-if(key !== undefined){
+if(
+key !== undefined
+){
 return row[key];
 }
 
@@ -2096,18 +2110,19 @@ $('loginEmail').value
 const password =
 $('loginPassword').value;
 
-$('loginError').classList.add(
-'hidden'
-);
+$('loginError')
+.classList.add('hidden');
 
-if(!email || !password){
+if(
+!email ||
+!password
+){
 
 $('loginError').textContent =
 'أدخل البريد الإلكتروني وكلمة المرور';
 
-$('loginError').classList.remove(
-'hidden'
-);
+$('loginError')
+.classList.remove('hidden');
 
 return;
 
@@ -2126,9 +2141,8 @@ if(error){
 $('loginError').textContent =
 error.message;
 
-$('loginError').classList.remove(
-'hidden'
-);
+$('loginError')
+.classList.remove('hidden');
 
 return;
 
@@ -2140,9 +2154,12 @@ async function logout(){
 
 await db.auth.signOut();
 
-$('app').classList.add('hidden');
+$('app').classList.add(
+'hidden'
+);
 
-$('loginPage').classList.remove(
+$('loginPage')
+.classList.remove(
 'hidden'
 );
 
@@ -2150,13 +2167,11 @@ $('loginPage').classList.remove(
 
 function showApp(){
 
-$('loginPage').classList.add(
-'hidden'
-);
+$('loginPage')
+.classList.add('hidden');
 
-$('app').classList.remove(
-'hidden'
-);
+$('app')
+.classList.remove('hidden');
 
 }
 
@@ -2288,7 +2303,12 @@ error
 await db
 .from('subscribers')
 .select('*')
-.order('id',{ascending:true});
+.order(
+'id',
+{
+ascending:true
+}
+);
 
 if(error){
 
@@ -2303,20 +2323,28 @@ return;
 }
 
 rows =
-(data || []).map(item =>({
+(data || []).map(
+item => ({
 
 ...item,
 
 zone:
-normalizeZone(item.zone),
+normalizeZone(
+item.zone
+),
 
 fat_number:
-normalizeFat(item.fat_number),
+normalizeFat(
+item.fat_number
+),
 
 slot_number:
-normalizeSlot(item.slot_number)
+normalizeSlot(
+item.slot_number
+)
 
-}));
+})
+);
 
 updateDashboard();
 
@@ -2356,18 +2384,38 @@ Math.min(
 let buttonClass =
 'fat-empty';
 
-if(count >= SLOTS_PER_FAT){
+let statusText =
+'فارغة';
+
+if(
+count >= SLOTS_PER_FAT
+){
 
 buttonClass =
 'fat-full';
 
+statusText =
+'ممتلئة';
+
 }
-else if(count > 0){
+else if(
+count > 0
+){
 
 buttonClass =
 'fat-partial';
 
+statusText =
+'مستخدمة جزئيًا';
+
 }
+
+const availableText =
+emptySlots > 0
+?
+`${emptySlots} منافذ متاحة`
+:
+'لا توجد منافذ متاحة';
 
 html += `
 
@@ -2392,8 +2440,12 @@ style="width:${percentage}%">
 
 </span>
 
+<span class="fat-status-label">
+${statusText}
+</span>
+
 <span class="fat-empty-count">
-${emptySlots} منافذ متاحة
+${availableText}
 </span>
 
 </button>
@@ -2405,31 +2457,38 @@ ${emptySlots} منافذ متاحة
 $('fats').innerHTML =
 html;
 
-if($('currentZoneLabel')){
+if(
+$('currentZoneLabel')
+){
 
-$('currentZoneLabel').textContent =
+$('currentZoneLabel')
+.textContent =
 zone;
 
 }
 
 }
 
-function openFAT(fat, slotToHighlight = null){
+function openFAT(
+fat,
+slotToHighlight = null
+){
 
 selectedFat =
 Number(fat);
 
-/*
-عند فتح FAT بشكل طبيعي لا يوجد تمييز.
-أما عند الوصول من البحث نمرر رقم الفتحة.
-*/
 highlightedSlot =
-normalizeSlot(slotToHighlight);
+normalizeSlot(
+slotToHighlight
+);
 
 $('fatDetailsCard')
-.classList.remove('hidden');
+.classList.remove(
+'hidden'
+);
 
-$('detailsTitle').textContent =
+$('detailsTitle')
+.textContent =
 `${zone} — FAT${selectedFat}`;
 
 renderDetails();
@@ -2440,11 +2499,9 @@ behavior:'smooth',
 block:'start'
 });
 
-/*
-إذا كانت هناك فتحة قادمة من البحث،
-نضعها في منتصف الشاشة بعد ظهور التفاصيل.
-*/
-if(highlightedSlot){
+if(
+highlightedSlot
+){
 
 setTimeout(()=>{
 
@@ -2453,7 +2510,9 @@ document.querySelector(
 `.slot-card[data-slot="${highlightedSlot}"]`
 );
 
-if(highlighted){
+if(
+highlighted
+){
 
 highlighted.scrollIntoView({
 behavior:'smooth',
@@ -2470,7 +2529,9 @@ block:'center'
 
 function renderDetails(){
 
-if(!selectedFat){
+if(
+!selectedFat
+){
 return;
 }
 
@@ -2547,7 +2608,8 @@ style="width:${percentage}%">
 
 </div>
 
-<div style="
+<div
+style="
 margin-top:18px;
 font-size:13px;
 font-weight:bold;
@@ -2579,7 +2641,8 @@ String(slot).padStart(2,'0');
 if(item){
 
 const isHighlighted =
-Number(highlightedSlot) === Number(slot);
+Number(highlightedSlot) ===
+Number(slot);
 
 html += `
 
@@ -2650,6 +2713,7 @@ data-delete="${item.id}">
 `;
 
 }
+
 else{
 
 html += `
@@ -2678,7 +2742,8 @@ ${slotNumber}
 +
 </div>
 
-<div class="slot-name"
+<div
+class="slot-name"
 style="color:#9aa5b4">
 
 متاحة للإضافة
@@ -2745,7 +2810,9 @@ return;
 
 }
 
-if(!isValidZone(selectedZone)){
+if(
+!isValidZone(selectedZone)
+){
 
 showToast(
 'المنطقة غير صحيحة'
@@ -2782,7 +2849,9 @@ Number(r.slot_number)
 
 if(slot){
 
-if(usedSlots.includes(slot)){
+if(
+usedSlots.includes(slot)
+){
 
 showToast(
 'هذه الفتحة مشغولة'
@@ -2801,7 +2870,9 @@ i<=16;
 i++
 ){
 
-if(!usedSlots.includes(i)){
+if(
+!usedSlots.includes(i)
+){
 
 slot = i;
 
@@ -2861,8 +2932,11 @@ showToast(
 `تمت إضافة ${name} في FAT${fat} — الفتحة ${slot}`
 );
 
-$('addName').value = '';
-$('addPhone').value = '';
+$('addName').value =
+'';
+
+$('addPhone').value =
+'';
 
 await loadRows();
 
@@ -2896,7 +2970,8 @@ item.phone_number ||
 const select =
 $('editSlot');
 
-select.innerHTML = '';
+select.innerHTML =
+'';
 
 for(
 let slot=1;
@@ -2917,16 +2992,21 @@ if(
 Number(item.slot_number) === slot
 ){
 
-option.selected = true;
+option.selected =
+true;
 
 }
 
-select.appendChild(option);
+select.appendChild(
+option
+);
 
 }
 
 $('editModal')
-.classList.remove('hidden');
+.classList.remove(
+'hidden'
+);
 
 }
 
@@ -2964,7 +3044,8 @@ return;
 const item =
 rows.find(
 r =>
-String(r.id) === String(editingId)
+String(r.id) ===
+String(editingId)
 );
 
 if(!item){
@@ -2974,10 +3055,14 @@ return;
 const conflict =
 rows.find(
 r =>
-String(r.id) !== String(editingId) &&
-normalizeZone(r.zone) === normalizeZone(item.zone) &&
-Number(r.fat_number) === Number(item.fat_number) &&
-Number(r.slot_number) === Number(slot)
+String(r.id) !==
+String(editingId) &&
+normalizeZone(r.zone) ===
+normalizeZone(item.zone) &&
+Number(r.fat_number) ===
+Number(item.fat_number) &&
+Number(r.slot_number) ===
+Number(slot)
 );
 
 if(conflict){
@@ -2999,7 +3084,8 @@ await db
 
 subscriber_name:name,
 
-phone:phone || null,
+phone:
+phone || null,
 
 slot_number:slot
 
@@ -3022,7 +3108,9 @@ return;
 }
 
 $('editModal')
-.classList.add('hidden');
+.classList.add(
+'hidden'
+);
 
 editingId =
 null;
@@ -3033,7 +3121,9 @@ showToast(
 
 await loadRows();
 
-if(selectedFat){
+if(
+selectedFat
+){
 
 renderDetails();
 
@@ -3046,7 +3136,8 @@ async function deleteSub(id){
 const item =
 rows.find(
 r =>
-String(r.id) === String(id)
+String(r.id) ===
+String(id)
 );
 
 if(!item){
@@ -3096,7 +3187,9 @@ showToast(
 
 await loadRows();
 
-if(selectedFat){
+if(
+selectedFat
+){
 
 renderDetails();
 
@@ -3114,7 +3207,8 @@ $('searchInput').value
 
 if(!query){
 
-$('searchResults').innerHTML =
+$('searchResults')
+.innerHTML =
 '<div class="result-item">اكتب اسم المشترك أو رقم الهاتف للبحث.</div>';
 
 return;
@@ -3154,16 +3248,20 @@ z.includes(query)
 }
 );
 
-if(!results.length){
+if(
+!results.length
+){
 
-$('searchResults').innerHTML =
+$('searchResults')
+.innerHTML =
 '<div class="result-item">لا توجد نتائج.</div>';
 
 return;
 
 }
 
-$('searchResults').innerHTML =
+$('searchResults')
+.innerHTML =
 results.map(
 item => `
 
@@ -3223,7 +3321,8 @@ function openSubscriberFromSearch(id){
 const item =
 rows.find(
 r =>
-String(r.id) === String(id)
+String(r.id) ===
+String(id)
 );
 
 if(!item){
@@ -3237,13 +3336,19 @@ return;
 }
 
 const targetZone =
-normalizeZone(item.zone);
+normalizeZone(
+item.zone
+);
 
 const targetFat =
-normalizeFat(item.fat_number);
+normalizeFat(
+item.fat_number
+);
 
 const targetSlot =
-normalizeSlot(item.slot_number);
+normalizeSlot(
+item.slot_number
+);
 
 if(
 !isValidZone(targetZone) ||
@@ -3275,9 +3380,12 @@ showSection(
 renderFats();
 
 $('fatDetailsCard')
-.classList.remove('hidden');
+.classList.remove(
+'hidden'
+);
 
-$('detailsTitle').textContent =
+$('detailsTitle')
+.textContent =
 `${zone} — FAT${selectedFat}`;
 
 renderDetails();
@@ -3289,7 +3397,9 @@ document.querySelector(
 `.slot-card[data-slot="${targetSlot}"]`
 );
 
-if(highlighted){
+if(
+highlighted
+){
 
 highlighted.scrollIntoView({
 behavior:'smooth',
@@ -3312,15 +3422,20 @@ const data = [
 
 {
 
-'المشترك':'اسم المشترك',
+'المشترك':
+'اسم المشترك',
 
-'المنطقة':'FNS0281-3',
+'المنطقة':
+'FNS0281-3',
 
-'FAT':'FAT1',
+'FAT':
+'FAT1',
 
-'رقم الهاتف':'',
+'رقم الهاتف':
+'',
 
-'رقم الفتحة':''
+'رقم الفتحة':
+''
 
 }
 
@@ -3359,7 +3474,8 @@ item.name ||
 '',
 
 'المنطقة':
-item.zone || '',
+item.zone ||
+'',
 
 'FAT':
 item.fat_number
@@ -3374,7 +3490,8 @@ item.phone_number ||
 '',
 
 'رقم الفتحة':
-item.slot_number || ''
+item.slot_number ||
+''
 
 })
 );
@@ -3437,7 +3554,9 @@ defval:''
 }
 );
 
-if(!data.length){
+if(
+!data.length
+){
 
 showToast(
 'ملف Excel فارغ'
@@ -3530,8 +3649,10 @@ continue;
 const currentFatRows =
 rows.filter(
 r =>
-normalizeZone(r.zone) === importedZone &&
-Number(r.fat_number) === fat
+normalizeZone(r.zone) ===
+importedZone &&
+Number(r.fat_number) ===
+fat
 );
 
 const usedSlots =
@@ -3545,7 +3666,9 @@ requestedSlot;
 
 if(slot){
 
-if(usedSlots.includes(slot)){
+if(
+usedSlots.includes(slot)
+){
 
 skipped++;
 
@@ -3562,9 +3685,12 @@ i<=16;
 i++
 ){
 
-if(!usedSlots.includes(i)){
+if(
+!usedSlots.includes(i)
+){
 
-slot = i;
+slot =
+i;
 
 break;
 
@@ -3597,7 +3723,8 @@ fat_number:fat,
 
 slot_number:slot,
 
-phone:phone || null
+phone:
+phone || null
 
 });
 
@@ -3624,7 +3751,8 @@ fat_number:fat,
 
 slot_number:slot,
 
-phone:phone || null
+phone:
+phone || null
 
 });
 
@@ -3657,7 +3785,9 @@ document
 .querySelectorAll('.section')
 .forEach(
 section =>
-section.classList.add('hidden')
+section.classList.add(
+'hidden'
+)
 );
 
 const section =
@@ -3665,7 +3795,9 @@ $(sectionId);
 
 if(section){
 
-section.classList.remove('hidden');
+section.classList.remove(
+'hidden'
+);
 
 }
 
@@ -3673,7 +3805,9 @@ document
 .querySelectorAll('.menu-btn')
 .forEach(
 btn =>
-btn.classList.remove('active')
+btn.classList.remove(
+'active'
+)
 );
 
 const activeBtn =
@@ -3683,12 +3817,15 @@ document.querySelector(
 
 if(activeBtn){
 
-activeBtn.classList.add('active');
+activeBtn.classList.add(
+'active'
+);
 
 }
 
 if(
-sectionId === 'fatsSection'
+sectionId ===
+'fatsSection'
 ){
 
 renderFats();
@@ -3696,7 +3833,8 @@ renderFats();
 }
 
 if(
-sectionId === 'zonesSection'
+sectionId ===
+'zonesSection'
 ){
 
 renderZones();
@@ -3708,9 +3846,13 @@ renderZones();
 function selectZone(newZone){
 
 newZone =
-normalizeZone(newZone);
+normalizeZone(
+newZone
+);
 
-if(!isValidZone(newZone)){
+if(
+!isValidZone(newZone)
+){
 return;
 }
 
@@ -3724,7 +3866,9 @@ highlightedSlot =
 null;
 
 $('fatDetailsCard')
-.classList.add('hidden');
+.classList.add(
+'hidden'
+);
 
 showSection(
 'fatsSection'
@@ -3739,7 +3883,8 @@ function fillAddFatSelect(){
 const select =
 $('addFat');
 
-select.innerHTML = '';
+select.innerHTML =
+'';
 
 for(
 let n=1;
@@ -3748,7 +3893,9 @@ n++
 ){
 
 const option =
-document.createElement('option');
+document.createElement(
+'option'
+);
 
 option.value =
 n;
@@ -3756,7 +3903,9 @@ n;
 option.textContent =
 `FAT${n}`;
 
-select.appendChild(option);
+select.appendChild(
+option
+);
 
 }
 
@@ -3789,7 +3938,8 @@ normalizeZone(r.zone) ===
 normalizeZone(
 $('addZone').value
 ) &&
-Number(r.fat_number) === fat
+Number(r.fat_number) ===
+fat
 )
 .map(
 r =>
@@ -3807,7 +3957,9 @@ if(
 ){
 
 const option =
-document.createElement('option');
+document.createElement(
+'option'
+);
 
 option.value =
 slot;
@@ -3815,7 +3967,9 @@ slot;
 option.textContent =
 `الفتحة ${slot}`;
 
-select.appendChild(option);
+select.appendChild(
+option
+);
 
 }
 
@@ -3857,7 +4011,9 @@ $('mobileMenuBtn')
 ()=>{
 
 $('sidebar')
-.classList.toggle('open');
+.classList.toggle(
+'open'
+);
 
 }
 );
@@ -3876,7 +4032,9 @@ button.dataset.section
 );
 
 $('sidebar')
-.classList.remove('open');
+.classList.remove(
+'open'
+);
 
 }
 );
@@ -3928,6 +4086,7 @@ fatButton.dataset.fat
 );
 
 /* الضغط على نتيجة البحث */
+
 document.addEventListener(
 'click',
 event => {
@@ -4015,7 +4174,9 @@ $('backToFatsBtn')
 ()=>{
 
 $('fatDetailsCard')
-.classList.add('hidden');
+.classList.add(
+'hidden'
+);
 
 selectedFat =
 null;
@@ -4032,7 +4193,9 @@ $('cancelEditBtn')
 ()=>{
 
 $('editModal')
-.classList.add('hidden');
+.classList.add(
+'hidden'
+);
 
 editingId =
 null;
@@ -4134,10 +4297,14 @@ await loadRows();
 else{
 
 $('app')
-.classList.add('hidden');
+.classList.add(
+'hidden'
+);
 
 $('loginPage')
-.classList.remove('hidden');
+.classList.remove(
+'hidden'
+);
 
 }
 
@@ -4164,10 +4331,14 @@ await loadRows();
 else{
 
 $('app')
-.classList.add('hidden');
+.classList.add(
+'hidden'
+);
 
 $('loginPage')
-.classList.remove('hidden');
+.classList.remove(
+'hidden'
+);
 
 }
 
