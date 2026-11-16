@@ -427,6 +427,83 @@ opacity:.8;
 }
 
 /* =========================
+   فتحات FAT
+========================= */
+
+.slot-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+margin-top:15px;
+}
+
+.slot-card{
+background:#f8fafc;
+border:1px solid #dce4ed;
+border-radius:12px;
+padding:14px;
+min-height:105px;
+}
+
+.slot-card.used{
+background:#eef8f2;
+border-color:#9bd0af;
+}
+
+.slot-card.empty{
+background:#f8fafc;
+border-color:#dce4ed;
+}
+
+.slot-number{
+font-size:13px;
+font-weight:bold;
+color:#526274;
+margin-bottom:8px;
+}
+
+.slot-status{
+font-size:12px;
+font-weight:bold;
+margin-bottom:7px;
+}
+
+.slot-card.used .slot-status{
+color:#217a45;
+}
+
+.slot-card.empty .slot-status{
+color:#8a96a6;
+}
+
+.slot-name{
+font-weight:bold;
+color:#102d50;
+font-size:14px;
+overflow-wrap:anywhere;
+}
+
+.slot-phone{
+font-size:12px;
+color:#718096;
+margin-top:5px;
+overflow-wrap:anywhere;
+}
+
+.slot-actions{
+margin-top:8px;
+}
+
+.slot-actions button{
+padding:6px 9px;
+font-size:12px;
+margin:2px;
+border-radius:7px;
+background:#164d7d;
+color:white;
+}
+
+/* =========================
    المشتركين
 ========================= */
 
@@ -579,6 +656,16 @@ grid-template-columns:1fr;
 
 .fat-grid{
 grid-template-columns:repeat(3,1fr);
+}
+
+.slot-grid{
+grid-template-columns:repeat(2,1fr);
+gap:9px;
+}
+
+.slot-card{
+padding:11px;
+min-height:95px;
 }
 
 .import-buttons{
@@ -1701,9 +1788,6 @@ $('details')
 'hidden'
 );
 
-$('fatTitle').textContent=
-`${zone} — FAT${fat}`;
-
 $('subName').value='';
 
 $('subPhone').value='';
@@ -1719,7 +1803,7 @@ block:'start'
 
 
 /* =========================
-   تفاصيل FAT
+   تفاصيل FAT والفتحات 1-16
 ========================= */
 
 function renderDetails(){
@@ -1743,7 +1827,21 @@ Number(item.fat_number)===fat
 
 );
 
-let html='';
+const usedCount=list.length;
+
+$('fatTitle').textContent=
+`${zone} — FAT${fat} — ${usedCount}/16 مستخدم`;
+
+let html=`
+
+<div class="muted" style="margin-bottom:12px;">
+الفتحات المستخدمة:
+<b>${usedCount}</b>
+من أصل 16
+</div>
+
+<div class="slot-grid">
+`;
 
 for(let i=1;i<=16;i++){
 
@@ -1754,51 +1852,52 @@ Number(item.slot_number)===i
 
 );
 
-html+=`
-
-<div class="sub">
-
-<b>
-الفتحة ${i}:
-</b>
-
-`;
-
 if(subscriber){
 
 html+=`
 
-<br>
+<div class="slot-card used">
 
+<div class="slot-number">
+الفتحة ${i}
+</div>
+
+<div class="slot-status">
+🟢 مشغولة
+</div>
+
+<div class="slot-name">
 ${esc(
 subscriber.subscriber_name
 )}
+</div>
 
-<br>
-
-${subscriber.phone
+<div class="slot-phone">
+${
+subscriber.phone
 ?
 esc(subscriber.phone)
 :
-'<span class="muted">لا يوجد رقم هاتف</span>'
+'لا يوجد رقم هاتف'
 }
+</div>
 
-<br>
+<div class="slot-actions">
 
 <button
 data-edit="${subscriber.id}">
-
 تعديل
-
 </button>
 
 <button
 class="danger"
 data-delete="${subscriber.id}">
-
 حذف
-
 </button>
+
+</div>
+
+</div>
 
 `;
 
@@ -1806,13 +1905,25 @@ data-delete="${subscriber.id}">
 
 html+=`
 
-<br>
+<div class="slot-card empty">
 
-<span class="muted">
-فارغة
-</span>
+<div class="slot-number">
+الفتحة ${i}
+</div>
+
+<div class="slot-status">
+⚪ فارغة
+</div>
+
+<div class="slot-name muted">
+متاحة للإضافة
+</div>
+
+</div>
 
 `;
+
+}
 
 }
 
@@ -1820,8 +1931,6 @@ html+=`
 
 </div>
 `;
-
-}
 
 $('subscribers').innerHTML=html;
 
