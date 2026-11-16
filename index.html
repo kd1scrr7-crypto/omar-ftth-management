@@ -675,15 +675,29 @@ transform:translateY(-2px);
 box-shadow:0 7px 18px #0000000b;
 }
 
+/* اللون الكلاسيكي الجديد للمشترك */
+
 .slot-card.used{
 background:linear-gradient(
 135deg,
-#e8faff,
-#c9f1fb
+#eef4f8,
+#d9e6ee
 );
-border-color:#8ed8ea;
+border-color:#9fb6c5;
 box-shadow:
-0 4px 12px rgba(14,165,190,.10);
+0 4px 14px rgba(42,67,84,.10);
+}
+
+.slot-card.used:hover{
+background:linear-gradient(
+135deg,
+#e4eef4,
+#cbdde7
+);
+border-color:#7896a8;
+box-shadow:
+0 7px 18px rgba(42,67,84,.15);
+transform:translateY(-2px);
 }
 
 /* تمييز المشترك القادم من البحث */
@@ -751,8 +765,8 @@ font-weight:bold;
 }
 
 .slot-card.used .slot-number-badge{
-background:#b7eaf5;
-color:#08657a;
+background:#496b7d;
+color:#fff;
 }
 
 .slot-card.empty .slot-number-badge{
@@ -772,7 +786,7 @@ font-weight:bold;
 }
 
 .slot-card.used .slot-status{
-color:#07809a;
+color:#607887;
 }
 
 .slot-card.empty .slot-status{
@@ -788,7 +802,7 @@ font-size:9px;
 font-size:13px;
 font-weight:bold;
 margin-top:9px;
-color:#075985;
+color:#263b49;
 white-space:nowrap;
 overflow:hidden;
 text-overflow:ellipsis;
@@ -796,7 +810,7 @@ text-overflow:ellipsis;
 
 .slot-phone{
 font-size:11px;
-color:#397383;
+color:#607887;
 margin-top:5px;
 direction:ltr;
 text-align:right;
@@ -3260,8 +3274,7 @@ return;
 
 }
 
-$('searchResults')
-.innerHTML =
+$('searchResults').innerHTML =
 results.map(
 item => `
 
