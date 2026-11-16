@@ -448,8 +448,53 @@ background:#a83232;
 }
 
 .fat-grid small{
-opacity:.9;
+opacity:.95;
 font-size:12px;
+}
+
+.fat-empty-count{
+display:block;
+margin-top:5px;
+font-size:11px;
+font-weight:normal;
+}
+
+.fat-legend{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-bottom:15px;
+}
+
+.fat-legend-item{
+display:flex;
+align-items:center;
+gap:6px;
+padding:7px 10px;
+border-radius:8px;
+background:#f8fafc;
+border:1px solid #e1e7ef;
+font-size:12px;
+color:#526274;
+}
+
+.fat-legend-color{
+width:12px;
+height:12px;
+border-radius:50%;
+display:inline-block;
+}
+
+.fat-legend-empty{
+background:#217a45;
+}
+
+.fat-legend-partial{
+background:#b7791f;
+}
+
+.fat-legend-full{
+background:#a83232;
 }
 
 /* =========================
@@ -682,6 +727,15 @@ grid-template-columns:1fr;
 
 .fat-grid{
 grid-template-columns:repeat(3,1fr);
+}
+
+.fat-legend{
+gap:6px;
+}
+
+.fat-legend-item{
+font-size:11px;
+padding:6px 8px;
 }
 
 .slot-grid{
@@ -1139,6 +1193,46 @@ FNS0281-3
 </span>
 
 </div>
+
+
+<!-- دليل ألوان FAT -->
+
+<div class="fat-legend">
+
+<div class="fat-legend-item">
+
+<span
+class="fat-legend-color fat-legend-empty">
+</span>
+
+🟢 فارغة
+
+</div>
+
+
+<div class="fat-legend-item">
+
+<span
+class="fat-legend-color fat-legend-partial">
+</span>
+
+🟡 مستخدمة جزئيًا
+
+</div>
+
+
+<div class="fat-legend-item">
+
+<span
+class="fat-legend-color fat-legend-full">
+</span>
+
+🔴 ممتلئة
+
+</div>
+
+</div>
+
 
 <div
 class="fat-grid"
@@ -1826,9 +1920,16 @@ Number(item.fat_number)===n
 ).length;
 
 
-/*
-   تحديد حالة FAT
-*/
+/* عدد الفتحات الفارغة */
+
+const emptySlots=
+Math.max(
+0,
+16-count
+);
+
+
+/* تحديد حالة FAT */
 
 let buttonClass='fat-empty';
 
@@ -1856,6 +1957,10 @@ FAT${n}
 <small>
 ${count}/16
 </small>
+
+<span class="fat-empty-count">
+${emptySlots} فارغة
+</span>
 
 </button>
 
