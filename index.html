@@ -7,23 +7,27 @@
 <title>إدارة مشتركين الوكيل عمر لازم</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#f1f4f8;font-family:Arial,sans-serif;color:#17243a}
-header{background:#102d50;color:white;padding:25px 12px;text-align:center}
-header h2{margin:0 0 10px;font-size:22px}
+body{margin:0;background:#f1f4f8;font-family:Arial;color:#17243a}
+header{background:#102d50;color:white;padding:24px 12px;text-align:center}
+header h2{margin:0 0 10px}
 header p{margin:0;color:#d3e3f5}
 main{padding:14px;max-width:850px;margin:auto}
 .card{background:white;border-radius:14px;padding:16px;margin:14px 0;box-shadow:0 2px 9px #00000010}
 button,input,select{font:inherit;border-radius:9px;padding:12px;border:1px solid #d5dce5}
 button{background:#164d7d;color:white;border:0;cursor:pointer}
+button:disabled{opacity:.5}
 input,select{width:100%;margin:6px 0;background:white}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-.grid button{padding:17px 5px;font-weight:bold}
+.grid button{padding:15px 4px;font-weight:bold}
 .sub{border-bottom:1px solid #eee;padding:12px 0;overflow-wrap:anywhere}
-.sub button{padding:7px 10px;margin:3px}
+.sub button{padding:7px 10px;margin:4px}
 .muted{color:#718096;font-size:13px}
 .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .stat{background:#eaf2fa;padding:13px;border-radius:10px;text-align:center}
 .stat strong{display:block;font-size:22px;color:#164d7d}
+.hidden{display:none}
+.danger{background:#a83232}
+#status{padding:10px;overflow-wrap:anywhere}
 </style>
 </head>
 <body>
@@ -35,8 +39,21 @@ input,select{width:100%;margin:6px 0;background:white}
 
 <main>
 
+<div class="card" id="loginCard">
+<h3>تسجيل الدخول</h3>
+<input id="email" type="email" placeholder="البريد الإلكتروني">
+<input id="password" type="password" placeholder="كلمة المرور">
+<button id="loginBtn">دخول إلى البرنامج</button>
+<p id="loginMessage" class="muted"></p>
+</div>
+
+<div id="app" class="hidden">
+
 <div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
 <h3>لوحة الإدارة</h3>
+<button id="logoutBtn" class="danger">خروج</button>
+</div>
 <div class="stats">
 <div class="stat"><strong>2</strong>المناطق</div>
 <div class="stat"><strong>90</strong>FAT</div>
@@ -47,15 +64,15 @@ input,select{width:100%;margin:6px 0;background:white}
 
 <div class="card">
 <h3>اختر المنطقة</h3>
-<select id="zone" onchange="showFATs()">
-<option value="FNS281-3">FNS281-3</option>
-<option value="FNS284-3">FNS284-3</option>
+<select id="zone">
+<option>FNS281-3</option>
+<option>FNS284-3</option>
 </select>
 </div>
 
 <div class="card">
 <h3>البحث عن مشترك</h3>
-<input id="search" placeholder="اسم المشترك أو رقم الهاتف" oninput="searchSubs()">
+<input id="search" placeholder="اسم المشترك أو رقم الهاتف">
 <div id="results"></div>
 </div>
 
@@ -64,168 +81,265 @@ input,select{width:100%;margin:6px 0;background:white}
 <div class="grid" id="fats"></div>
 </div>
 
-<div class="card" id="details" style="display:none">
+<div class="card hidden" id="details">
 <h3 id="fatTitle"></h3>
 <div id="subscribers"></div>
 <h3>إضافة مشترك</h3>
 <input id="subName" placeholder="اسم المشترك">
-<input id="subPhone" placeholder="رقم الهاتف" type="tel">
-<button onclick="addSub()">حفظ المشترك</button>
+<input id="subPhone" type="tel" placeholder="رقم الهاتف">
+<button id="addBtn">حفظ المشترك</button>
 </div>
 
-<p class="muted" style="text-align:center">
-شركة الوطني للكيبل الضوئي FTTH
-</p>
+</div>
 
+<div id="status" class="muted"></div>
+<p class="muted" style="text-align:center">شركة الوطني للكيبل الضوئي FTTH</p>
 </main>
 
-<script>
-let data=JSON.parse(localStorage.getItem('ftthData')||'{}');
-let currentFAT=1;
-let currentZone='FNS281-3';
+<script type="module">
+import { createClient } from
+'https://esm.sh/@supabase/supabase-js@2';
 
-function save(){
- localStorage.setItem('ftthData',JSON.stringify(data));
+const db=createClient(
+'https://igiqayqztxcubhnaowmq.supabase.co',
+'sb_publishable_Ukwzfz-clPz-Q56yvdaBPQ_8KAaur4s'
+);
+
+const $=id=>document.getElementById(id);
+
+let rows=[];
+let zone='FNS281-3';
+let fat=1;
+
+function status(t){$('status').textContent=t;}
+
+function esc(s){
+return String(s??'').replace(/[&<>"']/g,c=>({
+'&':'&amp;','<':'&lt;','>':'&gt;',
+'"':'&quot;',"'":'&#39;'
+})[c]);
 }
 
-function key(){
- return currentZone+'-FAT'+currentFAT;
+async function login(){
+const email=$('email').value.trim();
+const password=$('password').value;
+
+if(!email||!password){
+$('loginMessage').textContent='اكتب البريد وكلمة المرور';
+return;
 }
 
-function escapeHTML(s){
- return String(s).replace(/[&<>"']/g,c=>({
- '&':'&amp;',
- '<':'&lt;',
- '>':'&gt;',
- '"':'&quot;',
- "'":'&#39;'
- })[c]);
+$('loginBtn').disabled=true;
+$('loginMessage').textContent='جارٍ الدخول...';
+
+const {error}=await db.auth.signInWithPassword({
+email,password
+});
+
+$('loginBtn').disabled=false;
+
+if(error){
+$('loginMessage').textContent='تعذر الدخول: '+error.message;
+return;
 }
 
-function showFATs(){
- currentZone=document.getElementById('zone').value;
- document.getElementById('details').style.display='none';
- let html='';
- for(let i=1;i<=45;i++){
- html+=`<button onclick="openFAT(${i})">FAT${i}</button>`;
- }
- document.getElementById('fats').innerHTML=html;
+$('password').value='';
+}
+
+async function logout(){
+await db.auth.signOut();
+}
+
+function showApp(on){
+$('loginCard').classList.toggle('hidden',on);
+$('app').classList.toggle('hidden',!on);
+}
+
+async function loadRows(){
+status('جارٍ تحميل المشتركين...');
+
+const {data,error}=await db.from('subscribers')
+.select('*')
+.order('fat_number')
+.order('slot_number');
+
+if(error){
+status('خطأ في تحميل البيانات: '+error.message);
+return;
+}
+
+rows=data||[];
+renderFats();
+renderDetails();
+searchSubs();
+status('تم تحميل البيانات السحابية بنجاح');
+}
+
+function renderFats(){
+let html='';
+for(let n=1;n<=45;n++){
+const count=rows.filter(x=>
+x.zone===zone&&x.fat_number===n).length;
+html+=`<button data-fat="${n}">
+FAT${n}<br><small>${count}/16</small></button>`;
+}
+$('fats').innerHTML=html;
 }
 
 function openFAT(n){
- currentFAT=n;
- document.getElementById('details').style.display='block';
- document.getElementById('fatTitle').textContent=
- currentZone+' — FAT'+n;
- document.getElementById('subName').value='';
- document.getElementById('subPhone').value='';
- showSubs();
- document.getElementById('details').scrollIntoView({behavior:'smooth'});
+fat=n;
+$('details').classList.remove('hidden');
+$('fatTitle').textContent=zone+' — FAT'+fat;
+$('subName').value='';
+$('subPhone').value='';
+renderDetails();
+$('details').scrollIntoView({behavior:'smooth'});
 }
 
-function showSubs(){
- let arr=data[key()]||[];
- let html='';
- for(let i=0;i<16;i++){
- let s=arr[i];
- html+=`<div class="sub"><b>المشترك ${i+1}:</b> `;
- if(s){
- html+=`${escapeHTML(s.name)} — ${escapeHTML(s.phone)}
- <button onclick="editSub(${i})">تعديل</button>
- <button onclick="deleteSub(${i})">حذف</button>`;
- }else{
- html+='<span class="muted">فارغ</span>';
- }
- html+='</div>';
- }
- document.getElementById('subscribers').innerHTML=html;
+function renderDetails(){
+if($('details').classList.contains('hidden'))return;
+
+const list=rows.filter(x=>
+x.zone===zone&&x.fat_number===fat);
+
+let html='';
+for(let i=1;i<=16;i++){
+const s=list.find(x=>x.slot_number===i);
+html+=`<div class="sub"><b>المشترك ${i}:</b>`;
+
+if(s){
+html+=`<br>${esc(s.subscriber_name)}
+<br>${esc(s.phone)}
+<br><button data-edit="${s.id}">تعديل</button>
+<button class="danger" data-delete="${s.id}">حذف</button>`;
+}else{
+html+='<br><span class="muted">فارغ</span>';
+}
+html+='</div>';
+}
+$('subscribers').innerHTML=html;
 }
 
-function addSub(){
- let name=document.getElementById('subName').value.trim();
- let phone=document.getElementById('subPhone').value.trim();
+async function addSub(){
+const name=$('subName').value.trim();
+const phone=$('subPhone').value.trim();
 
- if(!name){
- alert('يرجى كتابة اسم المشترك');
- return;
- }
+if(!name){alert('يرجى كتابة اسم المشترك');return;}
 
- let arr=data[key()]||[];
- let index=arr.findIndex(x=>!x);
+const list=rows.filter(x=>
+x.zone===zone&&x.fat_number===fat);
 
- if(index===-1){
- alert('هذا FAT ممتلئ، الحد 16 مشتركاً');
- return;
- }
-
- arr[index]={name,phone};
- data[key()]=arr;
- save();
- showSubs();
-
- document.getElementById('subName').value='';
- document.getElementById('subPhone').value='';
-
- alert('تم حفظ المشترك بنجاح');
+let slot=0;
+for(let i=1;i<=16;i++){
+if(!list.some(x=>x.slot_number===i)){
+slot=i;break;
+}
 }
 
-function editSub(i){
- let arr=data[key()];
- let name=prompt('تعديل الاسم',arr[i].name);
- if(name===null)return;
+if(!slot){alert('هذا FAT ممتلئ');return;}
 
- let phone=prompt('تعديل الهاتف',arr[i].phone);
- if(phone===null)return;
+$('addBtn').disabled=true;
 
- if(!name.trim()){
- alert('الاسم لا يمكن أن يكون فارغاً');
- return;
- }
+const {error}=await db.from('subscribers').insert({
+zone:zone,
+fat_number:fat,
+slot_number:slot,
+subscriber_name:name,
+phone:phone
+});
 
- arr[i]={name:name.trim(),phone:phone.trim()};
- save();
- showSubs();
+$('addBtn').disabled=false;
+
+if(error){
+alert('تعذر الحفظ: '+error.message);
+return;
 }
 
-function deleteSub(i){
- if(!confirm('هل تريد حذف هذا المشترك؟'))return;
- data[key()][i]=null;
- save();
- showSubs();
+$('subName').value='';
+$('subPhone').value='';
+await loadRows();
+alert('تم حفظ المشترك بنجاح');
+}
+
+async function editSub(id){
+const s=rows.find(x=>String(x.id)===String(id));
+if(!s)return;
+
+const name=prompt('اسم المشترك',s.subscriber_name);
+if(name===null)return;
+if(!name.trim()){alert('الاسم مطلوب');return;}
+
+const phone=prompt('رقم الهاتف',s.phone||'');
+if(phone===null)return;
+
+const {error}=await db.from('subscribers')
+.update({
+subscriber_name:name.trim(),
+phone:phone.trim()
+}).eq('id',id);
+
+if(error){alert('خطأ: '+error.message);return;}
+await loadRows();
+}
+
+async function deleteSub(id){
+if(!confirm('هل تريد حذف المشترك؟'))return;
+
+const {error}=await db.from('subscribers')
+.delete().eq('id',id);
+
+if(error){alert('خطأ: '+error.message);return;}
+await loadRows();
 }
 
 function searchSubs(){
- let q=document.getElementById('search').value.trim().toLowerCase();
- let out='';
+const q=$('search').value.trim().toLowerCase();
+if(!q){$('results').innerHTML='';return;}
 
- if(!q){
- document.getElementById('results').innerHTML='';
- return;
- }
+const found=rows.filter(s=>
+(s.subscriber_name||'').toLowerCase().includes(q)||
+(s.phone||'').toLowerCase().includes(q));
 
- Object.keys(data).forEach(k=>{
- (data[k]||[]).forEach((s,i)=>{
- if(s && (
- s.name.toLowerCase().includes(q) ||
- s.phone.includes(q)
- )){
- let parts=k.split('-FAT');
- out+=`<div class="sub">
- <b>${escapeHTML(s.name)}</b>
- <br>${escapeHTML(s.phone)}
- <p class="muted">
- ${parts[0]} — FAT${parts[1]} — المشترك ${i+1}
- </p></div>`;
- }
- });
- });
-
- document.getElementById('results').innerHTML=
- out||'<p class="muted">لا توجد نتائج</p>';
+$('results').innerHTML=found.length?found.map(s=>`
+<div class="sub">
+<b>${esc(s.subscriber_name)}</b>
+<br>${esc(s.phone)}
+<p class="muted">${esc(s.zone)} — FAT${s.fat_number}
+— المشترك ${s.slot_number}</p>
+</div>`).join(''):'<p>لا توجد نتائج</p>';
 }
 
-showFATs();
-</script>
+$('loginBtn').addEventListener('click',login);
+$('logoutBtn').addEventListener('click',logout);
+$('addBtn').addEventListener('click',addSub);
+$('zone').addEventListener('change',()=>{
+zone=$('zone').value;
+$('details').classList.add('hidden');
+renderFats();
+});
+$('search').addEventListener('input',searchSubs);
 
+$('fats').addEventListener('click',e=>{
+const b=e.target.closest('[data-fat]');
+if(b)openFAT(Number(b.dataset.fat));
+});
+
+$('subscribers').addEventListener('click',e=>{
+const edit=e.target.closest('[data-edit]');
+const del=e.target.closest('[data-delete]');
+if(edit)editSub(edit.dataset.edit);
+if(del)deleteSub(del.dataset.delete);
+});
+
+db.auth.onAuthStateChange((_event,session)=>{
+showApp(!!session);
+if(session)loadRows();
+});
+
+const {data:{session}}=await db.auth.getSession();
+showApp(!!session);
+if(session)await loadRows();
+
+</script>
 </body>
 </html>
