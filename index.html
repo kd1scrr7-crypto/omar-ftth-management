@@ -1294,6 +1294,66 @@ grid-template-columns:1fr;
 
 }
 
+
+/* ================================
+   تعديل شكل مربعات الفتحات والمشتركين
+   ================================ */
+
+.slot-card {
+    background: #ffffff !important;
+    border: 2px solid #22a447 !important;
+    color: #000000 !important;
+    border-radius: 12px;
+    box-shadow: none;
+}
+
+/* اسم المشترك */
+.slot-card .slot-name {
+    color: #000000 !important;
+    font-weight: 700;
+}
+
+/* رقم الفتحة */
+.slot-card .slot-number {
+    color: #000000 !important;
+    font-weight: 700;
+}
+
+/* رقم الفتحة داخل المربع */
+.slot-card .slot-number-badge {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #22a447 !important;
+}
+
+/* حالة الفتحة */
+.slot-card .slot-status {
+    color: #000000 !important;
+}
+
+/* رقم الهاتف */
+.slot-card .slot-phone {
+    color: #000000 !important;
+}
+
+/* الفتحات الفارغة أيضاً */
+.slot-card.empty {
+    background: #ffffff !important;
+    border: 2px solid #22a447 !important;
+    color: #000000 !important;
+}
+
+/* كلمة متاحة للإضافة */
+.slot-card.empty .slot-name {
+    color: #000000 !important;
+}
+
+/* عند تمرير الماوس */
+.slot-card:hover {
+    border-color: #168b39 !important;
+    box-shadow: 0 4px 12px rgba(34, 164, 71, 0.15);
+}
+
 </style>
 
 </head>
