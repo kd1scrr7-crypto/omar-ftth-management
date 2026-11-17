@@ -675,29 +675,25 @@ transform:translateY(-2px);
 box-shadow:0 7px 18px #0000000b;
 }
 
-/* اللون الكلاسيكي الجديد للمشترك */
-
 .slot-card.used{
 background:linear-gradient(
 135deg,
-#eef4f8,
-#d9e6ee
+#fffdf8,
+#f4efe4
 );
-border-color:#9fb6c5;
+border-color:#d8c9aa;
 box-shadow:
-0 4px 14px rgba(42,67,84,.10);
+0 4px 14px rgba(89,73,45,.10);
 }
 
-.slot-card.used:hover{
-background:linear-gradient(
-135deg,
-#e4eef4,
-#cbdde7
-);
-border-color:#7896a8;
-box-shadow:
-0 7px 18px rgba(42,67,84,.15);
-transform:translateY(-2px);
+.slot-card.used::before{
+content:"";
+position:absolute;
+top:0;
+right:0;
+width:4px;
+height:100%;
+background:#b08d57;
 }
 
 /* تمييز المشترك القادم من البحث */
@@ -765,8 +761,8 @@ font-weight:bold;
 }
 
 .slot-card.used .slot-number-badge{
-background:#496b7d;
-color:#fff;
+background:#efe5d0;
+color:#6d5835;
 }
 
 .slot-card.empty .slot-number-badge{
@@ -786,7 +782,7 @@ font-weight:bold;
 }
 
 .slot-card.used .slot-status{
-color:#607887;
+color:#8a6a35;
 }
 
 .slot-card.empty .slot-status{
@@ -802,7 +798,7 @@ font-size:9px;
 font-size:13px;
 font-weight:bold;
 margin-top:9px;
-color:#263b49;
+color:#2f3e52;
 white-space:nowrap;
 overflow:hidden;
 text-overflow:ellipsis;
@@ -810,7 +806,7 @@ text-overflow:ellipsis;
 
 .slot-phone{
 font-size:11px;
-color:#607887;
+color:#6b7280;
 margin-top:5px;
 direction:ltr;
 text-align:right;
@@ -1056,7 +1052,7 @@ border-bottom:0;
 
 .excel-grid{
 display:grid;
-grid-template-columns:repeat(3,1fr);
+grid-template-columns:repeat(4,1fr);
 gap:14px;
 }
 
@@ -1159,7 +1155,7 @@ grid-template-columns:repeat(3,1fr);
 }
 
 .excel-grid{
-grid-template-columns:1fr;
+grid-template-columns:repeat(2,1fr);
 }
 
 }
@@ -1284,6 +1280,10 @@ grid-template-columns:1fr;
 
 .search-box{
 flex-direction:column;
+}
+
+.excel-grid{
+grid-template-columns:1fr;
 }
 
 }
@@ -1741,6 +1741,24 @@ class="primary-btn">
 id="downloadTemplateBtn"
 class="secondary-btn">
 تحميل النموذج
+</button>
+
+</div>
+
+<div class="excel-box">
+
+<h4>
+مزامنة FTTH
+</h4>
+
+<p>
+سحب المشتركين من نظام FTTH وتقسيمهم تلقائيًا حسب المنطقة و FAT.
+</p>
+
+<button
+id="syncFtthBtn"
+class="primary-btn">
+🔄 مزامنة FTTH
 </button>
 
 </div>
@@ -3792,6 +3810,18 @@ showToast(
 
 }
 
+/* =========================
+   FTTH SYNC - مؤقت
+========================= */
+
+function startFtthSync(){
+
+showToast(
+'مزامنة FTTH ستتم برمجتها وربطها بالنظام لاحقًا'
+);
+
+}
+
 function showSection(sectionId){
 
 document
@@ -4292,6 +4322,14 @@ $('addFat')
 .addEventListener(
 'change',
 fillAddSlotSelect
+);
+
+/* زر مزامنة FTTH */
+
+$('syncFtthBtn')
+.addEventListener(
+'click',
+startFtthSync
 );
 
 db.auth.onAuthStateChange(
