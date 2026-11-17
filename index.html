@@ -922,10 +922,16 @@ border-radius:9px;
 font-weight:bold;
 font-size:13px;
 min-height:40px;
+transition:.2s;
 }
 
 .primary-btn:hover{
 background:#12588f;
+}
+
+.primary-btn:disabled{
+opacity:.65;
+cursor:not-allowed;
 }
 
 .secondary-btn{
@@ -3811,14 +3817,99 @@ showToast(
 }
 
 /* =========================
-   FTTH SYNC - مؤقت
+   FTTH SYNC
+   آمن - بدون أسرار FTTH
 ========================= */
 
-function startFtthSync(){
+async function startFtthSync(){
+
+const btn =
+$('syncFtthBtn');
+
+if(!btn){
+return;
+}
+
+/*
+  منع الضغط المتكرر أثناء المزامنة
+*/
+
+if(btn.disabled){
+return;
+}
+
+const oldText =
+btn.innerHTML;
+
+btn.disabled =
+true;
+
+btn.innerHTML =
+'⏳ جاري تجهيز المزامنة...';
+
+try{
+
+/*
+  مهم جدًا:
+
+  لا نضع هنا:
+  - كلمة مرور FTTH
+  - Authorization Token
+  - Cookie
+  - بيانات تسجيل الدخول
+
+  الاتصال الحقيقي مع FTTH سيتم لاحقًا
+  من خلال Supabase Edge Function.
+
+  عند ربط Edge Function سيكون المسار:
+
+  GitHub Page
+       ↓
+  Supabase Edge Function
+       ↓
+  FTTH API
+       ↓
+  المشترك + المنطقة + FAT
+       ↓
+  Supabase
+       ↓
+  هذه الصفحة
+*/
+
+await new Promise(
+resolve =>
+setTimeout(
+resolve,
+700
+)
+);
 
 showToast(
-'مزامنة FTTH ستتم برمجتها وربطها بالنظام لاحقًا'
+'زر مزامنة FTTH جاهز. سيتم ربطه بالاتصال الآمن لاحقًا.'
 );
+
+}
+catch(error){
+
+console.error(
+'FTTH Sync Error:',
+error
+);
+
+showToast(
+'حدث خطأ أثناء تجهيز مزامنة FTTH'
+);
+
+}
+finally{
+
+btn.disabled =
+false;
+
+btn.innerHTML =
+oldText;
+
+}
 
 }
 
@@ -4324,7 +4415,9 @@ $('addFat')
 fillAddSlotSelect
 );
 
-/* زر مزامنة FTTH */
+/* =========================
+   زر مزامنة FTTH
+========================= */
 
 $('syncFtthBtn')
 .addEventListener(
