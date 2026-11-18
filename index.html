@@ -2269,6 +2269,131 @@ hr{
 }
 </style>
 
+
+<style>
+/* ===== البحث داخل إجمالي المشتركين ===== */
+.total-subs-card{
+  cursor:pointer;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.total-subs-card:hover{
+  transform:translateY(-2px);
+}
+.all-subscribers-card{
+  overflow:hidden;
+}
+.all-subscribers-header{
+  align-items:center;
+}
+.all-subscribers-subtitle{
+  margin-top:5px;
+  font-size:13px;
+  opacity:.7;
+}
+.all-subscribers-count{
+  font-weight:700;
+  white-space:nowrap;
+}
+.all-subscribers-search{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:18px 0 8px;
+  padding:11px 14px;
+  border:1px solid rgba(0,0,0,.12);
+  border-radius:14px;
+  background:#fff;
+  box-shadow:0 5px 18px rgba(0,0,0,.06);
+}
+.all-search-icon{
+  font-size:23px;
+  line-height:1;
+  opacity:.65;
+}
+#allSubscribersSearch{
+  flex:1;
+  min-width:0;
+  border:0;
+  outline:0;
+  background:transparent;
+  font-size:15px;
+  color:#111;
+}
+#allSubscribersSearch::placeholder{
+  color:#888;
+}
+.all-search-clear{
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  font-weight:600;
+  padding:6px 8px;
+}
+.all-subscribers-hint{
+  font-size:12px;
+  opacity:.65;
+  margin:0 4px 14px;
+}
+.all-subscribers-results{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  max-height:62vh;
+  overflow:auto;
+  padding:2px 2px 5px;
+}
+.all-subscriber-item{
+  display:grid;
+  grid-template-columns:minmax(180px,1.7fr) repeat(4,minmax(90px,1fr));
+  gap:10px;
+  align-items:center;
+  padding:13px 14px;
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:12px;
+  background:#fff;
+  transition:box-shadow .15s ease, transform .15s ease;
+}
+.all-subscriber-item:hover{
+  transform:translateY(-1px);
+  box-shadow:0 5px 16px rgba(0,0,0,.07);
+}
+.all-subscriber-name{
+  font-weight:700;
+  color:#111;
+}
+.all-subscriber-field{
+  font-size:13px;
+  color:#333;
+}
+.all-subscriber-label{
+  display:block;
+  font-size:10px;
+  opacity:.55;
+  margin-bottom:3px;
+}
+.all-subs-empty{
+  text-align:center;
+  padding:30px 15px;
+  opacity:.65;
+}
+@media(max-width:900px){
+  .all-subscriber-item{
+    grid-template-columns:1fr 1fr;
+  }
+  .all-subscriber-name{
+    grid-column:1/-1;
+  }
+}
+@media(max-width:560px){
+  .all-subscriber-item{
+    grid-template-columns:1fr;
+  }
+  .all-subscriber-name{
+    grid-column:auto;
+  }
+}
+</style>
+
 </head>
 
 <body>
@@ -2441,7 +2566,7 @@ class="section">
 
 <div class="stats">
 
-<div class="stat-card">
+<div id="totalSubscribersCard" class="stat-card total-subs-card" title="عرض جميع المشتركين">
 
 <div class="stat-label">
 إجمالي المشتركين
@@ -2514,6 +2639,47 @@ class="stat-value">
 </div>
 
 </div>
+
+<section id="allSubscribersSection" class="section hidden">
+
+<div class="card all-subscribers-card">
+
+<div class="card-title all-subscribers-header">
+
+<div>
+<h3>جميع المشتركين</h3>
+<div class="all-subscribers-subtitle">جميع المشتركين في المنطقتين</div>
+</div>
+
+<span id="allSubscribersCount" class="all-subscribers-count">0 مشترك</span>
+
+</div>
+
+<div class="all-subscribers-search">
+
+<div class="all-search-icon">⌕</div>
+
+<input
+id="allSubscribersSearch"
+type="text"
+autocomplete="off"
+placeholder="ابحث باسم المشترك، رقم الهاتف، المنطقة، FAT أو PORT...">
+
+<button id="clearAllSubscribersSearch" type="button" class="all-search-clear">
+مسح
+</button>
+
+</div>
+
+<div class="all-subscribers-hint">
+يمكنك البحث بأي جزء من اسم المشترك أو الهاتف أو المنطقة أو رقم FAT أو رقم PORT.
+</div>
+
+<div id="allSubscribersResults" class="all-subscribers-results"></div>
+
+</div>
+
+</section>
 
 <div class="card">
 
@@ -2840,7 +3006,7 @@ FAT
 <div class="form-field">
 
 <label>
-منفذ PORT
+رقم الفتحة
 </label>
 
 <select id="addSlot">
@@ -2915,7 +3081,7 @@ type="text">
 <div class="form-group">
 
 <label>
-منفذ PORT
+رقم الفتحة
 </label>
 
 <select id="editSlot">
@@ -3693,7 +3859,7 @@ data-slot="${slot}">
 <div class="slot-top">
 
 <div class="slot-number">
-منفذ PORT${slot}
+الفتحة ${slot}
 </div>
 
 <div class="slot-number-badge">
@@ -3765,7 +3931,7 @@ data-slot="${slot}">
 <div class="slot-top">
 
 <div class="slot-number">
-منفذ PORT${slot}
+الفتحة ${slot}
 </div>
 
 <div class="slot-number-badge">
@@ -3969,7 +4135,7 @@ return;
 }
 
 showToast(
-`تمت إضافة ${name} في FAT${fat} — منفذ PORT${slot}`
+`تمت إضافة ${name} في FAT${fat} — الفتحة ${slot}`
 );
 
 $('addName').value =
@@ -4026,7 +4192,7 @@ option.value =
 slot;
 
 option.textContent =
-`منفذ PORT${slot}`;
+`الفتحة ${slot}`;
 
 if(
 Number(item.slot_number) === slot
@@ -4234,6 +4400,152 @@ selectedFat
 renderDetails();
 
 }
+
+}
+
+
+function renderAllSubscribers(query=''){
+
+const container = $('allSubscribersResults');
+const countLabel = $('allSubscribersCount');
+
+if(!container){
+return;
+}
+
+const q = cleanText(query).toLowerCase();
+
+const results = rows.filter(item => {
+
+if(!q){
+return true;
+}
+
+const name = cleanText(
+item.subscriber_name ??
+item.name ??
+item.customer_name ??
+item.subscriber ??
+''
+).toLowerCase();
+
+const phone = cleanText(
+item.phone ??
+item.phone_number ??
+item.mobile ??
+''
+).toLowerCase();
+
+const zoneValue = normalizeZone(item.zone ?? '').toLowerCase();
+
+const fatValue = item.fat_number
+? ('fat' + item.fat_number).toLowerCase()
+: '';
+
+const portValue = item.slot_number
+? ('port' + item.slot_number).toLowerCase()
+: '';
+
+const fatNumber = cleanText(item.fat_number).toLowerCase();
+const slotNumber = cleanText(item.slot_number).toLowerCase();
+
+return [
+name,
+phone,
+zoneValue,
+fatValue,
+portValue,
+fatNumber,
+slotNumber
+].some(value => value.includes(q));
+
+});
+
+countLabel.textContent =
+`${results.length} مشترك${results.length === 1 ? '' : ''}`;
+
+if(!results.length){
+
+container.innerHTML =
+'<div class="all-subs-empty">لا توجد نتائج مطابقة للبحث.</div>';
+
+return;
+}
+
+container.innerHTML = results.map(item => {
+
+const name = cleanText(
+item.subscriber_name ??
+item.name ??
+item.customer_name ??
+item.subscriber ??
+'بدون اسم'
+);
+
+const phone = cleanText(
+item.phone ??
+item.phone_number ??
+item.mobile ??
+'—'
+);
+
+const zoneValue = normalizeZone(item.zone ?? '') || '—';
+
+const fat = item.fat_number
+? `FAT${item.fat_number}`
+: '—';
+
+const port = item.slot_number
+? `PORT${item.slot_number}`
+: '—';
+
+return `
+<div class="all-subscriber-item"
+data-search-id="${esc(item.id)}"
+title="اضغط لعرض بيانات المشترك">
+
+<div class="all-subscriber-name">
+${esc(name)}
+</div>
+
+<div class="all-subscriber-field">
+<span class="all-subscriber-label">الهاتف</span>
+${esc(phone)}
+</div>
+
+<div class="all-subscriber-field">
+<span class="all-subscriber-label">المنطقة</span>
+${esc(zoneValue)}
+</div>
+
+<div class="all-subscriber-field">
+<span class="all-subscriber-label">FAT</span>
+${esc(fat)}
+</div>
+
+<div class="all-subscriber-field">
+<span class="all-subscriber-label">PORT</span>
+${esc(port)}
+</div>
+
+</div>
+`;
+
+}).join('');
+
+}
+
+function openAllSubscribers(){
+
+showSection('allSubscribersSection');
+
+$('allSubscribersSearch').value = '';
+
+renderAllSubscribers('');
+
+setTimeout(()=>{
+$('allSubscribersSearch').focus();
+},80);
 
 }
 
@@ -4450,7 +4762,7 @@ block:'center'
 },250);
 
 showToast(
-`تم فتح FAT${targetFat} — منفذ PORT${targetSlot}`
+`تم فتح FAT${targetFat} — الفتحة ${targetSlot}`
 );
 
 }
@@ -5101,7 +5413,7 @@ option.value =
 slot;
 
 option.textContent =
-`منفذ PORT${slot}`;
+`الفتحة ${slot}`;
 
 select.appendChild(
 option
@@ -5349,6 +5661,41 @@ $('searchBtn')
 .addEventListener(
 'click',
 searchSubs
+);
+
+$('totalSubscribersCard')
+.addEventListener(
+'click',
+openAllSubscribers
+);
+
+$('allSubscribersSearch')
+.addEventListener(
+'input',
+event => {
+renderAllSubscribers(event.target.value);
+}
+);
+
+$('allSubscribersSearch')
+.addEventListener(
+'keydown',
+event => {
+if(event.key === 'Escape'){
+event.target.value = '';
+renderAllSubscribers('');
+}
+}
+);
+
+$('clearAllSubscribersSearch')
+.addEventListener(
+'click',
+()=>{
+$('allSubscribersSearch').value = '';
+renderAllSubscribers('');
+$('allSubscribersSearch').focus();
+}
 );
 
 $('searchInput')
