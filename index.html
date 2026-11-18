@@ -46,7 +46,7 @@ display:none!important;
 }
 
 /* =========================
-   LOGIN
+   LOGIN - واجهة الدخول الجديدة
 ========================= */
 
 .login-page{
@@ -54,93 +54,262 @@ min-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
-padding:20px;
+padding:28px 18px;
+position:relative;
+overflow:hidden;
 background:
-linear-gradient(135deg,#eef5ff,#f7fafc);
+radial-gradient(circle at 18% 18%,rgba(255,255,255,.95) 0 8%,transparent 30%),
+radial-gradient(circle at 90% 10%,rgba(54,151,255,.38),transparent 30%),
+linear-gradient(145deg,#f8fbff 0%,#e8f2ff 45%,#0865d8 100%);
+}
+
+.login-page::before,
+.login-page::after{
+content:"";
+position:absolute;
+width:125%;
+height:210px;
+left:-12%;
+border-radius:50%;
+transform:rotate(-9deg);
+pointer-events:none;
+}
+
+.login-page::before{
+top:-105px;
+background:rgba(255,255,255,.72);
+box-shadow:0 70px 0 rgba(117,181,255,.20);
+}
+
+.login-page::after{
+bottom:-130px;
+background:linear-gradient(120deg,rgba(255,255,255,.72),rgba(21,109,223,.75));
+box-shadow:0 -55px 0 rgba(255,255,255,.30);
+}
+
+.login-decoration{
+position:absolute;
+color:rgba(10,86,181,.90);
+pointer-events:none;
+z-index:1;
+}
+
+.login-decoration.wifi{
+top:8%;
+left:12%;
+font-size:76px;
+font-weight:bold;
+line-height:1;
+transform:rotate(-8deg);
+text-shadow:0 8px 22px rgba(0,78,180,.14);
+}
+
+.login-decoration.globe{
+top:5%;
+right:8%;
+width:135px;
+height:135px;
+border:8px solid rgba(255,255,255,.78);
+border-radius:50%;
+box-shadow:0 0 30px rgba(21,115,230,.45),inset 0 0 25px rgba(21,115,230,.35);
+background:radial-gradient(circle at 35% 30%,#77c8ff,#0b65d5 65%,#06459c);
+}
+
+.login-decoration.globe::before{
+content:"";
+position:absolute;
+left:24px;
+right:24px;
+top:-8px;
+bottom:-8px;
+border-left:3px solid rgba(255,255,255,.75);
+border-right:3px solid rgba(255,255,255,.75);
+border-radius:50%;
+}
+
+.login-decoration.globe::after{
+content:"";
+position:absolute;
+left:3px;
+right:3px;
+top:50%;
+height:3px;
+background:rgba(255,255,255,.78);
+box-shadow:0 -25px 0 rgba(255,255,255,.55),0 25px 0 rgba(255,255,255,.55);
 }
 
 .login-box{
 width:100%;
-max-width:420px;
-background:#fff;
-border-radius:18px;
-padding:30px;
+max-width:760px;
+position:relative;
+z-index:5;
+background:rgba(255,255,255,.94);
+border:2px solid rgba(38,130,226,.85);
+border-radius:34px;
+padding:34px 48px 28px;
 box-shadow:
-0 15px 45px rgba(15,23,42,.10);
-border:1px solid #e8edf3;
+0 28px 65px rgba(0,66,150,.25),
+0 0 0 8px rgba(255,255,255,.18);
+backdrop-filter:blur(8px);
 }
 
-.login-logo{
-width:70px;
-height:70px;
-border-radius:18px;
-margin:0 auto 18px;
+.login-brand-icon{
+width:108px;
+height:108px;
+margin:-72px auto 12px;
+position:relative;
 display:flex;
 align-items:center;
 justify-content:center;
-background:#1769aa;
-color:white;
-font-size:30px;
-font-weight:bold;
+border-radius:50%;
+background:radial-gradient(circle at 35% 28%,#f4fbff 0%,#d7ecff 28%,#1266d2 70%,#063d91 100%);
+border:7px solid #fff;
+box-shadow:0 10px 25px rgba(0,83,177,.25);
+color:#073f91;
+}
+
+.login-brand-icon svg{
+width:82px;
+height:82px;
 }
 
 .login-box h2{
 text-align:center;
-margin:0 0 8px;
-color:#172033;
+margin:0;
+font-size:34px;
+line-height:1.35;
+font-weight:900;
+color:#083c8e;
+letter-spacing:-.5px;
 }
 
 .login-box p{
-text-align:center;
-color:#7a8797;
-font-size:13px;
-margin:0 0 25px;
+width:max-content;
+max-width:100%;
+margin:10px auto 24px;
+padding:7px 42px;
+border-radius:999px;
+background:linear-gradient(90deg,#d8eaff,#b8d9ff,#d8eaff);
+color:#063f91;
+font-size:20px;
+font-weight:800;
+box-shadow:0 5px 16px rgba(48,118,207,.12);
+}
+
+.login-divider{
+display:flex;
+align-items:center;
+gap:12px;
+margin:0 0 20px;
+color:#0a4b9e;
+}
+
+.login-divider::before,
+.login-divider::after{
+content:"";
+height:3px;
+flex:1;
+background:linear-gradient(90deg,transparent,#2c79d9);
+}
+
+.login-divider::after{
+background:linear-gradient(90deg,#2c79d9,transparent);
+}
+
+.login-divider-icon{
+font-size:28px;
+line-height:1;
 }
 
 .form-group{
-margin-bottom:15px;
+margin-bottom:16px;
 }
 
 .form-group label{
-display:block;
-font-size:13px;
-font-weight:bold;
-margin-bottom:7px;
-color:#455468;
+display:flex;
+align-items:center;
+justify-content:flex-start;
+gap:7px;
+font-size:17px;
+font-weight:900;
+margin:0 10px 7px;
+color:#073b89;
+}
+
+.form-group label .field-icon{
+font-size:23px;
+}
+
+.login-input-wrap{
+position:relative;
 }
 
 .form-group input,
 .form-group select{
 width:100%;
-padding:12px 13px;
-border:1px solid #dce3eb;
-border-radius:10px;
+padding:15px 58px 15px 18px;
+border:2px solid #b8d1ef;
+border-radius:30px;
 outline:none;
-font-size:14px;
-background:#fff;
+font-size:17px;
+background:#fbfdff;
+color:#111827;
+box-shadow:0 5px 12px rgba(37,99,180,.07);
 transition:.2s;
 }
 
 .form-group input:focus,
 .form-group select:focus{
-border-color:#2980b9;
-box-shadow:0 0 0 3px #2980b914;
+border-color:#2c7fe1;
+box-shadow:0 0 0 4px rgba(44,127,225,.12),0 7px 15px rgba(37,99,180,.08);
+}
+
+.login-input-icon{
+position:absolute;
+right:18px;
+top:50%;
+transform:translateY(-50%);
+width:29px;
+height:29px;
+color:#2869b8;
+pointer-events:none;
+}
+
+.login-input-icon svg{
+width:100%;
+height:100%;
 }
 
 .login-btn{
 width:100%;
-padding:13px;
+padding:15px 18px;
 border:0;
-border-radius:11px;
-background:#1769aa;
-color:white;
-font-weight:bold;
-font-size:14px;
+border-radius:31px;
+background:linear-gradient(90deg,#1185ef,#073fa3);
+color:#fff;
+font-weight:900;
+font-size:21px;
 margin-top:5px;
+box-shadow:0 10px 22px rgba(8,77,174,.28);
+transition:.2s;
 }
 
 .login-btn:hover{
-background:#12588f;
+transform:translateY(-1px);
+background:linear-gradient(90deg,#0879df,#06378f);
+box-shadow:0 13px 26px rgba(8,77,174,.34);
+}
+
+.login-btn:active{
+transform:translateY(0);
+}
+
+.login-signature{
+text-align:center;
+margin-top:18px;
+font-size:19px;
+font-weight:900;
+color:#0a4b9e;
 }
 
 .login-error{
@@ -148,9 +317,70 @@ margin-top:12px;
 padding:10px;
 background:#fff1f1;
 color:#a83232;
-border-radius:9px;
+border:1px solid #f0bcbc;
+border-radius:12px;
 font-size:13px;
 text-align:center;
+}
+
+@media(max-width:700px){
+.login-page{
+padding:24px 12px;
+}
+
+.login-box{
+max-width:520px;
+padding:30px 22px 24px;
+border-radius:26px;
+}
+
+.login-brand-icon{
+width:88px;
+height:88px;
+margin:-58px auto 10px;
+}
+
+.login-brand-icon svg{
+width:66px;
+height:66px;
+}
+
+.login-box h2{
+font-size:26px;
+}
+
+.login-box p{
+font-size:16px;
+padding:6px 25px;
+}
+
+.form-group label{
+font-size:15px;
+}
+
+.form-group input,
+.form-group select{
+font-size:15px;
+padding-top:13px;
+padding-bottom:13px;
+}
+
+.login-btn{
+font-size:18px;
+}
+
+.login-decoration.wifi{
+left:2%;
+top:4%;
+font-size:50px;
+}
+
+.login-decoration.globe{
+right:-28px;
+top:2%;
+width:95px;
+height:95px;
+}
 }
 
 /* =========================
@@ -1294,66 +1524,6 @@ grid-template-columns:1fr;
 
 }
 
-
-/* ================================
-   تعديل شكل مربعات الفتحات والمشتركين
-   ================================ */
-
-.slot-card {
-    background: #ffffff !important;
-    border: 2px solid #22a447 !important;
-    color: #000000 !important;
-    border-radius: 12px;
-    box-shadow: none;
-}
-
-/* اسم المشترك */
-.slot-card .slot-name {
-    color: #000000 !important;
-    font-weight: 700;
-}
-
-/* رقم الفتحة */
-.slot-card .slot-number {
-    color: #000000 !important;
-    font-weight: 700;
-}
-
-/* رقم الفتحة داخل المربع */
-.slot-card .slot-number-badge {
-    background: #ffffff !important;
-    color: #000000 !important;
-    border: 1px solid #22a447 !important;
-}
-
-/* حالة الفتحة */
-.slot-card .slot-status {
-    color: #000000 !important;
-}
-
-/* رقم الهاتف */
-.slot-card .slot-phone {
-    color: #000000 !important;
-}
-
-/* الفتحات الفارغة أيضاً */
-.slot-card.empty {
-    background: #ffffff !important;
-    border: 2px solid #22a447 !important;
-    color: #000000 !important;
-}
-
-/* كلمة متاحة للإضافة */
-.slot-card.empty .slot-name {
-    color: #000000 !important;
-}
-
-/* عند تمرير الماوس */
-.slot-card:hover {
-    border-color: #168b39 !important;
-    box-shadow: 0 4px 12px rgba(34, 164, 71, 0.15);
-}
-
 </style>
 
 </head>
@@ -1362,37 +1532,66 @@ grid-template-columns:1fr;
 
 <div id="loginPage" class="login-page">
 
+<div class="login-decoration wifi" aria-hidden="true">◔</div>
+<div class="login-decoration globe" aria-hidden="true"></div>
+
 <div class="login-box">
 
-<div class="login-logo">
-O
+<div class="login-brand-icon" aria-hidden="true">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<circle cx="50" cy="50" r="39" fill="none" stroke="white" stroke-width="5"/>
+<ellipse cx="50" cy="50" rx="18" ry="39" fill="none" stroke="white" stroke-width="3"/>
+<path d="M11 50h78M17 31h66M17 69h66" fill="none" stroke="white" stroke-width="3"/>
+<path d="M17 77c13-5 27-8 42-8 11 0 21 2 29 5" fill="none" stroke="#0b4da8" stroke-width="5" stroke-linecap="round"/>
+</svg>
 </div>
 
-<h2>إدارة المشتركين</h2>
+<h2>مكتب الوطني للإنترنت</h2>
 
 <p>الوكيل عمر لازم</p>
 
+<div class="login-divider" aria-hidden="true">
+<span class="login-divider-icon">⌁</span>
+</div>
+
 <div class="form-group">
 
-<label>البريد الإلكتروني</label>
+<label><span class="field-icon">👤</span>البريد الإلكتروني</label>
 
+<div class="login-input-wrap">
+<span class="login-input-icon" aria-hidden="true">
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+<rect x="4" y="7" width="24" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="2.5"/>
+<path d="m6 10 10 8 10-8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</span>
 <input
 id="loginEmail"
 type="email"
 placeholder="البريد الإلكتروني"
 autocomplete="email">
+</div>
 
 </div>
 
 <div class="form-group">
 
-<label>كلمة المرور</label>
+<label><span class="field-icon">🔒</span>كلمة المرور</label>
 
+<div class="login-input-wrap">
+<span class="login-input-icon" aria-hidden="true">
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+<rect x="6" y="14" width="20" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"/>
+<path d="M10 14V10a6 6 0 0 1 12 0v4" fill="none" stroke="currentColor" stroke-width="2.5"/>
+<circle cx="16" cy="21" r="2" fill="currentColor"/>
+</svg>
+</span>
 <input
 id="loginPassword"
 type="password"
 placeholder="كلمة المرور"
 autocomplete="current-password">
+</div>
 
 </div>
 
@@ -1401,6 +1600,8 @@ id="loginBtn"
 class="login-btn">
 تسجيل الدخول
 </button>
+
+<div class="login-signature">برمجة عباس جواد</div>
 
 <div
 id="loginError"
