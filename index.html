@@ -1873,6 +1873,147 @@ grid-template-columns:1fr;
   }
 }
 
+
+/* =========================================================
+   تحسين ألوان الواجهة والفتحات فقط - بدون تغيير الكتابات
+   ========================================================= */
+
+body{
+    background:#eaf2f9 !important;
+}
+
+/* ورقة/خلفية البرنامج */
+.main{
+    background:
+        radial-gradient(circle at 8% 0%, rgba(255,255,255,.95) 0, rgba(255,255,255,0) 32%),
+        linear-gradient(180deg,#edf6fd 0%,#eaf2f9 55%,#e7f0f8 100%) !important;
+    min-height:100vh;
+}
+
+/* البطاقات الرئيسية */
+.card,
+.stat-card{
+    background:#ffffff !important;
+    border-color:#d8e5f0 !important;
+    box-shadow:0 5px 18px rgba(32,76,112,.08) !important;
+}
+
+/* المناطق */
+.zone-card{
+    background:#ffffff !important;
+    border-color:#d6e4ef !important;
+}
+.zone-card:hover{
+    border-color:#8fc7eb !important;
+    box-shadow:0 8px 22px rgba(24,117,181,.12) !important;
+}
+
+/* شبكة الفتحات */
+.slot-grid{
+    gap:12px !important;
+}
+
+/* الفتحة المشغولة: كريمي مثل الصورة */
+.slot-card.used{
+    background:linear-gradient(135deg,#fffdf7 0%,#f8f0df 100%) !important;
+    border:1px solid #d9c49a !important;
+    box-shadow:0 4px 12px rgba(122,93,43,.10) !important;
+    color:#111827 !important;
+}
+
+.slot-card.used::before{
+    background:#c59b52 !important;
+}
+
+/* الفتحة المحددة من البحث: سماوي */
+.slot-card.highlighted{
+    background:linear-gradient(135deg,#c5f3ff 0%,#8fdff3 100%) !important;
+    border:2px solid #119fc4 !important;
+    box-shadow:0 0 0 4px rgba(17,159,196,.13),
+               0 8px 22px rgba(17,159,196,.18) !important;
+}
+
+.slot-card.highlighted::before{
+    background:#119fc4 !important;
+}
+
+/* الفتحات الفارغة: أبيض وهادئ */
+.slot-card.empty{
+    background:#ffffff !important;
+    border:1px solid #d9e3ec !important;
+    box-shadow:none !important;
+}
+
+/* الكتابات تبقى سوداء/واضحة */
+.slot-card .slot-name,
+.slot-card .slot-number,
+.slot-card .slot-phone{
+    color:#111827 !important;
+}
+
+.slot-card .slot-status{
+    color:#7b8794 !important;
+}
+
+.slot-card.used .slot-status{
+    color:#9a7132 !important;
+}
+
+.slot-card.highlighted .slot-name,
+.slot-card.highlighted .slot-status{
+    color:#075a70 !important;
+}
+
+/* مربعات أرقام الفتحات */
+.slot-number-badge{
+    background:#edf3f8 !important;
+    color:#415568 !important;
+    border:1px solid #dce7ef !important;
+}
+
+.slot-card.used .slot-number-badge{
+    background:#f0e4ca !important;
+    color:#795c2e !important;
+    border-color:#e0cfaa !important;
+}
+
+.slot-card.highlighted .slot-number-badge{
+    background:#149fc2 !important;
+    color:#ffffff !important;
+    border-color:#149fc2 !important;
+}
+
+.slot-card.empty .slot-number-badge{
+    background:#edf3f7 !important;
+    color:#718096 !important;
+}
+
+/* أزرار التعديل والحذف بنفس روح الصورة */
+.edit-btn{
+    background:#dff6fb !important;
+    color:#08748a !important;
+}
+
+.delete-btn{
+    background:#fff0f0 !important;
+    color:#b43a3a !important;
+}
+
+.add-slot-btn{
+    background:#ffffff !important;
+    border-color:#c9d9e6 !important;
+    color:#1769aa !important;
+}
+
+/* شريط الحالة العام */
+.fat-status-bar{
+    background:#e8f0f6 !important;
+}
+
+.fat-status-fill{
+    background:linear-gradient(90deg,#1976c5,#0f67ad) !important;
+}
+
 </style>
 
 </head>
