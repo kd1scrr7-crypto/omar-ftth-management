@@ -2840,7 +2840,7 @@ FAT
 <div class="form-field">
 
 <label>
-رقم الفتحة
+منفذ PORT
 </label>
 
 <select id="addSlot">
@@ -2915,7 +2915,7 @@ type="text">
 <div class="form-group">
 
 <label>
-رقم الفتحة
+منفذ PORT
 </label>
 
 <select id="editSlot">
@@ -3693,7 +3693,7 @@ data-slot="${slot}">
 <div class="slot-top">
 
 <div class="slot-number">
-الفتحة ${slot}
+منفذ PORT${slot}
 </div>
 
 <div class="slot-number-badge">
@@ -3765,7 +3765,7 @@ data-slot="${slot}">
 <div class="slot-top">
 
 <div class="slot-number">
-الفتحة ${slot}
+منفذ PORT${slot}
 </div>
 
 <div class="slot-number-badge">
@@ -3969,7 +3969,7 @@ return;
 }
 
 showToast(
-`تمت إضافة ${name} في FAT${fat} — الفتحة ${slot}`
+`تمت إضافة ${name} في FAT${fat} — منفذ PORT${slot}`
 );
 
 $('addName').value =
@@ -4026,7 +4026,7 @@ option.value =
 slot;
 
 option.textContent =
-`الفتحة ${slot}`;
+`منفذ PORT${slot}`;
 
 if(
 Number(item.slot_number) === slot
@@ -4450,7 +4450,7 @@ block:'center'
 },250);
 
 showToast(
-`تم فتح FAT${targetFat} — الفتحة ${targetSlot}`
+`تم فتح FAT${targetFat} — منفذ PORT${targetSlot}`
 );
 
 }
@@ -5101,7 +5101,7 @@ option.value =
 slot;
 
 option.textContent =
-`الفتحة ${slot}`;
+`منفذ PORT${slot}`;
 
 select.appendChild(
 option
