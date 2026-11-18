@@ -644,7 +644,7 @@ margin-bottom:18px;
 .fat-status-title{
 font-size:13px;
 font-weight:bold;
-color:#000000;
+color:#526274;
 margin-left:5px;
 }
 
@@ -659,7 +659,7 @@ border-radius:10px;
 box-shadow:0 2px 8px #00000008;
 font-size:12px;
 font-weight:bold;
-color:#000000;
+color:#526274;
 }
 
 .fat-status-dot{
@@ -669,20 +669,19 @@ border-radius:50%;
 flex-shrink:0;
 }
 
-/* ألوان حالة منافذ FAT في قائمة FAT فقط */
 .fat-status-dot.empty{
-background:#c6efce;
-box-shadow:0 0 0 3px #c6efce55;
+background:#217a45;
+box-shadow:0 0 0 3px #217a4518;
 }
 
 .fat-status-dot.partial{
-background:#bfe7ff;
-box-shadow:0 0 0 3px #bfe7ff55;
+background:#b7791f;
+box-shadow:0 0 0 3px #b7791f18;
 }
 
 .fat-status-dot.full{
-background:#ffc7ce;
-box-shadow:0 0 0 3px #ffc7ce55;
+background:#a83232;
+box-shadow:0 0 0 3px #a8323218;
 }
 
 /* =========================
@@ -1893,6 +1892,45 @@ button.secondary,
 /* الفواصل */
 hr{
   border-color:#d8e5f2 !important;
+}
+
+
+/* =========================================================
+   تعديل قائمة FAT فقط - حالات FAT
+   لا يؤثر على منافذ FAT الداخلية
+========================================================= */
+.fat-grid button.fat-empty {
+  background: #dff5e6 !important;
+  color: #000000 !important;
+  border: 1px solid #b9e7c8 !important;
+}
+
+.fat-grid button.fat-partial {
+  background: #d9f2fb !important;
+  color: #000000 !important;
+  border: 1px solid #b5e3f2 !important;
+}
+
+.fat-grid button.fat-full {
+  background: #fde0e0 !important;
+  color: #000000 !important;
+  border: 1px solid #f3bcbc !important;
+}
+
+.fat-grid button.fat-empty .fat-name,
+.fat-grid button.fat-empty .fat-count,
+.fat-grid button.fat-empty .fat-status-label,
+.fat-grid button.fat-empty .fat-empty-count,
+.fat-grid button.fat-partial .fat-name,
+.fat-grid button.fat-partial .fat-count,
+.fat-grid button.fat-partial .fat-status-label,
+.fat-grid button.fat-partial .fat-empty-count,
+.fat-grid button.fat-full .fat-name,
+.fat-grid button.fat-full .fat-count,
+.fat-grid button.fat-full .fat-status-label,
+.fat-grid button.fat-full .fat-empty-count {
+  color: #000000 !important;
+  opacity: 1 !important;
 }
 </style>
 
