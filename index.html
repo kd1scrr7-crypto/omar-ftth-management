@@ -1932,6 +1932,133 @@ hr{
   color: #000000 !important;
   opacity: 1 !important;
 }
+
+
+/* =========================================================
+   تحسين قائمة FAT فقط — الألوان حسب حالة FAT
+   لا يؤثر على منافذ FAT الداخلية
+   ========================================================= */
+
+.fat-status-title,
+.fat-status-item,
+.fat-grid button,
+.fat-grid button .fat-name,
+.fat-grid button .fat-count,
+.fat-grid button .fat-status-label,
+.fat-grid button .fat-empty-count{
+  color:#000000 !important;
+}
+
+.fat-status-item{
+  background:#ffffff !important;
+  border:1px solid #d9e2ec !important;
+}
+
+.fat-status-dot.empty{
+  background:#20b957 !important;
+  box-shadow:0 0 0 3px rgba(32,185,87,.14) !important;
+}
+
+.fat-status-dot.partial{
+  background:#f59e0b !important;
+  box-shadow:0 0 0 3px rgba(245,158,11,.14) !important;
+}
+
+.fat-status-dot.full{
+  background:#ef4444 !important;
+  box-shadow:0 0 0 3px rgba(239,68,68,.14) !important;
+}
+
+.fat-grid button{
+  color:#000000 !important;
+  border:1px solid transparent !important;
+  box-shadow:0 5px 16px rgba(24,58,92,.08) !important;
+}
+
+/* FAT فارغة — أخضر فاتح */
+.fat-grid button.fat-empty{
+  background:linear-gradient(145deg,#f3fff5 0%,#dff8e6 100%) !important;
+  border-color:#8fdaa4 !important;
+}
+
+/* FAT مستخدمة جزئياً — برتقالي فاتح */
+.fat-grid button.fat-partial{
+  background:linear-gradient(145deg,#fffaf0 0%,#ffe7b5 100%) !important;
+  border-color:#f3b34c !important;
+}
+
+/* FAT ممتلئة — أحمر فاتح */
+.fat-grid button.fat-full{
+  background:linear-gradient(145deg,#fff5f5 0%,#ffd9dd 100%) !important;
+  border-color:#f28b95 !important;
+}
+
+.fat-grid button:hover{
+  filter:none !important;
+  box-shadow:0 9px 22px rgba(24,58,92,.13) !important;
+}
+
+.fat-grid button.fat-empty:hover{
+  background:linear-gradient(145deg,#ffffff 0%,#d8f7e1 100%) !important;
+}
+
+.fat-grid button.fat-partial:hover{
+  background:linear-gradient(145deg,#fffdf7 0%,#ffe1a3 100%) !important;
+}
+
+.fat-grid button.fat-full:hover{
+  background:linear-gradient(145deg,#fffafa 0%,#ffd0d5 100%) !important;
+}
+
+/* شريط التقدم داخل قائمة FAT فقط */
+.fat-grid button .fat-progress{
+  background:#eef2f5 !important;
+}
+
+.fat-grid button.fat-empty .fat-progress-fill{
+  background:#20b957 !important;
+}
+
+.fat-grid button.fat-partial .fat-progress-fill{
+  background:#f59e0b !important;
+}
+
+.fat-grid button.fat-full .fat-progress-fill{
+  background:#ef4444 !important;
+}
+
+/* أيقونة الحالة داخل بطاقة FAT — قائمة FAT فقط */
+.fat-grid button::before{
+  position:absolute;
+  left:12px;
+  top:12px;
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:17px;
+  font-weight:900;
+  line-height:1;
+  color:#ffffff !important;
+  box-shadow:0 3px 8px rgba(0,0,0,.10);
+}
+
+.fat-grid button.fat-empty::before{
+  content:'✓';
+  background:#20b957;
+}
+
+.fat-grid button.fat-partial::before{
+  content:'◔';
+  background:#f59e0b;
+}
+
+.fat-grid button.fat-full::before{
+  content:'×';
+  background:#ef4444;
+}
 </style>
 
 </head>
