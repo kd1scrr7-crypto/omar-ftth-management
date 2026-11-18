@@ -2566,7 +2566,7 @@ class="section">
 
 <div class="stats">
 
-<div id="totalSubscribersCard" class="stat-card total-subs-card" title="عرض جميع المشتركين">
+<div id="totalSubscribersCard" class="stat-card total-subs-card" data-total-subscribers="true" title="عرض جميع المشتركين">
 
 <div class="stat-label">
 إجمالي المشتركين
@@ -2640,6 +2640,27 @@ class="stat-value">
 
 </div>
 
+</section>
+
+<div class="card">
+
+<div class="card-title">
+
+<h3>
+ملخص المناطق
+</h3>
+
+</div>
+
+<div
+id="dashboardZones"
+class="zone-grid">
+</div>
+
+</div>
+
+</section>
+
 <section id="allSubscribersSection" class="section hidden">
 
 <div class="card all-subscribers-card">
@@ -2679,26 +2700,7 @@ placeholder="ابحث باسم المشترك، رقم الهاتف، المنط
 
 </div>
 
-</section>
 
-<div class="card">
-
-<div class="card-title">
-
-<h3>
-ملخص المناطق
-</h3>
-
-</div>
-
-<div
-id="dashboardZones"
-class="zone-grid">
-</div>
-
-</div>
-
-</section>
 
 <section
 id="zonesSection"
@@ -4479,6 +4481,7 @@ item.subscriber_name ??
 item.name ??
 item.customer_name ??
 item.subscriber ??
+item.customer ??
 'بدون اسم'
 );
 
@@ -4486,6 +4489,7 @@ const phone = cleanText(
 item.phone ??
 item.phone_number ??
 item.mobile ??
+item.phoneNumber ??
 '—'
 );
 
