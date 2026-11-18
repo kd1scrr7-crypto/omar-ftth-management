@@ -2394,6 +2394,32 @@ hr{
 }
 </style>
 
+<style>
+.password-toggle{
+position:absolute;
+left:12px;
+top:50%;
+transform:translateY(-50%);
+width:34px;
+height:34px;
+padding:5px;
+border:0;
+background:transparent;
+color:inherit;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:2;
+}
+.password-toggle svg{
+width:22px;
+height:22px;
+}
+.login-input-wrap:has(#loginPassword) input{
+padding-left:52px;
+}
+</style>
 </head>
 
 <body>
@@ -2422,8 +2448,6 @@ hr{
 
 <div class="form-group">
 
-<label><span class="field-icon">👤</span>Username@</label>
-
 <div class="login-input-wrap">
 <span class="login-input-icon" aria-hidden="true">
 <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
@@ -2434,15 +2458,13 @@ hr{
 <input
 id="loginEmail"
 type="email"
-placeholder="Username@"
-autocomplete="email">
+placeholder="اسم المستخدم أو البريد الإلكتروني"
+autocomplete="username">
 </div>
 
 </div>
 
 <div class="form-group">
-
-<label><span class="field-icon">🔒</span>Password</label>
 
 <div class="login-input-wrap">
 <span class="login-input-icon" aria-hidden="true">
@@ -2455,8 +2477,20 @@ autocomplete="email">
 <input
 id="loginPassword"
 type="password"
-placeholder="Password"
+placeholder="كلمة السر"
 autocomplete="current-password">
+
+<button
+id="togglePasswordBtn"
+type="button"
+class="password-toggle"
+aria-label="إظهار كلمة السر"
+title="إظهار كلمة السر">
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path d="M3 16s4.5-8 13-8 13 8 13 8-4.5 8-13 8S3 16 3 16Z" fill="none" stroke="currentColor" stroke-width="2.4"/>
+<circle cx="16" cy="16" r="3.5" fill="none" stroke="currentColor" stroke-width="2.4"/>
+</svg>
+</button>
 </div>
 
 </div>
@@ -5433,6 +5467,25 @@ $('loginBtn')
 .addEventListener(
 'click',
 login
+);
+
+$('togglePasswordBtn')
+.addEventListener(
+'click',
+()=>{
+const input = $('loginPassword');
+const button = $('togglePasswordBtn');
+
+if(input.type === 'password'){
+input.type = 'text';
+button.setAttribute('aria-label','إخفاء كلمة السر');
+button.setAttribute('title','إخفاء كلمة السر');
+}else{
+input.type = 'password';
+button.setAttribute('aria-label','إظهار كلمة السر');
+button.setAttribute('title','إظهار كلمة السر');
+}
+}
 );
 
 $('loginPassword')
