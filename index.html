@@ -1588,6 +1588,313 @@ grid-template-columns:1fr;
 }
 
 </style>
+
+<style>
+/* =========================================================
+   لوحة الإدارة — ألوان مطابقة للصورة المرجعية فقط
+   لا تغيير على الكتابات أو البيانات أو الوظائف
+   ========================================================= */
+
+body{
+  background:#eaf3ff !important;
+  color:#102a4c !important;
+}
+
+/* القائمة الجانبية */
+.sidebar{
+  background:linear-gradient(180deg,#071f49 0%,#0b2e68 55%,#092653 100%) !important;
+  color:#fff !important;
+  box-shadow:-6px 0 22px rgba(12,55,105,.18);
+}
+
+.logo-area{
+  border-bottom-color:rgba(255,255,255,.12) !important;
+}
+
+.logo-subtitle{
+  color:#b8d2f3 !important;
+}
+
+.menu button{
+  color:#d8e8ff !important;
+}
+
+.menu button:hover,
+.menu button.active{
+  background:#1679e6 !important;
+  color:#fff !important;
+  box-shadow:0 5px 14px rgba(22,121,230,.25);
+}
+
+.logout-menu{
+  border-top-color:rgba(255,255,255,.12) !important;
+}
+
+/* المنطقة الرئيسية */
+.main{
+  background:#eaf3ff !important;
+}
+
+.topbar-title h1{
+  color:#102b55 !important;
+}
+
+.topbar-title p{
+  color:#607797 !important;
+}
+
+/* البطاقات العامة */
+.card{
+  background:#ffffff !important;
+  border-color:#d7e5f5 !important;
+  box-shadow:0 6px 22px rgba(28,88,145,.08) !important;
+}
+
+.card-title h3{
+  color:#102b55 !important;
+}
+
+.card-title span{
+  background:#e6f1ff !important;
+  color:#176fca !important;
+}
+
+/* بطاقات الإحصائيات */
+.stat-card{
+  background:#ffffff !important;
+  border-color:#d7e5f5 !important;
+  box-shadow:0 6px 20px rgba(28,88,145,.07) !important;
+}
+
+.stat-label{
+  color:#5f7695 !important;
+}
+
+.stat-value{
+  color:#102b55 !important;
+}
+
+.stat-note{
+  color:#7890ad !important;
+}
+
+/* المناطق */
+.zone-card{
+  background:#f9fcff !important;
+  border-color:#cfe1f5 !important;
+  box-shadow:0 5px 16px rgba(31,91,145,.05);
+}
+
+.zone-card:hover{
+  border-color:#8dbce9 !important;
+  box-shadow:0 8px 22px rgba(31,91,145,.10) !important;
+}
+
+.zone-name{
+  color:#126dc5 !important;
+}
+
+.zone-info{
+  color:#637a98 !important;
+}
+
+.zone-progress{
+  background:#e5edf6 !important;
+}
+
+.zone-progress-fill{
+  background:#1479dc !important;
+}
+
+.zone-footer{
+  color:#607795 !important;
+}
+
+/* شريط حالة FAT */
+.fat-status-bar{
+  background:#ffffff !important;
+  border-color:#d7e5f5 !important;
+}
+
+.fat-status-title,
+.fat-name{
+  color:#102b55 !important;
+}
+
+.fat-status-label{
+  color:#627997 !important;
+}
+
+.fat-progress{
+  background:#e3edf7 !important;
+}
+
+.fat-progress-fill{
+  background:#1479dc !important;
+}
+
+.fat-status-dot.full{
+  background:#18a765 !important;
+}
+
+.fat-status-dot.partial{
+  background:#f39a21 !important;
+}
+
+.fat-status-dot.empty{
+  background:#c8d5e5 !important;
+}
+
+/* ملخص FAT */
+.fat-summary-card{
+  background:#ffffff !important;
+  border-color:#d7e5f5 !important;
+}
+
+.fat-summary-card.used{
+  background:#edf6ff !important;
+  border-color:#b8d8f7 !important;
+}
+
+.fat-summary-card.available{
+  background:#f4f8ff !important;
+  border-color:#d4e3f3 !important;
+}
+
+.fat-summary-card.percent{
+  background:#ffffff !important;
+  border-color:#d7e5f5 !important;
+}
+
+.fat-summary-label{
+  color:#607895 !important;
+}
+
+.fat-summary-value{
+  color:#102b55 !important;
+}
+
+/* العناوين والتفاصيل */
+.details-header{
+  background:#123f82 !important;
+  color:#fff !important;
+}
+
+.fat-count,
+.fat-empty-count{
+  color:#176fc8 !important;
+}
+
+/* شريط التقدم العام */
+.fat-details-progress{
+  background:#e3edf7 !important;
+}
+
+.fat-details-progress-fill{
+  background:#1479dc !important;
+}
+
+/* البحث والحقول */
+input,
+select,
+textarea{
+  background:#ffffff !important;
+  border-color:#cbdced !important;
+  color:#102b55 !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#1976d2 !important;
+  box-shadow:0 0 0 3px rgba(25,118,210,.10) !important;
+}
+
+/* أزرار الواجهة الموجودة أصلًا — ألوان فقط */
+button.primary,
+.btn-primary,
+.save-btn{
+  background:#1479dc !important;
+  color:#fff !important;
+}
+
+button.secondary,
+.btn-secondary{
+  background:#e8f3ff !important;
+  color:#176fc8 !important;
+}
+
+/* الحفاظ على الفتحات مع لوحة الألوان الجديدة */
+.slot-card.empty{
+  background:#ffffff !important;
+  border-color:#d8e5f2 !important;
+}
+
+.slot-card.used{
+  background:linear-gradient(135deg,#eef7ff,#dceeff) !important;
+  border-color:#8bbfe9 !important;
+  box-shadow:0 4px 14px rgba(21,111,190,.10) !important;
+}
+
+.slot-card.used::before{
+  background:#1479dc !important;
+}
+
+.slot-card .slot-number,
+.slot-card .slot-name{
+  color:#102b55 !important;
+}
+
+.slot-card .slot-status{
+  color:#18a765 !important;
+}
+
+.slot-card .slot-number-badge{
+  background:#e8f2ff !important;
+  color:#123f82 !important;
+  border-color:#a9cbea !important;
+}
+
+.slot-card.used .slot-number-badge{
+  background:#d9ecff !important;
+  color:#0d4f91 !important;
+}
+
+.slot-card.empty .slot-number-badge{
+  background:#f0f5fa !important;
+  color:#70839a !important;
+}
+
+.slot-card .slot-phone{
+  color:#637995 !important;
+}
+
+.slot-card.highlighted{
+  background:linear-gradient(135deg,#bfeeff,#8dddf6) !important;
+  border-color:#1597b8 !important;
+}
+
+/* الأزرار داخل الفتحات */
+.edit-slot-btn,
+[data-edit-slot]{
+  background:#d9f3fb !important;
+  color:#08749a !important;
+  border-color:transparent !important;
+}
+
+.delete-slot-btn,
+[data-delete-slot]{
+  background:#fff0f0 !important;
+  color:#d73535 !important;
+  border-color:transparent !important;
+}
+
+/* الفواصل */
+hr{
+  border-color:#d8e5f2 !important;
+}
+</style>
+
 </head>
 
 <body>
