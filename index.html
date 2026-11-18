@@ -1524,6 +1524,214 @@ grid-template-columns:1fr;
 
 }
 
+
+
+/* =====================================================
+   لوحة الإدارة الرئيسية — ألوان فقط مثل الصورة المرجعية
+   لا تغيير في الكتابات أو البيانات أو الوظائف أو منافذ FAT
+   ===================================================== */
+
+body{
+  background:
+    radial-gradient(circle at 12% 8%, rgba(255,255,255,.95), transparent 28%),
+    linear-gradient(135deg,#f7fbff 0%,#e9f3ff 48%,#dcecff 100%) !important;
+  color:#10233f !important;
+}
+
+/* القائمة الجانبية */
+.sidebar{
+  background:linear-gradient(180deg,#092a61 0%,#061f4a 55%,#041a3d 100%) !important;
+  color:#fff !important;
+  box-shadow:-8px 0 28px rgba(5,43,92,.14);
+}
+
+.logo-area{
+  border-bottom-color:rgba(255,255,255,.12) !important;
+}
+
+.logo-title{
+  color:#fff !important;
+}
+
+.logo-subtitle{
+  color:#b9d2f2 !important;
+}
+
+.menu button{
+  color:#d9e8fb !important;
+}
+
+.menu button:hover,
+.menu button.active{
+  background:linear-gradient(90deg,#087eea,#1769d1) !important;
+  color:#fff !important;
+  box-shadow:0 5px 16px rgba(0,126,235,.25);
+}
+
+.logout-menu{
+  border-top-color:rgba(255,255,255,.12) !important;
+}
+
+/* خلفية ومساحة لوحة الإدارة */
+.main{
+  background:transparent !important;
+}
+
+.topbar-title h1{
+  color:#092d63 !important;
+}
+
+.topbar-title p{
+  color:#637d9f !important;
+}
+
+/* البطاقات الرئيسية */
+.card{
+  background:rgba(255,255,255,.96) !important;
+  border-color:#cfe0f4 !important;
+  box-shadow:0 8px 26px rgba(23,82,140,.09) !important;
+}
+
+.card-title h3{
+  color:#092d63 !important;
+}
+
+.card-title span{
+  background:#dceeff !important;
+  color:#1472d0 !important;
+}
+
+/* بطاقات الإحصائيات — نفس روح الصورة، الألوان فقط */
+.stat-card{
+  border:1px solid #d3e3f5 !important;
+  box-shadow:0 7px 22px rgba(21,83,140,.10) !important;
+  color:#102d55 !important;
+}
+
+.stat-card:nth-child(1){
+  background:linear-gradient(135deg,#eef8ff,#d8ecff) !important;
+  border-color:#b9d9f7 !important;
+}
+
+.stat-card:nth-child(2){
+  background:linear-gradient(135deg,#f4efff,#e7dcff) !important;
+  border-color:#d2c2f3 !important;
+}
+
+.stat-card:nth-child(3){
+  background:linear-gradient(135deg,#fff8ee,#ffe9c9) !important;
+  border-color:#f0d4a7 !important;
+}
+
+.stat-card:nth-child(4){
+  background:linear-gradient(135deg,#eefcf8,#d9f5ea) !important;
+  border-color:#bce5d3 !important;
+}
+
+.stat-label{
+  color:#304e73 !important;
+}
+
+.stat-value{
+  color:#092d63 !important;
+}
+
+.stat-note{
+  color:#607b9d !important;
+}
+
+.stat-card:nth-child(1) .stat-value{color:#126dc5 !important;}
+.stat-card:nth-child(2) .stat-value{color:#6334b8 !important;}
+.stat-card:nth-child(3) .stat-value{color:#d66b16 !important;}
+.stat-card:nth-child(4) .stat-value{color:#18865a !important;}
+
+/* بطاقات المناطق */
+.zone-card{
+  background:linear-gradient(135deg,#eef7ff,#dceeff) !important;
+  border-color:#b9d8f4 !important;
+  box-shadow:0 6px 18px rgba(22,91,150,.08) !important;
+}
+
+.zone-card:nth-child(even){
+  background:linear-gradient(135deg,#f5f0ff,#e8ddff) !important;
+  border-color:#d2c1f0 !important;
+}
+
+.zone-name{
+  color:#0b4e96 !important;
+}
+
+.zone-info,
+.zone-footer{
+  color:#536d8d !important;
+}
+
+.zone-progress{
+  background:#d9e7f5 !important;
+}
+
+.zone-progress-fill{
+  background:#1479dc !important;
+}
+
+.zone-card:nth-child(even) .zone-progress-fill{
+  background:#6c35c4 !important;
+}
+
+/* ملخص المنافذ داخل لوحة الإدارة */
+.fat-summary-card{
+  background:#f7fbff !important;
+  border-color:#cfe1f5 !important;
+}
+
+.fat-summary-card.used{
+  background:#e6f2ff !important;
+  border-color:#b8d8f7 !important;
+}
+
+.fat-summary-card.available{
+  background:#f0eaff !important;
+  border-color:#d5c7f3 !important;
+}
+
+.fat-summary-card.percent{
+  background:#fff4e5 !important;
+  border-color:#f1d4aa !important;
+}
+
+.fat-summary-label{
+  color:#536e91 !important;
+}
+
+.fat-summary-value{
+  color:#0b3c7a !important;
+}
+
+.fat-summary-card.available .fat-summary-value{
+  color:#6438b7 !important;
+}
+
+.fat-summary-card.percent .fat-summary-value{
+  color:#d56c16 !important;
+}
+
+/* شريط التقدم في تفاصيل لوحة الإدارة */
+.fat-details-progress{
+  background:#dfeaf5 !important;
+}
+
+.fat-details-progress-fill{
+  background:linear-gradient(90deg,#1576d7,#1b8de8) !important;
+}
+
+/* عنوان تفاصيل FAT */
+.details-header{
+  background:linear-gradient(90deg,#0b3b7b,#174f99) !important;
+  color:#fff !important;
+}
+
+/* لا نغيّر ألوان بطاقات ومنافذ FAT الداخلية */
+
 </style>
 
 
