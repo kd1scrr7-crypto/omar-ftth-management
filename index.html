@@ -6222,14 +6222,24 @@ fillAddFatSelect();
 </style>
 
 
-<style id="subscriber-name-box-only">
-/* المربع المحيط باسم المشترك فقط — لون الاسم يبقى كما هو */
-.slot-card.used .slot-name{
-  background:#0DB078 !important;
-  color:#064e63 !important;
-  border-radius:8px !important;
-  padding:6px 10px !important;
+<style id="subscriber-name-box-final">
+/* تغيير المربع المحيط باسم المشترك فقط */
+.slot-card.used .slot-name {
   display:inline-block !important;
+  width:fit-content !important;
+  max-width:100% !important;
+  padding:7px 12px !important;
+  margin-top:9px !important;
+  border-radius:8px !important;
+  background:linear-gradient(135deg,#19d7a0 0%,#0aa66d 55%,#087b55 100%) !important;
+  color:#102b55 !important;
+  box-sizing:border-box !important;
+}
+
+/* اسم المشترك يبقى بلونه الأصلي */
+.slot-card.used .slot-name,
+.slot-card.used .slot-name * {
+  color:#102b55 !important;
 }
 </style>
 
