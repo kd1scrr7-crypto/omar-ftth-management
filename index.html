@@ -2939,7 +2939,7 @@ class="stat-value">
 </div>
 
 <div class="stat-note">
-من أصل 1440 منفذ
+من أصل 1040 منفذ
 </div>
 
 </div>
@@ -2953,7 +2953,7 @@ class="stat-value">
 <div
 id="emptyPorts"
 class="stat-value">
-1440
+1040
 </div>
 
 <div class="stat-note">
@@ -2971,11 +2971,11 @@ class="stat-value">
 <div
 id="fatCount"
 class="stat-value">
-90
+65
 </div>
 
 <div class="stat-note">
-45 FAT لكل منطقة
+29 FAT + 36 FAT
 </div>
 
 </div>
@@ -3478,8 +3478,23 @@ const ZONES = [
 'FNS0284-3'
 ];
 
-const FATS_PER_ZONE = 45;
+const FATS_PER_ZONE = {
+'FNS0281-3': 29,
+'FNS0284-3': 36
+};
 const SLOTS_PER_FAT = 16;
+
+function getMaxFatForZone(value){
+return FATS_PER_ZONE[normalizeZone(value)] || 0;
+}
+
+function getTotalFatCount(){
+return Object.values(FATS_PER_ZONE).reduce((sum,count)=>sum + count,0);
+}
+
+function getTotalCapacity(){
+return getTotalFatCount() * SLOTS_PER_FAT;
+}
 
 let rows = [];
 let zone = 'FNS0281-3';
@@ -3737,7 +3752,7 @@ isValidZone(r.zone)
 ).length;
 
 const empty =
-(2 * 45 * 16) - used;
+getTotalCapacity() - used;
 
 $('totalSubscribers').textContent =
 total;
@@ -3749,7 +3764,7 @@ $('emptyPorts').textContent =
 Math.max(0,empty);
 
 $('fatCount').textContent =
-90;
+getTotalFatCount();
 
 renderZones();
 
@@ -3775,8 +3790,11 @@ item =>
 normalizeZone(item.zone) === z
 ).length;
 
+const maxFat =
+getMaxFatForZone(z);
+
 const capacity =
-FATS_PER_ZONE *
+maxFat *
 SLOTS_PER_FAT;
 
 const empty =
@@ -3799,7 +3817,7 @@ ${esc(z)}
 </div>
 
 <div class="zone-info">
-45 FAT × 16 فتحة
+${maxFat} FAT × 16 فتحة
 </div>
 
 <div class="zone-progress">
@@ -3906,9 +3924,12 @@ function renderFats(){
 
 let html = '';
 
+const maxFat =
+getMaxFatForZone(zone);
+
 for(
 let n=1;
-n<=FATS_PER_ZONE;
+n<=maxFat;
 n++
 ){
 
@@ -4376,6 +4397,16 @@ if(!fat){
 
 showToast(
 'اختر FAT'
+);
+
+return;
+
+}
+
+if(fat > getMaxFatForZone(selectedZone)){
+
+showToast(
+`هذه المنطقة تحتوي على FAT1 إلى FAT${getMaxFatForZone(selectedZone)} فقط`
 );
 
 return;
@@ -5050,7 +5081,8 @@ item.slot_number
 if(
 !isValidZone(targetZone) ||
 !targetFat ||
-!targetSlot
+!targetSlot ||
+targetFat > getMaxFatForZone(targetZone)
 ){
 
 showToast(
@@ -5334,7 +5366,8 @@ excelRow,
 if(
 !name ||
 !isValidZone(importedZone) ||
-!fat
+!fat ||
+fat > getMaxFatForZone(importedZone)
 ){
 
 skipped++;
@@ -5680,9 +5713,14 @@ $('addFat');
 select.innerHTML =
 '';
 
+const maxFat =
+getMaxFatForZone(
+$('addZone').value
+);
+
 for(
 let n=1;
-n<=45;
+n<=maxFat;
 n++
 ){
 
