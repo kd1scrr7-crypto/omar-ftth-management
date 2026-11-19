@@ -2420,6 +2420,314 @@ height:22px;
 padding-left:52px;
 }
 </style>
+
+<style>
+/* =========================================================
+   تحديث ألوان الواجهة الرئيسية فقط
+   لا تغيير في النصوص أو البيانات أو الوظائف
+   ========================================================= */
+
+/* خلفية لوحة البرنامج */
+.app{
+  background:
+    radial-gradient(circle at 8% 4%, rgba(33,154,255,.22), transparent 25%),
+    radial-gradient(circle at 92% 8%, rgba(92,48,220,.18), transparent 28%),
+    linear-gradient(145deg,#061a43 0%,#082b69 48%,#071d4b 100%) !important;
+}
+
+.main{
+  background:transparent !important;
+}
+
+.topbar-title h1{
+  color:#ffffff !important;
+}
+
+.topbar-title p{
+  color:#b9d9ff !important;
+}
+
+.mobile-menu{
+  background:rgba(255,255,255,.12) !important;
+  color:#fff !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  box-shadow:0 5px 18px rgba(0,0,0,.18) !important;
+}
+
+/* القائمة الجانبية */
+.sidebar{
+  background:linear-gradient(180deg,#041a43 0%,#06265d 52%,#031637 100%) !important;
+  box-shadow:-8px 0 30px rgba(0,0,0,.22) !important;
+}
+
+.logo-area{
+  border-bottom-color:rgba(255,255,255,.14) !important;
+}
+
+.logo-title{
+  color:#ffffff !important;
+}
+
+.logo-subtitle{
+  color:#a9d7ff !important;
+}
+
+.menu button{
+  color:#d9ecff !important;
+}
+
+.menu button:hover,
+.menu button.active{
+  background:linear-gradient(90deg,#078df5,#2859e6) !important;
+  color:#ffffff !important;
+  box-shadow:0 6px 18px rgba(0,140,255,.28) !important;
+}
+
+/* البطاقات العامة */
+.card{
+  background:rgba(242,248,255,.97) !important;
+  border:1px solid rgba(93,168,255,.40) !important;
+  box-shadow:0 10px 30px rgba(0,0,0,.16) !important;
+}
+
+.card-title h3{
+  color:#102d73 !important;
+}
+
+.card-title span{
+  background:#dce9ff !important;
+  color:#185bd0 !important;
+}
+
+/* بطاقات الإحصائيات - نفس ألوان الصورة المرجعية */
+.stat-card{
+  border:1px solid rgba(255,255,255,.30) !important;
+  box-shadow:0 10px 28px rgba(0,0,0,.20) !important;
+  color:#ffffff !important;
+}
+
+.stat-card:nth-child(1){
+  background:linear-gradient(135deg,#12bfff 0%,#0879e8 48%,#1742c8 100%) !important;
+  border-color:#4dd9ff !important;
+}
+
+.stat-card:nth-child(2){
+  background:linear-gradient(135deg,#6e2de8 0%,#4b1dc1 52%,#2f168b 100%) !important;
+  border-color:#bb8cff !important;
+}
+
+.stat-card:nth-child(3){
+  background:linear-gradient(135deg,#19d7a0 0%,#0aa66d 55%,#087b55 100%) !important;
+  border-color:#55f0bd !important;
+}
+
+.stat-card:nth-child(4){
+  background:linear-gradient(135deg,#ffd11a 0%,#ff9f0a 45%,#ed5b00 100%) !important;
+  border-color:#ffe36b !important;
+}
+
+.stat-label,
+.stat-value,
+.stat-note{
+  color:#ffffff !important;
+  text-shadow:0 1px 2px rgba(0,0,0,.16);
+}
+
+.stat-value{
+  font-weight:900 !important;
+}
+
+/* ملخص المناطق */
+.zone-card{
+  background:linear-gradient(135deg,#f7fbff 0%,#dcecff 100%) !important;
+  border:1px solid #74b9ff !important;
+  box-shadow:0 8px 22px rgba(25,95,190,.14) !important;
+}
+
+.zone-card:nth-child(even){
+  background:linear-gradient(135deg,#fbf7ff 0%,#e5d8ff 100%) !important;
+  border-color:#c5a3f5 !important;
+}
+
+.zone-name{
+  color:#1749b5 !important;
+  font-weight:900 !important;
+}
+
+.zone-info,
+.zone-footer{
+  color:#294d79 !important;
+}
+
+.zone-progress{
+  background:#c8d9f0 !important;
+}
+
+.zone-progress-fill{
+  background:linear-gradient(90deg,#18a9ff,#1457dc) !important;
+}
+
+.zone-card:nth-child(even) .zone-progress-fill{
+  background:linear-gradient(90deg,#8c54e8,#5121b8) !important;
+}
+
+/* قائمة FAT - نحافظ على ألوان الحالات الحالية مع تحسين الخلفية */
+.fat-status-item{
+  background:#ffffff !important;
+  border-color:#b9d3ee !important;
+  color:#102d55 !important;
+}
+
+.fat-grid button{
+  box-shadow:0 7px 18px rgba(16,53,105,.13) !important;
+}
+
+.fat-grid button.fat-empty{
+  background:linear-gradient(145deg,#f3fff6,#d9f7e3) !important;
+  border-color:#76d59a !important;
+}
+
+.fat-grid button.fat-partial{
+  background:linear-gradient(145deg,#fffaf1,#ffe5b0) !important;
+  border-color:#f3b34c !important;
+}
+
+.fat-grid button.fat-full{
+  background:linear-gradient(145deg,#fff5f5,#ffd6dc) !important;
+  border-color:#ef8b96 !important;
+}
+
+/* النص الأسود في قائمة FAT كما هو مطلوب */
+.fat-grid button,
+.fat-grid button .fat-name,
+.fat-grid button .fat-count,
+.fat-grid button .fat-status-label,
+.fat-grid button .fat-empty-count{
+  color:#000000 !important;
+}
+
+/* تفاصيل FAT */
+.details-header{
+  background:linear-gradient(90deg,#0755bd,#138cf0) !important;
+  color:#ffffff !important;
+  border-radius:12px !important;
+}
+
+.fat-summary-card{
+  background:#f7fbff !important;
+  border-color:#c9def4 !important;
+}
+
+.fat-summary-card.used{
+  background:linear-gradient(135deg,#edf7ff,#d6ebff) !important;
+}
+
+.fat-summary-card.available{
+  background:linear-gradient(135deg,#f4efff,#e5d8ff) !important;
+}
+
+.fat-summary-card.percent{
+  background:linear-gradient(135deg,#fff8ed,#ffe7bd) !important;
+}
+
+.fat-details-progress{
+  background:#d5e4f5 !important;
+}
+
+.fat-details-progress-fill{
+  background:linear-gradient(90deg,#08a9ff,#1556df) !important;
+}
+
+/* بطاقات المنافذ - ألوان فاتحة مع نص أسود */
+.slot-card.used{
+  background:linear-gradient(135deg,#f8fcff,#dcecff) !important;
+  border-color:#79b4ea !important;
+  box-shadow:0 5px 16px rgba(20,91,165,.12) !important;
+}
+
+.slot-card.used::before{
+  background:#1685e8 !important;
+}
+
+.slot-card.used .slot-number,
+.slot-card.used .slot-name,
+.slot-card.used .slot-phone{
+  color:#071a33 !important;
+}
+
+.slot-card.empty{
+  background:#ffffff !important;
+  border-color:#d5e3f1 !important;
+}
+
+.slot-card.highlighted{
+  background:linear-gradient(135deg,#dffaff,#9ee9f8) !important;
+  border-color:#0ba1cc !important;
+}
+
+/* الحقول والأزرار */
+input,
+select,
+textarea{
+  background:#ffffff !important;
+  border-color:#bdd4ed !important;
+  color:#102b55 !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#1686e8 !important;
+  box-shadow:0 0 0 3px rgba(22,134,232,.12) !important;
+}
+
+.primary-btn{
+  background:linear-gradient(90deg,#0a9cf5,#1257d8) !important;
+  color:#fff !important;
+}
+
+.secondary-btn{
+  background:#e3efff !important;
+  color:#1758b9 !important;
+}
+
+/* نتائج البحث والجداول */
+.result-item,
+.all-subscriber-item,
+.excel-box,
+.modal-box{
+  background:#ffffff !important;
+  border-color:#cfe0f2 !important;
+}
+
+.result-name,
+.all-subscriber-name{
+  color:#102b55 !important;
+}
+
+th{
+  background:#e4efff !important;
+  color:#214a7b !important;
+}
+
+td{
+  color:#304d70 !important;
+}
+
+/* التنبيه السفلي */
+.toast{
+  background:linear-gradient(90deg,#0755bd,#128cf0) !important;
+  color:#ffffff !important;
+}
+
+/* الهاتف */
+@media(max-width:800px){
+  .main{
+    background:transparent !important;
+  }
+}
+</style>
+
 </head>
 
 <body>
