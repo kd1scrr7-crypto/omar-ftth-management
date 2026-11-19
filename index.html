@@ -6247,15 +6247,17 @@ fillAddFatSelect();
 <style id="all-subscribers-name-box">
 /* إجمالي المشتركين في المنطقتين:
    تغيير مربع الاسم فقط، مع إبقاء لون الاسم كما هو */
-.all-subscribers-card .all-subscriber-name {
+.all-subscribers-card .all-subscriber-item {
   background: linear-gradient(135deg,#19d7a0 0%,#0aa66d 55%,#087b55 100%) !important;
+  border-color: #19d7a0 !important;
+}
+.all-subscribers-card .all-subscriber-name {
+  background: transparent !important;
   color: #111 !important;
-  border-radius: 8px !important;
-  padding: 7px 12px !important;
-  display: inline-block !important;
-  width: fit-content !important;
-  max-width: 100% !important;
-  box-sizing: border-box !important;
+  padding: 0 !important;
+  display: block !important;
+  width: auto !important;
+  max-width: none !important;
 }
 .all-subscribers-card .all-subscriber-name * {
   color: #111 !important;
