@@ -7048,6 +7048,10 @@ if(addSlotButton){
 $('addZone').value =
 zone;
 
+// إعادة تعبئة قائمة FAT حسب المنطقة المختارة قبل تحديد FAT
+// حتى تظهر FAT30 إلى FAT36 في المنطقة FNS0284-3
+fillAddFatSelect();
+
 $('addFat').value =
 selectedFat;
 
@@ -7221,7 +7225,7 @@ addSub
 $('addZone')
 .addEventListener(
 'change',
-fillAddSlotSelect
+fillAddFatSelect
 );
 
 $('addFat')
