@@ -2754,6 +2754,18 @@ td{
   color:#c62828 !important;
 }
 
+.debts-card .card-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.debts-total-badge{
+  font-weight:bold;
+}
+
+
 .debt-form{
   display:grid;
   grid-template-columns:2fr 1.1fr 1.1fr 1.7fr auto;
@@ -3630,6 +3642,10 @@ class="section hidden">
 
 <span id="debtsCount">
 0 دين
+</span>
+
+<span id="debtsTotalAmount" class="debts-total-badge">
+المجموع: 0 دينار عراقي
 </span>
 
 </div>
@@ -6568,6 +6584,7 @@ function renderDebts(){
   const list = $('debtsList');
   const empty = $('debtsEmpty');
   const count = $('debtsCount');
+  const totalAmount = $('debtsTotalAmount');
 
   if(!list || !empty || !count){
     return;
@@ -6577,6 +6594,16 @@ function renderDebts(){
 
   count.textContent =
     `${debts.length} ${debts.length === 1 ? 'دين' : 'ديون'}`;
+
+  const totalDebt = debts.reduce((sum, debt) => {
+    const value = Number(String(debt.amount ?? '').replace(/,/g,''));
+    return sum + (Number.isFinite(value) && value >= 0 ? value : 0);
+  }, 0);
+
+  if(totalAmount){
+    totalAmount.textContent =
+      `المجموع: ${Math.round(totalDebt).toLocaleString('en-US')} دينار عراقي`;
+  }
 
   updateDebtDashboardCount();
 
