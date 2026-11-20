@@ -3619,7 +3619,7 @@ placeholder="اختر من أسماء المشتركين أو اكتب اسمً�
 <div class="form-field">
 
 <label>
-المبلغ المطلوب
+المبلغ المطلوب (دينار عراقي)
 </label>
 
 <input
@@ -3668,7 +3668,7 @@ type="button">
 <thead>
 <tr>
 <th>الاسم</th>
-<th>المبلغ المطلوب</th>
+<th>المبلغ المطلوب (دينار عراقي)</th>
 <th>الإجراء</th>
 </tr>
 </thead>
@@ -3730,7 +3730,7 @@ type="button">
 <thead>
 <tr>
 <th>الاسم</th>
-<th>المبلغ المطلوب</th>
+<th>المبلغ المطلوب (دينار عراقي)</th>
 </tr>
 </thead>
 
@@ -6400,7 +6400,7 @@ function renderDebts(){
       </td>
 
       <td class="debt-amount-cell">
-        ${esc(debt.amount)}
+        ${esc(debt.amount)} دينار عراقي
       </td>
 
       <td>
@@ -6509,7 +6509,7 @@ function renderDebtSearch(){
   list.innerHTML = results.map(debt => `
     <tr>
       <td class="debt-name-cell">${esc(debt.name)}</td>
-      <td class="debt-amount-cell">${esc(debt.amount)}</td>
+      <td class="debt-amount-cell">${esc(debt.amount)} دينار عراقي</td>
     </tr>
   `).join('');
 }
