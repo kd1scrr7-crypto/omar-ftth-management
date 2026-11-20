@@ -2754,21 +2754,9 @@ td{
   color:#c62828 !important;
 }
 
-.debts-card .card-title{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-.debts-total-badge{
-  font-weight:bold;
-}
-
-
 .debt-form{
   display:grid;
-  grid-template-columns:2fr 1.1fr 1.1fr 1.7fr auto;
+  grid-template-columns:2fr 1fr auto;
   gap:10px;
   align-items:end;
 }
@@ -2785,8 +2773,7 @@ td{
   margin-bottom:5px;
 }
 
-.debt-form .form-field input,
-.debt-form .form-field select{
+.debt-form .form-field input{
   width:100%;
   padding:10px;
   border:1px solid #dce3eb;
@@ -2796,8 +2783,7 @@ td{
   font-size:13px;
 }
 
-.debt-form .form-field input:focus,
-.debt-form .form-field select:focus{
+.debt-form .form-field input:focus{
   border-color:#ef4444;
   box-shadow:0 0 0 3px rgba(239,68,68,.10);
 }
@@ -2861,41 +2847,6 @@ td{
 .debt-amount-cell{
   color:#c62828;
   font-weight:bold;
-}
-
-.debt-zone-cell{
-  color:#b91c1c;
-  font-weight:bold;
-  white-space:nowrap;
-}
-
-.debt-notes-cell{
-  color:#5f6b7a;
-  min-width:150px;
-}
-
-/* تظليل بيانات الدين كاملة باللون الأحمر مع إبقاء الخط أسود */
-.debt-table tbody tr.debt-highlight-row td{
-  background:#ff3b30 !important;
-  color:#000000 !important;
-  border-bottom-color:#ff6b63 !important;
-}
-
-.debt-table tbody tr.debt-highlight-row .debt-name-cell,
-.debt-table tbody tr.debt-highlight-row .debt-zone-cell,
-.debt-table tbody tr.debt-highlight-row .debt-amount-cell,
-.debt-table tbody tr.debt-highlight-row .debt-notes-cell{
-  color:#000000 !important;
-  font-weight:bold;
-}
-
-.debt-table tbody tr.debt-highlight-row .debt-delete-btn{
-  background:#ffffff !important;
-  color:#000000 !important;
-}
-
-.debt-table tbody tr.debt-highlight-row:hover td{
-  background:#ff3b30 !important;
 }
 
 .debt-delete-btn{
@@ -3636,17 +3587,23 @@ class="section hidden">
 
 <div class="card-title">
 
+<div>
 <h3>
 الديون
 </h3>
+<div class="debt-search-subtitle">
+الديون محفوظة في قاعدة البيانات وتظهر على جميع الأجهزة
+</div>
+</div>
 
+<div class="debt-summary-head">
 <span id="debtsCount">
 0 دين
 </span>
-
-<span id="debtsTotalAmount" class="debts-total-badge">
+<span id="debtsTotal">
 المجموع: 0 دينار عراقي
 </span>
+</div>
 
 </div>
 
@@ -3690,9 +3647,10 @@ placeholder="اختر من أسماء المشتركين أو اكتب اسمً�
 
 <input
 id="debtAmount"
-type="text"
+type="number"
+min="0"
+step="1"
 inputmode="numeric"
-autocomplete="off"
 placeholder="مثال: 35,000">
 
 </div>
@@ -3721,7 +3679,7 @@ type="button">
 </div>
 
 <div class="debt-hint">
-اختر اسمًا من إجمالي المشتركين ليتم تحديد المنطقة تلقائيًا، أو اكتب اسمًا جديدًا وحدد المنطقة، ثم أدخل المبلغ والملاحظات.
+يمكنك اختيار اسم من إجمالي المشتركين، وسيتم تحديد المنطقة تلقائيًا. وللاسم الجديد اختر المنطقة ثم أدخل المبلغ والملاحظات.
 </div>
 
 <div class="debt-inline-search">
@@ -3730,7 +3688,7 @@ type="button">
 id="debtsQuickSearch"
 type="text"
 autocomplete="off"
-placeholder="بحث سريع داخل الديون بالاسم...">
+placeholder="بحث سريع داخل الديون بالاسم أو المنطقة...">
 
 <button
 id="clearDebtsQuickSearch"
@@ -3781,7 +3739,7 @@ class="section hidden">
 
 <div>
 <h3>بحث في الدين</h3>
-<div class="debt-search-subtitle">تحديد المشتركين الذين عليهم ديون</div>
+<div class="debt-search-subtitle">تحديد المشترك الذي عليه دين والاطلاع على المنطقة والمبلغ والملاحظات</div>
 </div>
 
 <span id="debtSearchCount">0 دين</span>
@@ -6376,215 +6334,173 @@ option
 
 
 /* =========================
-   قسم الديون
-   محفوظ محليًا ولا يغيّر بيانات المشتركين أو Excel
+   قسم الديون - Supabase
 ========================= */
 
 const DEBTS_STORAGE_KEY = 'omar_ftth_debts_v1';
+const DEBTS_MIGRATION_KEY = 'omar_ftth_debts_migrated_to_supabase_v1';
 
 let debts = [];
 
-function findSubscriberByName(name){
+function formatDebtAmount(value){
+  const number = Number(value || 0);
+  if(!Number.isFinite(number)){
+    return '0';
+  }
+  return number.toLocaleString('en-US',{
+    maximumFractionDigits:0
+  });
+}
+
+function getSubscriberByName(name){
   const target = cleanText(name).toLocaleLowerCase('ar');
   if(!target){
     return null;
   }
 
-  return rows.find(item => {
-    const itemName = cleanText(
-      item.subscriber_name ||
-      item.name ||
-      item.customer_name ||
-      item.subscriber ||
-      item.customer ||
-      ''
-    ).toLocaleLowerCase('ar');
-
-    return itemName === target;
-  }) || null;
+  return rows.find(item =>
+    cleanText(item.subscriber_name || item.name || '')
+      .toLocaleLowerCase('ar') === target
+  ) || null;
 }
 
-function getDebtZone(debt){
-  if(debt && debt.zone){
-    return normalizeZone(debt.zone) || debt.zone;
-  }
-
-  const subscriber = findSubscriberByName(debt?.name || '');
-  return subscriber ? (normalizeZone(subscriber.zone) || subscriber.zone || '—') : '—';
-}
-
-function normalizeDebtAmount(value){
-  const raw = String(value ?? '').replace(/,/g,'').trim();
-  const number = Number(raw);
-
-  if(!Number.isFinite(number) || number < 0){
-    return '';
-  }
-
-  return Math.round(number).toLocaleString('en-US');
-}
-
-function formatDebtAmountInput(){
-  const input = $('debtAmount');
-  if(!input){
+function updateDebtNamesList(){
+  const list = $('debtNamesList');
+  if(!list){
     return;
   }
 
-  const digits = String(input.value || '').replace(/[^0-9.]/g,'');
-  if(!digits){
-    input.value = '';
-    return;
-  }
+  const unique = new Map();
 
-  const number = Number(digits);
-  if(Number.isFinite(number)){
-    input.value = Math.round(number).toLocaleString('en-US');
-  }
-}
+  rows.forEach(item => {
+    const name = cleanText(
+      item.subscriber_name || item.name || ''
+    );
+    const itemZone = normalizeZone(item.zone);
 
-function loadDebts(){
-  try{
-    const saved = localStorage.getItem(DEBTS_STORAGE_KEY);
-    const parsed = saved ? JSON.parse(saved) : [];
-    debts = Array.isArray(parsed) ? parsed : [];
-  }
-  catch(error){
-    console.error(error);
-    debts = [];
-  }
-
-  // الحفاظ على الديون القديمة وإضافة المنطقة والملاحظات لها دون حذف أي بيانات.
-  let changed = false;
-  debts = debts.map(debt => {
-    const updated = {
-      ...debt,
-      zone: getDebtZone(debt),
-      notes: debt.notes ?? ''
-    };
-
-    if(updated.zone !== debt.zone || updated.notes !== debt.notes){
-      changed = true;
+    if(name && !unique.has(`${name}|${itemZone}`)){
+      unique.set(`${name}|${itemZone}`, {name,itemZone});
     }
-
-    return updated;
   });
 
-  if(changed){
-    saveDebts();
+  list.innerHTML = [...unique.values()]
+    .sort((a,b) => a.name.localeCompare(b.name,'ar'))
+    .map(item => `
+      <option value="${esc(item.name)}" label="${esc(item.itemZone)}">${esc(item.itemZone)}</option>
+    `)
+    .join('');
+}
+
+function autoSelectDebtZone(){
+  const nameInput = $('debtName');
+  const zoneInput = $('debtZone');
+  if(!nameInput || !zoneInput){
+    return;
+  }
+
+  const subscriber = getSubscriberByName(nameInput.value);
+  if(subscriber && isValidZone(subscriber.zone)){
+    zoneInput.value = normalizeZone(subscriber.zone);
+  }
+}
+
+async function loadDebts(){
+  const {data, error} = await db
+    .from('debts')
+    .select('*')
+    .order('id',{ascending:true});
+
+  if(error){
+    console.error('loadDebts:', error);
+    showToast('تعذر تحميل الديون من قاعدة البيانات');
+    debts = [];
+    renderDebts();
+    return;
+  }
+
+  debts = (data || []).map(item => ({
+    id: item.id,
+    name: cleanText(item.subscriber_name),
+    zone: normalizeZone(item.zone),
+    amount: Number(item.amount || 0),
+    notes: cleanText(item.notes || '')
+  }));
+
+  /*
+     نقل الديون القديمة المحفوظة محليًا مرة واحدة فقط.
+     إذا كانت قاعدة البيانات فارغة وكانت هناك ديون قديمة على هذا الجهاز،
+     يتم رفعها إلى Supabase حتى لا تضيع البيانات الحالية.
+  */
+  if(
+    debts.length === 0 &&
+    !localStorage.getItem(DEBTS_MIGRATION_KEY)
+  ){
+    try{
+      const saved = localStorage.getItem(DEBTS_STORAGE_KEY);
+      const oldDebts = saved ? JSON.parse(saved) : [];
+
+      if(Array.isArray(oldDebts) && oldDebts.length){
+        const payload = oldDebts
+          .map(debt => {
+            const subscriber = getSubscriberByName(debt.name);
+            const debtZone = normalizeZone(
+              debt.zone || subscriber?.zone || ZONES[0]
+            );
+
+            const amount = Number(
+              String(debt.amount || '0').replace(/,/g,'')
+            );
+
+            if(!cleanText(debt.name) || !Number.isFinite(amount)){
+              return null;
+            }
+
+            return {
+              subscriber_name: cleanText(debt.name),
+              zone: isValidZone(debtZone) ? debtZone : ZONES[0],
+              amount,
+              notes: cleanText(debt.notes || '')
+            };
+          })
+          .filter(Boolean);
+
+        if(payload.length){
+          const {data: migrated, error: migrationError} = await db
+            .from('debts')
+            .insert(payload)
+            .select('*');
+
+          if(migrationError){
+            console.error('debt migration:', migrationError);
+          }
+          else{
+            debts = (migrated || []).map(item => ({
+              id: item.id,
+              name: cleanText(item.subscriber_name),
+              zone: normalizeZone(item.zone),
+              amount: Number(item.amount || 0),
+              notes: cleanText(item.notes || '')
+            }));
+          }
+        }
+      }
+
+      localStorage.setItem(DEBTS_MIGRATION_KEY,'1');
+    }
+    catch(error){
+      console.error('old debt migration:', error);
+    }
   }
 
   renderDebts();
   renderDebtSearch();
 }
 
-function saveDebts(){
-  localStorage.setItem(
-    DEBTS_STORAGE_KEY,
-    JSON.stringify(debts)
-  );
-}
-
-function updateDebtNamesList(){
-  const list = $('debtNamesList');
-
-  if(!list){
-    return;
-  }
-
-  const subscribers = [];
-  const seen = new Set();
-
-  // أسماء المشتركين الحالية مع المنطقة الخاصة بكل اسم.
-  rows.forEach(item => {
-    const name = cleanText(
-      item.subscriber_name ||
-      item.name ||
-      item.customer_name ||
-      item.subscriber ||
-      item.customer ||
-      ''
-    );
-    const zoneValue = normalizeZone(item.zone || '') || item.zone || '';
-
-    if(name){
-      const key = `${name.toLocaleLowerCase('ar')}|${zoneValue}`;
-      if(!seen.has(key)){
-        seen.add(key);
-        subscribers.push({name,zone:zoneValue});
-      }
-    }
-  });
-
-  // إضافة أسماء الديون التي أضيفت يدويًا حتى تبقى المنطقة ظاهرة معها لاحقًا.
-  debts.forEach(debt => {
-    const name = cleanText(debt.name);
-    const zoneValue = getDebtZone(debt);
-
-    if(name){
-      const key = `${name.toLocaleLowerCase('ar')}|${zoneValue}`;
-      if(!seen.has(key)){
-        seen.add(key);
-        subscribers.push({name,zone:zoneValue});
-      }
-    }
-  });
-
-  subscribers.sort((a,b) => a.name.localeCompare(b.name,'ar'));
-
-  // تظهر المنطقة مع الاسم داخل قائمة الاختيار، مع الاحتفاظ بالاسم الحقيقي عند الحفظ.
-  list.innerHTML = subscribers.map(item => `
-    <option value="${esc(item.name + ' — ' + (item.zone || '—'))}" label="${esc(item.zone || '—')}"></option>
-  `).join('');
-}
-
-function getDebtInputSelection(){
-  const raw = cleanText($('debtName')?.value || '');
-  const separator = ' — ';
-  const index = raw.lastIndexOf(separator);
-
-  if(index > -1){
-    const possibleName = cleanText(raw.slice(0,index));
-    const possibleZone = normalizeZone(cleanText(raw.slice(index + separator.length)));
-
-    if(possibleName && isValidZone(possibleZone)){
-      return {
-        name: possibleName,
-        zone: possibleZone
-      };
-    }
-  }
-
-  return {
-    name: raw,
-    zone: ''
-  };
-}
-
-function syncDebtZoneFromName(){
-  const selection = getDebtInputSelection();
-  const name = selection.name;
-
-  if(selection.zone && $('debtZone')){
-    $('debtZone').value = selection.zone;
-    $('debtName').value = name;
-    return;
-  }
-
-  const subscriber = findSubscriberByName(name);
-
-  if(subscriber){
-    const zoneValue = normalizeZone(subscriber.zone) || subscriber.zone || '';
-    if(zoneValue && $('debtZone')){
-      $('debtZone').value = zoneValue;
-    }
-  }
-}
-
 function renderDebts(){
   const list = $('debtsList');
   const empty = $('debtsEmpty');
   const count = $('debtsCount');
-  const totalAmount = $('debtsTotalAmount');
+  const total = $('debtsTotal');
 
   if(!list || !empty || !count){
     return;
@@ -6595,14 +6511,14 @@ function renderDebts(){
   count.textContent =
     `${debts.length} ${debts.length === 1 ? 'دين' : 'ديون'}`;
 
-  const totalDebt = debts.reduce((sum, debt) => {
-    const value = Number(String(debt.amount ?? '').replace(/,/g,''));
-    return sum + (Number.isFinite(value) && value >= 0 ? value : 0);
-  }, 0);
+  const totalAmount = debts.reduce(
+    (sum,debt) => sum + (Number(debt.amount) || 0),
+    0
+  );
 
-  if(totalAmount){
-    totalAmount.textContent =
-      `المجموع: ${Math.round(totalDebt).toLocaleString('en-US')} دينار عراقي`;
+  if(total){
+    total.textContent =
+      `المجموع: ${formatDebtAmount(totalAmount)} دينار عراقي`;
   }
 
   updateDebtDashboardCount();
@@ -6613,6 +6529,8 @@ function renderDebts(){
     empty.classList.remove('hidden');
     return;
   }
+
+  empty.classList.add('hidden');
 
   const quickSearch = cleanText(
     $('debtsQuickSearch')?.value || ''
@@ -6627,12 +6545,13 @@ function renderDebts(){
 
       const text = [
         debt.name,
-        getDebtZone(debt),
-        debt.amount,
+        debt.zone,
         debt.notes
-      ].map(value => cleanText(value).toLocaleLowerCase('ar'));
+      ].join(' ');
 
-      return text.some(value => value.includes(quickSearch));
+      return cleanText(text)
+        .toLocaleLowerCase('ar')
+        .includes(quickSearch);
     });
 
   if(!filteredDebts.length){
@@ -6642,14 +6561,26 @@ function renderDebts(){
     return;
   }
 
-  empty.classList.add('hidden');
+  empty.textContent = 'لا توجد ديون مضافة حاليًا.';
 
   list.innerHTML = filteredDebts.map(({debt,index}) => `
     <tr class="debt-highlight-row">
-      <td class="debt-name-cell">${esc(debt.name)}</td>
-      <td class="debt-zone-cell">${esc(getDebtZone(debt))}</td>
-      <td class="debt-amount-cell">${esc(normalizeDebtAmount(debt.amount))} دينار عراقي</td>
-      <td class="debt-notes-cell">${esc(debt.notes || '—')}</td>
+      <td class="debt-name-cell">
+        ${esc(debt.name)}
+      </td>
+
+      <td class="debt-zone-cell">
+        ${esc(debt.zone || 'غير محددة')}
+      </td>
+
+      <td class="debt-amount-cell">
+        ${formatDebtAmount(debt.amount)} دينار عراقي
+      </td>
+
+      <td class="debt-notes-cell">
+        ${esc(debt.notes || '—')}
+      </td>
+
       <td>
         <button
           type="button"
@@ -6662,19 +6593,21 @@ function renderDebts(){
   `).join('');
 }
 
-function addDebt(){
-  const selection = getDebtInputSelection();
-  const name = selection.name;
+async function addDebt(){
+  const name = cleanText($('debtName').value);
+  const selectedSubscriber = getSubscriberByName(name);
+  const selectedZone = normalizeZone(
+    selectedSubscriber?.zone || $('debtZone').value
+  );
   const amountRaw = cleanText($('debtAmount').value).replace(/,/g,'');
-  const zone = selection.zone || normalizeZone($('debtZone')?.value || '') || $('debtZone')?.value || '';
-  const notes = cleanText($('debtNotes')?.value || '');
+  const notes = cleanText($('debtNotes').value);
 
   if(!name){
     showToast('أدخل الاسم');
     return;
   }
 
-  if(!zone){
+  if(!isValidZone(selectedZone)){
     showToast('اختر المنطقة');
     return;
   }
@@ -6684,31 +6617,46 @@ function addDebt(){
     return;
   }
 
-  const amountNumber = Math.round(Number(amountRaw));
+  const amountNumber = Number(amountRaw);
 
   if(!Number.isFinite(amountNumber)){
     showToast('المبلغ غير صحيح');
     return;
   }
 
+  const {data,error} = await db
+    .from('debts')
+    .insert({
+      subscriber_name:name,
+      zone:selectedZone,
+      amount:amountNumber,
+      notes
+    })
+    .select('*')
+    .single();
+
+  if(error){
+    console.error('addDebt:', error);
+    showToast('تعذر حفظ الدين في قاعدة البيانات');
+    return;
+  }
+
   debts.push({
-    id: Date.now().toString(),
-    name,
-    zone,
-    amount: amountNumber.toLocaleString('en-US'),
-    notes
+    id:data.id,
+    name:cleanText(data.subscriber_name),
+    zone:normalizeZone(data.zone),
+    amount:Number(data.amount || 0),
+    notes:cleanText(data.notes || '')
   });
 
-  saveDebts();
   renderDebts();
   renderDebtSearch();
 
   $('debtName').value = '';
   $('debtAmount').value = '';
   $('debtNotes').value = '';
-  $('debtZone').value = 'FNS0281-3';
 
-  showToast('تمت إضافة الدين');
+  showToast('تمت إضافة الدين وحفظه في قاعدة البيانات');
   $('debtName').focus();
 }
 
@@ -6738,20 +6686,22 @@ function renderDebtSearch(){
 
     const text = [
       debt.name,
-      getDebtZone(debt),
-      debt.amount,
+      debt.zone,
       debt.notes
-    ].map(value => cleanText(value).toLocaleLowerCase('ar'));
+    ].join(' ');
 
-    return text.some(value => value.includes(query));
+    return cleanText(text)
+      .toLocaleLowerCase('ar')
+      .includes(query);
   });
 
-  count.textContent = `${results.length} ${results.length === 1 ? 'دين' : 'ديون'}`;
+  count.textContent =
+    `${results.length} ${results.length === 1 ? 'دين' : 'ديون'}`;
 
   if(!query){
     list.innerHTML = '';
     empty.textContent = debts.length
-      ? 'اكتب اسم المشترك أو المنطقة أو المبلغ أو الملاحظات للبحث عن الدين.'
+      ? 'اكتب اسم المشترك للبحث عن الدين.'
       : 'لا توجد ديون مضافة حاليًا.';
     empty.classList.remove('hidden');
     return;
@@ -6759,7 +6709,7 @@ function renderDebtSearch(){
 
   if(!results.length){
     list.innerHTML = '';
-    empty.textContent = 'لا يوجد مشترك عليه دين بهذا البحث.';
+    empty.textContent = 'لا يوجد مشترك عليه دين بهذا الاسم.';
     empty.classList.remove('hidden');
     return;
   }
@@ -6769,32 +6719,43 @@ function renderDebtSearch(){
   list.innerHTML = results.map(debt => `
     <tr class="debt-highlight-row">
       <td class="debt-name-cell">${esc(debt.name)}</td>
-      <td class="debt-zone-cell">${esc(getDebtZone(debt))}</td>
-      <td class="debt-amount-cell">${esc(normalizeDebtAmount(debt.amount))} دينار عراقي</td>
+      <td class="debt-zone-cell">${esc(debt.zone || 'غير محددة')}</td>
+      <td class="debt-amount-cell">${formatDebtAmount(debt.amount)} دينار عراقي</td>
       <td class="debt-notes-cell">${esc(debt.notes || '—')}</td>
     </tr>
   `).join('');
 }
 
-function deleteDebt(index){
+async function deleteDebt(index){
   if(index < 0 || index >= debts.length){
     return;
   }
 
+  const debt = debts[index];
   const confirmed = confirm(
-    `هل أنت متأكد من حذف الدين:\n${debts[index].name} ؟`
+    `هل أنت متأكد من حذف الدين:\n${debt.name} ؟`
   );
 
   if(!confirmed){
     return;
   }
 
+  const {error} = await db
+    .from('debts')
+    .delete()
+    .eq('id',debt.id);
+
+  if(error){
+    console.error('deleteDebt:', error);
+    showToast('تعذر حذف الدين من قاعدة البيانات');
+    return;
+  }
+
   debts.splice(index,1);
-  saveDebts();
   renderDebts();
   renderDebtSearch();
 
-  showToast('تم حذف الدين');
+  showToast('تم حذف الدين من قاعدة البيانات');
 }
 
 
@@ -6864,11 +6825,12 @@ $('addDebtBtn')
 addDebt
 );
 
-$('debtAmount')
+$('debtName')
 .addEventListener(
 'input',
-formatDebtAmountInput
-);
+()=>{
+  autoSelectDebtZone();
+});
 
 $('debtAmount')
 .addEventListener(
@@ -6878,18 +6840,6 @@ event => {
     addDebt();
   }
 }
-);
-
-$('debtName')
-.addEventListener(
-'input',
-syncDebtZoneFromName
-);
-
-$('debtName')
-.addEventListener(
-'change',
-syncDebtZoneFromName
 );
 
 $('debtNotes')
@@ -7075,10 +7025,6 @@ if(addSlotButton){
 $('addZone').value =
 zone;
 
-// إعادة تعبئة قائمة FAT حسب المنطقة المختارة قبل تحديد FAT
-// حتى تظهر FAT30 إلى FAT36 في المنطقة FNS0284-3
-fillAddFatSelect();
-
 $('addFat').value =
 selectedFat;
 
@@ -7195,6 +7141,32 @@ searchSubs();
 );
 
 
+$('addDebtBtn')
+.addEventListener(
+'click',
+addDebt
+);
+
+$('debtAmount')
+.addEventListener(
+'keydown',
+event => {
+  if(event.key === 'Enter'){
+    addDebt();
+  }
+}
+);
+
+$('debtName')
+.addEventListener(
+'keydown',
+event => {
+  if(event.key === 'Enter'){
+    $('debtAmount').focus();
+  }
+}
+);
+
 $('debtsList')
 .addEventListener(
 'click',
@@ -7252,7 +7224,7 @@ addSub
 $('addZone')
 .addEventListener(
 'change',
-fillAddFatSelect
+fillAddSlotSelect
 );
 
 $('addFat')
@@ -7282,6 +7254,7 @@ if(session){
 showApp();
 
 await loadRows();
+await loadDebts();
 
 }
 else{
@@ -7300,8 +7273,6 @@ $('loginPage')
 
 }
 );
-
-loadDebts();
 
 (async function(){
 
@@ -7340,6 +7311,92 @@ fillAddFatSelect();
 
 </script>
 
+
+
+<style id="debts-supabase-final-style">
+
+/* ===== تنسيق الديون: التظليل الأحمر والخط الأسود ===== */
+.debt-summary-head{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:4px;
+}
+
+.debt-summary-head span{
+  font-weight:800;
+}
+
+#debtsTotal{
+  color:#b91c1c !important;
+  font-size:12px;
+}
+
+.debt-zone-cell,
+.debt-notes-cell{
+  color:#000 !important;
+  font-weight:700;
+}
+
+.debt-highlight-row td{
+  background:#ff2b2b !important;
+  color:#000 !important;
+  border-bottom-color:#d00000 !important;
+}
+
+.debt-highlight-row .debt-name-cell,
+.debt-highlight-row .debt-zone-cell,
+.debt-highlight-row .debt-amount-cell,
+.debt-highlight-row .debt-notes-cell{
+  color:#000 !important;
+  font-weight:800 !important;
+}
+
+.debt-highlight-row .debt-delete-btn{
+  color:#000 !important;
+  background:#fff !important;
+  border:1px solid #000 !important;
+}
+
+.debt-highlight-row:hover td{
+  background:#ff1f1f !important;
+}
+
+.debt-form{
+  grid-template-columns:1.7fr 1fr 1.15fr 1.5fr auto !important;
+}
+
+.debt-form select,
+.debt-form .form-field input{
+  width:100%;
+  box-sizing:border-box;
+}
+
+@media(max-width:1100px){
+  .debt-form{
+    grid-template-columns:1fr 1fr !important;
+  }
+
+  .debt-add-btn{
+    grid-column:span 2;
+  }
+}
+
+@media(max-width:600px){
+  .debt-form{
+    grid-template-columns:1fr !important;
+  }
+
+  .debt-add-btn{
+    grid-column:auto;
+  }
+
+  .debt-summary-head{
+    align-items:flex-start;
+  }
+}
+
+</style>
 
 <style id="text-color-only">
 .stat-card .stat-label,
