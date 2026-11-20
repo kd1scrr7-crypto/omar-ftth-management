@@ -6624,30 +6624,29 @@ async function addDebt(){
     return;
   }
 
-  const {data,error} = await db
+  const payload = {
+    subscriber_name:name,
+    zone:selectedZone,
+    amount:amountNumber,
+    notes
+  };
+
+  /*
+     نحفظ السجل بدون طلب إرجاع الصف من INSERT.
+     هذا يمنع فشل الإضافة إذا كان INSERT ناجحًا لكن RETURNING
+     متأثرًا بسياسات RLS/SELECT. بعد الحفظ نعيد تحميل الديون من Supabase.
+  */
+  const {error} = await db
     .from('debts')
-    .insert({
-      subscriber_name:name,
-      zone:selectedZone,
-      amount:amountNumber,
-      notes
-    })
-    .select('*')
-    .single();
+    .insert(payload);
 
   if(error){
     console.error('addDebt:', error);
-    showToast('تعذر حفظ الدين في قاعدة البيانات');
+    showToast('تعذر حفظ الدين: ' + (error.message || 'خطأ غير معروف'));
     return;
   }
 
-  debts.push({
-    id:data.id,
-    name:cleanText(data.subscriber_name),
-    zone:normalizeZone(data.zone),
-    amount:Number(data.amount || 0),
-    notes:cleanText(data.notes || '')
-  });
+  await loadDebts();
 
   renderDebts();
   renderDebtSearch();
