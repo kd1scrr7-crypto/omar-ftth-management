@@ -2890,6 +2890,101 @@ td{
   }
 }
 
+
+.dashboard-debt-card{
+  cursor:pointer !important;
+  background:linear-gradient(135deg,#b91c1c,#ef4444) !important;
+  color:#fff !important;
+  border-color:#f87171 !important;
+}
+
+.dashboard-debt-card .stat-label,
+.dashboard-debt-card .stat-value,
+.dashboard-debt-card .stat-note{
+  color:#fff !important;
+}
+
+.dashboard-debt-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(185,28,28,.25) !important;
+}
+
+.debt-search-menu-btn{
+  color:#ffb3b3 !important;
+}
+
+.debt-search-menu-btn:hover,
+.debt-search-menu-btn.active{
+  background:linear-gradient(90deg,#b91c1c,#7f1d1d) !important;
+  color:#fff !important;
+  box-shadow:0 5px 16px rgba(220,38,38,.22) !important;
+}
+
+.debt-inline-search,
+.debt-search-box{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin-top:14px;
+}
+
+.debt-inline-search input,
+.debt-search-box input{
+  flex:1;
+  min-width:0;
+  padding:10px 12px;
+  border:1px solid #ead4d4;
+  border-radius:9px;
+  outline:none;
+  background:#fff;
+  font-size:13px;
+}
+
+.debt-inline-search input:focus,
+.debt-search-box input:focus{
+  border-color:#ef4444;
+  box-shadow:0 0 0 3px rgba(239,68,68,.10);
+}
+
+.debt-inline-search button,
+.debt-search-box button{
+  border:0;
+  background:#fff0f0;
+  color:#c62828;
+  padding:10px 15px;
+  min-height:40px;
+  border-radius:9px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.debt-inline-search button:hover,
+.debt-search-box button:hover{
+  background:#ffe1e1;
+}
+
+.debt-search-subtitle{
+  margin-top:4px;
+  color:#8a6a6a;
+  font-size:11px;
+}
+
+.debt-search-card{
+  border-top:3px solid #b91c1c !important;
+}
+
+.debt-search-card .card-title h3{
+  color:#b91c1c !important;
+}
+
+@media(max-width:800px){
+  .debt-inline-search,
+  .debt-search-box{
+    flex-direction:column;
+    align-items:stretch;
+  }
+}
+
 </style>
 
 </style>
@@ -3041,6 +3136,12 @@ class="menu-btn debt-menu-btn">
 </button>
 
 <button
+data-section="debtSearchSection"
+class="menu-btn debt-search-menu-btn">
+بحث في الدين
+</button>
+
+<button
 id="logoutBtn"
 class="logout-menu">
 تسجيل الخروج
@@ -3148,6 +3249,24 @@ class="stat-value">
 
 <div class="stat-note">
 29 FAT + 36 FAT
+</div>
+
+</div>
+
+<div id="dashboardDebtsCard" class="stat-card dashboard-debt-card" data-debt-dashboard="true" title="عرض قسم الديون">
+
+<div class="stat-label">
+الديون
+</div>
+
+<div
+id="dashboardDebtsCount"
+class="stat-value">
+0
+</div>
+
+<div class="stat-note">
+اضغط لعرض الديون
 </div>
 
 </div>
@@ -3526,6 +3645,22 @@ type="button">
 يمكنك اختيار اسم من إجمالي المشتركين أو كتابة اسم جديد، ثم إدخال المبلغ المطلوب.
 </div>
 
+<div class="debt-inline-search">
+
+<input
+id="debtsQuickSearch"
+type="text"
+autocomplete="off"
+placeholder="بحث سريع داخل الديون بالاسم...">
+
+<button
+id="clearDebtsQuickSearch"
+type="button">
+مسح
+</button>
+
+</div>
+
 <div class="debt-table-wrap">
 
 <table class="debt-table">
@@ -3547,6 +3682,64 @@ type="button">
 id="debtsEmpty"
 class="debts-empty">
 لا توجد ديون مضافة حاليًا.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section
+id="debtSearchSection"
+class="section hidden">
+
+<div class="card debts-card debt-search-card">
+
+<div class="card-title">
+
+<div>
+<h3>بحث في الدين</h3>
+<div class="debt-search-subtitle">تحديد المشتركين الذين عليهم ديون</div>
+</div>
+
+<span id="debtSearchCount">0 دين</span>
+
+</div>
+
+<div class="debt-search-box">
+
+<input
+id="debtSearchInput"
+type="text"
+autocomplete="off"
+placeholder="ابحث باسم المشترك الذي عليه دين...">
+
+<button
+id="clearDebtSearch"
+type="button">
+مسح
+</button>
+
+</div>
+
+<div class="debt-table-wrap">
+
+<table class="debt-table">
+
+<thead>
+<tr>
+<th>الاسم</th>
+<th>المبلغ المطلوب</th>
+</tr>
+</thead>
+
+<tbody id="debtSearchList"></tbody>
+
+</table>
+
+<div id="debtSearchEmpty" class="debts-empty">
+اكتب اسم المشترك للبحث عن الدين.
 </div>
 
 </div>
@@ -5939,6 +6132,24 @@ renderZones();
 
 }
 
+if(
+sectionId ===
+'debtSearchSection'
+){
+
+renderDebtSearch();
+
+}
+
+if(
+sectionId ===
+'debtsSection'
+){
+
+renderDebts();
+
+}
+
 }
 
 function selectZone(newZone){
@@ -6147,6 +6358,8 @@ function renderDebts(){
   count.textContent =
     `${debts.length} ${debts.length === 1 ? 'دين' : 'ديون'}`;
 
+  updateDebtDashboardCount();
+
   if(!debts.length){
     list.innerHTML = '';
     empty.classList.remove('hidden');
@@ -6155,7 +6368,32 @@ function renderDebts(){
 
   empty.classList.add('hidden');
 
-  list.innerHTML = debts.map((debt,index) => `
+  const quickSearch = cleanText(
+    $('debtsQuickSearch')?.value || ''
+  ).toLocaleLowerCase('ar');
+
+  const filteredDebts = debts
+    .map((debt,index) => ({debt,index}))
+    .filter(({debt}) => {
+      if(!quickSearch){
+        return true;
+      }
+
+      return cleanText(debt.name)
+        .toLocaleLowerCase('ar')
+        .includes(quickSearch);
+    });
+
+  if(!filteredDebts.length){
+    list.innerHTML = '';
+    empty.textContent = 'لا توجد نتيجة مطابقة للبحث.';
+    empty.classList.remove('hidden');
+    return;
+  }
+
+  empty.textContent = 'لا توجد ديون مضافة حاليًا.';
+
+  list.innerHTML = filteredDebts.map(({debt,index}) => `
     <tr>
       <td class="debt-name-cell">
         ${esc(debt.name)}
@@ -6217,6 +6455,63 @@ function addDebt(){
 
   showToast('تمت إضافة الدين');
   $('debtName').focus();
+}
+
+function updateDebtDashboardCount(){
+  const el = $('dashboardDebtsCount');
+  if(el){
+    el.textContent = debts.length;
+  }
+}
+
+function renderDebtSearch(){
+  const list = $('debtSearchList');
+  const empty = $('debtSearchEmpty');
+  const count = $('debtSearchCount');
+  const input = $('debtSearchInput');
+
+  if(!list || !empty || !count || !input){
+    return;
+  }
+
+  const query = cleanText(input.value).toLocaleLowerCase('ar');
+
+  const results = debts.filter(debt => {
+    if(!query){
+      return false;
+    }
+
+    return cleanText(debt.name)
+      .toLocaleLowerCase('ar')
+      .includes(query);
+  });
+
+  count.textContent = `${results.length} ${results.length === 1 ? 'دين' : 'ديون'}`;
+
+  if(!query){
+    list.innerHTML = '';
+    empty.textContent = debts.length
+      ? 'اكتب اسم المشترك للبحث عن الدين.'
+      : 'لا توجد ديون مضافة حاليًا.';
+    empty.classList.remove('hidden');
+    return;
+  }
+
+  if(!results.length){
+    list.innerHTML = '';
+    empty.textContent = 'لا يوجد مشترك عليه دين بهذا الاسم.';
+    empty.classList.remove('hidden');
+    return;
+  }
+
+  empty.classList.add('hidden');
+
+  list.innerHTML = results.map(debt => `
+    <tr>
+      <td class="debt-name-cell">${esc(debt.name)}</td>
+      <td class="debt-amount-cell">${esc(debt.amount)}</td>
+    </tr>
+  `).join('');
 }
 
 function deleteDebt(index){
@@ -6300,6 +6595,62 @@ $('sidebar')
 'open'
 );
 
+}
+);
+
+$('addDebtBtn')
+.addEventListener(
+'click',
+addDebt
+);
+
+$('debtAmount')
+.addEventListener(
+'keydown',
+event => {
+  if(event.key === 'Enter'){
+    addDebt();
+  }
+}
+);
+
+$('debtsQuickSearch')
+.addEventListener(
+'input',
+renderDebts
+);
+
+$('clearDebtsQuickSearch')
+.addEventListener(
+'click',
+()=>{
+  $('debtsQuickSearch').value = '';
+  renderDebts();
+  $('debtsQuickSearch').focus();
+}
+);
+
+$('debtSearchInput')
+.addEventListener(
+'input',
+renderDebtSearch
+);
+
+$('clearDebtSearch')
+.addEventListener(
+'click',
+()=>{
+  $('debtSearchInput').value = '';
+  renderDebtSearch();
+  $('debtSearchInput').focus();
+}
+);
+
+$('dashboardDebtsCard')
+.addEventListener(
+'click',
+()=>{
+  showSection('debtsSection');
 }
 );
 
