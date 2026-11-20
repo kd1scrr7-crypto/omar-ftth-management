@@ -2726,6 +2726,172 @@ td{
     background:transparent !important;
   }
 }
+
+<style id="debts-section-style">
+
+/* ===== قسم الديون فقط ===== */
+.debt-menu-btn{
+  color:#ffb3b3 !important;
+}
+
+.debt-menu-btn:hover,
+.debt-menu-btn.active{
+  background:linear-gradient(90deg,#d92323,#a80f18) !important;
+  color:#fff !important;
+  box-shadow:0 5px 16px rgba(220,38,38,.25) !important;
+}
+
+.debts-card{
+  border-top:3px solid #ef4444 !important;
+}
+
+.debts-card .card-title h3{
+  color:#c62828 !important;
+}
+
+.debts-card .card-title span{
+  background:#fff0f0 !important;
+  color:#c62828 !important;
+}
+
+.debt-form{
+  display:grid;
+  grid-template-columns:2fr 1fr auto;
+  gap:10px;
+  align-items:end;
+}
+
+.debt-form .form-field{
+  min-width:0;
+}
+
+.debt-form .form-field label{
+  display:block;
+  font-size:11px;
+  font-weight:bold;
+  color:#667589;
+  margin-bottom:5px;
+}
+
+.debt-form .form-field input{
+  width:100%;
+  padding:10px;
+  border:1px solid #dce3eb;
+  border-radius:9px;
+  outline:none;
+  background:#fff;
+  font-size:13px;
+}
+
+.debt-form .form-field input:focus{
+  border-color:#ef4444;
+  box-shadow:0 0 0 3px rgba(239,68,68,.10);
+}
+
+.debt-add-btn{
+  border:0;
+  background:#ef4444;
+  color:#fff;
+  padding:10px 18px;
+  min-height:40px;
+  border-radius:9px;
+  font-weight:bold;
+  font-size:13px;
+}
+
+.debt-add-btn:hover{
+  background:#dc2626;
+}
+
+.debt-hint{
+  margin-top:9px;
+  font-size:11px;
+  color:#8a6a6a;
+}
+
+.debt-table-wrap{
+  margin-top:18px;
+  overflow:auto;
+  border:1px solid #f1caca;
+  border-radius:10px;
+}
+
+.debt-table{
+  width:100%;
+  min-width:560px;
+  border-collapse:collapse;
+}
+
+.debt-table th{
+  background:#fff1f1;
+  color:#a83232;
+}
+
+.debt-table th,
+.debt-table td{
+  padding:11px;
+  border-bottom:1px solid #f4dddd;
+  text-align:right;
+  font-size:12px;
+}
+
+.debt-table tr:last-child td{
+  border-bottom:0;
+}
+
+.debt-name-cell{
+  font-weight:bold;
+  color:#202b3c;
+}
+
+.debt-amount-cell{
+  color:#c62828;
+  font-weight:bold;
+}
+
+.debt-delete-btn{
+  border:0;
+  background:#fff0f0;
+  color:#d73535;
+  padding:7px 11px;
+  border-radius:7px;
+  font-size:10px;
+  font-weight:bold;
+}
+
+.debt-delete-btn:hover{
+  background:#ffe0e0;
+}
+
+.debts-empty{
+  padding:22px;
+  text-align:center;
+  color:#9a7b7b;
+  font-size:12px;
+}
+
+@media(max-width:800px){
+  .debt-form{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .debt-add-btn{
+    grid-column:span 2;
+  }
+}
+
+@media(max-width:600px){
+  .debt-form{
+    grid-template-columns:1fr;
+  }
+
+  .debt-add-btn{
+    grid-column:auto;
+  }
+}
+
+</style>
+
 </style>
 
 </head>
@@ -2866,6 +3032,12 @@ class="menu-btn">
 data-section="excelSection"
 class="menu-btn">
 Excel
+</button>
+
+<button
+data-section="debtsSection"
+class="menu-btn debt-menu-btn">
+الديون
 </button>
 
 <button
@@ -3279,6 +3451,102 @@ class="primary-btn">
 🔄 مزامنة FTTH
 </button>
 
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section
+id="debtsSection"
+class="section hidden">
+
+<div class="card debts-card">
+
+<div class="card-title">
+
+<h3>
+الديون
+</h3>
+
+<span id="debtsCount">
+0 دين
+</span>
+
+</div>
+
+<div class="debt-form">
+
+<div class="form-field debt-name-field">
+
+<label>
+الاسم
+</label>
+
+<input
+id="debtName"
+type="text"
+list="debtNamesList"
+autocomplete="off"
+placeholder="اختر من أسماء المشتركين أو اكتب اسمًا جديدًا">
+
+<datalist id="debtNamesList"></datalist>
+
+</div>
+
+<div class="form-field">
+
+<label>
+المبلغ المطلوب
+</label>
+
+<input
+id="debtAmount"
+type="number"
+min="0"
+step="0.01"
+inputmode="decimal"
+placeholder="المبلغ المطلوب">
+
+</div>
+
+<button
+id="addDebtBtn"
+class="debt-add-btn"
+type="button">
+إضافة الدين
+</button>
+
+</div>
+
+<div class="debt-hint">
+يمكنك اختيار اسم من إجمالي المشتركين أو كتابة اسم جديد، ثم إدخال المبلغ المطلوب.
+</div>
+
+<div class="debt-table-wrap">
+
+<table class="debt-table">
+
+<thead>
+<tr>
+<th>الاسم</th>
+<th>المبلغ المطلوب</th>
+<th>الإجراء</th>
+</tr>
+</thead>
+
+<tbody id="debtsList">
+</tbody>
+
+</table>
+
+<div
+id="debtsEmpty"
+class="debts-empty">
+لا توجد ديون مضافة حاليًا.
 </div>
 
 </div>
@@ -3917,6 +4185,9 @@ item.slot_number
 updateDashboard();
 
 renderFats();
+
+updateDebtNamesList();
+renderDebts();
 
 }
 
@@ -5809,6 +6080,169 @@ option
 
 }
 
+
+/* =========================
+   قسم الديون
+   محفوظ محليًا ولا يغيّر بيانات المشتركين أو Excel
+========================= */
+
+const DEBTS_STORAGE_KEY = 'omar_ftth_debts_v1';
+
+let debts = [];
+
+function loadDebts(){
+  try{
+    const saved = localStorage.getItem(DEBTS_STORAGE_KEY);
+    const parsed = saved ? JSON.parse(saved) : [];
+    debts = Array.isArray(parsed) ? parsed : [];
+  }
+  catch(error){
+    console.error(error);
+    debts = [];
+  }
+
+  renderDebts();
+}
+
+function saveDebts(){
+  localStorage.setItem(
+    DEBTS_STORAGE_KEY,
+    JSON.stringify(debts)
+  );
+}
+
+function updateDebtNamesList(){
+  const list = $('debtNamesList');
+
+  if(!list){
+    return;
+  }
+
+  const names = [...new Set(
+    rows
+      .map(item => cleanText(
+        item.subscriber_name ||
+        item.name ||
+        ''
+      ))
+      .filter(Boolean)
+  )].sort((a,b) => a.localeCompare(b,'ar'));
+
+  list.innerHTML = names.map(name => `
+    <option value="${esc(name)}"></option>
+  `).join('');
+}
+
+function renderDebts(){
+  const list = $('debtsList');
+  const empty = $('debtsEmpty');
+  const count = $('debtsCount');
+
+  if(!list || !empty || !count){
+    return;
+  }
+
+  updateDebtNamesList();
+
+  count.textContent =
+    `${debts.length} ${debts.length === 1 ? 'دين' : 'ديون'}`;
+
+  if(!debts.length){
+    list.innerHTML = '';
+    empty.classList.remove('hidden');
+    return;
+  }
+
+  empty.classList.add('hidden');
+
+  list.innerHTML = debts.map((debt,index) => `
+    <tr>
+      <td class="debt-name-cell">
+        ${esc(debt.name)}
+      </td>
+
+      <td class="debt-amount-cell">
+        ${esc(debt.amount)}
+      </td>
+
+      <td>
+        <button
+          type="button"
+          class="debt-delete-btn"
+          data-debt-index="${index}">
+          حذف
+        </button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function addDebt(){
+  const name = cleanText($('debtName').value);
+  const amountRaw = cleanText($('debtAmount').value);
+
+  if(!name){
+    showToast('أدخل الاسم');
+    return;
+  }
+
+  if(
+    !amountRaw ||
+    Number(amountRaw) < 0
+  ){
+    showToast('أدخل المبلغ المطلوب');
+    return;
+  }
+
+  const amountNumber = Number(amountRaw);
+
+  if(!Number.isFinite(amountNumber)){
+    showToast('المبلغ غير صحيح');
+    return;
+  }
+
+  debts.push({
+    id: Date.now().toString(),
+    name,
+    amount: amountNumber.toLocaleString('en-US',{
+      maximumFractionDigits:2
+    })
+  });
+
+  saveDebts();
+  renderDebts();
+
+  $('debtName').value = '';
+  $('debtAmount').value = '';
+
+  showToast('تمت إضافة الدين');
+  $('debtName').focus();
+}
+
+function deleteDebt(index){
+  if(
+    index < 0 ||
+    index >= debts.length
+  ){
+    return;
+  }
+
+  const confirmed = confirm(
+    `هل أنت متأكد من حذف الدين:\\n${debts[index].name} ؟`
+  );
+
+  if(!confirmed){
+    return;
+  }
+
+  debts.splice(index,1);
+  saveDebts();
+  renderDebts();
+
+  showToast('تم حذف الدين');
+}
+
+
 $('loginBtn')
 .addEventListener(
 'click',
@@ -6117,6 +6551,49 @@ searchSubs();
 }
 );
 
+
+$('addDebtBtn')
+.addEventListener(
+'click',
+addDebt
+);
+
+$('debtAmount')
+.addEventListener(
+'keydown',
+event => {
+  if(event.key === 'Enter'){
+    addDebt();
+  }
+}
+);
+
+$('debtName')
+.addEventListener(
+'keydown',
+event => {
+  if(event.key === 'Enter'){
+    $('debtAmount').focus();
+  }
+}
+);
+
+$('debtsList')
+.addEventListener(
+'click',
+event => {
+  const button = event.target.closest('[data-debt-index]');
+
+  if(!button){
+    return;
+  }
+
+  deleteDebt(
+    Number(button.dataset.debtIndex)
+  );
+}
+);
+
 $('downloadTemplateBtn')
 .addEventListener(
 'click',
@@ -6206,6 +6683,8 @@ $('loginPage')
 
 }
 );
+
+loadDebts();
 
 (async function(){
 
