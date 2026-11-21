@@ -6499,30 +6499,47 @@ function isManager(){
 
 function applyTeamPermissions(){
   const member = currentTeamMember;
+
+  /* لا نخفي أي وظيفة إذا لم يتم تحميل بيانات الفريق بعد */
+  if(!member){
+    const teamMenu = $('teamMenuBtn');
+    if(teamMenu){ teamMenu.classList.add('hidden'); }
+    return;
+  }
+
+  /* المدير يرى كل وظائف البرنامج كما كانت سابقًا */
+  if(member.role === 'manager' && member.is_active){
+    const allMenuButtons = document.querySelectorAll('.menu-btn');
+    allMenuButtons.forEach(btn => btn.classList.remove('hidden'));
+    const teamMenu = $('teamMenuBtn');
+    if(teamMenu){ teamMenu.classList.remove('hidden'); }
+    return;
+  }
+
   const teamMenu = $('teamMenuBtn');
   if(teamMenu){
-    teamMenu.classList.toggle('hidden', !member?.can_manage_team);
+    teamMenu.classList.toggle('hidden', !member.can_manage_team);
   }
 
   const activityMenu = document.querySelector('[data-section="activitySection"]');
   if(activityMenu){
-    activityMenu.classList.toggle('hidden', !member?.can_view_activity);
+    activityMenu.classList.toggle('hidden', !member.can_view_activity);
   }
 
   const addMenu = document.querySelector('[data-section="addSection"]');
   if(addMenu){
-    addMenu.classList.toggle('hidden', !member?.can_add_subscribers);
+    addMenu.classList.toggle('hidden', !member.can_add_subscribers);
   }
 
   const excelMenu = document.querySelector('[data-section="excelSection"]');
   if(excelMenu){
-    excelMenu.classList.toggle('hidden', !(member?.can_import_excel || member?.can_export_excel));
+    excelMenu.classList.toggle('hidden', !(member.can_import_excel || member.can_export_excel));
   }
 
   const debtMenu = document.querySelector('[data-section="debtsSection"]');
   const debtSearchMenu = document.querySelector('[data-section="debtSearchSection"]');
-  if(debtMenu){ debtMenu.classList.toggle('hidden', !member?.can_manage_debts); }
-  if(debtSearchMenu){ debtSearchMenu.classList.toggle('hidden', !member?.can_manage_debts); }
+  if(debtMenu){ debtMenu.classList.toggle('hidden', !member.can_manage_debts); }
+  if(debtSearchMenu){ debtSearchMenu.classList.toggle('hidden', !member.can_manage_debts); }
 }
 
 function showTeamError(message){
