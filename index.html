@@ -3733,6 +3733,21 @@ placeholder="مثال: 35,000">
 <div class="form-field">
 
 <label>
+رقم الهاتف (اختياري)
+</label>
+
+<input
+id="debtPhone"
+type="text"
+autocomplete="off"
+inputmode="tel"
+placeholder="رقم واتساب - اختياري">
+
+</div>
+
+<div class="form-field">
+
+<label>
 الملاحظات
 </label>
 
@@ -3782,6 +3797,7 @@ type="button">
 <th>الاسم</th>
 <th>المنطقة</th>
 <th>المبلغ المطلوب (دينار عراقي)</th>
+<th>رقم الهاتف</th>
 <th>الملاحظات</th>
 <th>الإجراء</th>
 </tr>
@@ -3846,7 +3862,9 @@ type="button">
 <th>الاسم</th>
 <th>المنطقة</th>
 <th>المبلغ المطلوب (دينار عراقي)</th>
+<th>رقم الهاتف</th>
 <th>الملاحظات</th>
+<th>واتساب</th>
 </tr>
 </thead>
 
@@ -6369,6 +6387,14 @@ section.classList.remove(
 
 }
 
+document.addEventListener('click',event => {
+  const button = event.target.closest('[data-whatsapp-search-name]');
+  if(!button){ return; }
+  const name = button.dataset.whatsappSearchName || '';
+  const index = debts.findIndex(debt => cleanText(debt.name) === cleanText(name));
+  if(index >= 0){ openDebtWhatsApp(index); }
+});
+
 document
 .querySelectorAll('.menu-btn')
 .forEach(
@@ -6668,6 +6694,7 @@ async function loadDebts(){
     name: cleanText(item.subscriber_name),
     zone: normalizeZone(item.zone),
     amount: Number(item.amount || 0),
+    phone: cleanText(item.phone || ''),
     notes: cleanText(item.notes || '')
   }));
 
@@ -6704,6 +6731,7 @@ async function loadDebts(){
               subscriber_name: cleanText(debt.name),
               zone: isValidZone(debtZone) ? debtZone : ZONES[0],
               amount,
+              phone: cleanText(debt.phone || subscriber?.phone || subscriber?.phone_number || ''),
               notes: cleanText(debt.notes || '')
             };
           })
@@ -6724,6 +6752,7 @@ async function loadDebts(){
               name: cleanText(item.subscriber_name),
               zone: normalizeZone(item.zone),
               amount: Number(item.amount || 0),
+              phone: cleanText(item.phone || ''),
               notes: cleanText(item.notes || '')
             }));
           }
@@ -6739,6 +6768,40 @@ async function loadDebts(){
 
   renderDebts();
   renderDebtSearch();
+}
+
+function getSubscriberPhoneForDebt(debt){
+  const subscriber = getSubscriberByName(debt?.name || '');
+  return cleanText(
+    debt?.phone ||
+    subscriber?.phone ||
+    subscriber?.phone_number ||
+    subscriber?.mobile ||
+    ''
+  );
+}
+
+function normalizeWhatsAppPhone(phone){
+  let value = String(phone || '').replace(/[^0-9+]/g,'');
+  if(!value){ return ''; }
+  if(value.startsWith('+')){ value = value.slice(1); }
+  if(value.startsWith('00964')){ value = value.slice(2); }
+  if(value.startsWith('964')){ return value; }
+  if(value.startsWith('0')){ return '964' + value.slice(1); }
+  return value;
+}
+
+function openDebtWhatsApp(index){
+  if(index < 0 || index >= debts.length){ return; }
+  const debt = debts[index];
+  const phone = getSubscriberPhoneForDebt(debt);
+  const whatsappPhone = normalizeWhatsAppPhone(phone);
+  if(!whatsappPhone){
+    showToast('أضف رقم الهاتف أولًا لإرسال رسالة واتساب');
+    return;
+  }
+  const message = `السلام عليكم ${debt.name}،\nنود تذكيركم بأن المبلغ المستحق عليكم هو ${formatDebtAmount(debt.amount)} دينار عراقي.\nيرجى التفضل بتسديد المبلغ.\nشكرًا لتعاونكم 🌹`;
+  window.open(`https://wa.me/${whatsappPhone}?text=${encodeURIComponent(message)}`,'_blank');
 }
 
 function renderDebts(){
@@ -6822,11 +6885,23 @@ function renderDebts(){
         ${formatDebtAmount(debt.amount)} دينار عراقي
       </td>
 
+      <td class="debt-phone-cell">
+        ${esc(debt.phone || getSubscriberPhoneForDebt(debt) || 'غير موجود')}
+      </td>
+
       <td class="debt-notes-cell">
         ${esc(debt.notes || '—')}
       </td>
 
       <td>
+        <button
+          type="button"
+          class="debt-whatsapp-btn"
+          data-whatsapp-debt-index="${index}"
+          ${!(debt.phone || getSubscriberPhoneForDebt(debt)) ? 'disabled title="أضف رقم الهاتف أولًا"' : ''}>
+          📱 واتساب
+        </button>
+
         <button
           type="button"
           class="debt-delete-btn"
@@ -6845,6 +6920,7 @@ async function addDebt(){
     selectedSubscriber?.zone || $('debtZone').value
   );
   const amountRaw = cleanText($('debtAmount').value).replace(/,/g,'');
+  const phone = cleanText($('debtPhone').value);
   const notes = cleanText($('debtNotes').value);
 
   if(!name){
@@ -6873,6 +6949,7 @@ async function addDebt(){
     subscriber_name:name,
     zone:selectedZone,
     amount:amountNumber,
+    phone:phone || null,
     notes
   };
 
@@ -6897,6 +6974,7 @@ async function addDebt(){
   renderDebtSearch();
 
   $('debtName').value = '';
+  $('debtPhone').value = '';
   $('debtAmount').value = '';
   $('debtNotes').value = '';
 
@@ -6966,7 +7044,11 @@ function renderDebtSearch(){
       <td class="debt-name-cell">${esc(debt.name)}</td>
       <td class="debt-zone-cell">${esc(debt.zone || 'غير محددة')}</td>
       <td class="debt-amount-cell">${formatDebtAmount(debt.amount)} دينار عراقي</td>
+      <td class="debt-phone-cell">${esc(debt.phone || getSubscriberPhoneForDebt(debt) || 'غير موجود')}</td>
       <td class="debt-notes-cell">${esc(debt.notes || '—')}</td>
+      <td>
+        <button type="button" class="debt-whatsapp-btn" data-whatsapp-search-name="${esc(debt.name)}" ${!(debt.phone || getSubscriberPhoneForDebt(debt)) ? 'disabled title="أضف رقم الهاتف أولًا"' : ''}>📱 واتساب</button>
+      </td>
     </tr>
   `).join('');
 }
@@ -7076,6 +7158,10 @@ $('debtName')
 'input',
 ()=>{
   autoSelectDebtZone();
+  const subscriber = getSubscriberByName($('debtName').value);
+  if(subscriber && !$('debtPhone').value.trim()){
+    $('debtPhone').value = cleanText(subscriber.phone || subscriber.phone_number || subscriber.mobile || '');
+  }
 });
 
 $('debtAmount')
@@ -7419,6 +7505,12 @@ $('debtsList')
 .addEventListener(
 'click',
 event => {
+  const whatsappButton = event.target.closest('[data-whatsapp-debt-index]');
+  if(whatsappButton){
+    openDebtWhatsApp(Number(whatsappButton.dataset.whatsappDebtIndex));
+    return;
+  }
+
   const button = event.target.closest('[data-debt-index]');
 
   if(!button){
@@ -7738,14 +7830,40 @@ fillAddFatSelect();
   position:fixed !important;
   z-index:20 !important;
 }
-</style>
 
-
-<style>
-/* إصلاح أيقونة زر القائمة فقط */
-.mobile-menu{
-  color:#123f82 !important;
-  background:#fff !important;
+/* ===== رقم الهاتف وواتساب للديون - اختياري ===== */
+.debt-phone-cell{
+  direction:ltr;
+  text-align:right;
+  white-space:nowrap;
+}
+.debt-whatsapp-btn{
+  border:0;
+  background:#e8f8ef;
+  color:#16834b;
+  padding:7px 10px;
+  border-radius:7px;
+  font-size:10px;
+  font-weight:bold;
+  margin-left:5px;
+}
+.debt-whatsapp-btn:hover{
+  background:#d4f2e2;
+}
+.debt-whatsapp-btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+.debt-form{
+  grid-template-columns:1.7fr 1fr 1.15fr 1.2fr 1.5fr auto !important;
+}
+@media(max-width:1100px){
+  .debt-form{ grid-template-columns:1fr 1fr !important; }
+  .debt-add-btn{ grid-column:span 2; }
+}
+@media(max-width:600px){
+  .debt-form{ grid-template-columns:1fr !important; }
+  .debt-add-btn{ grid-column:auto; }
 }
 </style>
 
