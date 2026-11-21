@@ -6791,6 +6791,26 @@ function normalizeWhatsAppPhone(phone){
   return value;
 }
 
+async function editDebtPhone(index){
+  if(index < 0 || index >= debts.length){ return; }
+  const debt = debts[index];
+  const currentPhone = cleanText(debt.phone || getSubscriberPhoneForDebt(debt) || '');
+  const phone = prompt(`رقم الهاتف للمشترك: ${debt.name}\n\nأدخل رقم واتساب أو اتركه فارغًا لحذفه:`, currentPhone);
+  if(phone === null){ return; }
+  const newPhone = cleanText(phone);
+  const {error} = await db.from('debts').update({phone:newPhone || null}).eq('id',debt.id);
+  if(error){
+    console.error('editDebtPhone:',error);
+    showToast('تعذر حفظ رقم الهاتف: ' + (error.message || 'خطأ غير معروف'));
+    return;
+  }
+  debt.phone = newPhone;
+  renderDebts();
+  renderDebtSearch();
+  showToast(newPhone ? 'تم حفظ رقم الهاتف' : 'تم حذف رقم الهاتف');
+  await logActivity('تعديل رقم هاتف الدين', `${debt.name}${newPhone ? ` — ${newPhone}` : ' — تم حذف رقم الهاتف'}`);
+}
+
 function openDebtWhatsApp(index){
   if(index < 0 || index >= debts.length){ return; }
   const debt = debts[index];
@@ -6894,6 +6914,13 @@ function renderDebts(){
       </td>
 
       <td>
+        <button
+          type="button"
+          class="debt-edit-phone-btn"
+          data-edit-debt-phone-index="${index}">
+          📞 ${debt.phone || getSubscriberPhoneForDebt(debt) ? 'تعديل الرقم' : 'إضافة رقم'}
+        </button>
+
         <button
           type="button"
           class="debt-whatsapp-btn"
@@ -7047,6 +7074,9 @@ function renderDebtSearch(){
       <td class="debt-phone-cell">${esc(debt.phone || getSubscriberPhoneForDebt(debt) || 'غير موجود')}</td>
       <td class="debt-notes-cell">${esc(debt.notes || '—')}</td>
       <td>
+        <button type="button" class="debt-edit-phone-btn" data-edit-search-debt-name="${esc(debt.name)}">
+          📞 ${debt.phone || getSubscriberPhoneForDebt(debt) ? 'تعديل الرقم' : 'إضافة رقم'}
+        </button>
         <button type="button" class="debt-whatsapp-btn" data-whatsapp-search-name="${esc(debt.name)}" ${!(debt.phone || getSubscriberPhoneForDebt(debt)) ? 'disabled title="أضف رقم الهاتف أولًا"' : ''}>📱 واتساب</button>
       </td>
     </tr>
@@ -7505,6 +7535,12 @@ $('debtsList')
 .addEventListener(
 'click',
 event => {
+  const editPhoneButton = event.target.closest('[data-edit-debt-phone-index]');
+  if(editPhoneButton){
+    editDebtPhone(Number(editPhoneButton.dataset.editDebtPhoneIndex));
+    return;
+  }
+
   const whatsappButton = event.target.closest('[data-whatsapp-debt-index]');
   if(whatsappButton){
     openDebtWhatsApp(Number(whatsappButton.dataset.whatsappDebtIndex));
@@ -7522,6 +7558,14 @@ event => {
   );
 }
 );
+
+document.addEventListener('click',event => {
+  const editSearchButton = event.target.closest('[data-edit-search-debt-name]');
+  if(!editSearchButton){ return; }
+  const name = editSearchButton.dataset.editSearchDebtName || '';
+  const index = debts.findIndex(debt => cleanText(debt.name) === cleanText(name));
+  if(index >= 0){ editDebtPhone(index); }
+});
 
 $('downloadTemplateBtn')
 .addEventListener(
@@ -7837,6 +7881,18 @@ fillAddFatSelect();
   text-align:right;
   white-space:nowrap;
 }
+.debt-edit-phone-btn{
+  border:0;
+  background:#eef4ff;
+  color:#245aa8;
+  padding:7px 10px;
+  border-radius:7px;
+  font-size:10px;
+  font-weight:bold;
+  margin-left:5px;
+  cursor:pointer;
+}
+.debt-edit-phone-btn:hover{ background:#dfeaff; }
 .debt-whatsapp-btn{
   border:0;
   background:#e8f8ef;
