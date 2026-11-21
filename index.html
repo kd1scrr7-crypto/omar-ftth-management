@@ -6478,18 +6478,50 @@ oldText;
 async function loadCurrentTeamMember(){
   currentTeamMember = null;
 
+  const { data: authData } = await db.auth.getUser();
+  const authUser = authData?.user;
+  const authUserId = authUser?.id || '';
+
+  if(!authUserId){
+    applyTeamPermissions();
+    return;
+  }
+
   const { data, error } = await db
     .from('team_members')
     .select('*')
-    .eq('user_id', (await db.auth.getUser()).data.user?.id || '')
+    .eq('user_id', authUserId)
     .maybeSingle();
 
   if(error){
     console.error('loadCurrentTeamMember:',error);
-    return;
+  }else{
+    currentTeamMember = data || null;
   }
 
-  currentTeamMember = data || null;
+  /* حساب المدير الحالي معروف مسبقًا، لذلك إذا تأخر تحميل صف team_members
+     أو حدث خطأ قراءة مؤقت، لا تختفي قائمة فريق العمل من المدير. */
+  if(!currentTeamMember && authUser.email === 'crrr7c@gmail.com'){
+    currentTeamMember = {
+      user_id: authUserId,
+      username: 'manager',
+      display_name: 'المدير',
+      role: 'manager',
+      is_active: true,
+      can_view_subscribers: true,
+      can_add_subscribers: true,
+      can_edit_subscribers: true,
+      can_delete_subscribers: true,
+      can_manage_debts: true,
+      can_import_excel: true,
+      can_export_excel: true,
+      can_manage_phones: true,
+      can_send_whatsapp: true,
+      can_view_activity: true,
+      can_manage_team: true
+    };
+  }
+
   applyTeamPermissions();
 }
 
