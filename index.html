@@ -4932,6 +4932,43 @@ return;
 
 }
 
+const duplicateName =
+rows.some(
+r => {
+
+const existingName =
+cleanText(
+r.subscriber_name ??
+r.name ??
+r.customer_name ??
+r.subscriber ??
+''
+)
+.replace(/\s+/g,' ')
+.trim()
+.toLocaleLowerCase('ar');
+
+const newName =
+name
+.replace(/\s+/g,' ')
+.trim()
+.toLocaleLowerCase('ar');
+
+return existingName === newName;
+
+}
+);
+
+if(duplicateName){
+
+showToast(
+'هذا الاسم موجود مسبقًا، لا يمكنك إضافته'
+);
+
+return;
+
+}
+
 if(
 !isValidZone(selectedZone)
 ){
