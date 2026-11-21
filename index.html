@@ -3095,7 +3095,7 @@ td{
 </span>
 <input
 id="loginEmail"
-type="email"
+type="text"
 placeholder="اسم المستخدم او البريد الالكتروني"
 autocomplete="username">
 </div>
@@ -3214,6 +3214,13 @@ class="menu-btn debt-search-menu-btn">
 data-section="activitySection"
 class="menu-btn activity-menu-btn">
 سجل النشاط
+</button>
+
+<button
+id="teamMenuBtn"
+data-section="teamSection"
+class="menu-btn team-menu-btn hidden">
+فريق العمل
 </button>
 
 <button
@@ -3919,6 +3926,68 @@ class="section hidden">
 </section>
 
 <section
+id="teamSection"
+class="section hidden">
+
+<div class="card team-card">
+
+<div class="card-title team-card-title">
+<div>
+<h3>فريق العمل</h3>
+<div class="activity-subtitle">إنشاء وإدارة حسابات الموظفين وصلاحياتهم</div>
+</div>
+</div>
+
+<div class="team-create-grid">
+<div class="form-field">
+<label>اسم المستخدم</label>
+<input id="teamUsername" type="text" placeholder="مثال: ahmed" autocomplete="off">
+</div>
+
+<div class="form-field">
+<label>اسم الموظف</label>
+<input id="teamDisplayName" type="text" placeholder="اسم الموظف">
+</div>
+
+<div class="form-field">
+<label>كلمة المرور</label>
+<input id="teamPassword" type="password" placeholder="6 أحرف على الأقل" autocomplete="new-password">
+</div>
+
+<div class="form-field">
+<label>الدور</label>
+<select id="teamRole">
+<option value="employee">موظف</option>
+<option value="debt_employee">موظف ديون</option>
+<option value="viewer">مشاهدة فقط</option>
+</select>
+</div>
+
+<button id="createTeamMemberBtn" type="button" class="primary team-create-btn">إنشاء حساب الموظف</button>
+</div>
+
+<div id="teamError" class="team-error hidden"></div>
+
+<div class="activity-table-wrap team-table-wrap">
+<table class="activity-table team-table">
+<thead>
+<tr>
+<th>اسم المستخدم</th>
+<th>اسم الموظف</th>
+<th>الدور</th>
+<th>الحالة</th>
+</tr>
+</thead>
+<tbody id="teamList"></tbody>
+</table>
+<div id="teamEmpty" class="activity-empty">لا يوجد موظفون مضافون حتى الآن.</div>
+</div>
+
+</div>
+
+</section>
+
+<section
 id="addSection"
 class="section hidden">
 
@@ -4103,6 +4172,15 @@ supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
+
+let currentTeamMember = null;
+
+const TEAM_ROLE_NAMES = {
+  manager: 'المدير',
+  employee: 'موظف',
+  debt_employee: 'موظف ديون',
+  viewer: 'مشاهدة فقط'
+};
 
 const ZONES = [
 'FNS0281-3',
@@ -4338,7 +4416,7 @@ async function loadActivityLogs(){
 
 async function login(){
 
-const email =
+const loginValue =
 cleanText(
 $('loginEmail').value
 );
@@ -4349,42 +4427,74 @@ $('loginPassword').value;
 $('loginError')
 .classList.add('hidden');
 
-if(
-!email ||
-!password
-){
-
-$('loginError').textContent =
-'أدخل Username@ وPassword';
-
-$('loginError')
-.classList.remove('hidden');
-
-return;
-
+if(!loginValue || !password){
+  $('loginError').textContent =
+  'أدخل اسم المستخدم أو البريد الإلكتروني وكلمة السر';
+  $('loginError').classList.remove('hidden');
+  return;
 }
 
-const {
-error
-} =
-await db.auth.signInWithPassword({
-email,
-password
-});
+try{
+  let session = null;
 
-if(error){
+  // دخول المدير الحالي بالبريد الإلكتروني كما هو.
+  if(loginValue.includes('@')){
+    const { data, error } =
+      await db.auth.signInWithPassword({
+        email: loginValue,
+        password
+      });
 
-$('loginError').textContent =
-error.message;
+    if(error || !data?.session){
+      $('loginError').textContent =
+        error?.message || 'تعذر تسجيل الدخول';
+      $('loginError').classList.remove('hidden');
+      return;
+    }
 
-$('loginError')
-.classList.remove('hidden');
+    session = data.session;
+  }else{
+    // دخول الموظف باسم المستخدم عبر Edge Function.
+    const { data, error } =
+      await db.functions.invoke('team-login',{
+        body:{
+          username: loginValue,
+          password
+        }
+      });
 
-return;
+    if(error || !data?.session){
+      $('loginError').textContent =
+        data?.error || error?.message || 'اسم المستخدم أو كلمة المرور غير صحيحة';
+      $('loginError').classList.remove('hidden');
+      return;
+    }
 
+    const { error: sessionError } =
+      await db.auth.setSession({
+        access_token: data.session.access_token,
+        refresh_token: data.session.refresh_token
+      });
+
+    if(sessionError){
+      $('loginError').textContent = sessionError.message;
+      $('loginError').classList.remove('hidden');
+      return;
+    }
+
+    session = data.session;
+  }
+
+  if(session){
+    await logActivity('تسجيل دخول', `تم تسجيل الدخول إلى البرنامج${loginValue.includes('@') ? '' : ` — ${loginValue}`}`);
+  }
+
+}catch(error){
+  console.error('login:',error);
+  $('loginError').textContent =
+    error?.message || 'حدث خطأ أثناء تسجيل الدخول';
+  $('loginError').classList.remove('hidden');
 }
-
-await logActivity('تسجيل دخول', 'تم تسجيل الدخول إلى البرنامج');
 
 }
 
@@ -6365,6 +6475,150 @@ oldText;
 
 }
 
+async function loadCurrentTeamMember(){
+  currentTeamMember = null;
+
+  const { data, error } = await db
+    .from('team_members')
+    .select('*')
+    .eq('user_id', (await db.auth.getUser()).data.user?.id || '')
+    .maybeSingle();
+
+  if(error){
+    console.error('loadCurrentTeamMember:',error);
+    return;
+  }
+
+  currentTeamMember = data || null;
+  applyTeamPermissions();
+}
+
+function isManager(){
+  return !!(currentTeamMember && currentTeamMember.role === 'manager' && currentTeamMember.is_active);
+}
+
+function applyTeamPermissions(){
+  const member = currentTeamMember;
+  const teamMenu = $('teamMenuBtn');
+  if(teamMenu){
+    teamMenu.classList.toggle('hidden', !member?.can_manage_team);
+  }
+
+  const activityMenu = document.querySelector('[data-section="activitySection"]');
+  if(activityMenu){
+    activityMenu.classList.toggle('hidden', !member?.can_view_activity);
+  }
+
+  const addMenu = document.querySelector('[data-section="addSection"]');
+  if(addMenu){
+    addMenu.classList.toggle('hidden', !member?.can_add_subscribers);
+  }
+
+  const excelMenu = document.querySelector('[data-section="excelSection"]');
+  if(excelMenu){
+    excelMenu.classList.toggle('hidden', !(member?.can_import_excel || member?.can_export_excel));
+  }
+
+  const debtMenu = document.querySelector('[data-section="debtsSection"]');
+  const debtSearchMenu = document.querySelector('[data-section="debtSearchSection"]');
+  if(debtMenu){ debtMenu.classList.toggle('hidden', !member?.can_manage_debts); }
+  if(debtSearchMenu){ debtSearchMenu.classList.toggle('hidden', !member?.can_manage_debts); }
+}
+
+function showTeamError(message){
+  const box=$('teamError');
+  if(!box){ return; }
+  box.textContent=message || '';
+  box.classList.toggle('hidden',!message);
+}
+
+function roleName(role){
+  return TEAM_ROLE_NAMES[role] || role || '—';
+}
+
+async function loadTeamMembers(){
+  const list=$('teamList');
+  const empty=$('teamEmpty');
+  if(!list || !empty || !isManager()){ return; }
+
+  const {data,error}=await db
+    .from('team_members')
+    .select('user_id,username,display_name,role,is_active')
+    .order('created_at',{ascending:true});
+
+  if(error){
+    console.error('loadTeamMembers:',error);
+    list.innerHTML='';
+    empty.textContent='تعذر تحميل فريق العمل: ' + error.message;
+    empty.classList.remove('hidden');
+    return;
+  }
+
+  const members=(data||[]).filter(m=>m.role !== 'manager');
+  if(!members.length){
+    list.innerHTML='';
+    empty.textContent='لا يوجد موظفون مضافون حتى الآن.';
+    empty.classList.remove('hidden');
+    return;
+  }
+
+  empty.classList.add('hidden');
+  list.innerHTML=members.map(m=>`<tr>
+    <td>${esc(m.username || '—')}</td>
+    <td>${esc(m.display_name || '—')}</td>
+    <td><span class="team-role-badge">${esc(roleName(m.role))}</span></td>
+    <td><span class="team-status-badge ${m.is_active ? 'active':'inactive'}">${m.is_active ? 'نشط':'موقوف'}</span></td>
+  </tr>`).join('');
+}
+
+async function createTeamMember(){
+  if(!isManager() || !currentTeamMember.can_manage_team){
+    showTeamError('ليس لديك صلاحية إدارة فريق العمل');
+    return;
+  }
+
+  showTeamError('');
+  const username=cleanText($('teamUsername').value).toLowerCase();
+  const displayName=cleanText($('teamDisplayName').value);
+  const password=$('teamPassword').value;
+  const role=$('teamRole').value;
+
+  if(!username || !displayName || !password){
+    showTeamError('أدخل اسم المستخدم واسم الموظف وكلمة المرور');
+    return;
+  }
+
+  const btn=$('createTeamMemberBtn');
+  const old=btn.textContent;
+  btn.disabled=true;
+  btn.textContent='جاري الإنشاء...';
+
+  try{
+    const {data,error}=await db.functions.invoke('create-team-member',{
+      body:{username,display_name:displayName,password,role}
+    });
+
+    if(error || data?.error){
+      showTeamError(data?.error || error?.message || 'تعذر إنشاء حساب الموظف');
+      return;
+    }
+
+    $('teamUsername').value='';
+    $('teamDisplayName').value='';
+    $('teamPassword').value='';
+    $('teamRole').value='employee';
+    await loadTeamMembers();
+    await logActivity('إضافة عضو فريق', `${displayName} — ${username}`);
+    showToast('تم إنشاء حساب الموظف بنجاح');
+  }catch(error){
+    console.error('createTeamMember:',error);
+    showTeamError(error?.message || 'حدث خطأ أثناء إنشاء الحساب');
+  }finally{
+    btn.disabled=false;
+    btn.textContent=old;
+  }
+}
+
 function showSection(sectionId){
 
 document
@@ -6460,6 +6714,10 @@ sectionId ===
 
 loadActivityLogs();
 
+}
+
+if(sectionId === 'teamSection'){
+  loadTeamMembers();
 }
 
 }
@@ -7633,6 +7891,12 @@ $('refreshActivityBtn')
 loadActivityLogs
 );
 
+$('createTeamMemberBtn')
+.addEventListener(
+'click',
+createTeamMember
+);
+
 db.auth.onAuthStateChange(
 async (
 event,
@@ -7641,11 +7905,15 @@ session
 
 if(session){
 
+await loadCurrentTeamMember();
 showApp();
+applyTeamPermissions();
 
 await loadRows();
 await loadDebts();
-await loadActivityLogs();
+if(currentTeamMember?.can_view_activity){
+  await loadActivityLogs();
+}
 
 }
 else{
@@ -7677,7 +7945,9 @@ data &&
 data.session
 ){
 
+await loadCurrentTeamMember();
 showApp();
+applyTeamPermissions();
 
 await loadRows();
 await loadDebts();
@@ -7920,6 +8190,48 @@ fillAddFatSelect();
 @media(max-width:600px){
   .debt-form{ grid-template-columns:1fr !important; }
   .debt-add-btn{ grid-column:auto; }
+}
+</style>
+
+
+<style id="team-management-style">
+.team-create-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+  align-items:end;
+  margin-bottom:14px;
+}
+.team-create-btn{
+  min-height:46px;
+  border:0;
+  border-radius:10px;
+  font-weight:bold;
+}
+.team-error{
+  margin:10px 0 14px;
+  padding:10px 12px;
+  border-radius:9px;
+  background:#fff0f0;
+  color:#b42318;
+  font-weight:bold;
+}
+.team-table-wrap{ margin-top:8px; }
+.team-role-badge,.team-status-badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:bold;
+}
+.team-role-badge{ background:#eaf3ff; color:#176fc8; }
+.team-status-badge.active{ background:#e8f8ef; color:#16834b; }
+.team-status-badge.inactive{ background:#fff0f0; color:#c43b3b; }
+@media(max-width:900px){
+  .team-create-grid{ grid-template-columns:1fr 1fr; }
+}
+@media(max-width:600px){
+  .team-create-grid{ grid-template-columns:1fr; }
 }
 </style>
 
