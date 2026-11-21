@@ -4311,7 +4311,7 @@ async function loadActivityLogs(){
   const list=$('activityList'); const empty=$('activityEmpty');
   if(!list || !empty){ return; }
   const {data,error}=await db.from('activity_logs').select('id,action,details,user_email,created_at').order('created_at',{ascending:false}).limit(300);
-  if(error){ console.error('loadActivityLogs:',error); list.innerHTML=''; empty.textContent='تعذر تحميل سجل النشاط. تأكد من إنشاء جدول activity_logs في Supabase.'; empty.classList.remove('hidden'); return; }
+  if(error){ console.error('loadActivityLogs:',error); list.innerHTML=''; const msg=[error.message,error.code,error.details,error.hint].filter(Boolean).join(' | '); empty.textContent='تعذر تحميل سجل النشاط: ' + (msg || 'خطأ غير معروف من Supabase'); empty.classList.remove('hidden'); return; }
   const logs=data || [];
   if(!logs.length){ list.innerHTML=''; empty.textContent='لا توجد عمليات مسجلة حتى الآن.'; empty.classList.remove('hidden'); return; }
   empty.classList.add('hidden');
