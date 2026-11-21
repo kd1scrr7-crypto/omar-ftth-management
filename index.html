@@ -3025,6 +3025,29 @@ td{
 
 </style>
 
+
+<style id="activity-log-style">
+.activity-menu-btn{color:#bfe1ff !important;}
+.activity-menu-btn:hover,.activity-menu-btn.active{background:linear-gradient(90deg,#087eea,#1769d1) !important;color:#fff !important;}
+.activity-card{border-top:3px solid #168cf2 !important;}
+.activity-card-title{align-items:center;}
+.activity-subtitle{font-size:11px;color:#7b8796;margin-top:4px;}
+.activity-refresh-btn{border:0;background:#168cf2;color:#fff;padding:9px 14px;border-radius:9px;font-size:12px;font-weight:bold;}
+.activity-refresh-btn:hover{background:#0d78d5;}
+.activity-table-wrap{margin-top:18px;overflow:auto;border:1px solid #dce8f5;border-radius:12px;background:#fff;}
+.activity-table{width:100%;border-collapse:collapse;min-width:760px;}
+.activity-table th{background:#eef6ff;color:#174a7c;font-size:12px;padding:12px 10px;text-align:right;white-space:nowrap;}
+.activity-table td{padding:11px 10px;border-top:1px solid #edf2f7;color:#25364d;font-size:12px;vertical-align:middle;}
+.activity-table tr:hover td{background:#f8fbff;}
+.activity-action{font-weight:800;white-space:nowrap;}
+.activity-details{font-weight:600;}
+.activity-user{direction:ltr;text-align:right;font-family:Arial,sans-serif;}
+.activity-time{white-space:nowrap;color:#53657a;font-weight:700;}
+.activity-empty{padding:28px;text-align:center;color:#8795a6;font-size:13px;}
+.activity-icon{display:inline-flex;width:28px;height:28px;align-items:center;justify-content:center;border-radius:8px;background:#eaf5ff;margin-left:7px;font-size:15px;}
+@media(max-width:700px){.activity-table-wrap{margin-top:12px}.activity-card-title{align-items:flex-start;gap:10px;flex-direction:column}.activity-refresh-btn{width:100%}}
+</style>
+
 </head>
 
 <body>
@@ -3185,6 +3208,12 @@ class="menu-btn debt-menu-btn">
 data-section="debtSearchSection"
 class="menu-btn debt-search-menu-btn">
 بحث في الدين
+</button>
+
+<button
+data-section="activitySection"
+class="menu-btn activity-menu-btn">
+سجل النشاط
 </button>
 
 <button
@@ -3836,6 +3865,42 @@ type="button">
 </section>
 
 <section
+id="activitySection"
+class="section hidden">
+
+<div class="card activity-card">
+
+<div class="card-title activity-card-title">
+<div>
+<h3>سجل النشاط</h3>
+<div class="activity-subtitle">آخر العمليات التي تمت على البرنامج</div>
+</div>
+
+<button id="refreshActivityBtn" type="button" class="activity-refresh-btn">
+تحديث السجل
+</button>
+</div>
+
+<div class="activity-table-wrap">
+<table class="activity-table">
+<thead>
+<tr>
+<th>العملية</th>
+<th>التفاصيل</th>
+<th>المستخدم</th>
+<th>التاريخ والوقت</th>
+</tr>
+</thead>
+<tbody id="activityList"></tbody>
+</table>
+
+<div id="activityEmpty" class="activity-empty">لا توجد عمليات مسجلة حتى الآن.</div>
+</div>
+</div>
+
+</section>
+
+<section
 id="addSection"
 class="section hidden">
 
@@ -4213,6 +4278,46 @@ return '';
 
 }
 
+async function getActivityUser(){
+  try{
+    const {data,error} = await db.auth.getUser();
+    if(error || !data?.user){ return {id:null,email:'غير معروف'}; }
+    return {id:data.user.id || null,email:data.user.email || 'غير معروف'};
+  }catch(error){ console.error('getActivityUser:',error); return {id:null,email:'غير معروف'}; }
+}
+
+async function logActivity(action,details=''){
+  try{
+    const user = await getActivityUser();
+    if(!user.id){ return; }
+    const {error} = await db.from('activity_logs').insert({user_id:user.id,user_email:user.email,action:String(action || ''),details:String(details || '')});
+    if(error){ console.error('activity_logs insert:',error); }
+  }catch(error){ console.error('logActivity:',error); }
+}
+
+function activityIcon(action){
+  const icons={'تسجيل دخول':'🔐','إضافة مشترك':'➕','تعديل مشترك':'✏️','حذف مشترك':'🗑️','إضافة دين':'💰','حذف دين':'🗑️','استيراد Excel':'📥','تصدير Excel':'📤','تسجيل خروج':'🚪'};
+  return icons[action] || '📌';
+}
+
+function formatActivityDate(value){
+  if(!value){ return '—'; }
+  const date=new Date(value);
+  if(Number.isNaN(date.getTime())){ return value; }
+  return date.toLocaleString('ar-IQ',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit'});
+}
+
+async function loadActivityLogs(){
+  const list=$('activityList'); const empty=$('activityEmpty');
+  if(!list || !empty){ return; }
+  const {data,error}=await db.from('activity_logs').select('id,action,details,user_email,created_at').order('created_at',{ascending:false}).limit(300);
+  if(error){ console.error('loadActivityLogs:',error); list.innerHTML=''; empty.textContent='تعذر تحميل سجل النشاط. تأكد من إنشاء جدول activity_logs في Supabase.'; empty.classList.remove('hidden'); return; }
+  const logs=data || [];
+  if(!logs.length){ list.innerHTML=''; empty.textContent='لا توجد عمليات مسجلة حتى الآن.'; empty.classList.remove('hidden'); return; }
+  empty.classList.add('hidden');
+  list.innerHTML=logs.map(log=>`<tr><td class="activity-action"><span class="activity-icon">${activityIcon(log.action)}</span>${esc(log.action || 'عملية')}</td><td class="activity-details">${esc(log.details || '—')}</td><td class="activity-user">${esc(log.user_email || 'غير معروف')}</td><td class="activity-time">${esc(formatActivityDate(log.created_at))}</td></tr>`).join('');
+}
+
 async function login(){
 
 const email =
@@ -4261,10 +4366,13 @@ return;
 
 }
 
+await logActivity('تسجيل دخول', 'تم تسجيل الدخول إلى البرنامج');
+
 }
 
 async function logout(){
 
+await logActivity('تسجيل خروج', 'تم تسجيل الخروج من البرنامج');
 await db.auth.signOut();
 
 $('app').classList.add(
@@ -5101,6 +5209,8 @@ showToast(
 `تمت إضافة ${name} في FAT${fat} — الفتحة ${slot}`
 );
 
+await logActivity('إضافة مشترك', `${name} — ${selectedZone} — FAT${fat} — الفتحة ${slot}`);
+
 $('addName').value =
 '';
 
@@ -5288,6 +5398,8 @@ showToast(
 'تم حفظ التعديل بنجاح'
 );
 
+await logActivity('تعديل مشترك', `${name} — ${normalizeZone(item.zone)} — FAT${item.fat_number} — الفتحة ${slot}`);
+
 await loadRows();
 
 if(
@@ -5353,6 +5465,8 @@ return;
 showToast(
 'تم حذف المشترك'
 );
+
+await logActivity('حذف مشترك', `${name} — ${normalizeZone(item.zone)} — FAT${item.fat_number} — الفتحة ${item.slot_number}`);
 
 await loadRows();
 
@@ -5779,7 +5893,7 @@ wb,
 
 }
 
-function exportExcel(){
+async function exportExcel(){
 
 const data =
 rows.map(
@@ -5835,6 +5949,8 @@ wb,
 showToast(
 'تم تصدير البيانات بنجاح'
 );
+
+await logActivity('تصدير Excel', `تم تصدير ${data.length} مشترك`);
 
 }
 
@@ -6119,6 +6235,8 @@ showToast(
 `تم الاستيراد: ${added} إضافة، ${skipped} تجاهل`
 );
 
+await logActivity('استيراد Excel', `${added} إضافة، ${skipped} تجاهل`);
+
 }
 catch(error){
 
@@ -6306,6 +6424,15 @@ sectionId ===
 ){
 
 renderDebts();
+
+}
+
+if(
+sectionId ===
+'activitySection'
+){
+
+loadActivityLogs();
 
 }
 
@@ -6774,6 +6901,7 @@ async function addDebt(){
   $('debtNotes').value = '';
 
   showToast('تمت إضافة الدين وحفظه في قاعدة البيانات');
+  await logActivity('إضافة دين', `${name} — ${formatDebtAmount(amountNumber)} دينار عراقي${notes ? ` — ${notes}` : ''}`);
   $('debtName').focus();
 }
 
@@ -6873,6 +7001,7 @@ async function deleteDebt(index){
   renderDebtSearch();
 
   showToast('تم حذف الدين من قاعدة البيانات');
+  await logActivity('حذف دين', `${debt.name} — ${formatDebtAmount(debt.amount)} دينار عراقي`);
 }
 
 
@@ -7362,6 +7491,12 @@ $('syncFtthBtn')
 startFtthSync
 );
 
+$('refreshActivityBtn')
+.addEventListener(
+'click',
+loadActivityLogs
+);
+
 db.auth.onAuthStateChange(
 async (
 event,
@@ -7374,6 +7509,7 @@ showApp();
 
 await loadRows();
 await loadDebts();
+await loadActivityLogs();
 
 }
 else{
