@@ -5964,6 +5964,41 @@ continue;
 
 }
 
+const normalizedImportName =
+name
+.replace(/\\s+/g,' ')
+.trim()
+.toLocaleLowerCase('ar');
+
+const duplicateName =
+rows.some(
+r => {
+
+const existingName =
+cleanText(
+r.subscriber_name ??
+r.name ??
+r.customer_name ??
+r.subscriber ??
+''
+)
+.replace(/\\s+/g,' ')
+.trim()
+.toLocaleLowerCase('ar');
+
+return existingName === normalizedImportName;
+
+}
+);
+
+if(duplicateName){
+
+skipped++;
+
+continue;
+
+}
+
 const currentFatRows =
 rows.filter(
 r =>
