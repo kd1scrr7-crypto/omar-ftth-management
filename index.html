@@ -3048,6 +3048,52 @@ td{
 @media(max-width:700px){.activity-table-wrap{margin-top:12px}.activity-card-title{align-items:flex-start;gap:10px;flex-direction:column}.activity-refresh-btn{width:100%}}
 </style>
 
+
+<style id="subscriber-profile-style">
+.subscriber-profile-overlay{
+  position:fixed;inset:0;background:rgba(5,20,45,.58);backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;padding:16px;z-index:9999;
+}
+.subscriber-profile-overlay.hidden{display:none!important}
+.subscriber-profile-card{
+  width:min(560px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:24px;
+  box-shadow:0 22px 70px rgba(0,0,0,.28);direction:rtl;position:relative;
+}
+.subscriber-profile-head{padding:24px 22px 18px;background:linear-gradient(135deg,#123f82,#1f63b8);color:#fff;border-radius:24px 24px 0 0;position:relative}
+.subscriber-profile-close{position:absolute;left:14px;top:14px;width:38px;height:38px;border:0;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;font-size:24px;cursor:pointer}
+.subscriber-profile-avatar{width:58px;height:58px;border-radius:18px;background:#fff;color:#123f82;display:flex;align-items:center;justify-content:center;font-size:29px;margin-bottom:12px}
+.subscriber-profile-name{font-size:24px;font-weight:800;margin:0 45px 7px 0;line-height:1.35;word-break:break-word}
+.subscriber-profile-status{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.16);border-radius:20px;padding:6px 11px;font-size:12px}
+.subscriber-profile-body{padding:18px}
+.subscriber-profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.subscriber-profile-field{background:#f6f8fb;border:1px solid #e8edf4;border-radius:15px;padding:13px;min-width:0}
+.subscriber-profile-field.full{grid-column:1/-1}
+.subscriber-profile-label{display:block;font-size:11px;color:#7a8492;margin-bottom:6px}
+.subscriber-profile-value{font-size:15px;font-weight:750;color:#182230;word-break:break-word}
+.subscriber-profile-debt{font-size:19px;color:#b42318}
+.subscriber-profile-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:15px}
+.subscriber-profile-btn{border:0;border-radius:14px;padding:13px 10px;font-weight:750;cursor:pointer;font-size:14px}
+.subscriber-profile-btn.primary{background:#123f82;color:#fff}
+.subscriber-profile-btn.whatsapp{background:#168a4a;color:#fff}
+.subscriber-profile-btn.phone{background:#eef5ff;color:#123f82}
+.subscriber-profile-btn.edit{background:#fff3d8;color:#8a5a00}
+.subscriber-profile-btn.delete{background:#fff0f0;color:#b42318}
+.subscriber-profile-btn:disabled{opacity:.45;cursor:not-allowed}
+.subscriber-profile-footer{padding:0 18px 18px;display:flex;gap:10px}
+.subscriber-profile-footer .subscriber-profile-btn{flex:1}
+@media(max-width:560px){
+  .subscriber-profile-overlay{padding:8px;align-items:flex-end}
+  .subscriber-profile-card{max-height:94vh;border-radius:22px}
+  .subscriber-profile-head{border-radius:22px 22px 0 0;padding:21px 18px 17px}
+  .subscriber-profile-name{font-size:21px}
+  .subscriber-profile-body{padding:13px}
+  .subscriber-profile-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .subscriber-profile-field{padding:11px;border-radius:13px}
+  .subscriber-profile-actions{grid-template-columns:1fr 1fr;gap:8px}
+  .subscriber-profile-btn{padding:12px 7px;font-size:13px}
+}
+</style>
+
 </head>
 
 <body>
@@ -3248,6 +3294,26 @@ class="mobile-menu">
 ☰
 </button>
 
+</div>
+
+
+<div id="subscriberProfileOverlay" class="subscriber-profile-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="subscriberProfileName">
+  <div class="subscriber-profile-card">
+    <div class="subscriber-profile-head">
+      <button id="subscriberProfileClose" class="subscriber-profile-close" type="button" aria-label="إغلاق">×</button>
+      <div class="subscriber-profile-avatar">👤</div>
+      <h3 id="subscriberProfileName" class="subscriber-profile-name">المشترك</h3>
+      <span class="subscriber-profile-status">🟢 بيانات المشترك</span>
+    </div>
+    <div class="subscriber-profile-body">
+      <div id="subscriberProfileGrid" class="subscriber-profile-grid"></div>
+      <div id="subscriberProfileActions" class="subscriber-profile-actions"></div>
+    </div>
+    <div class="subscriber-profile-footer">
+      <button id="subscriberProfileEdit" class="subscriber-profile-btn edit" type="button">✏️ تعديل المشترك</button>
+      <button id="subscriberProfileDelete" class="subscriber-profile-btn delete" type="button">🗑️ حذف المشترك</button>
+    </div>
+  </div>
 </div>
 
 <section
@@ -5499,6 +5565,60 @@ renderDetails();
 }
 
 
+
+function closeSubscriberProfile(){
+  const overlay = $('subscriberProfileOverlay');
+  if(overlay){ overlay.classList.add('hidden'); }
+  window.__openSubscriberProfileId = null;
+}
+
+function openSubscriberProfile(id){
+  const item = rows.find(r => String(r.id) === String(id));
+  if(!item){ return; }
+
+  window.__openSubscriberProfileId = id;
+  const name = cleanText(item.subscriber_name || item.name || item.customer_name || item.subscriber || 'بدون اسم');
+  const phone = cleanText(item.phone || item.phone_number || item.mobile || item.phoneNumber || '');
+  const zoneValue = normalizeZone(item.zone || '') || '—';
+  const fat = item.fat_number ? `FAT${item.fat_number}` : '—';
+  const port = item.slot_number ? `PORT${item.slot_number}` : '—';
+  const debtItems = debts.filter(d => cleanText(d.name).toLocaleLowerCase('ar') === name.toLocaleLowerCase('ar'));
+  const debtTotal = debtItems.reduce((sum,d) => sum + Number(d.amount || 0), 0);
+
+  $('subscriberProfileName').textContent = name;
+  $('subscriberProfileGrid').innerHTML = `
+    <div class="subscriber-profile-field"><span class="subscriber-profile-label">📍 المنطقة</span><div class="subscriber-profile-value">${esc(zoneValue)}</div></div>
+    <div class="subscriber-profile-field"><span class="subscriber-profile-label">📡 FAT</span><div class="subscriber-profile-value">${esc(fat)}</div></div>
+    <div class="subscriber-profile-field"><span class="subscriber-profile-label">🔌 الفتحة</span><div class="subscriber-profile-value">${esc(port)}</div></div>
+    <div class="subscriber-profile-field"><span class="subscriber-profile-label">💰 الدين</span><div class="subscriber-profile-value subscriber-profile-debt">${esc(formatDebtAmount(debtTotal))} د.ع</div></div>
+    <div class="subscriber-profile-field full"><span class="subscriber-profile-label">📱 رقم الهاتف</span><div class="subscriber-profile-value">${esc(phone || 'غير مضاف')}</div></div>
+    <div class="subscriber-profile-field full"><span class="subscriber-profile-label">🧾 عدد الديون المسجلة</span><div class="subscriber-profile-value">${debtItems.length}</div></div>
+  `;
+
+  const phoneNorm = normalizeWhatsAppPhone(phone);
+  $('subscriberProfileActions').innerHTML = `
+    <button type="button" class="subscriber-profile-btn phone" data-profile-phone ${phone ? '' : 'disabled'}>📞 اتصال</button>
+    <button type="button" class="subscriber-profile-btn whatsapp" data-profile-whatsapp ${phoneNorm ? '' : 'disabled'}>💬 واتساب</button>
+  `;
+
+  $('subscriberProfileEdit').onclick = () => { closeSubscriberProfile(); editSub(id); };
+  $('subscriberProfileDelete').onclick = async () => { closeSubscriberProfile(); await deleteSub(id); };
+
+  const phoneBtn = document.querySelector('[data-profile-phone]');
+  if(phoneBtn && phone){
+    phoneBtn.onclick = () => { window.location.href = `tel:${phone.replace(/[^0-9+]/g,'')}`; };
+  }
+  const waBtn = document.querySelector('[data-profile-whatsapp]');
+  if(waBtn && phoneNorm){
+    waBtn.onclick = () => {
+      const message = `السلام عليكم ${name}،\nنود التواصل معكم بخصوص اشتراككم.\nشكرًا لتعاونكم 🌹`;
+      window.open(`https://wa.me/${phoneNorm}?text=${encodeURIComponent(message)}`,'_blank');
+    };
+  }
+
+  $('subscriberProfileOverlay').classList.remove('hidden');
+}
+
 function renderAllSubscribers(query=''){
 
 const container = $('allSubscribersResults');
@@ -7298,6 +7418,15 @@ zoneCard.dataset.zone
 }
 );
 
+document.addEventListener('click', event => {
+  if(event.target.id === 'subscriberProfileOverlay' || event.target.id === 'subscriberProfileClose'){
+    closeSubscriberProfile();
+  }
+});
+document.addEventListener('keydown', event => {
+  if(event.key === 'Escape'){ closeSubscriberProfile(); }
+});
+
 document.addEventListener(
 'click',
 event => {
@@ -7334,7 +7463,7 @@ event.target.closest(
 
 if(searchResult){
 
-openSubscriberFromSearch(
+openSubscriberProfile(
 searchResult.dataset.searchId
 );
 
