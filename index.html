@@ -6643,8 +6643,22 @@ async function createTeamMember(){
   btn.textContent='جاري الإنشاء...';
 
   try{
+    // التأكد من وجود جلسة المدير وإرسال Access Token إلى Edge Function
+    const {
+      data: { session },
+      error: sessionError
+    } = await db.auth.getSession();
+
+    if(sessionError || !session?.access_token){
+      showTeamError('انتهت جلسة تسجيل الدخول. يرجى تسجيل الدخول مرة أخرى.');
+      return;
+    }
+
     const {data,error}=await db.functions.invoke('create-team-member',{
-      body:{username,display_name:displayName,password,role}
+      body:{username,display_name:displayName,password,role},
+      headers:{
+        Authorization:`Bearer ${session.access_token}`
+      }
     });
 
     if(error || data?.error){
@@ -8287,3 +8301,4 @@ fillAddFatSelect();
 </body>
 
 </html>
+
