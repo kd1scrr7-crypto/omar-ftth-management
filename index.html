@@ -4617,6 +4617,10 @@ class="debts-empty">
 
 </div>
 
+<div class="pdf-buttons-row">
+  <button id="exportDebtsPdfBtn" type="button" class="pdf-export-btn debt-pdf-btn">📄 سحب قائمة الديون PDF</button>
+</div>
+
 <div class="debt-bottom-summary">
   <div class="summary-icon">💰</div>
   <div style="flex:1;">
@@ -4754,6 +4758,10 @@ id="transfersEmpty"
 class="transfer-empty">
 لا توجد مبالغ ترحيل مضافة حاليًا.
 </div>
+</div>
+
+<div class="pdf-buttons-row">
+  <button id="exportTransfersPdfBtn" type="button" class="pdf-export-btn transfer-pdf-btn">📄 سحب قائمة الترحيل PDF</button>
 </div>
 
 <div class="transfer-bottom-summary">
@@ -8613,8 +8621,15 @@ event => {
   }
 });
 
-$('exportDebtsPdfBtn').addEventListener('click',()=>exportListToPdf('debt'));
-$('exportTransfersPdfBtn').addEventListener('click',()=>exportListToPdf('transfer'));
+const exportDebtsPdfBtn = $('exportDebtsPdfBtn');
+if(exportDebtsPdfBtn){
+  exportDebtsPdfBtn.addEventListener('click',()=>exportListToPdf('debt'));
+}
+
+const exportTransfersPdfBtn = $('exportTransfersPdfBtn');
+if(exportTransfersPdfBtn){
+  exportTransfersPdfBtn.addEventListener('click',()=>exportListToPdf('transfer'));
+}
 
 $('debtsQuickSearch')
 .addEventListener(
