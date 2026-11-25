@@ -3828,6 +3828,27 @@ table{
 }
 </style>
 
+
+<style id="pdf-export-style">
+@media print {
+  body.pdf-printing > * { display:none !important; }
+  body.pdf-printing #pdfPrintArea { display:block !important; }
+  #pdfPrintArea { direction:rtl; font-family:Cairo,Arial,sans-serif; padding:24px; color:#111; }
+  #pdfPrintArea .pdf-head { text-align:center; border-bottom:3px solid #222; padding-bottom:14px; margin-bottom:18px; }
+  #pdfPrintArea h1 { margin:0 0 6px; font-size:25px; }
+  #pdfPrintArea .pdf-date { font-size:12px; color:#555; }
+  #pdfPrintArea table { width:100%; border-collapse:collapse; margin-top:15px; font-size:12px; }
+  #pdfPrintArea th, #pdfPrintArea td { border:1px solid #aaa; padding:8px 6px; text-align:center; vertical-align:middle; }
+  #pdfPrintArea th { background:#eee !important; font-weight:900; }
+  #pdfPrintArea .pdf-total { margin-top:15px; padding:12px; border:2px solid #333; border-radius:8px; font-weight:900; font-size:16px; text-align:center; }
+}
+#pdfPrintArea { display:none; }
+.pdf-export-btn { display:inline-flex; align-items:center; justify-content:center; gap:7px; border:0; border-radius:11px; padding:10px 14px; cursor:pointer; font-family:inherit; font-weight:900; font-size:13px; margin-top:10px; }
+.debt-pdf-btn { background:#fee2e2; color:#991b1b; border:1px solid #fecaca; }
+.transfer-pdf-btn { background:#dcfce7; color:#166534; border:1px solid #bbf7d0; }
+.pdf-buttons-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:4px; }
+@media(max-width:700px){ .pdf-export-btn{ width:100%; } }
+</style>
 </head>
 
 <body>
@@ -8428,6 +8449,41 @@ $('sidebar')
 }
 );
 
+function exportListToPdf(type){
+  const isDebt = type === 'debt';
+  const list = isDebt ? debts : transfers;
+  const title = isDebt ? 'قائمة الديون' : 'قائمة مبالغ الترحيل';
+  const amountLabel = isDebt ? 'مبلغ الدين' : 'مبلغ الترحيل';
+  const total = list.reduce((sum,item)=> sum + Number(item.amount || 0),0);
+  const now = new Date().toLocaleString('ar-IQ');
+  const rowsHtml = list.map((item,index)=>`
+    <tr>
+      <td>${index+1}</td>
+      <td>${esc(cleanText(item.subscriber_name || item.name || ''))}</td>
+      <td>${esc(normalizeZone(item.zone || ''))}</td>
+      <td>${esc(formatDebtAmount(item.amount))}</td>
+      <td>${esc(cleanText(item.phone || '—'))}</td>
+      <td>${esc(cleanText(item.notes || '—'))}</td>
+    </tr>`).join('');
+  const area = $('pdfPrintArea');
+  area.innerHTML = `
+    <div class="pdf-head">
+      <h1>${title}</h1>
+      <div class="pdf-date">تاريخ استخراج التقرير: ${esc(now)}</div>
+    </div>
+    <table>
+      <thead><tr><th>#</th><th>الاسم</th><th>المنطقة</th><th>${amountLabel} (دينار عراقي)</th><th>رقم الهاتف</th><th>الملاحظات</th></tr></thead>
+      <tbody>${rowsHtml || '<tr><td colspan="6">لا توجد بيانات</td></tr>'}</tbody>
+    </table>
+    <div class="pdf-total">مجموع ${isDebt ? 'الديون' : 'مبالغ الترحيل'}: ${formatDebtAmount(total)} دينار عراقي — العدد: ${list.length}</div>
+  `;
+  document.body.classList.add('pdf-printing');
+  setTimeout(()=>{
+    window.print();
+    setTimeout(()=>{ document.body.classList.remove('pdf-printing'); area.innerHTML=''; },500);
+  },100);
+}
+
 $('addDebtBtn')
 .addEventListener(
 'click',
@@ -8556,6 +8612,9 @@ event => {
     );
   }
 });
+
+$('exportDebtsPdfBtn').addEventListener('click',()=>exportListToPdf('debt'));
+$('exportTransfersPdfBtn').addEventListener('click',()=>exportListToPdf('transfer'));
 
 $('debtsQuickSearch')
 .addEventListener(
@@ -9267,6 +9326,7 @@ fillAddFatSelect();
 </style>
 
 
+<div id="pdfPrintArea"></div>
 </body>
 
 </html>
