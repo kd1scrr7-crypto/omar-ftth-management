@@ -1,4 +1,3 @@
-لفّ السطر
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
@@ -17,6 +16,8 @@ content="width=device-width, initial-scale=1">
 
 <style>
 
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
+
 *{
 box-sizing:border-box;
 }
@@ -24,10 +25,13 @@ box-sizing:border-box;
 body{
 margin:0;
 font-family:
+"Cairo",
 "Tajawal",
+Tahoma,
 "Segoe UI",
 Arial,
 sans-serif;
+font-size:15px;
 background:#f4f7fb;
 color:#1f2937;
 }
@@ -47,7 +51,7 @@ display:none!important;
 }
 
 /* =========================
-LOGIN - واجهة دخول FTTH
+   LOGIN - واجهة دخول FTTH
 ========================= */
 
 .login-page{
@@ -421,7 +425,7 @@ transform:scale(.58) rotate(12deg);
 }
 
 /* =========================
-APP
+   APP
 ========================= */
 
 .app{
@@ -430,7 +434,7 @@ min-height:100vh;
 }
 
 /* =========================
-SIDEBAR
+   SIDEBAR
 ========================= */
 
 .sidebar{
@@ -493,7 +497,7 @@ padding-top:18px!important;
 }
 
 /* =========================
-MAIN
+   MAIN
 ========================= */
 
 .main{
@@ -534,7 +538,7 @@ font-size:20px;
 }
 
 /* =========================
-CARDS
+   CARDS
 ========================= */
 
 .card{
@@ -570,7 +574,7 @@ border-radius:8px;
 }
 
 /* =========================
-STATS
+   STATS
 ========================= */
 
 .stats{
@@ -607,7 +611,7 @@ margin-top:4px;
 }
 
 /* =========================
-ZONES
+   ZONES
 ========================= */
 
 .zone-grid{
@@ -667,7 +671,7 @@ color:#7c8998;
 }
 
 /* =========================
-FAT STATUS
+   FAT STATUS
 ========================= */
 
 .fat-status-bar{
@@ -722,7 +726,7 @@ box-shadow:0 0 0 3px #a8323218;
 }
 
 /* =========================
-FAT GRID
+   FAT GRID
 ========================= */
 
 .fat-grid{
@@ -818,7 +822,7 @@ opacity:.9;
 }
 
 /* =========================
-DETAILS HEADER
+   DETAILS HEADER
 ========================= */
 
 .details-header{
@@ -849,7 +853,7 @@ background:#dfeefb;
 }
 
 /* =========================
-FAT SUMMARY
+   FAT SUMMARY
 ========================= */
 
 .fat-summary{
@@ -906,7 +910,7 @@ transition:width .3s;
 }
 
 /* =========================
-SLOT GRID
+   SLOT GRID
 ========================= */
 
 .slot-grid{
@@ -917,7 +921,7 @@ margin-top:15px;
 }
 
 /* =========================
-SUBSCRIBER SLOT CARD
+   SUBSCRIBER SLOT CARD
 ========================= */
 
 .slot-card{
@@ -1057,7 +1061,7 @@ color:#8a96a6;
 }
 
 .slot-card.highlighted .slot-status::after{
-content:" ← نتيجة البحث";
+content:"  ← نتيجة البحث";
 font-size:9px;
 }
 
@@ -1145,7 +1149,7 @@ margin-top:9px;
 }
 
 /* =========================
-FORMS
+   FORMS
 ========================= */
 
 .add-form{
@@ -1222,7 +1226,7 @@ font-size:13px;
 }
 
 /* =========================
-SEARCH
+   SEARCH
 ========================= */
 
 .search-box{
@@ -1282,7 +1286,7 @@ color:#08748a;
 }
 
 /* =========================
-TABLE
+   TABLE
 ========================= */
 
 .table-wrap{
@@ -1320,7 +1324,7 @@ border-bottom:0;
 }
 
 /* =========================
-EXCEL
+   EXCEL
 ========================= */
 
 .excel-grid{
@@ -1355,7 +1359,7 @@ font-size:11px;
 }
 
 /* =========================
-MODAL
+   MODAL
 ========================= */
 
 .modal{
@@ -1392,7 +1396,7 @@ margin-top:18px;
 }
 
 /* =========================
-TOAST
+   TOAST
 ========================= */
 
 .toast{
@@ -1564,117 +1568,117 @@ grid-template-columns:1fr;
 
 
 /* =====================================================
-لوحة الإدارة الرئيسية — ألوان فقط مثل الصورة المرجعية
-لا تغيير في الكتابات أو البيانات أو الوظائف أو منافذ FAT
-===================================================== */
+   لوحة الإدارة الرئيسية — ألوان فقط مثل الصورة المرجعية
+   لا تغيير في الكتابات أو البيانات أو الوظائف أو منافذ FAT
+   ===================================================== */
 
 body{
-background:
-radial-gradient(circle at 12% 8%, rgba(255,255,255,.95), transparent 28%),
-linear-gradient(135deg,#f7fbff 0%,#e9f3ff 48%,#dcecff 100%) !important;
-color:#10233f !important;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(255,255,255,.95), transparent 28%),
+    linear-gradient(135deg,#f7fbff 0%,#e9f3ff 48%,#dcecff 100%) !important;
+  color:#10233f !important;
 }
 
 /* القائمة الجانبية */
 .sidebar{
-background:linear-gradient(180deg,#092a61 0%,#061f4a 55%,#041a3d 100%) !important;
-color:#fff !important;
-box-shadow:-8px 0 28px rgba(5,43,92,.14);
+  background:linear-gradient(180deg,#092a61 0%,#061f4a 55%,#041a3d 100%) !important;
+  color:#fff !important;
+  box-shadow:-8px 0 28px rgba(5,43,92,.14);
 }
 
 .logo-area{
-border-bottom-color:rgba(255,255,255,.12) !important;
+  border-bottom-color:rgba(255,255,255,.12) !important;
 }
 
 .logo-title{
-color:#fff !important;
+  color:#fff !important;
 }
 
 .logo-subtitle{
-color:#b9d2f2 !important;
+  color:#b9d2f2 !important;
 }
 
 .menu button{
-color:#d9e8fb !important;
+  color:#d9e8fb !important;
 }
 
 .menu button:hover,
 .menu button.active{
-background:linear-gradient(90deg,#087eea,#1769d1) !important;
-color:#fff !important;
-box-shadow:0 5px 16px rgba(0,126,235,.25);
+  background:linear-gradient(90deg,#087eea,#1769d1) !important;
+  color:#fff !important;
+  box-shadow:0 5px 16px rgba(0,126,235,.25);
 }
 
 .logout-menu{
-border-top-color:rgba(255,255,255,.12) !important;
+  border-top-color:rgba(255,255,255,.12) !important;
 }
 
 /* خلفية ومساحة لوحة الإدارة */
 .main{
-background:transparent !important;
+  background:transparent !important;
 }
 
 .topbar-title h1{
-color:#092d63 !important;
+  color:#092d63 !important;
 }
 
 .topbar-title p{
-color:#637d9f !important;
+  color:#637d9f !important;
 }
 
 /* البطاقات الرئيسية */
 .card{
-background:rgba(255,255,255,.96) !important;
-border-color:#cfe0f4 !important;
-box-shadow:0 8px 26px rgba(23,82,140,.09) !important;
+  background:rgba(255,255,255,.96) !important;
+  border-color:#cfe0f4 !important;
+  box-shadow:0 8px 26px rgba(23,82,140,.09) !important;
 }
 
 .card-title h3{
-color:#092d63 !important;
+  color:#092d63 !important;
 }
 
 .card-title span{
-background:#dceeff !important;
-color:#1472d0 !important;
+  background:#dceeff !important;
+  color:#1472d0 !important;
 }
 
 /* بطاقات الإحصائيات — نفس روح الصورة، الألوان فقط */
 .stat-card{
-border:1px solid #d3e3f5 !important;
-box-shadow:0 7px 22px rgba(21,83,140,.10) !important;
-color:#102d55 !important;
+  border:1px solid #d3e3f5 !important;
+  box-shadow:0 7px 22px rgba(21,83,140,.10) !important;
+  color:#102d55 !important;
 }
 
 .stat-card:nth-child(1){
-background:linear-gradient(135deg,#eef8ff,#d8ecff) !important;
-border-color:#b9d9f7 !important;
+  background:linear-gradient(135deg,#eef8ff,#d8ecff) !important;
+  border-color:#b9d9f7 !important;
 }
 
 .stat-card:nth-child(2){
-background:linear-gradient(135deg,#f4efff,#e7dcff) !important;
-border-color:#d2c2f3 !important;
+  background:linear-gradient(135deg,#f4efff,#e7dcff) !important;
+  border-color:#d2c2f3 !important;
 }
 
 .stat-card:nth-child(3){
-background:linear-gradient(135deg,#fff8ee,#ffe9c9) !important;
-border-color:#f0d4a7 !important;
+  background:linear-gradient(135deg,#fff8ee,#ffe9c9) !important;
+  border-color:#f0d4a7 !important;
 }
 
 .stat-card:nth-child(4){
-background:linear-gradient(135deg,#eefcf8,#d9f5ea) !important;
-border-color:#bce5d3 !important;
+  background:linear-gradient(135deg,#eefcf8,#d9f5ea) !important;
+  border-color:#bce5d3 !important;
 }
 
 .stat-label{
-color:#304e73 !important;
+  color:#304e73 !important;
 }
 
 .stat-value{
-color:#092d63 !important;
+  color:#092d63 !important;
 }
 
 .stat-note{
-color:#607b9d !important;
+  color:#607b9d !important;
 }
 
 .stat-card:nth-child(1) .stat-value{color:#126dc5 !important;}
@@ -1684,87 +1688,87 @@ color:#607b9d !important;
 
 /* بطاقات المناطق */
 .zone-card{
-background:linear-gradient(135deg,#eef7ff,#dceeff) !important;
-border-color:#b9d8f4 !important;
-box-shadow:0 6px 18px rgba(22,91,150,.08) !important;
+  background:linear-gradient(135deg,#eef7ff,#dceeff) !important;
+  border-color:#b9d8f4 !important;
+  box-shadow:0 6px 18px rgba(22,91,150,.08) !important;
 }
 
 .zone-card:nth-child(even){
-background:linear-gradient(135deg,#f5f0ff,#e8ddff) !important;
-border-color:#d2c1f0 !important;
+  background:linear-gradient(135deg,#f5f0ff,#e8ddff) !important;
+  border-color:#d2c1f0 !important;
 }
 
 .zone-name{
-color:#0b4e96 !important;
+  color:#0b4e96 !important;
 }
 
 .zone-info,
 .zone-footer{
-color:#536d8d !important;
+  color:#536d8d !important;
 }
 
 .zone-progress{
-background:#d9e7f5 !important;
+  background:#d9e7f5 !important;
 }
 
 .zone-progress-fill{
-background:#1479dc !important;
+  background:#1479dc !important;
 }
 
 .zone-card:nth-child(even) .zone-progress-fill{
-background:#6c35c4 !important;
+  background:#6c35c4 !important;
 }
 
 /* ملخص المنافذ داخل لوحة الإدارة */
 .fat-summary-card{
-background:#f7fbff !important;
-border-color:#cfe1f5 !important;
+  background:#f7fbff !important;
+  border-color:#cfe1f5 !important;
 }
 
 .fat-summary-card.used{
-background:#e6f2ff !important;
-border-color:#b8d8f7 !important;
+  background:#e6f2ff !important;
+  border-color:#b8d8f7 !important;
 }
 
 .fat-summary-card.available{
-background:#f0eaff !important;
-border-color:#d5c7f3 !important;
+  background:#f0eaff !important;
+  border-color:#d5c7f3 !important;
 }
 
 .fat-summary-card.percent{
-background:#fff4e5 !important;
-border-color:#f1d4aa !important;
+  background:#fff4e5 !important;
+  border-color:#f1d4aa !important;
 }
 
 .fat-summary-label{
-color:#536e91 !important;
+  color:#536e91 !important;
 }
 
 .fat-summary-value{
-color:#0b3c7a !important;
+  color:#0b3c7a !important;
 }
 
 .fat-summary-card.available .fat-summary-value{
-color:#6438b7 !important;
+  color:#6438b7 !important;
 }
 
 .fat-summary-card.percent .fat-summary-value{
-color:#d56c16 !important;
+  color:#d56c16 !important;
 }
 
 /* شريط التقدم في تفاصيل لوحة الإدارة */
 .fat-details-progress{
-background:#dfeaf5 !important;
+  background:#dfeaf5 !important;
 }
 
 .fat-details-progress-fill{
-background:linear-gradient(90deg,#1576d7,#1b8de8) !important;
+  background:linear-gradient(90deg,#1576d7,#1b8de8) !important;
 }
 
 /* عنوان تفاصيل FAT */
 .details-header{
-background:linear-gradient(90deg,#0b3b7b,#174f99) !important;
-color:#fff !important;
+  background:linear-gradient(90deg,#0b3b7b,#174f99) !important;
+  color:#fff !important;
 }
 
 /* لا نغيّر ألوان بطاقات ومنافذ FAT الداخلية */
@@ -1775,391 +1779,391 @@ color:#fff !important;
 <style>
 /* ===== شكل منافذ FAT مثل الصورة المرجعية - ألوان فقط ===== */
 .slot-card.used{
-background:linear-gradient(135deg,#f7fbff 0%,#dce9fb 58%,#c9daf4 100%) !important;
-border:2px solid #7fa8dc !important;
-border-radius:14px !important;
-box-shadow:0 4px 12px rgba(29,78,140,.16) !important;
-color:#071a33 !important;
+  background:linear-gradient(135deg,#f7fbff 0%,#dce9fb 58%,#c9daf4 100%) !important;
+  border:2px solid #7fa8dc !important;
+  border-radius:14px !important;
+  box-shadow:0 4px 12px rgba(29,78,140,.16) !important;
+  color:#071a33 !important;
 }
 .slot-card.used::before{
-width:0 !important;
-background:transparent !important;
+  width:0 !important;
+  background:transparent !important;
 }
 .slot-card.used .slot-number-badge{
-background:linear-gradient(135deg,#294a9b,#132b69) !important;
-color:#fff !important;
-border:0 !important;
-border-radius:7px !important;
-box-shadow:inset 0 1px 2px rgba(255,255,255,.18) !important;
+  background:linear-gradient(135deg,#294a9b,#132b69) !important;
+  color:#fff !important;
+  border:0 !important;
+  border-radius:7px !important;
+  box-shadow:inset 0 1px 2px rgba(255,255,255,.18) !important;
 }
 .slot-card.used .slot-number,
 .slot-card.used .slot-name,
 .slot-card.used .slot-phone{
-color:#071a33 !important;
+  color:#071a33 !important;
 }
 .slot-card.used .slot-status{
-color:#0c7a20 !important;
+  color:#0c7a20 !important;
 }
 .slot-card.used .slot-status::first-letter{
-color:#18c735 !important;
+  color:#18c735 !important;
 }
 .slot-card.used .edit-btn{
-background:linear-gradient(135deg,#1676e8,#0d58c9) !important;
-color:#fff !important;
-border:0 !important;
-box-shadow:0 3px 7px rgba(13,88,201,.20) !important;
+  background:linear-gradient(135deg,#1676e8,#0d58c9) !important;
+  color:#fff !important;
+  border:0 !important;
+  box-shadow:0 3px 7px rgba(13,88,201,.20) !important;
 }
 .slot-card.used .delete-btn{
-background:linear-gradient(135deg,#f32929,#c80f18) !important;
-color:#fff !important;
-border:0 !important;
-box-shadow:0 3px 7px rgba(200,15,24,.18) !important;
+  background:linear-gradient(135deg,#f32929,#c80f18) !important;
+  color:#fff !important;
+  border:0 !important;
+  box-shadow:0 3px 7px rgba(200,15,24,.18) !important;
 }
 .slot-card.used .edit-btn:hover,
 .slot-card.used .delete-btn:hover{
-filter:brightness(.96);
+  filter:brightness(.96);
 }
 
 /* الفتحة المحددة من البحث تبقى سماوية */
 .slot-card.highlighted{
-background:linear-gradient(135deg,#dff9ff,#9ee8f8) !important;
-border:2px solid #0c9fca !important;
+  background:linear-gradient(135deg,#dff9ff,#9ee8f8) !important;
+  border:2px solid #0c9fca !important;
 }
 
 /* الفتحات الفارغة تبقى بيضاء */
 .slot-card.empty{
-background:#fff !important;
-border:1px solid #d9e3ec !important;
+  background:#fff !important;
+  border:1px solid #d9e3ec !important;
 }
 
 </style>
 
 <style>
 /* =========================================================
-لوحة الإدارة — ألوان مطابقة للصورة المرجعية فقط
-لا تغيير على الكتابات أو البيانات أو الوظائف
-========================================================= */
+   لوحة الإدارة — ألوان مطابقة للصورة المرجعية فقط
+   لا تغيير على الكتابات أو البيانات أو الوظائف
+   ========================================================= */
 
 body{
-background:#eaf3ff !important;
-color:#102a4c !important;
+  background:#eaf3ff !important;
+  color:#102a4c !important;
 }
 
 /* القائمة الجانبية */
 .sidebar{
-background:linear-gradient(180deg,#071f49 0%,#0b2e68 55%,#092653 100%) !important;
-color:#fff !important;
-box-shadow:-6px 0 22px rgba(12,55,105,.18);
+  background:linear-gradient(180deg,#071f49 0%,#0b2e68 55%,#092653 100%) !important;
+  color:#fff !important;
+  box-shadow:-6px 0 22px rgba(12,55,105,.18);
 }
 
 .logo-area{
-border-bottom-color:rgba(255,255,255,.12) !important;
+  border-bottom-color:rgba(255,255,255,.12) !important;
 }
 
 .logo-subtitle{
-color:#b8d2f3 !important;
+  color:#b8d2f3 !important;
 }
 
 .menu button{
-color:#d8e8ff !important;
+  color:#d8e8ff !important;
 }
 
 .menu button:hover,
 .menu button.active{
-background:#1679e6 !important;
-color:#fff !important;
-box-shadow:0 5px 14px rgba(22,121,230,.25);
+  background:#1679e6 !important;
+  color:#fff !important;
+  box-shadow:0 5px 14px rgba(22,121,230,.25);
 }
 
 .logout-menu{
-border-top-color:rgba(255,255,255,.12) !important;
+  border-top-color:rgba(255,255,255,.12) !important;
 }
 
 /* المنطقة الرئيسية */
 .main{
-background:#eaf3ff !important;
+  background:#eaf3ff !important;
 }
 
 .topbar-title h1{
-color:#102b55 !important;
+  color:#102b55 !important;
 }
 
 .topbar-title p{
-color:#607797 !important;
+  color:#607797 !important;
 }
 
 /* البطاقات العامة */
 .card{
-background:#ffffff !important;
-border-color:#d7e5f5 !important;
-box-shadow:0 6px 22px rgba(28,88,145,.08) !important;
+  background:#ffffff !important;
+  border-color:#d7e5f5 !important;
+  box-shadow:0 6px 22px rgba(28,88,145,.08) !important;
 }
 
 .card-title h3{
-color:#102b55 !important;
+  color:#102b55 !important;
 }
 
 .card-title span{
-background:#e6f1ff !important;
-color:#176fca !important;
+  background:#e6f1ff !important;
+  color:#176fca !important;
 }
 
 /* بطاقات الإحصائيات */
 .stat-card{
-background:#ffffff !important;
-border-color:#d7e5f5 !important;
-box-shadow:0 6px 20px rgba(28,88,145,.07) !important;
+  background:#ffffff !important;
+  border-color:#d7e5f5 !important;
+  box-shadow:0 6px 20px rgba(28,88,145,.07) !important;
 }
 
 .stat-label{
-color:#5f7695 !important;
+  color:#5f7695 !important;
 }
 
 .stat-value{
-color:#102b55 !important;
+  color:#102b55 !important;
 }
 
 .stat-note{
-color:#7890ad !important;
+  color:#7890ad !important;
 }
 
 /* المناطق */
 .zone-card{
-background:#f9fcff !important;
-border-color:#cfe1f5 !important;
-box-shadow:0 5px 16px rgba(31,91,145,.05);
+  background:#f9fcff !important;
+  border-color:#cfe1f5 !important;
+  box-shadow:0 5px 16px rgba(31,91,145,.05);
 }
 
 .zone-card:hover{
-border-color:#8dbce9 !important;
-box-shadow:0 8px 22px rgba(31,91,145,.10) !important;
+  border-color:#8dbce9 !important;
+  box-shadow:0 8px 22px rgba(31,91,145,.10) !important;
 }
 
 .zone-name{
-color:#126dc5 !important;
+  color:#126dc5 !important;
 }
 
 .zone-info{
-color:#637a98 !important;
+  color:#637a98 !important;
 }
 
 .zone-progress{
-background:#e5edf6 !important;
+  background:#e5edf6 !important;
 }
 
 .zone-progress-fill{
-background:#1479dc !important;
+  background:#1479dc !important;
 }
 
 .zone-footer{
-color:#607795 !important;
+  color:#607795 !important;
 }
 
 /* شريط حالة FAT */
 .fat-status-bar{
-background:#ffffff !important;
-border-color:#d7e5f5 !important;
+  background:#ffffff !important;
+  border-color:#d7e5f5 !important;
 }
 
 .fat-status-title,
 .fat-name{
-color:#102b55 !important;
+  color:#102b55 !important;
 }
 
 .fat-status-label{
-color:#627997 !important;
+  color:#627997 !important;
 }
 
 .fat-progress{
-background:#e3edf7 !important;
+  background:#e3edf7 !important;
 }
 
 .fat-progress-fill{
-background:#1479dc !important;
+  background:#1479dc !important;
 }
 
 .fat-status-dot.full{
-background:#18a765 !important;
+  background:#18a765 !important;
 }
 
 .fat-status-dot.partial{
-background:#f39a21 !important;
+  background:#f39a21 !important;
 }
 
 .fat-status-dot.empty{
-background:#c8d5e5 !important;
+  background:#c8d5e5 !important;
 }
 
 /* ملخص FAT */
 .fat-summary-card{
-background:#ffffff !important;
-border-color:#d7e5f5 !important;
+  background:#ffffff !important;
+  border-color:#d7e5f5 !important;
 }
 
 .fat-summary-card.used{
-background:#edf6ff !important;
-border-color:#b8d8f7 !important;
+  background:#edf6ff !important;
+  border-color:#b8d8f7 !important;
 }
 
 .fat-summary-card.available{
-background:#f4f8ff !important;
-border-color:#d4e3f3 !important;
+  background:#f4f8ff !important;
+  border-color:#d4e3f3 !important;
 }
 
 .fat-summary-card.percent{
-background:#ffffff !important;
-border-color:#d7e5f5 !important;
+  background:#ffffff !important;
+  border-color:#d7e5f5 !important;
 }
 
 .fat-summary-label{
-color:#607895 !important;
+  color:#607895 !important;
 }
 
 .fat-summary-value{
-color:#102b55 !important;
+  color:#102b55 !important;
 }
 
 /* العناوين والتفاصيل */
 .details-header{
-background:#123f82 !important;
-color:#fff !important;
+  background:#123f82 !important;
+  color:#fff !important;
 }
 
 .fat-count,
 .fat-empty-count{
-color:#176fc8 !important;
+  color:#176fc8 !important;
 }
 
 /* شريط التقدم العام */
 .fat-details-progress{
-background:#e3edf7 !important;
+  background:#e3edf7 !important;
 }
 
 .fat-details-progress-fill{
-background:#1479dc !important;
+  background:#1479dc !important;
 }
 
 /* البحث والحقول */
 input,
 select,
 textarea{
-background:#ffffff !important;
-border-color:#cbdced !important;
-color:#102b55 !important;
+  background:#ffffff !important;
+  border-color:#cbdced !important;
+  color:#102b55 !important;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
-border-color:#1976d2 !important;
-box-shadow:0 0 0 3px rgba(25,118,210,.10) !important;
+  border-color:#1976d2 !important;
+  box-shadow:0 0 0 3px rgba(25,118,210,.10) !important;
 }
 
 /* أزرار الواجهة الموجودة أصلًا — ألوان فقط */
 button.primary,
 .btn-primary,
 .save-btn{
-background:#1479dc !important;
-color:#fff !important;
+  background:#1479dc !important;
+  color:#fff !important;
 }
 
 button.secondary,
 .btn-secondary{
-background:#e8f3ff !important;
-color:#176fc8 !important;
+  background:#e8f3ff !important;
+  color:#176fc8 !important;
 }
 
 /* الحفاظ على الفتحات مع لوحة الألوان الجديدة */
 .slot-card.empty{
-background:#ffffff !important;
-border-color:#d8e5f2 !important;
+  background:#ffffff !important;
+  border-color:#d8e5f2 !important;
 }
 
 .slot-card.used{
-background:linear-gradient(135deg,#eef7ff,#dceeff) !important;
-border-color:#8bbfe9 !important;
-box-shadow:0 4px 14px rgba(21,111,190,.10) !important;
+  background:linear-gradient(135deg,#eef7ff,#dceeff) !important;
+  border-color:#8bbfe9 !important;
+  box-shadow:0 4px 14px rgba(21,111,190,.10) !important;
 }
 
 .slot-card.used::before{
-background:#1479dc !important;
+  background:#1479dc !important;
 }
 
 .slot-card .slot-number,
 .slot-card .slot-name{
-color:#102b55 !important;
+  color:#102b55 !important;
 }
 
 .slot-card .slot-status{
-color:#18a765 !important;
+  color:#18a765 !important;
 }
 
 .slot-card .slot-number-badge{
-background:#e8f2ff !important;
-color:#123f82 !important;
-border-color:#a9cbea !important;
+  background:#e8f2ff !important;
+  color:#123f82 !important;
+  border-color:#a9cbea !important;
 }
 
 .slot-card.used .slot-number-badge{
-background:#d9ecff !important;
-color:#0d4f91 !important;
+  background:#d9ecff !important;
+  color:#0d4f91 !important;
 }
 
 .slot-card.empty .slot-number-badge{
-background:#f0f5fa !important;
-color:#70839a !important;
+  background:#f0f5fa !important;
+  color:#70839a !important;
 }
 
 .slot-card .slot-phone{
-color:#637995 !important;
+  color:#637995 !important;
 }
 
 .slot-card.highlighted{
-background:linear-gradient(135deg,#bfeeff,#8dddf6) !important;
-border-color:#1597b8 !important;
+  background:linear-gradient(135deg,#bfeeff,#8dddf6) !important;
+  border-color:#1597b8 !important;
 }
 
 /* الأزرار داخل الفتحات */
 .edit-slot-btn,
 [data-edit-slot]{
-background:#d9f3fb !important;
-color:#08749a !important;
-border-color:transparent !important;
+  background:#d9f3fb !important;
+  color:#08749a !important;
+  border-color:transparent !important;
 }
 
 .delete-slot-btn,
 [data-delete-slot]{
-background:#fff0f0 !important;
-color:#d73535 !important;
-border-color:transparent !important;
+  background:#fff0f0 !important;
+  color:#d73535 !important;
+  border-color:transparent !important;
 }
 
 /* الفواصل */
 hr{
-border-color:#d8e5f2 !important;
+  border-color:#d8e5f2 !important;
 }
 
 
 /* =========================================================
-تعديل قائمة FAT فقط - حالات FAT
-لا يؤثر على منافذ FAT الداخلية
+   تعديل قائمة FAT فقط - حالات FAT
+   لا يؤثر على منافذ FAT الداخلية
 ========================================================= */
 .fat-grid button.fat-empty {
-background: #dff5e6 !important;
-color: #000000 !important;
-border: 1px solid #b9e7c8 !important;
+  background: #dff5e6 !important;
+  color: #000000 !important;
+  border: 1px solid #b9e7c8 !important;
 }
 
 .fat-grid button.fat-partial {
-background: #d9f2fb !important;
-color: #000000 !important;
-border: 1px solid #b5e3f2 !important;
+  background: #d9f2fb !important;
+  color: #000000 !important;
+  border: 1px solid #b5e3f2 !important;
 }
 
 .fat-grid button.fat-full {
-background: #fde0e0 !important;
-color: #000000 !important;
-border: 1px solid #f3bcbc !important;
+  background: #fde0e0 !important;
+  color: #000000 !important;
+  border: 1px solid #f3bcbc !important;
 }
 
 .fat-grid button.fat-empty .fat-name,
@@ -2174,15 +2178,15 @@ border: 1px solid #f3bcbc !important;
 .fat-grid button.fat-full .fat-count,
 .fat-grid button.fat-full .fat-status-label,
 .fat-grid button.fat-full .fat-empty-count {
-color: #000000 !important;
-opacity: 1 !important;
+  color: #000000 !important;
+  opacity: 1 !important;
 }
 
 
 /* =========================================================
-تحسين قائمة FAT فقط — الألوان حسب حالة FAT
-لا يؤثر على منافذ FAT الداخلية
-========================================================= */
+   تحسين قائمة FAT فقط — الألوان حسب حالة FAT
+   لا يؤثر على منافذ FAT الداخلية
+   ========================================================= */
 
 .fat-status-title,
 .fat-status-item,
@@ -2191,118 +2195,118 @@ opacity: 1 !important;
 .fat-grid button .fat-count,
 .fat-grid button .fat-status-label,
 .fat-grid button .fat-empty-count{
-color:#000000 !important;
+  color:#000000 !important;
 }
 
 .fat-status-item{
-background:#ffffff !important;
-border:1px solid #d9e2ec !important;
+  background:#ffffff !important;
+  border:1px solid #d9e2ec !important;
 }
 
 .fat-status-dot.empty{
-background:#20b957 !important;
-box-shadow:0 0 0 3px rgba(32,185,87,.14) !important;
+  background:#20b957 !important;
+  box-shadow:0 0 0 3px rgba(32,185,87,.14) !important;
 }
 
 .fat-status-dot.partial{
-background:#f59e0b !important;
-box-shadow:0 0 0 3px rgba(245,158,11,.14) !important;
+  background:#f59e0b !important;
+  box-shadow:0 0 0 3px rgba(245,158,11,.14) !important;
 }
 
 .fat-status-dot.full{
-background:#ef4444 !important;
-box-shadow:0 0 0 3px rgba(239,68,68,.14) !important;
+  background:#ef4444 !important;
+  box-shadow:0 0 0 3px rgba(239,68,68,.14) !important;
 }
 
 .fat-grid button{
-color:#000000 !important;
-border:1px solid transparent !important;
-box-shadow:0 5px 16px rgba(24,58,92,.08) !important;
+  color:#000000 !important;
+  border:1px solid transparent !important;
+  box-shadow:0 5px 16px rgba(24,58,92,.08) !important;
 }
 
 /* FAT فارغة — أخضر فاتح */
 .fat-grid button.fat-empty{
-background:linear-gradient(145deg,#f3fff5 0%,#dff8e6 100%) !important;
-border-color:#8fdaa4 !important;
+  background:linear-gradient(145deg,#f3fff5 0%,#dff8e6 100%) !important;
+  border-color:#8fdaa4 !important;
 }
 
 /* FAT مستخدمة جزئياً — برتقالي فاتح */
 .fat-grid button.fat-partial{
-background:linear-gradient(145deg,#fffaf0 0%,#ffe7b5 100%) !important;
-border-color:#f3b34c !important;
+  background:linear-gradient(145deg,#fffaf0 0%,#ffe7b5 100%) !important;
+  border-color:#f3b34c !important;
 }
 
 /* FAT ممتلئة — أحمر فاتح */
 .fat-grid button.fat-full{
-background:linear-gradient(145deg,#fff5f5 0%,#ffd9dd 100%) !important;
-border-color:#f28b95 !important;
+  background:linear-gradient(145deg,#fff5f5 0%,#ffd9dd 100%) !important;
+  border-color:#f28b95 !important;
 }
 
 .fat-grid button:hover{
-filter:none !important;
-box-shadow:0 9px 22px rgba(24,58,92,.13) !important;
+  filter:none !important;
+  box-shadow:0 9px 22px rgba(24,58,92,.13) !important;
 }
 
 .fat-grid button.fat-empty:hover{
-background:linear-gradient(145deg,#ffffff 0%,#d8f7e1 100%) !important;
+  background:linear-gradient(145deg,#ffffff 0%,#d8f7e1 100%) !important;
 }
 
 .fat-grid button.fat-partial:hover{
-background:linear-gradient(145deg,#fffdf7 0%,#ffe1a3 100%) !important;
+  background:linear-gradient(145deg,#fffdf7 0%,#ffe1a3 100%) !important;
 }
 
 .fat-grid button.fat-full:hover{
-background:linear-gradient(145deg,#fffafa 0%,#ffd0d5 100%) !important;
+  background:linear-gradient(145deg,#fffafa 0%,#ffd0d5 100%) !important;
 }
 
 /* شريط التقدم داخل قائمة FAT فقط */
 .fat-grid button .fat-progress{
-background:#eef2f5 !important;
+  background:#eef2f5 !important;
 }
 
 .fat-grid button.fat-empty .fat-progress-fill{
-background:#20b957 !important;
+  background:#20b957 !important;
 }
 
 .fat-grid button.fat-partial .fat-progress-fill{
-background:#f59e0b !important;
+  background:#f59e0b !important;
 }
 
 .fat-grid button.fat-full .fat-progress-fill{
-background:#ef4444 !important;
+  background:#ef4444 !important;
 }
 
 /* أيقونة الحالة داخل بطاقة FAT — قائمة FAT فقط */
 .fat-grid button::before{
-position:absolute;
-left:12px;
-top:12px;
-width:30px;
-height:30px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:17px;
-font-weight:900;
-line-height:1;
-color:#ffffff !important;
-box-shadow:0 3px 8px rgba(0,0,0,.10);
+  position:absolute;
+  left:12px;
+  top:12px;
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:17px;
+  font-weight:900;
+  line-height:1;
+  color:#ffffff !important;
+  box-shadow:0 3px 8px rgba(0,0,0,.10);
 }
 
 .fat-grid button.fat-empty::before{
-content:'✓';
-background:#20b957;
+  content:'✓';
+  background:#20b957;
 }
 
 .fat-grid button.fat-partial::before{
-content:'◔';
-background:#f59e0b;
+  content:'◔';
+  background:#f59e0b;
 }
 
 .fat-grid button.fat-full::before{
-content:'×';
-background:#ef4444;
+  content:'×';
+  background:#ef4444;
 }
 </style>
 
@@ -2310,124 +2314,124 @@ background:#ef4444;
 <style>
 /* ===== البحث داخل إجمالي المشتركين ===== */
 .total-subs-card{
-cursor:pointer;
-transition:transform .18s ease, box-shadow .18s ease;
+  cursor:pointer;
+  transition:transform .18s ease, box-shadow .18s ease;
 }
 .total-subs-card:hover{
-transform:translateY(-2px);
+  transform:translateY(-2px);
 }
 .all-subscribers-card{
-overflow:hidden;
+  overflow:hidden;
 }
 .all-subscribers-header{
-align-items:center;
+  align-items:center;
 }
 .all-subscribers-subtitle{
-margin-top:5px;
-font-size:13px;
-opacity:.7;
+  margin-top:5px;
+  font-size:13px;
+  opacity:.7;
 }
 .all-subscribers-count{
-font-weight:700;
-white-space:nowrap;
+  font-weight:700;
+  white-space:nowrap;
 }
 .all-subscribers-search{
-display:flex;
-align-items:center;
-gap:10px;
-margin:18px 0 8px;
-padding:11px 14px;
-border:1px solid rgba(0,0,0,.12);
-border-radius:14px;
-background:#fff;
-box-shadow:0 5px 18px rgba(0,0,0,.06);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:18px 0 8px;
+  padding:11px 14px;
+  border:1px solid rgba(0,0,0,.12);
+  border-radius:14px;
+  background:#fff;
+  box-shadow:0 5px 18px rgba(0,0,0,.06);
 }
 .all-search-icon{
-font-size:23px;
-line-height:1;
-opacity:.65;
+  font-size:23px;
+  line-height:1;
+  opacity:.65;
 }
 #allSubscribersSearch{
-flex:1;
-min-width:0;
-border:0;
-outline:0;
-background:transparent;
-font-size:15px;
-color:#111;
+  flex:1;
+  min-width:0;
+  border:0;
+  outline:0;
+  background:transparent;
+  font-size:15px;
+  color:#111;
 }
 #allSubscribersSearch::placeholder{
-color:#888;
+  color:#888;
 }
 .all-search-clear{
-border:0;
-background:transparent;
-cursor:pointer;
-font-weight:600;
-padding:6px 8px;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  font-weight:600;
+  padding:6px 8px;
 }
 .all-subscribers-hint{
-font-size:12px;
-opacity:.65;
-margin:0 4px 14px;
+  font-size:12px;
+  opacity:.65;
+  margin:0 4px 14px;
 }
 .all-subscribers-results{
-display:flex;
-flex-direction:column;
-gap:9px;
-max-height:62vh;
-overflow:auto;
-padding:2px 2px 5px;
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  max-height:62vh;
+  overflow:auto;
+  padding:2px 2px 5px;
 }
 .all-subscriber-item{
-display:grid;
-grid-template-columns:minmax(180px,1.7fr) repeat(4,minmax(90px,1fr));
-gap:10px;
-align-items:center;
-padding:13px 14px;
-border:1px solid rgba(0,0,0,.08);
-border-radius:12px;
-background:#fff;
-transition:box-shadow .15s ease, transform .15s ease;
+  display:grid;
+  grid-template-columns:minmax(180px,1.7fr) repeat(4,minmax(90px,1fr));
+  gap:10px;
+  align-items:center;
+  padding:13px 14px;
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:12px;
+  background:#fff;
+  transition:box-shadow .15s ease, transform .15s ease;
 }
 .all-subscriber-item:hover{
-transform:translateY(-1px);
-box-shadow:0 5px 16px rgba(0,0,0,.07);
+  transform:translateY(-1px);
+  box-shadow:0 5px 16px rgba(0,0,0,.07);
 }
 .all-subscriber-name{
-font-weight:700;
-color:#111;
+  font-weight:700;
+  color:#111;
 }
 .all-subscriber-field{
-font-size:13px;
-color:#333;
+  font-size:13px;
+  color:#333;
 }
 .all-subscriber-label{
-display:block;
-font-size:10px;
-opacity:.55;
-margin-bottom:3px;
+  display:block;
+  font-size:10px;
+  opacity:.55;
+  margin-bottom:3px;
 }
 .all-subs-empty{
-text-align:center;
-padding:30px 15px;
-opacity:.65;
+  text-align:center;
+  padding:30px 15px;
+  opacity:.65;
 }
 @media(max-width:900px){
-.all-subscriber-item{
-grid-template-columns:1fr 1fr;
-}
-.all-subscriber-name{
-grid-column:1/-1;
-}
+  .all-subscriber-item{
+    grid-template-columns:1fr 1fr;
+  }
+  .all-subscriber-name{
+    grid-column:1/-1;
+  }
 }
 @media(max-width:560px){
-.all-subscriber-item{
-grid-template-columns:1fr;
-}
-.all-subscriber-name{
-grid-column:auto;
-}
+  .all-subscriber-item{
+    grid-template-columns:1fr;
+  }
+  .all-subscriber-name{
+    grid-column:auto;
+  }
 }
 </style>
 
@@ -2460,178 +2464,178 @@ padding-left:52px;
 
 <style>
 /* =========================================================
-تحديث ألوان الواجهة الرئيسية فقط
-لا تغيير في النصوص أو البيانات أو الوظائف
-========================================================= */
+   تحديث ألوان الواجهة الرئيسية فقط
+   لا تغيير في النصوص أو البيانات أو الوظائف
+   ========================================================= */
 
 /* خلفية لوحة البرنامج */
 .app{
-background:
-radial-gradient(circle at 8% 4%, rgba(33,154,255,.22), transparent 25%),
-radial-gradient(circle at 92% 8%, rgba(92,48,220,.18), transparent 28%),
-linear-gradient(145deg,#061a43 0%,#082b69 48%,#071d4b 100%) !important;
+  background:
+    radial-gradient(circle at 8% 4%, rgba(33,154,255,.22), transparent 25%),
+    radial-gradient(circle at 92% 8%, rgba(92,48,220,.18), transparent 28%),
+    linear-gradient(145deg,#061a43 0%,#082b69 48%,#071d4b 100%) !important;
 }
 
 .main{
-background:transparent !important;
+  background:transparent !important;
 }
 
 .topbar-title h1{
-color:#ffffff !important;
+  color:#ffffff !important;
 }
 
 .topbar-title p{
-color:#b9d9ff !important;
+  color:#b9d9ff !important;
 }
 
 .mobile-menu{
-background:rgba(255,255,255,.12) !important;
-color:#fff !important;
-border:1px solid rgba(255,255,255,.20) !important;
-box-shadow:0 5px 18px rgba(0,0,0,.18) !important;
+  background:rgba(255,255,255,.12) !important;
+  color:#fff !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  box-shadow:0 5px 18px rgba(0,0,0,.18) !important;
 }
 
 /* القائمة الجانبية */
 .sidebar{
-background:linear-gradient(180deg,#041a43 0%,#06265d 52%,#031637 100%) !important;
-box-shadow:-8px 0 30px rgba(0,0,0,.22) !important;
+  background:linear-gradient(180deg,#041a43 0%,#06265d 52%,#031637 100%) !important;
+  box-shadow:-8px 0 30px rgba(0,0,0,.22) !important;
 }
 
 .logo-area{
-border-bottom-color:rgba(255,255,255,.14) !important;
+  border-bottom-color:rgba(255,255,255,.14) !important;
 }
 
 .logo-title{
-color:#ffffff !important;
+  color:#ffffff !important;
 }
 
 .logo-subtitle{
-color:#a9d7ff !important;
+  color:#a9d7ff !important;
 }
 
 .menu button{
-color:#d9ecff !important;
+  color:#d9ecff !important;
 }
 
 .menu button:hover,
 .menu button.active{
-background:linear-gradient(90deg,#078df5,#2859e6) !important;
-color:#ffffff !important;
-box-shadow:0 6px 18px rgba(0,140,255,.28) !important;
+  background:linear-gradient(90deg,#078df5,#2859e6) !important;
+  color:#ffffff !important;
+  box-shadow:0 6px 18px rgba(0,140,255,.28) !important;
 }
 
 /* البطاقات العامة */
 .card{
-background:rgba(242,248,255,.97) !important;
-border:1px solid rgba(93,168,255,.40) !important;
-box-shadow:0 10px 30px rgba(0,0,0,.16) !important;
+  background:rgba(242,248,255,.97) !important;
+  border:1px solid rgba(93,168,255,.40) !important;
+  box-shadow:0 10px 30px rgba(0,0,0,.16) !important;
 }
 
 .card-title h3{
-color:#102d73 !important;
+  color:#102d73 !important;
 }
 
 .card-title span{
-background:#dce9ff !important;
-color:#185bd0 !important;
+  background:#dce9ff !important;
+  color:#185bd0 !important;
 }
 
 /* بطاقات الإحصائيات - نفس ألوان الصورة المرجعية */
 .stat-card{
-border:1px solid rgba(255,255,255,.30) !important;
-box-shadow:0 10px 28px rgba(0,0,0,.20) !important;
-color:#ffffff !important;
+  border:1px solid rgba(255,255,255,.30) !important;
+  box-shadow:0 10px 28px rgba(0,0,0,.20) !important;
+  color:#ffffff !important;
 }
 
 .stat-card:nth-child(1){
-background:linear-gradient(135deg,#12bfff 0%,#0879e8 48%,#1742c8 100%) !important;
-border-color:#4dd9ff !important;
+  background:linear-gradient(135deg,#12bfff 0%,#0879e8 48%,#1742c8 100%) !important;
+  border-color:#4dd9ff !important;
 }
 
 .stat-card:nth-child(2){
-background:linear-gradient(135deg,#6e2de8 0%,#4b1dc1 52%,#2f168b 100%) !important;
-border-color:#bb8cff !important;
+  background:linear-gradient(135deg,#6e2de8 0%,#4b1dc1 52%,#2f168b 100%) !important;
+  border-color:#bb8cff !important;
 }
 
 .stat-card:nth-child(3){
-background:linear-gradient(135deg,#19d7a0 0%,#0aa66d 55%,#087b55 100%) !important;
-border-color:#55f0bd !important;
+  background:linear-gradient(135deg,#19d7a0 0%,#0aa66d 55%,#087b55 100%) !important;
+  border-color:#55f0bd !important;
 }
 
 .stat-card:nth-child(4){
-background:linear-gradient(135deg,#ffd11a 0%,#ff9f0a 45%,#ed5b00 100%) !important;
-border-color:#ffe36b !important;
+  background:linear-gradient(135deg,#ffd11a 0%,#ff9f0a 45%,#ed5b00 100%) !important;
+  border-color:#ffe36b !important;
 }
 
 .stat-label,
 .stat-value,
 .stat-note{
-color:#ffffff !important;
-text-shadow:0 1px 2px rgba(0,0,0,.16);
+  color:#ffffff !important;
+  text-shadow:0 1px 2px rgba(0,0,0,.16);
 }
 
 .stat-value{
-font-weight:900 !important;
+  font-weight:900 !important;
 }
 
 /* ملخص المناطق */
 .zone-card{
-background:linear-gradient(135deg,#f7fbff 0%,#dcecff 100%) !important;
-border:1px solid #74b9ff !important;
-box-shadow:0 8px 22px rgba(25,95,190,.14) !important;
+  background:linear-gradient(135deg,#f7fbff 0%,#dcecff 100%) !important;
+  border:1px solid #74b9ff !important;
+  box-shadow:0 8px 22px rgba(25,95,190,.14) !important;
 }
 
 .zone-card:nth-child(even){
-background:linear-gradient(135deg,#fbf7ff 0%,#e5d8ff 100%) !important;
-border-color:#c5a3f5 !important;
+  background:linear-gradient(135deg,#fbf7ff 0%,#e5d8ff 100%) !important;
+  border-color:#c5a3f5 !important;
 }
 
 .zone-name{
-color:#1749b5 !important;
-font-weight:900 !important;
+  color:#1749b5 !important;
+  font-weight:900 !important;
 }
 
 .zone-info,
 .zone-footer{
-color:#294d79 !important;
+  color:#294d79 !important;
 }
 
 .zone-progress{
-background:#c8d9f0 !important;
+  background:#c8d9f0 !important;
 }
 
 .zone-progress-fill{
-background:linear-gradient(90deg,#18a9ff,#1457dc) !important;
+  background:linear-gradient(90deg,#18a9ff,#1457dc) !important;
 }
 
 .zone-card:nth-child(even) .zone-progress-fill{
-background:linear-gradient(90deg,#8c54e8,#5121b8) !important;
+  background:linear-gradient(90deg,#8c54e8,#5121b8) !important;
 }
 
 /* قائمة FAT - نحافظ على ألوان الحالات الحالية مع تحسين الخلفية */
 .fat-status-item{
-background:#ffffff !important;
-border-color:#b9d3ee !important;
-color:#102d55 !important;
+  background:#ffffff !important;
+  border-color:#b9d3ee !important;
+  color:#102d55 !important;
 }
 
 .fat-grid button{
-box-shadow:0 7px 18px rgba(16,53,105,.13) !important;
+  box-shadow:0 7px 18px rgba(16,53,105,.13) !important;
 }
 
 .fat-grid button.fat-empty{
-background:linear-gradient(145deg,#f3fff6,#d9f7e3) !important;
-border-color:#76d59a !important;
+  background:linear-gradient(145deg,#f3fff6,#d9f7e3) !important;
+  border-color:#76d59a !important;
 }
 
 .fat-grid button.fat-partial{
-background:linear-gradient(145deg,#fffaf1,#ffe5b0) !important;
-border-color:#f3b34c !important;
+  background:linear-gradient(145deg,#fffaf1,#ffe5b0) !important;
+  border-color:#f3b34c !important;
 }
 
 .fat-grid button.fat-full{
-background:linear-gradient(145deg,#fff5f5,#ffd6dc) !important;
-border-color:#ef8b96 !important;
+  background:linear-gradient(145deg,#fff5f5,#ffd6dc) !important;
+  border-color:#ef8b96 !important;
 }
 
 /* النص الأسود في قائمة FAT كما هو مطلوب */
@@ -2640,92 +2644,92 @@ border-color:#ef8b96 !important;
 .fat-grid button .fat-count,
 .fat-grid button .fat-status-label,
 .fat-grid button .fat-empty-count{
-color:#000000 !important;
+  color:#000000 !important;
 }
 
 /* تفاصيل FAT */
 .details-header{
-background:linear-gradient(90deg,#0755bd,#138cf0) !important;
-color:#ffffff !important;
-border-radius:12px !important;
+  background:linear-gradient(90deg,#0755bd,#138cf0) !important;
+  color:#ffffff !important;
+  border-radius:12px !important;
 }
 
 .fat-summary-card{
-background:#f7fbff !important;
-border-color:#c9def4 !important;
+  background:#f7fbff !important;
+  border-color:#c9def4 !important;
 }
 
 .fat-summary-card.used{
-background:linear-gradient(135deg,#edf7ff,#d6ebff) !important;
+  background:linear-gradient(135deg,#edf7ff,#d6ebff) !important;
 }
 
 .fat-summary-card.available{
-background:linear-gradient(135deg,#f4efff,#e5d8ff) !important;
+  background:linear-gradient(135deg,#f4efff,#e5d8ff) !important;
 }
 
 .fat-summary-card.percent{
-background:linear-gradient(135deg,#fff8ed,#ffe7bd) !important;
+  background:linear-gradient(135deg,#fff8ed,#ffe7bd) !important;
 }
 
 .fat-details-progress{
-background:#d5e4f5 !important;
+  background:#d5e4f5 !important;
 }
 
 .fat-details-progress-fill{
-background:linear-gradient(90deg,#08a9ff,#1556df) !important;
+  background:linear-gradient(90deg,#08a9ff,#1556df) !important;
 }
 
 /* بطاقات المنافذ - ألوان فاتحة مع نص أسود */
 .slot-card.used{
-background:linear-gradient(135deg,#f8fcff,#dcecff) !important;
-border-color:#79b4ea !important;
-box-shadow:0 5px 16px rgba(20,91,165,.12) !important;
+  background:linear-gradient(135deg,#f8fcff,#dcecff) !important;
+  border-color:#79b4ea !important;
+  box-shadow:0 5px 16px rgba(20,91,165,.12) !important;
 }
 
 .slot-card.used::before{
-background:#1685e8 !important;
+  background:#1685e8 !important;
 }
 
 .slot-card.used .slot-number,
 .slot-card.used .slot-name,
 .slot-card.used .slot-phone{
-color:#071a33 !important;
+  color:#071a33 !important;
 }
 
 .slot-card.empty{
-background:#ffffff !important;
-border-color:#d5e3f1 !important;
+  background:#ffffff !important;
+  border-color:#d5e3f1 !important;
 }
 
 .slot-card.highlighted{
-background:linear-gradient(135deg,#dffaff,#9ee9f8) !important;
-border-color:#0ba1cc !important;
+  background:linear-gradient(135deg,#dffaff,#9ee9f8) !important;
+  border-color:#0ba1cc !important;
 }
 
 /* الحقول والأزرار */
 input,
 select,
 textarea{
-background:#ffffff !important;
-border-color:#bdd4ed !important;
-color:#102b55 !important;
+  background:#ffffff !important;
+  border-color:#bdd4ed !important;
+  color:#102b55 !important;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
-border-color:#1686e8 !important;
-box-shadow:0 0 0 3px rgba(22,134,232,.12) !important;
+  border-color:#1686e8 !important;
+  box-shadow:0 0 0 3px rgba(22,134,232,.12) !important;
 }
 
 .primary-btn{
-background:linear-gradient(90deg,#0a9cf5,#1257d8) !important;
-color:#fff !important;
+  background:linear-gradient(90deg,#0a9cf5,#1257d8) !important;
+  color:#fff !important;
 }
 
 .secondary-btn{
-background:#e3efff !important;
-color:#1758b9 !important;
+  background:#e3efff !important;
+  color:#1758b9 !important;
 }
 
 /* نتائج البحث والجداول */
@@ -2733,293 +2737,293 @@ color:#1758b9 !important;
 .all-subscriber-item,
 .excel-box,
 .modal-box{
-background:#ffffff !important;
-border-color:#cfe0f2 !important;
+  background:#ffffff !important;
+  border-color:#cfe0f2 !important;
 }
 
 .result-name,
 .all-subscriber-name{
-color:#102b55 !important;
+  color:#102b55 !important;
 }
 
 th{
-background:#e4efff !important;
-color:#214a7b !important;
+  background:#e4efff !important;
+  color:#214a7b !important;
 }
 
 td{
-color:#304d70 !important;
+  color:#304d70 !important;
 }
 
 /* التنبيه السفلي */
 .toast{
-background:linear-gradient(90deg,#0755bd,#128cf0) !important;
-color:#ffffff !important;
+  background:linear-gradient(90deg,#0755bd,#128cf0) !important;
+  color:#ffffff !important;
 }
 
 /* الهاتف */
 @media(max-width:800px){
-.main{
-background:transparent !important;
-}
+  .main{
+    background:transparent !important;
+  }
 }
 
 <style id="debts-section-style">
 
 /* ===== قسم الديون فقط ===== */
 .debt-menu-btn{
-color:#ffb3b3 !important;
+  color:#ffb3b3 !important;
 }
 
 .debt-menu-btn:hover,
 .debt-menu-btn.active{
-background:linear-gradient(90deg,#d92323,#a80f18) !important;
-color:#fff !important;
-box-shadow:0 5px 16px rgba(220,38,38,.25) !important;
+  background:linear-gradient(90deg,#d92323,#a80f18) !important;
+  color:#fff !important;
+  box-shadow:0 5px 16px rgba(220,38,38,.25) !important;
 }
 
 .debts-card{
-border-top:3px solid #ef4444 !important;
+  border-top:3px solid #ef4444 !important;
 }
 
 .debts-card .card-title h3{
-color:#c62828 !important;
+  color:#c62828 !important;
 }
 
 .debts-card .card-title span{
-background:#fff0f0 !important;
-color:#c62828 !important;
+  background:#fff0f0 !important;
+  color:#c62828 !important;
 }
 
 .debt-form{
-display:grid;
-grid-template-columns:2fr 1fr auto;
-gap:10px;
-align-items:end;
+  display:grid;
+  grid-template-columns:2fr 1fr auto;
+  gap:10px;
+  align-items:end;
 }
 
 .debt-form .form-field{
-min-width:0;
+  min-width:0;
 }
 
 .debt-form .form-field label{
-display:block;
-font-size:11px;
-font-weight:bold;
-color:#667589;
-margin-bottom:5px;
+  display:block;
+  font-size:11px;
+  font-weight:bold;
+  color:#667589;
+  margin-bottom:5px;
 }
 
 .debt-form .form-field input{
-width:100%;
-padding:10px;
-border:1px solid #dce3eb;
-border-radius:9px;
-outline:none;
-background:#fff;
-font-size:13px;
+  width:100%;
+  padding:10px;
+  border:1px solid #dce3eb;
+  border-radius:9px;
+  outline:none;
+  background:#fff;
+  font-size:13px;
 }
 
 .debt-form .form-field input:focus{
-border-color:#ef4444;
-box-shadow:0 0 0 3px rgba(239,68,68,.10);
+  border-color:#ef4444;
+  box-shadow:0 0 0 3px rgba(239,68,68,.10);
 }
 
 .debt-add-btn{
-border:0;
-background:#ef4444;
-color:#fff;
-padding:10px 18px;
-min-height:40px;
-border-radius:9px;
-font-weight:bold;
-font-size:13px;
+  border:0;
+  background:#ef4444;
+  color:#fff;
+  padding:10px 18px;
+  min-height:40px;
+  border-radius:9px;
+  font-weight:bold;
+  font-size:13px;
 }
 
 .debt-add-btn:hover{
-background:#dc2626;
+  background:#dc2626;
 }
 
 .debt-hint{
-margin-top:9px;
-font-size:11px;
-color:#8a6a6a;
+  margin-top:9px;
+  font-size:11px;
+  color:#8a6a6a;
 }
 
 .debt-table-wrap{
-margin-top:18px;
-overflow:auto;
-border:1px solid #f1caca;
-border-radius:10px;
+  margin-top:18px;
+  overflow:auto;
+  border:1px solid #f1caca;
+  border-radius:10px;
 }
 
 .debt-table{
-width:100%;
-min-width:560px;
-border-collapse:collapse;
+  width:100%;
+  min-width:560px;
+  border-collapse:collapse;
 }
 
 .debt-table th{
-background:#fff1f1;
-color:#a83232;
+  background:#fff1f1;
+  color:#a83232;
 }
 
 .debt-table th,
 .debt-table td{
-padding:11px;
-border-bottom:1px solid #f4dddd;
-text-align:right;
-font-size:12px;
+  padding:11px;
+  border-bottom:1px solid #f4dddd;
+  text-align:right;
+  font-size:12px;
 }
 
 .debt-table tr:last-child td{
-border-bottom:0;
+  border-bottom:0;
 }
 
 .debt-name-cell{
-font-weight:bold;
-color:#202b3c;
+  font-weight:bold;
+  color:#202b3c;
 }
 
 .debt-amount-cell{
-color:#c62828;
-font-weight:bold;
+  color:#c62828;
+  font-weight:bold;
 }
 
 .debt-delete-btn{
-border:0;
-background:#fff0f0;
-color:#d73535;
-padding:7px 11px;
-border-radius:7px;
-font-size:10px;
-font-weight:bold;
+  border:0;
+  background:#fff0f0;
+  color:#d73535;
+  padding:7px 11px;
+  border-radius:7px;
+  font-size:10px;
+  font-weight:bold;
 }
 
 .debt-delete-btn:hover{
-background:#ffe0e0;
+  background:#ffe0e0;
 }
 
 .debts-empty{
-padding:22px;
-text-align:center;
-color:#9a7b7b;
-font-size:12px;
+  padding:22px;
+  text-align:center;
+  color:#9a7b7b;
+  font-size:12px;
 }
 
 @media(max-width:800px){
-.debt-form{
-grid-template-columns:1fr 1fr;
-}
+  .debt-form{
+    grid-template-columns:1fr 1fr;
+  }
 
-.debt-add-btn{
-grid-column:span 2;
-}
+  .debt-add-btn{
+    grid-column:span 2;
+  }
 }
 
 @media(max-width:600px){
-.debt-form{
-grid-template-columns:1fr;
-}
+  .debt-form{
+    grid-template-columns:1fr;
+  }
 
-.debt-add-btn{
-grid-column:auto;
-}
+  .debt-add-btn{
+    grid-column:auto;
+  }
 }
 
 
 .dashboard-debt-card{
-cursor:pointer !important;
-background:linear-gradient(135deg,#b91c1c,#ef4444) !important;
-color:#fff !important;
-border-color:#f87171 !important;
+  cursor:pointer !important;
+  background:linear-gradient(135deg,#b91c1c,#ef4444) !important;
+  color:#fff !important;
+  border-color:#f87171 !important;
 }
 
 .dashboard-debt-card .stat-label,
 .dashboard-debt-card .stat-value,
 .dashboard-debt-card .stat-note{
-color:#fff !important;
+  color:#fff !important;
 }
 
 .dashboard-debt-card:hover{
-transform:translateY(-2px);
-box-shadow:0 8px 20px rgba(185,28,28,.25) !important;
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(185,28,28,.25) !important;
 }
 
 .debt-search-menu-btn{
-color:#ffb3b3 !important;
+  color:#ffb3b3 !important;
 }
 
 .debt-search-menu-btn:hover,
 .debt-search-menu-btn.active{
-background:linear-gradient(90deg,#b91c1c,#7f1d1d) !important;
-color:#fff !important;
-box-shadow:0 5px 16px rgba(220,38,38,.22) !important;
+  background:linear-gradient(90deg,#b91c1c,#7f1d1d) !important;
+  color:#fff !important;
+  box-shadow:0 5px 16px rgba(220,38,38,.22) !important;
 }
 
 .debt-inline-search,
 .debt-search-box{
-display:flex;
-gap:8px;
-align-items:center;
-margin-top:14px;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin-top:14px;
 }
 
 .debt-inline-search input,
 .debt-search-box input{
-flex:1;
-min-width:0;
-padding:10px 12px;
-border:1px solid #ead4d4;
-border-radius:9px;
-outline:none;
-background:#fff;
-font-size:13px;
+  flex:1;
+  min-width:0;
+  padding:10px 12px;
+  border:1px solid #ead4d4;
+  border-radius:9px;
+  outline:none;
+  background:#fff;
+  font-size:13px;
 }
 
 .debt-inline-search input:focus,
 .debt-search-box input:focus{
-border-color:#ef4444;
-box-shadow:0 0 0 3px rgba(239,68,68,.10);
+  border-color:#ef4444;
+  box-shadow:0 0 0 3px rgba(239,68,68,.10);
 }
 
 .debt-inline-search button,
 .debt-search-box button{
-border:0;
-background:#fff0f0;
-color:#c62828;
-padding:10px 15px;
-min-height:40px;
-border-radius:9px;
-font-weight:bold;
-cursor:pointer;
+  border:0;
+  background:#fff0f0;
+  color:#c62828;
+  padding:10px 15px;
+  min-height:40px;
+  border-radius:9px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 .debt-inline-search button:hover,
 .debt-search-box button:hover{
-background:#ffe1e1;
+  background:#ffe1e1;
 }
 
 .debt-search-subtitle{
-margin-top:4px;
-color:#8a6a6a;
-font-size:11px;
+  margin-top:4px;
+  color:#8a6a6a;
+  font-size:11px;
 }
 
 .debt-search-card{
-border-top:3px solid #b91c1c !important;
+  border-top:3px solid #b91c1c !important;
 }
 
 .debt-search-card .card-title h3{
-color:#b91c1c !important;
+  color:#b91c1c !important;
 }
 
 @media(max-width:800px){
-.debt-inline-search,
-.debt-search-box{
-flex-direction:column;
-align-items:stretch;
-}
+  .debt-inline-search,
+  .debt-search-box{
+    flex-direction:column;
+    align-items:stretch;
+  }
 }
 
 </style>
@@ -3030,83 +3034,83 @@ align-items:stretch;
 <style id="debt-transfer-modern-ui">
 /* ===== التصميم الحديث لقسم الديون والترحيل ===== */
 #debtsSection{
-display:grid;
-grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-gap:20px;
-align-items:start;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:20px;
+  align-items:start;
 }
 
 #debtsSection > .debts-card,
 #debtsSection > .transfer-section{
-min-width:0;
-margin:0;
+  min-width:0;
+  margin:0;
 }
 
 #debtsSection > .debts-card{
-border:1px solid #ffd0d0 !important;
-border-top:0 !important;
-border-radius:20px;
-padding:0;
-overflow:hidden;
-box-shadow:0 10px 30px rgba(185,28,28,.10);
-background:#fff;
+  border:1px solid #ffd0d0 !important;
+  border-top:0 !important;
+  border-radius:20px;
+  padding:0;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(185,28,28,.10);
+  background:#fff;
 }
 
 #debtsSection > .debts-card > .card-title{
-margin:0;
-padding:18px 20px;
-background:linear-gradient(135deg,#ef4444,#c91f1f);
-color:#fff;
-position:relative;
-overflow:hidden;
+  margin:0;
+  padding:18px 20px;
+  background:linear-gradient(135deg,#ef4444,#c91f1f);
+  color:#fff;
+  position:relative;
+  overflow:hidden;
 }
 
 #debtsSection > .debts-card > .card-title::after{
-content:'💰';
-position:absolute;
-left:18px;
-top:50%;
-transform:translateY(-50%);
-font-size:42px;
-opacity:.16;
+  content:'💰';
+  position:absolute;
+  left:18px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:42px;
+  opacity:.16;
 }
 
 #debtsSection > .debts-card > .card-title h3{
-color:#fff !important;
-font-size:24px;
-font-weight:900;
-display:flex;
-align-items:center;
-gap:9px;
+  color:#fff !important;
+  font-size:24px;
+  font-weight:900;
+  display:flex;
+  align-items:center;
+  gap:9px;
 }
 
 #debtsSection > .debts-card > .card-title h3::before{
-content:'💰';
-font-size:25px;
+  content:'💰';
+  font-size:25px;
 }
 
 #debtsSection > .debts-card > .card-title .debt-search-subtitle{
-color:rgba(255,255,255,.88);
-margin-top:5px;
+  color:rgba(255,255,255,.88);
+  margin-top:5px;
 }
 
 #debtsSection > .debts-card > .card-title .debt-summary-head{
-display:flex;
-flex-direction:column;
-align-items:flex-end;
-gap:6px;
-position:relative;
-z-index:1;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:6px;
+  position:relative;
+  z-index:1;
 }
 
 #debtsSection > .debts-card > .card-title .debt-summary-head span{
-background:rgba(255,255,255,.94) !important;
-color:#b91c1c !important;
-border-radius:999px;
-padding:8px 12px;
-font-size:12px;
-font-weight:900;
-box-shadow:0 3px 10px rgba(0,0,0,.08);
+  background:rgba(255,255,255,.94) !important;
+  color:#b91c1c !important;
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:12px;
+  font-weight:900;
+  box-shadow:0 3px 10px rgba(0,0,0,.08);
 }
 
 #debtsSection > .debts-card > .debt-form,
@@ -3114,28 +3118,28 @@ box-shadow:0 3px 10px rgba(0,0,0,.08);
 #debtsSection > .debts-card > .debt-inline-search,
 #debtsSection > .debts-card > .debt-table-wrap,
 #debtsSection > .debts-card > .debt-bottom-summary{
-margin-left:20px;
-margin-right:20px;
+  margin-left:20px;
+  margin-right:20px;
 }
 
 #debtsSection > .debts-card > .debt-form{
-margin-top:20px;
-grid-template-columns:repeat(2,minmax(0,1fr));
-gap:12px;
+  margin-top:20px;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
 }
 
 #debtsSection > .debts-card > .debt-form .form-field{
-background:#fff;
+  background:#fff;
 }
 
 #debtsSection > .debts-card > .debt-form .form-field label,
 #debtTransfersSection .transfer-form .form-field label{
-font-size:12px;
-font-weight:900;
-color:#26364a;
-display:flex;
-align-items:center;
-gap:6px;
+  font-size:12px;
+  font-weight:900;
+  color:#26364a;
+  display:flex;
+  align-items:center;
+  gap:6px;
 }
 
 #debtsSection > .debts-card > .debt-form .form-field:nth-child(1) label::before{content:'👤';}
@@ -3148,183 +3152,183 @@ gap:6px;
 #debtsSection > .debts-card > .debt-form select,
 #debtTransfersSection .transfer-form input,
 #debtTransfersSection .transfer-form select{
-min-height:44px;
-border:1px solid #dfe6ef;
-border-radius:12px;
-padding:10px 12px;
-background:#fbfcfe;
-transition:.2s ease;
+  min-height:44px;
+  border:1px solid #dfe6ef;
+  border-radius:12px;
+  padding:10px 12px;
+  background:#fbfcfe;
+  transition:.2s ease;
 }
 
 #debtsSection > .debts-card > .debt-form input:focus,
 #debtsSection > .debts-card > .debt-form select:focus,
 #debtTransfersSection .transfer-form input:focus,
 #debtTransfersSection .transfer-form select:focus{
-background:#fff;
-border-color:#ef4444;
-box-shadow:0 0 0 4px rgba(239,68,68,.10);
+  background:#fff;
+  border-color:#ef4444;
+  box-shadow:0 0 0 4px rgba(239,68,68,.10);
 }
 
 #debtsSection > .debts-card > .debt-form .debt-add-btn{
-grid-column:span 2;
-width:100%;
-min-height:46px;
-border-radius:13px;
-font-size:14px;
-background:linear-gradient(135deg,#ef4444,#c91f1f);
-box-shadow:0 7px 16px rgba(220,38,38,.20);
+  grid-column:span 2;
+  width:100%;
+  min-height:46px;
+  border-radius:13px;
+  font-size:14px;
+  background:linear-gradient(135deg,#ef4444,#c91f1f);
+  box-shadow:0 7px 16px rgba(220,38,38,.20);
 }
 
 #debtsSection > .debts-card > .debt-hint{
-background:#fff7f7;
-border:1px solid #ffe0e0;
-border-radius:11px;
-padding:10px 12px;
-line-height:1.7;
+  background:#fff7f7;
+  border:1px solid #ffe0e0;
+  border-radius:11px;
+  padding:10px 12px;
+  line-height:1.7;
 }
 
 #debtsSection > .debts-card > .debt-inline-search,
 #debtTransfersSection .transfer-inline-search{
-margin-top:12px;
+  margin-top:12px;
 }
 
 #debtsSection > .debts-card > .debt-inline-search input,
 #debtTransfersSection .transfer-inline-search input{
-min-height:44px;
-border-radius:12px;
+  min-height:44px;
+  border-radius:12px;
 }
 
 #debtsSection > .debts-card > .debt-inline-search button,
 #debtTransfersSection .transfer-inline-search button{
-min-height:44px;
-border-radius:12px;
-padding:10px 16px;
+  min-height:44px;
+  border-radius:12px;
+  padding:10px 16px;
 }
 
 #debtsSection > .debts-card > .debt-table-wrap{
-margin-top:16px;
-border:1px solid #ffdcdc;
-border-radius:14px;
-overflow:auto;
+  margin-top:16px;
+  border:1px solid #ffdcdc;
+  border-radius:14px;
+  overflow:auto;
 }
 
 #debtsSection > .debts-card > .debt-table-wrap .debt-table th{
-background:#fff0f0;
-color:#a51d1d;
-font-weight:900;
+  background:#fff0f0;
+  color:#a51d1d;
+  font-weight:900;
 }
 
 #debtsSection > .debts-card > .debt-table-wrap .debt-table td{
-background:#fff;
+  background:#fff;
 }
 
 #debtsSection > .debts-card > .debt-table-wrap .debt-highlight-row:hover td{
-background:#fff8f8 !important;
+  background:#fff8f8 !important;
 }
 
 #debtsSection > .debts-card > .debt-bottom-summary{
-margin-top:16px;
-margin-bottom:20px;
-border-radius:16px;
-padding:15px 18px;
-background:linear-gradient(135deg,#fff1f1,#ffd9d9);
-border:1px solid #ffc1c1;
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:12px;
+  margin-top:16px;
+  margin-bottom:20px;
+  border-radius:16px;
+  padding:15px 18px;
+  background:linear-gradient(135deg,#fff1f1,#ffd9d9);
+  border:1px solid #ffc1c1;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
 }
 
 .debt-bottom-summary .summary-icon{
-width:48px;
-height:48px;
-flex:0 0 48px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:50%;
-background:#ef4444;
-color:#fff;
-font-size:24px;
+  width:48px;
+  height:48px;
+  flex:0 0 48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:#ef4444;
+  color:#fff;
+  font-size:24px;
 }
 
 .debt-bottom-summary .summary-label{
-color:#7f1d1d;
-font-size:12px;
-font-weight:800;
+  color:#7f1d1d;
+  font-size:12px;
+  font-weight:800;
 }
 
 .debt-bottom-summary .summary-value{
-color:#b91c1c;
-font-size:25px;
-font-weight:1000;
+  color:#b91c1c;
+  font-size:25px;
+  font-weight:1000;
 }
 
 #debtTransfersSection .transfer-card{
-border:1px solid #b7efca;
-border-top:0;
-border-radius:20px;
-padding:0;
-overflow:hidden;
-box-shadow:0 10px 30px rgba(22,163,74,.11);
-background:#fff;
+  border:1px solid #b7efca;
+  border-top:0;
+  border-radius:20px;
+  padding:0;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(22,163,74,.11);
+  background:#fff;
 }
 
 #debtTransfersSection .transfer-card > .card-title{
-margin:0;
-padding:18px 20px;
-background:linear-gradient(135deg,#16a34a,#07943e);
-color:#fff;
-position:relative;
-overflow:hidden;
+  margin:0;
+  padding:18px 20px;
+  background:linear-gradient(135deg,#16a34a,#07943e);
+  color:#fff;
+  position:relative;
+  overflow:hidden;
 }
 
 #debtTransfersSection .transfer-card > .card-title::after{
-content:'🔄';
-position:absolute;
-left:18px;
-top:50%;
-transform:translateY(-50%);
-font-size:44px;
-opacity:.16;
+  content:'🔄';
+  position:absolute;
+  left:18px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:44px;
+  opacity:.16;
 }
 
 #debtTransfersSection .transfer-title{
-color:#fff !important;
-font-size:24px;
-font-weight:900;
-display:flex;
-align-items:center;
-gap:9px;
+  color:#fff !important;
+  font-size:24px;
+  font-weight:900;
+  display:flex;
+  align-items:center;
+  gap:9px;
 }
 
 #debtTransfersSection .transfer-title::before{
-content:'🔄';
-font-size:25px;
+  content:'🔄';
+  font-size:25px;
 }
 
 #debtTransfersSection .transfer-subtitle{
-color:rgba(255,255,255,.88);
-margin-top:5px;
+  color:rgba(255,255,255,.88);
+  margin-top:5px;
 }
 
 #debtTransfersSection .transfer-summary-head{
-display:flex;
-flex-direction:column;
-align-items:flex-end;
-gap:6px;
-position:relative;
-z-index:1;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:6px;
+  position:relative;
+  z-index:1;
 }
 
 #debtTransfersSection .transfer-summary-head span{
-background:rgba(255,255,255,.94);
-color:#087f38;
-border-radius:999px;
-padding:8px 12px;
-font-size:12px;
-font-weight:900;
-box-shadow:0 3px 10px rgba(0,0,0,.08);
+  background:rgba(255,255,255,.94);
+  color:#087f38;
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:12px;
+  font-weight:900;
+  box-shadow:0 3px 10px rgba(0,0,0,.08);
 }
 
 #debtTransfersSection .transfer-form,
@@ -3332,14 +3336,14 @@ box-shadow:0 3px 10px rgba(0,0,0,.08);
 #debtTransfersSection .transfer-inline-search,
 #debtTransfersSection .transfer-table-wrap,
 #debtTransfersSection .transfer-bottom-summary{
-margin-left:20px;
-margin-right:20px;
+  margin-left:20px;
+  margin-right:20px;
 }
 
 #debtTransfersSection .transfer-form{
-margin-top:20px;
-grid-template-columns:repeat(2,minmax(0,1fr));
-gap:12px;
+  margin-top:20px;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
 }
 
 #debtTransfersSection .transfer-form .form-field:nth-child(1) label::before{content:'👤';}
@@ -3349,131 +3353,241 @@ gap:12px;
 #debtTransfersSection .transfer-form .form-field:nth-child(5) label::before{content:'📝';}
 
 #debtTransfersSection .transfer-add-btn{
-grid-column:span 2;
-width:100%;
-min-height:46px;
-border-radius:13px;
-font-size:14px;
-background:linear-gradient(135deg,#16a34a,#07943e);
-box-shadow:0 7px 16px rgba(22,163,74,.20);
+  grid-column:span 2;
+  width:100%;
+  min-height:46px;
+  border-radius:13px;
+  font-size:14px;
+  background:linear-gradient(135deg,#16a34a,#07943e);
+  box-shadow:0 7px 16px rgba(22,163,74,.20);
 }
 
 #debtTransfersSection .transfer-hint{
-background:#f1fff5;
-border:1px solid #c9f3d6;
-border-radius:11px;
-padding:10px 12px;
-line-height:1.7;
-color:#287044;
+  background:#f1fff5;
+  border:1px solid #c9f3d6;
+  border-radius:11px;
+  padding:10px 12px;
+  line-height:1.7;
+  color:#287044;
 }
 
 #debtTransfersSection .transfer-table-wrap{
-margin-top:16px;
-border:1px solid #c7efd4;
-border-radius:14px;
+  margin-top:16px;
+  border:1px solid #c7efd4;
+  border-radius:14px;
 }
 
 #debtTransfersSection .transfer-table th{
-background:#eafff0;
-color:#087f38;
-font-weight:900;
+  background:#eafff0;
+  color:#087f38;
+  font-weight:900;
 }
 
 #debtTransfersSection .transfer-highlight-row:hover td{
-background:#effff4 !important;
+  background:#effff4 !important;
 }
 
 #debtTransfersSection .transfer-bottom-summary{
-margin-top:16px;
-margin-bottom:20px;
-border-radius:16px;
-padding:15px 18px;
-background:linear-gradient(135deg,#effff4,#c9f7d7);
-border:1px solid #a9ebbf;
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:12px;
+  margin-top:16px;
+  margin-bottom:20px;
+  border-radius:16px;
+  padding:15px 18px;
+  background:linear-gradient(135deg,#effff4,#c9f7d7);
+  border:1px solid #a9ebbf;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
 }
 
 .transfer-bottom-summary .summary-icon{
-width:48px;
-height:48px;
-flex:0 0 48px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:50%;
-background:#16a34a;
-color:#fff;
-font-size:24px;
+  width:48px;
+  height:48px;
+  flex:0 0 48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:#16a34a;
+  color:#fff;
+  font-size:24px;
 }
 
 .transfer-bottom-summary .summary-label{
-color:#176534;
-font-size:12px;
-font-weight:800;
+  color:#176534;
+  font-size:12px;
+  font-weight:800;
 }
 
 .transfer-bottom-summary .summary-value{
-color:#07833a;
-font-size:25px;
-font-weight:1000;
+  color:#07833a;
+  font-size:25px;
+  font-weight:1000;
 }
 
 @media(max-width:1000px){
-#debtsSection{
-grid-template-columns:1fr;
-}
+  #debtsSection{
+    grid-template-columns:1fr;
+  }
 }
 
 @media(max-width:600px){
-#debtsSection > .debts-card > .card-title,
-#debtTransfersSection .transfer-card > .card-title{
-padding:16px;
-flex-direction:column;
-align-items:flex-start;
+  #debtsSection > .debts-card > .card-title,
+  #debtTransfersSection .transfer-card > .card-title{
+    padding:16px;
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  #debtsSection > .debts-card > .card-title .debt-summary-head,
+  #debtTransfersSection .transfer-summary-head{
+    width:100%;
+    align-items:stretch;
+  }
+
+  #debtsSection > .debts-card > .card-title .debt-summary-head span,
+  #debtTransfersSection .transfer-summary-head span{
+    text-align:center;
+  }
+
+  #debtsSection > .debts-card > .debt-form,
+  #debtTransfersSection .transfer-form{
+    grid-template-columns:1fr;
+  }
+
+  #debtsSection > .debts-card > .debt-form .debt-add-btn,
+  #debtTransfersSection .transfer-add-btn{
+    grid-column:auto;
+  }
+
+  #debtsSection > .debts-card > .debt-form,
+  #debtsSection > .debts-card > .debt-hint,
+  #debtsSection > .debts-card > .debt-inline-search,
+  #debtsSection > .debts-card > .debt-table-wrap,
+  #debtsSection > .debts-card > .debt-bottom-summary,
+  #debtTransfersSection .transfer-form,
+  #debtTransfersSection .transfer-hint,
+  #debtTransfersSection .transfer-inline-search,
+  #debtTransfersSection .transfer-table-wrap,
+  #debtTransfersSection .transfer-bottom-summary{
+    margin-left:12px;
+    margin-right:12px;
+  }
+
+  #debtsSection > .debts-card > .debt-table-wrap,
+  #debtTransfersSection .transfer-table-wrap{
+    margin-bottom:0;
+  }
+}
+</style>
+
+<style id="arabic-premium-font-style">
+/* ===== خط عربي مميز وواضح ===== */
+body,
+button,
+input,
+select,
+textarea,
+table{
+  font-family:"Cairo","Tajawal",Tahoma,"Segoe UI",Arial,sans-serif !important;
 }
 
-#debtsSection > .debts-card > .card-title .debt-summary-head,
-#debtTransfersSection .transfer-summary-head{
-width:100%;
-align-items:stretch;
+#debtsSection{
+  font-size:15px;
+}
+
+#debtsSection > .debts-card > .card-title h3,
+#debtTransfersSection .transfer-title{
+  font-size:27px !important;
+  line-height:1.35;
+  letter-spacing:.1px;
+}
+
+#debtsSection > .debts-card > .card-title .debt-search-subtitle,
+#debtTransfersSection .transfer-subtitle{
+  font-size:14px;
+  font-weight:600;
 }
 
 #debtsSection > .debts-card > .card-title .debt-summary-head span,
 #debtTransfersSection .transfer-summary-head span{
-text-align:center;
+  font-size:14px;
+  padding:9px 14px;
 }
 
-#debtsSection > .debts-card > .debt-form,
-#debtTransfersSection .transfer-form{
-grid-template-columns:1fr;
+#debtsSection > .debts-card > .debt-form .form-field label,
+#debtTransfersSection .transfer-form .form-field label{
+  font-size:14px;
+  line-height:1.6;
+}
+
+#debtsSection > .debts-card > .debt-form input,
+#debtsSection > .debts-card > .debt-form select,
+#debtTransfersSection .transfer-form input,
+#debtTransfersSection .transfer-form select,
+#debtsSection > .debts-card > .debt-inline-search input,
+#debtTransfersSection .transfer-inline-search input{
+  font-size:14px;
+  font-weight:600;
 }
 
 #debtsSection > .debts-card > .debt-form .debt-add-btn,
 #debtTransfersSection .transfer-add-btn{
-grid-column:auto;
+  font-size:16px;
+  font-weight:800;
 }
 
-#debtsSection > .debts-card > .debt-form,
-#debtsSection > .debts-card > .debt-hint,
-#debtsSection > .debts-card > .debt-inline-search,
-#debtsSection > .debts-card > .debt-table-wrap,
-#debtsSection > .debts-card > .debt-bottom-summary,
-#debtTransfersSection .transfer-form,
-#debtTransfersSection .transfer-hint,
-#debtTransfersSection .transfer-inline-search,
-#debtTransfersSection .transfer-table-wrap,
-#debtTransfersSection .transfer-bottom-summary{
-margin-left:12px;
-margin-right:12px;
+#debtsSection > .debts-card > .debt-table-wrap .debt-table th,
+#debtTransfersSection .transfer-table th{
+  font-size:14px;
+  padding:13px 10px;
 }
 
-#debtsSection > .debts-card > .debt-table-wrap,
-#debtTransfersSection .transfer-table-wrap{
-margin-bottom:0;
+#debtsSection > .debts-card > .debt-table-wrap .debt-table td,
+#debtTransfersSection .transfer-table td{
+  font-size:14px;
+  font-weight:600;
+  padding:13px 10px;
 }
+
+.debt-bottom-summary .summary-label,
+.transfer-bottom-summary .summary-label{
+  font-size:14px;
+  font-weight:800;
+}
+
+.debt-bottom-summary .summary-value,
+.transfer-bottom-summary .summary-value{
+  font-size:28px;
+  font-weight:900;
+}
+
+@media(max-width:600px){
+  body{font-size:14px;}
+  #debtsSection > .debts-card > .card-title h3,
+  #debtTransfersSection .transfer-title{
+    font-size:23px !important;
+  }
+  #debtsSection > .debts-card > .debt-form .form-field label,
+  #debtTransfersSection .transfer-form .form-field label{
+    font-size:13.5px;
+  }
+  #debtsSection > .debts-card > .debt-form input,
+  #debtsSection > .debts-card > .debt-form select,
+  #debtTransfersSection .transfer-form input,
+  #debtTransfersSection .transfer-form select{
+    font-size:14px;
+  }
+  #debtsSection > .debts-card > .debt-table-wrap .debt-table th,
+  #debtTransfersSection .transfer-table th,
+  #debtsSection > .debts-card > .debt-table-wrap .debt-table td,
+  #debtTransfersSection .transfer-table td{
+    font-size:13.5px;
+  }
+  .debt-bottom-summary .summary-value,
+  .transfer-bottom-summary .summary-value{
+    font-size:25px;
+  }
 }
 </style>
 
@@ -3503,141 +3617,141 @@ margin-bottom:0;
 <style id="debt-transfers-style">
 /* ===== مبالغ الترحيل: نفس بنية الديون مع اللون الأخضر ===== */
 .transfer-section{
-margin-top:22px;
+  margin-top:22px;
 }
 
 .transfer-card{
-border:1px solid #b7e8c7 !important;
-box-shadow:0 8px 28px rgba(16,185,129,.08) !important;
+  border:1px solid #b7e8c7 !important;
+  box-shadow:0 8px 28px rgba(16,185,129,.08) !important;
 }
 
 .transfer-title{
-color:#087443 !important;
+  color:#087443 !important;
 }
 
 .transfer-subtitle{
-margin-top:4px;
-color:#3f7b5b;
-font-size:12px;
-font-weight:700;
+  margin-top:4px;
+  color:#3f7b5b;
+  font-size:12px;
+  font-weight:700;
 }
 
 .transfer-summary-head{
-display:flex;
-flex-direction:column;
-align-items:flex-end;
-gap:4px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:4px;
 }
 
 .transfer-summary-head span{
-font-weight:800;
+  font-weight:800;
 }
 
 #transfersTotal{
-color:#087443 !important;
-font-size:12px;
+  color:#087443 !important;
+  font-size:12px;
 }
 
 .transfer-form{
-display:grid;
-grid-template-columns:1.7fr 1fr 1.15fr 1.5fr auto;
-gap:12px;
-align-items:end;
-margin-top:14px;
+  display:grid;
+  grid-template-columns:1.7fr 1fr 1.15fr 1.5fr auto;
+  gap:12px;
+  align-items:end;
+  margin-top:14px;
 }
 
 .transfer-form select,
 .transfer-form .form-field input{
-width:100%;
-box-sizing:border-box;
+  width:100%;
+  box-sizing:border-box;
 }
 
 .transfer-add-btn{
-min-height:46px;
-padding:11px 18px;
-border:1px solid #0b9b5d;
-border-radius:10px;
-background:linear-gradient(135deg,#18b96d,#07834c);
-color:#fff;
-font-weight:900;
-white-space:nowrap;
+  min-height:46px;
+  padding:11px 18px;
+  border:1px solid #0b9b5d;
+  border-radius:10px;
+  background:linear-gradient(135deg,#18b96d,#07834c);
+  color:#fff;
+  font-weight:900;
+  white-space:nowrap;
 }
 
 .transfer-add-btn:hover{
-filter:brightness(1.04);
+  filter:brightness(1.04);
 }
 
 .transfer-hint{
-margin-top:10px;
-padding:9px 12px;
-border-radius:9px;
-background:#effcf4;
-color:#2e6e4b;
-font-size:12px;
-font-weight:700;
+  margin-top:10px;
+  padding:9px 12px;
+  border-radius:9px;
+  background:#effcf4;
+  color:#2e6e4b;
+  font-size:12px;
+  font-weight:700;
 }
 
 .transfer-inline-search{
-display:flex;
-gap:8px;
-margin-top:14px;
+  display:flex;
+  gap:8px;
+  margin-top:14px;
 }
 
 .transfer-inline-search input{
-flex:1;
-min-width:0;
-padding:11px 13px;
-border:1px solid #b7ddc5;
-border-radius:10px;
-outline:none;
-background:#fff;
+  flex:1;
+  min-width:0;
+  padding:11px 13px;
+  border:1px solid #b7ddc5;
+  border-radius:10px;
+  outline:none;
+  background:#fff;
 }
 
 .transfer-inline-search input:focus{
-border-color:#10a968;
-box-shadow:0 0 0 3px rgba(16,169,104,.10);
+  border-color:#10a968;
+  box-shadow:0 0 0 3px rgba(16,169,104,.10);
 }
 
 .transfer-inline-search button{
-border:1px solid #8fc9a6;
-background:#f0fff5;
-color:#087443;
-border-radius:10px;
-padding:0 16px;
-font-weight:800;
+  border:1px solid #8fc9a6;
+  background:#f0fff5;
+  color:#087443;
+  border-radius:10px;
+  padding:0 16px;
+  font-weight:800;
 }
 
 .transfer-table-wrap{
-margin-top:18px;
-overflow:auto;
-border:1px solid #b7e8c7;
-border-radius:10px;
+  margin-top:18px;
+  overflow:auto;
+  border:1px solid #b7e8c7;
+  border-radius:10px;
 }
 
 .transfer-table{
-width:100%;
-min-width:700px;
-border-collapse:collapse;
+  width:100%;
+  min-width:700px;
+  border-collapse:collapse;
 }
 
 .transfer-table th{
-background:#dff8e8;
-color:#075d36;
-padding:11px 9px;
-border-bottom:1px solid #9bd7b2;
-font-weight:900;
+  background:#dff8e8;
+  color:#075d36;
+  padding:11px 9px;
+  border-bottom:1px solid #9bd7b2;
+  font-weight:900;
 }
 
 .transfer-table td{
-padding:10px 9px;
-border-bottom:1px solid #a7ddb9;
-vertical-align:middle;
+  padding:10px 9px;
+  border-bottom:1px solid #a7ddb9;
+  vertical-align:middle;
 }
 
 .transfer-highlight-row td{
-background:#28c76f !important;
-color:#102b20 !important;
-border-bottom-color:#16a85b !important;
+  background:#28c76f !important;
+  color:#102b20 !important;
+  border-bottom-color:#16a85b !important;
 }
 
 .transfer-highlight-row .transfer-name-cell,
@@ -3645,72 +3759,72 @@ border-bottom-color:#16a85b !important;
 .transfer-highlight-row .transfer-amount-cell,
 .transfer-highlight-row .transfer-phone-cell,
 .transfer-highlight-row .transfer-notes-cell{
-color:#102b20 !important;
-font-weight:800 !important;
+  color:#102b20 !important;
+  font-weight:800 !important;
 }
 
 .transfer-highlight-row:hover td{
-background:#20b965 !important;
+  background:#20b965 !important;
 }
 
 .transfer-edit-phone-btn,
 .transfer-delete-btn{
-margin:2px;
-padding:7px 9px;
-border-radius:8px;
-font-size:11px;
-font-weight:800;
+  margin:2px;
+  padding:7px 9px;
+  border-radius:8px;
+  font-size:11px;
+  font-weight:800;
 }
 
 .transfer-edit-phone-btn{
-color:#075d36;
-background:#f1fff6;
-border:1px solid #138a53;
+  color:#075d36;
+  background:#f1fff6;
+  border:1px solid #138a53;
 }
 
 .transfer-delete-btn{
-color:#111;
-background:#fff;
-border:1px solid #111;
+  color:#111;
+  background:#fff;
+  border:1px solid #111;
 }
 
 .transfer-empty{
-padding:18px;
-text-align:center;
-color:#4f7d61;
-font-weight:700;
+  padding:18px;
+  text-align:center;
+  color:#4f7d61;
+  font-weight:700;
 }
 
 @media(max-width:1100px){
-.transfer-form{
-grid-template-columns:1fr 1fr;
-}
+  .transfer-form{
+    grid-template-columns:1fr 1fr;
+  }
 
-.transfer-add-btn{
-grid-column:span 2;
-}
+  .transfer-add-btn{
+    grid-column:span 2;
+  }
 }
 
 @media(max-width:600px){
-.transfer-form{
-grid-template-columns:1fr;
-}
+  .transfer-form{
+    grid-template-columns:1fr;
+  }
 
-.transfer-add-btn{
-grid-column:auto;
-}
+  .transfer-add-btn{
+    grid-column:auto;
+  }
 
-.transfer-summary-head{
-align-items:flex-start;
-}
+  .transfer-summary-head{
+    align-items:flex-start;
+  }
 
-.transfer-inline-search{
-flex-direction:column;
-}
+  .transfer-inline-search{
+    flex-direction:column;
+  }
 
-.transfer-inline-search button{
-min-height:42px;
-}
+  .transfer-inline-search button{
+    min-height:42px;
+  }
 }
 </style>
 
@@ -4483,12 +4597,12 @@ class="debts-empty">
 </div>
 
 <div class="debt-bottom-summary">
-<div class="summary-icon">💰</div>
-<div style="flex:1;">
-<div class="summary-label">مجموع الديون</div>
-<div id="debtsTotalBottom" class="summary-value">0 دينار عراقي</div>
-</div>
-<div style="font-size:26px;">📊</div>
+  <div class="summary-icon">💰</div>
+  <div style="flex:1;">
+    <div class="summary-label">مجموع الديون</div>
+    <div id="debtsTotalBottom" class="summary-value">0 دينار عراقي</div>
+  </div>
+  <div style="font-size:26px;">📊</div>
 </div>
 
 </div>
@@ -4622,12 +4736,12 @@ class="transfer-empty">
 </div>
 
 <div class="transfer-bottom-summary">
-<div class="summary-icon">🔄</div>
-<div style="flex:1;">
-<div class="summary-label">مجموع مبالغ الترحيل</div>
-<div id="transfersTotalBottom" class="summary-value">0 دينار عراقي</div>
-</div>
-<div style="font-size:26px;">📊</div>
+  <div class="summary-icon">🔄</div>
+  <div style="flex:1;">
+    <div class="summary-label">مجموع مبالغ الترحيل</div>
+    <div id="transfersTotalBottom" class="summary-value">0 دينار عراقي</div>
+  </div>
+  <div style="font-size:26px;">📊</div>
 </div>
 
 </div>
@@ -4735,7 +4849,7 @@ class="section hidden">
 </section>
 
 <section
-id="addSection"
+ id="addSection"
 class="section hidden">
 
 <div class="card">
@@ -5113,43 +5227,43 @@ return '';
 }
 
 async function getActivityUser(){
-try{
-const {data,error} = await db.auth.getUser();
-if(error || !data?.user){ return {id:null,email:'غير معروف'}; }
-return {id:data.user.id || null,email:data.user.email || 'غير معروف'};
-}catch(error){ console.error('getActivityUser:',error); return {id:null,email:'غير معروف'}; }
+  try{
+    const {data,error} = await db.auth.getUser();
+    if(error || !data?.user){ return {id:null,email:'غير معروف'}; }
+    return {id:data.user.id || null,email:data.user.email || 'غير معروف'};
+  }catch(error){ console.error('getActivityUser:',error); return {id:null,email:'غير معروف'}; }
 }
 
 async function logActivity(action,details=''){
-try{
-const user = await getActivityUser();
-if(!user.id){ return; }
-const {error} = await db.from('activity_logs').insert({user_id:user.id,user_email:user.email,action:String(action || ''),details:String(details || '')});
-if(error){ console.error('activity_logs insert:',error); }
-}catch(error){ console.error('logActivity:',error); }
+  try{
+    const user = await getActivityUser();
+    if(!user.id){ return; }
+    const {error} = await db.from('activity_logs').insert({user_id:user.id,user_email:user.email,action:String(action || ''),details:String(details || '')});
+    if(error){ console.error('activity_logs insert:',error); }
+  }catch(error){ console.error('logActivity:',error); }
 }
 
 function activityIcon(action){
-const icons={'تسجيل دخول':'🔐','إضافة مشترك':'➕','تعديل مشترك':'✏️','حذف مشترك':'🗑️','إضافة دين':'💰','حذف دين':'🗑️','استيراد Excel':'📥','تصدير Excel':'📤','تسجيل خروج':'🚪'};
-return icons[action] || '📌';
+  const icons={'تسجيل دخول':'🔐','إضافة مشترك':'➕','تعديل مشترك':'✏️','حذف مشترك':'🗑️','إضافة دين':'💰','حذف دين':'🗑️','استيراد Excel':'📥','تصدير Excel':'📤','تسجيل خروج':'🚪'};
+  return icons[action] || '📌';
 }
 
 function formatActivityDate(value){
-if(!value){ return '—'; }
-const date=new Date(value);
-if(Number.isNaN(date.getTime())){ return value; }
-return date.toLocaleString('ar-IQ',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  if(!value){ return '—'; }
+  const date=new Date(value);
+  if(Number.isNaN(date.getTime())){ return value; }
+  return date.toLocaleString('ar-IQ',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit'});
 }
 
 async function loadActivityLogs(){
-const list=$('activityList'); const empty=$('activityEmpty');
-if(!list || !empty){ return; }
-const {data,error}=await db.from('activity_logs').select('id,action,details,user_email,created_at').order('created_at',{ascending:false}).limit(300);
-if(error){ console.error('loadActivityLogs:',error); list.innerHTML=''; const msg=[error.message,error.code,error.details,error.hint].filter(Boolean).join(' | '); empty.textContent='تعذر تحميل سجل النشاط: ' + (msg || 'خطأ غير معروف من Supabase'); empty.classList.remove('hidden'); return; }
-const logs=data || [];
-if(!logs.length){ list.innerHTML=''; empty.textContent='لا توجد عمليات مسجلة حتى الآن.'; empty.classList.remove('hidden'); return; }
-empty.classList.add('hidden');
-list.innerHTML=logs.map(log=>`<tr><td class="activity-action"><span class="activity-icon">${activityIcon(log.action)}</span>${esc(log.action || 'عملية')}</td><td class="activity-details">${esc(log.details || '—')}</td><td class="activity-user">${esc(log.user_email || 'غير معروف')}</td><td class="activity-time">${esc(formatActivityDate(log.created_at))}</td></tr>`).join('');
+  const list=$('activityList'); const empty=$('activityEmpty');
+  if(!list || !empty){ return; }
+  const {data,error}=await db.from('activity_logs').select('id,action,details,user_email,created_at').order('created_at',{ascending:false}).limit(300);
+  if(error){ console.error('loadActivityLogs:',error); list.innerHTML=''; const msg=[error.message,error.code,error.details,error.hint].filter(Boolean).join(' | '); empty.textContent='تعذر تحميل سجل النشاط: ' + (msg || 'خطأ غير معروف من Supabase'); empty.classList.remove('hidden'); return; }
+  const logs=data || [];
+  if(!logs.length){ list.innerHTML=''; empty.textContent='لا توجد عمليات مسجلة حتى الآن.'; empty.classList.remove('hidden'); return; }
+  empty.classList.add('hidden');
+  list.innerHTML=logs.map(log=>`<tr><td class="activity-action"><span class="activity-icon">${activityIcon(log.action)}</span>${esc(log.action || 'عملية')}</td><td class="activity-details">${esc(log.details || '—')}</td><td class="activity-user">${esc(log.user_email || 'غير معروف')}</td><td class="activity-time">${esc(formatActivityDate(log.created_at))}</td></tr>`).join('');
 }
 
 async function login(){
@@ -5166,33 +5280,33 @@ $('loginError')
 .classList.add('hidden');
 
 if(!loginValue || !password){
-$('loginError').textContent =
-'أدخل البريد الإلكتروني وكلمة السر';
-$('loginError').classList.remove('hidden');
-return;
+  $('loginError').textContent =
+  'أدخل البريد الإلكتروني وكلمة السر';
+  $('loginError').classList.remove('hidden');
+  return;
 }
 
 try{
-const { data, error } =
-await db.auth.signInWithPassword({
-email: loginValue,
-password
-});
+  const { data, error } =
+    await db.auth.signInWithPassword({
+      email: loginValue,
+      password
+    });
 
-if(error || !data?.session){
-$('loginError').textContent =
-error?.message || 'تعذر تسجيل الدخول';
-$('loginError').classList.remove('hidden');
-return;
-}
+  if(error || !data?.session){
+    $('loginError').textContent =
+      error?.message || 'تعذر تسجيل الدخول';
+    $('loginError').classList.remove('hidden');
+    return;
+  }
 
-await logActivity('تسجيل دخول', 'تم تسجيل الدخول إلى البرنامج');
+  await logActivity('تسجيل دخول', 'تم تسجيل الدخول إلى البرنامج');
 
 }catch(error){
-console.error('login:',error);
-$('loginError').textContent =
-error?.message || 'حدث خطأ أثناء تسجيل الدخول';
-$('loginError').classList.remove('hidden');
+  console.error('login:',error);
+  $('loginError').textContent =
+    error?.message || 'حدث خطأ أثناء تسجيل الدخول';
+  $('loginError').classList.remove('hidden');
 }
 
 }
@@ -7078,8 +7192,8 @@ showToast(
 }
 
 /* =========================
-FTTH SYNC
-آمن - بدون أسرار FTTH
+   FTTH SYNC
+   آمن - بدون أسرار FTTH
 ========================= */
 
 async function startFtthSync(){
@@ -7092,7 +7206,7 @@ return;
 }
 
 /*
-منع الضغط المتكرر أثناء المزامنة
+  منع الضغط المتكرر أثناء المزامنة
 */
 
 if(btn.disabled){
@@ -7111,30 +7225,30 @@ btn.innerHTML =
 try{
 
 /*
-مهم جدًا:
+  مهم جدًا:
 
-لا نضع هنا:
-- كلمة مرور FTTH
-- Authorization Token
-- Cookie
-- بيانات تسجيل الدخول
+  لا نضع هنا:
+  - كلمة مرور FTTH
+  - Authorization Token
+  - Cookie
+  - بيانات تسجيل الدخول
 
-الاتصال الحقيقي مع FTTH سيتم لاحقًا
-من خلال Supabase Edge Function.
+  الاتصال الحقيقي مع FTTH سيتم لاحقًا
+  من خلال Supabase Edge Function.
 
-عند ربط Edge Function سيكون المسار:
+  عند ربط Edge Function سيكون المسار:
 
-GitHub Page
-↓
-Supabase Edge Function
-↓
-FTTH API
-↓
-المشترك + المنطقة + FAT
-↓
-Supabase
-↓
-هذه الصفحة
+  GitHub Page
+       ↓
+  Supabase Edge Function
+       ↓
+  FTTH API
+       ↓
+  المشترك + المنطقة + FAT
+       ↓
+  Supabase
+       ↓
+  هذه الصفحة
 */
 
 await new Promise(
@@ -7198,11 +7312,11 @@ section.classList.remove(
 }
 
 document.addEventListener('click',event => {
-const button = event.target.closest('[data-whatsapp-search-name]');
-if(!button){ return; }
-const name = button.dataset.whatsappSearchName || '';
-const index = debts.findIndex(debt => cleanText(debt.name) === cleanText(name));
-if(index >= 0){ openDebtWhatsApp(index); }
+  const button = event.target.closest('[data-whatsapp-search-name]');
+  if(!button){ return; }
+  const name = button.dataset.whatsappSearchName || '';
+  const index = debts.findIndex(debt => cleanText(debt.name) === cleanText(name));
+  if(index >= 0){ openDebtWhatsApp(index); }
 });
 
 document
@@ -7415,7 +7529,7 @@ option
 
 
 /* =========================
-قسم الديون - Supabase
+   قسم الديون - Supabase
 ========================= */
 
 const DEBTS_STORAGE_KEY = 'omar_ftth_debts_v1';
@@ -7425,832 +7539,832 @@ let debts = [];
 let transfers = [];
 
 function formatDebtAmount(value){
-const number = Number(value || 0);
-if(!Number.isFinite(number)){
-return '0';
-}
-return number.toLocaleString('en-US',{
-maximumFractionDigits:0
-});
+  const number = Number(value || 0);
+  if(!Number.isFinite(number)){
+    return '0';
+  }
+  return number.toLocaleString('en-US',{
+    maximumFractionDigits:0
+  });
 }
 
 function getSubscriberByName(name){
-const target = cleanText(name).toLocaleLowerCase('ar');
-if(!target){
-return null;
-}
+  const target = cleanText(name).toLocaleLowerCase('ar');
+  if(!target){
+    return null;
+  }
 
-return rows.find(item =>
-cleanText(item.subscriber_name || item.name || '')
-.toLocaleLowerCase('ar') === target
-) || null;
+  return rows.find(item =>
+    cleanText(item.subscriber_name || item.name || '')
+      .toLocaleLowerCase('ar') === target
+  ) || null;
 }
 
 function updateDebtNamesList(){
-const list = $('debtNamesList');
-if(!list){
-return;
-}
+  const list = $('debtNamesList');
+  if(!list){
+    return;
+  }
 
-const unique = new Map();
+  const unique = new Map();
 
-rows.forEach(item => {
-const name = cleanText(
-item.subscriber_name || item.name || ''
-);
-const itemZone = normalizeZone(item.zone);
+  rows.forEach(item => {
+    const name = cleanText(
+      item.subscriber_name || item.name || ''
+    );
+    const itemZone = normalizeZone(item.zone);
 
-if(name && !unique.has(`${name}|${itemZone}`)){
-unique.set(`${name}|${itemZone}`, {name,itemZone});
-}
-});
+    if(name && !unique.has(`${name}|${itemZone}`)){
+      unique.set(`${name}|${itemZone}`, {name,itemZone});
+    }
+  });
 
-list.innerHTML = [...unique.values()]
-.sort((a,b) => a.name.localeCompare(b.name,'ar'))
-.map(item => `
-<option value="${esc(item.name)}" label="${esc(item.itemZone)}">${esc(item.itemZone)}</option>
-`)
-.join('');
+  list.innerHTML = [...unique.values()]
+    .sort((a,b) => a.name.localeCompare(b.name,'ar'))
+    .map(item => `
+      <option value="${esc(item.name)}" label="${esc(item.itemZone)}">${esc(item.itemZone)}</option>
+    `)
+    .join('');
 }
 
 function autoSelectDebtZone(){
-const nameInput = $('debtName');
-const zoneInput = $('debtZone');
-if(!nameInput || !zoneInput){
-return;
-}
+  const nameInput = $('debtName');
+  const zoneInput = $('debtZone');
+  if(!nameInput || !zoneInput){
+    return;
+  }
 
-const subscriber = getSubscriberByName(nameInput.value);
-if(subscriber && isValidZone(subscriber.zone)){
-zoneInput.value = normalizeZone(subscriber.zone);
-}
+  const subscriber = getSubscriberByName(nameInput.value);
+  if(subscriber && isValidZone(subscriber.zone)){
+    zoneInput.value = normalizeZone(subscriber.zone);
+  }
 }
 
 async function loadDebts(){
-const [
-{data, error},
-{data: transferData, error: transferError}
-] = await Promise.all([
-db.from('debts').select('*').eq('entry_type','debt').order('id',{ascending:true}),
-db.from('debts').select('*').eq('entry_type','transfer').order('id',{ascending:true})
-]);
+  const [
+    {data, error},
+    {data: transferData, error: transferError}
+  ] = await Promise.all([
+    db.from('debts').select('*').eq('entry_type','debt').order('id',{ascending:true}),
+    db.from('debts').select('*').eq('entry_type','transfer').order('id',{ascending:true})
+  ]);
 
-if(error){
-console.error('loadDebts:', error);
-showToast('تعذر تحميل الديون من قاعدة البيانات');
-debts = [];
-renderDebts();
-renderTransfers();
-return;
-}
+  if(error){
+    console.error('loadDebts:', error);
+    showToast('تعذر تحميل الديون من قاعدة البيانات');
+    debts = [];
+    renderDebts();
+    renderTransfers();
+    return;
+  }
 
-debts = (data || []).map(item => ({
-id: item.id,
-name: cleanText(item.subscriber_name),
-zone: normalizeZone(item.zone),
-amount: Number(item.amount || 0),
-phone: cleanText(item.phone || ''),
-notes: cleanText(item.notes || '')
-}));
+  debts = (data || []).map(item => ({
+    id: item.id,
+    name: cleanText(item.subscriber_name),
+    zone: normalizeZone(item.zone),
+    amount: Number(item.amount || 0),
+    phone: cleanText(item.phone || ''),
+    notes: cleanText(item.notes || '')
+  }));
 
-if(transferError){
-console.error('loadTransfers:', transferError);
-transfers = [];
-showToast('تعذر تحميل مبالغ الترحيل من قاعدة البيانات');
-}else{
-transfers = (transferData || []).map(item => ({
-id: item.id,
-name: cleanText(item.subscriber_name),
-zone: normalizeZone(item.zone),
-amount: Number(item.amount || 0),
-phone: cleanText(item.phone || ''),
-notes: cleanText(item.notes || '')
-}));
-}
+  if(transferError){
+    console.error('loadTransfers:', transferError);
+    transfers = [];
+    showToast('تعذر تحميل مبالغ الترحيل من قاعدة البيانات');
+  }else{
+    transfers = (transferData || []).map(item => ({
+      id: item.id,
+      name: cleanText(item.subscriber_name),
+      zone: normalizeZone(item.zone),
+      amount: Number(item.amount || 0),
+      phone: cleanText(item.phone || ''),
+      notes: cleanText(item.notes || '')
+    }));
+  }
 
-/*
-نقل الديون القديمة المحفوظة محليًا مرة واحدة فقط.
-إذا كانت قاعدة البيانات فارغة وكانت هناك ديون قديمة على هذا الجهاز،
-يتم رفعها إلى Supabase حتى لا تضيع البيانات الحالية.
-*/
-if(
-debts.length === 0 &&
-!localStorage.getItem(DEBTS_MIGRATION_KEY)
-){
-try{
-const saved = localStorage.getItem(DEBTS_STORAGE_KEY);
-const oldDebts = saved ? JSON.parse(saved) : [];
+  /*
+     نقل الديون القديمة المحفوظة محليًا مرة واحدة فقط.
+     إذا كانت قاعدة البيانات فارغة وكانت هناك ديون قديمة على هذا الجهاز،
+     يتم رفعها إلى Supabase حتى لا تضيع البيانات الحالية.
+  */
+  if(
+    debts.length === 0 &&
+    !localStorage.getItem(DEBTS_MIGRATION_KEY)
+  ){
+    try{
+      const saved = localStorage.getItem(DEBTS_STORAGE_KEY);
+      const oldDebts = saved ? JSON.parse(saved) : [];
 
-if(Array.isArray(oldDebts) && oldDebts.length){
-const payload = oldDebts
-.map(debt => {
-const subscriber = getSubscriberByName(debt.name);
-const debtZone = normalizeZone(
-debt.zone || subscriber?.zone || ZONES[0]
-);
+      if(Array.isArray(oldDebts) && oldDebts.length){
+        const payload = oldDebts
+          .map(debt => {
+            const subscriber = getSubscriberByName(debt.name);
+            const debtZone = normalizeZone(
+              debt.zone || subscriber?.zone || ZONES[0]
+            );
 
-const amount = Number(
-String(debt.amount || '0').replace(/,/g,'')
-);
+            const amount = Number(
+              String(debt.amount || '0').replace(/,/g,'')
+            );
 
-if(!cleanText(debt.name) || !Number.isFinite(amount)){
-return null;
-}
+            if(!cleanText(debt.name) || !Number.isFinite(amount)){
+              return null;
+            }
 
-return {
-subscriber_name: cleanText(debt.name),
-zone: isValidZone(debtZone) ? debtZone : ZONES[0],
-amount,
-phone: cleanText(debt.phone || subscriber?.phone || subscriber?.phone_number || ''),
-notes: cleanText(debt.notes || ''),
-entry_type: 'debt'
-};
-})
-.filter(Boolean);
+            return {
+              subscriber_name: cleanText(debt.name),
+              zone: isValidZone(debtZone) ? debtZone : ZONES[0],
+              amount,
+              phone: cleanText(debt.phone || subscriber?.phone || subscriber?.phone_number || ''),
+              notes: cleanText(debt.notes || ''),
+              entry_type: 'debt'
+            };
+          })
+          .filter(Boolean);
 
-if(payload.length){
-const {data: migrated, error: migrationError} = await db
-.from('debts')
-.insert(payload)
-.select('*');
+        if(payload.length){
+          const {data: migrated, error: migrationError} = await db
+            .from('debts')
+            .insert(payload)
+            .select('*');
 
-if(migrationError){
-console.error('debt migration:', migrationError);
-}
-else{
-debts = (migrated || []).map(item => ({
-id: item.id,
-name: cleanText(item.subscriber_name),
-zone: normalizeZone(item.zone),
-amount: Number(item.amount || 0),
-phone: cleanText(item.phone || ''),
-notes: cleanText(item.notes || '')
-}));
-}
-}
-}
+          if(migrationError){
+            console.error('debt migration:', migrationError);
+          }
+          else{
+            debts = (migrated || []).map(item => ({
+              id: item.id,
+              name: cleanText(item.subscriber_name),
+              zone: normalizeZone(item.zone),
+              amount: Number(item.amount || 0),
+              phone: cleanText(item.phone || ''),
+              notes: cleanText(item.notes || '')
+            }));
+          }
+        }
+      }
 
-localStorage.setItem(DEBTS_MIGRATION_KEY,'1');
-}
-catch(error){
-console.error('old debt migration:', error);
-}
-}
+      localStorage.setItem(DEBTS_MIGRATION_KEY,'1');
+    }
+    catch(error){
+      console.error('old debt migration:', error);
+    }
+  }
 
-renderDebts();
-renderDebtSearch();
-renderTransfers();
+  renderDebts();
+  renderDebtSearch();
+  renderTransfers();
 }
 
 function getSubscriberPhoneForDebt(debt){
-const subscriber = getSubscriberByName(debt?.name || '');
-return cleanText(
-debt?.phone ||
-subscriber?.phone ||
-subscriber?.phone_number ||
-subscriber?.mobile ||
-''
-);
+  const subscriber = getSubscriberByName(debt?.name || '');
+  return cleanText(
+    debt?.phone ||
+    subscriber?.phone ||
+    subscriber?.phone_number ||
+    subscriber?.mobile ||
+    ''
+  );
 }
 
 function normalizeWhatsAppPhone(phone){
-let value = String(phone || '').replace(/[^0-9+]/g,'');
-if(!value){ return ''; }
-if(value.startsWith('+')){ value = value.slice(1); }
-if(value.startsWith('00964')){ value = value.slice(2); }
-if(value.startsWith('964')){ return value; }
-if(value.startsWith('0')){ return '964' + value.slice(1); }
-return value;
+  let value = String(phone || '').replace(/[^0-9+]/g,'');
+  if(!value){ return ''; }
+  if(value.startsWith('+')){ value = value.slice(1); }
+  if(value.startsWith('00964')){ value = value.slice(2); }
+  if(value.startsWith('964')){ return value; }
+  if(value.startsWith('0')){ return '964' + value.slice(1); }
+  return value;
 }
 
 async function editDebtPhone(index){
-if(index < 0 || index >= debts.length){ return; }
-const debt = debts[index];
-const currentPhone = cleanText(debt.phone || getSubscriberPhoneForDebt(debt) || '');
-const phone = prompt(`رقم الهاتف للمشترك: ${debt.name}\n\nأدخل رقم واتساب أو اتركه فارغًا لحذفه:`, currentPhone);
-if(phone === null){ return; }
-const newPhone = cleanText(phone);
-const {error} = await db.from('debts').update({phone:newPhone || null}).eq('id',debt.id);
-if(error){
-console.error('editDebtPhone:',error);
-showToast('تعذر حفظ رقم الهاتف: ' + (error.message || 'خطأ غير معروف'));
-return;
-}
-debt.phone = newPhone;
-renderDebts();
-renderDebtSearch();
-showToast(newPhone ? 'تم حفظ رقم الهاتف' : 'تم حذف رقم الهاتف');
-await logActivity('تعديل رقم هاتف الدين', `${debt.name}${newPhone ? ` — ${newPhone}` : ' — تم حذف رقم الهاتف'}`);
+  if(index < 0 || index >= debts.length){ return; }
+  const debt = debts[index];
+  const currentPhone = cleanText(debt.phone || getSubscriberPhoneForDebt(debt) || '');
+  const phone = prompt(`رقم الهاتف للمشترك: ${debt.name}\n\nأدخل رقم واتساب أو اتركه فارغًا لحذفه:`, currentPhone);
+  if(phone === null){ return; }
+  const newPhone = cleanText(phone);
+  const {error} = await db.from('debts').update({phone:newPhone || null}).eq('id',debt.id);
+  if(error){
+    console.error('editDebtPhone:',error);
+    showToast('تعذر حفظ رقم الهاتف: ' + (error.message || 'خطأ غير معروف'));
+    return;
+  }
+  debt.phone = newPhone;
+  renderDebts();
+  renderDebtSearch();
+  showToast(newPhone ? 'تم حفظ رقم الهاتف' : 'تم حذف رقم الهاتف');
+  await logActivity('تعديل رقم هاتف الدين', `${debt.name}${newPhone ? ` — ${newPhone}` : ' — تم حذف رقم الهاتف'}`);
 }
 
 function openDebtWhatsApp(index){
-if(index < 0 || index >= debts.length){ return; }
-const debt = debts[index];
-const phone = getSubscriberPhoneForDebt(debt);
-const whatsappPhone = normalizeWhatsAppPhone(phone);
-if(!whatsappPhone){
-showToast('أضف رقم الهاتف أولًا لإرسال رسالة واتساب');
-return;
-}
-const message = `السلام عليكم ${debt.name}،\nنود تذكيركم بأن المبلغ المستحق عليكم هو ${formatDebtAmount(debt.amount)} دينار عراقي.\nيرجى التفضل بتسديد المبلغ.\nشكرًا لتعاونكم 🌹`;
-window.open(`https://wa.me/${whatsappPhone}?text=${encodeURIComponent(message)}`,'_blank');
+  if(index < 0 || index >= debts.length){ return; }
+  const debt = debts[index];
+  const phone = getSubscriberPhoneForDebt(debt);
+  const whatsappPhone = normalizeWhatsAppPhone(phone);
+  if(!whatsappPhone){
+    showToast('أضف رقم الهاتف أولًا لإرسال رسالة واتساب');
+    return;
+  }
+  const message = `السلام عليكم ${debt.name}،\nنود تذكيركم بأن المبلغ المستحق عليكم هو ${formatDebtAmount(debt.amount)} دينار عراقي.\nيرجى التفضل بتسديد المبلغ.\nشكرًا لتعاونكم 🌹`;
+  window.open(`https://wa.me/${whatsappPhone}?text=${encodeURIComponent(message)}`,'_blank');
 }
 
 function renderDebts(){
-const list = $('debtsList');
-const empty = $('debtsEmpty');
-const count = $('debtsCount');
-const total = $('debtsTotal');
+  const list = $('debtsList');
+  const empty = $('debtsEmpty');
+  const count = $('debtsCount');
+  const total = $('debtsTotal');
 
-if(!list || !empty || !count){
-return;
-}
+  if(!list || !empty || !count){
+    return;
+  }
 
-updateDebtNamesList();
+  updateDebtNamesList();
 
-count.textContent =
-`${debts.length} ${debts.length === 1 ? 'دين' : 'ديون'}`;
+  count.textContent =
+    `${debts.length} ${debts.length === 1 ? 'دين' : 'ديون'}`;
 
-const totalAmount = debts.reduce(
-(sum,debt) => sum + (Number(debt.amount) || 0),
-0
-);
+  const totalAmount = debts.reduce(
+    (sum,debt) => sum + (Number(debt.amount) || 0),
+    0
+  );
 
-if(total){
-total.textContent =
-`المجموع: ${formatDebtAmount(totalAmount)} دينار عراقي`;
-}
+  if(total){
+    total.textContent =
+      `المجموع: ${formatDebtAmount(totalAmount)} دينار عراقي`;
+  }
 
-const totalBottom = $('debtsTotalBottom');
-if(totalBottom){
-totalBottom.textContent =
-`${formatDebtAmount(totalAmount)} دينار عراقي`;
-}
+  const totalBottom = $('debtsTotalBottom');
+  if(totalBottom){
+    totalBottom.textContent =
+      `${formatDebtAmount(totalAmount)} دينار عراقي`;
+  }
 
-updateDebtDashboardCount();
+  updateDebtDashboardCount();
 
-if(!debts.length){
-list.innerHTML = '';
-empty.textContent = 'لا توجد ديون مضافة حاليًا.';
-empty.classList.remove('hidden');
-return;
-}
+  if(!debts.length){
+    list.innerHTML = '';
+    empty.textContent = 'لا توجد ديون مضافة حاليًا.';
+    empty.classList.remove('hidden');
+    return;
+  }
 
-empty.classList.add('hidden');
+  empty.classList.add('hidden');
 
-const quickSearch = cleanText(
-$('debtsQuickSearch')?.value || ''
-).toLocaleLowerCase('ar');
+  const quickSearch = cleanText(
+    $('debtsQuickSearch')?.value || ''
+  ).toLocaleLowerCase('ar');
 
-const filteredDebts = debts
-.map((debt,index) => ({debt,index}))
-.filter(({debt}) => {
-if(!quickSearch){
-return true;
-}
+  const filteredDebts = debts
+    .map((debt,index) => ({debt,index}))
+    .filter(({debt}) => {
+      if(!quickSearch){
+        return true;
+      }
 
-const text = [
-debt.name,
-debt.zone,
-debt.notes
-].join(' ');
+      const text = [
+        debt.name,
+        debt.zone,
+        debt.notes
+      ].join(' ');
 
-return cleanText(text)
-.toLocaleLowerCase('ar')
-.includes(quickSearch);
-});
+      return cleanText(text)
+        .toLocaleLowerCase('ar')
+        .includes(quickSearch);
+    });
 
-if(!filteredDebts.length){
-list.innerHTML = '';
-empty.textContent = 'لا توجد نتيجة مطابقة للبحث.';
-empty.classList.remove('hidden');
-return;
-}
+  if(!filteredDebts.length){
+    list.innerHTML = '';
+    empty.textContent = 'لا توجد نتيجة مطابقة للبحث.';
+    empty.classList.remove('hidden');
+    return;
+  }
 
-empty.textContent = 'لا توجد ديون مضافة حاليًا.';
+  empty.textContent = 'لا توجد ديون مضافة حاليًا.';
 
-list.innerHTML = filteredDebts.map(({debt,index}) => `
-<tr class="debt-highlight-row">
-<td class="debt-name-cell">
-${esc(debt.name)}
-</td>
+  list.innerHTML = filteredDebts.map(({debt,index}) => `
+    <tr class="debt-highlight-row">
+      <td class="debt-name-cell">
+        ${esc(debt.name)}
+      </td>
 
-<td class="debt-zone-cell">
-${esc(debt.zone || 'غير محددة')}
-</td>
+      <td class="debt-zone-cell">
+        ${esc(debt.zone || 'غير محددة')}
+      </td>
 
-<td class="debt-amount-cell">
-${formatDebtAmount(debt.amount)} دينار عراقي
-</td>
+      <td class="debt-amount-cell">
+        ${formatDebtAmount(debt.amount)} دينار عراقي
+      </td>
 
-<td class="debt-phone-cell">
-${esc(debt.phone || getSubscriberPhoneForDebt(debt) || 'غير موجود')}
-</td>
+      <td class="debt-phone-cell">
+        ${esc(debt.phone || getSubscriberPhoneForDebt(debt) || 'غير موجود')}
+      </td>
 
-<td class="debt-notes-cell">
-${esc(debt.notes || '—')}
-</td>
+      <td class="debt-notes-cell">
+        ${esc(debt.notes || '—')}
+      </td>
 
-<td>
-<button
-type="button"
-class="debt-edit-phone-btn"
-data-edit-debt-phone-index="${index}">
-📞 ${debt.phone || getSubscriberPhoneForDebt(debt) ? 'تعديل الرقم' : 'إضافة رقم'}
-</button>
+      <td>
+        <button
+          type="button"
+          class="debt-edit-phone-btn"
+          data-edit-debt-phone-index="${index}">
+          📞 ${debt.phone || getSubscriberPhoneForDebt(debt) ? 'تعديل الرقم' : 'إضافة رقم'}
+        </button>
 
-<button
-type="button"
-class="debt-whatsapp-btn"
-data-whatsapp-debt-index="${index}"
-${!(debt.phone || getSubscriberPhoneForDebt(debt)) ? 'disabled title="أضف رقم الهاتف أولًا"' : ''}>
-📱 واتساب
-</button>
+        <button
+          type="button"
+          class="debt-whatsapp-btn"
+          data-whatsapp-debt-index="${index}"
+          ${!(debt.phone || getSubscriberPhoneForDebt(debt)) ? 'disabled title="أضف رقم الهاتف أولًا"' : ''}>
+          📱 واتساب
+        </button>
 
-<button
-type="button"
-class="debt-delete-btn"
-data-debt-index="${index}">
-حذف
-</button>
-</td>
-</tr>
-`).join('');
+        <button
+          type="button"
+          class="debt-delete-btn"
+          data-debt-index="${index}">
+          حذف
+        </button>
+      </td>
+    </tr>
+  `).join('');
 }
 
 async function addDebt(){
-const name = cleanText($('debtName').value);
-const selectedSubscriber = getSubscriberByName(name);
-const selectedZone = normalizeZone(
-selectedSubscriber?.zone || $('debtZone').value
-);
-const amountRaw = cleanText($('debtAmount').value).replace(/,/g,'');
-const phone = cleanText($('debtPhone').value);
-const notes = cleanText($('debtNotes').value);
+  const name = cleanText($('debtName').value);
+  const selectedSubscriber = getSubscriberByName(name);
+  const selectedZone = normalizeZone(
+    selectedSubscriber?.zone || $('debtZone').value
+  );
+  const amountRaw = cleanText($('debtAmount').value).replace(/,/g,'');
+  const phone = cleanText($('debtPhone').value);
+  const notes = cleanText($('debtNotes').value);
 
-if(!name){
-showToast('أدخل الاسم');
-return;
-}
+  if(!name){
+    showToast('أدخل الاسم');
+    return;
+  }
 
-if(!isValidZone(selectedZone)){
-showToast('اختر المنطقة');
-return;
-}
+  if(!isValidZone(selectedZone)){
+    showToast('اختر المنطقة');
+    return;
+  }
 
-if(!amountRaw || Number(amountRaw) < 0){
-showToast('أدخل المبلغ المطلوب');
-return;
-}
+  if(!amountRaw || Number(amountRaw) < 0){
+    showToast('أدخل المبلغ المطلوب');
+    return;
+  }
 
-const amountNumber = Number(amountRaw);
+  const amountNumber = Number(amountRaw);
 
-if(!Number.isFinite(amountNumber)){
-showToast('المبلغ غير صحيح');
-return;
-}
+  if(!Number.isFinite(amountNumber)){
+    showToast('المبلغ غير صحيح');
+    return;
+  }
 
-const payload = {
-subscriber_name:name,
-zone:selectedZone,
-amount:amountNumber,
-phone:phone || null,
-notes,
-entry_type:'debt'
-};
+  const payload = {
+    subscriber_name:name,
+    zone:selectedZone,
+    amount:amountNumber,
+    phone:phone || null,
+    notes,
+    entry_type:'debt'
+  };
 
-/*
-نحفظ السجل بدون طلب إرجاع الصف من INSERT.
-هذا يمنع فشل الإضافة إذا كان INSERT ناجحًا لكن RETURNING
-متأثرًا بسياسات RLS/SELECT. بعد الحفظ نعيد تحميل الديون من Supabase.
-*/
-const {error} = await db
-.from('debts')
-.insert(payload);
+  /*
+     نحفظ السجل بدون طلب إرجاع الصف من INSERT.
+     هذا يمنع فشل الإضافة إذا كان INSERT ناجحًا لكن RETURNING
+     متأثرًا بسياسات RLS/SELECT. بعد الحفظ نعيد تحميل الديون من Supabase.
+  */
+  const {error} = await db
+    .from('debts')
+    .insert(payload);
 
-if(error){
-console.error('addDebt:', error);
-showToast('تعذر حفظ الدين: ' + (error.message || 'خطأ غير معروف'));
-return;
-}
+  if(error){
+    console.error('addDebt:', error);
+    showToast('تعذر حفظ الدين: ' + (error.message || 'خطأ غير معروف'));
+    return;
+  }
 
-await loadDebts();
+  await loadDebts();
 
-renderDebts();
-renderDebtSearch();
+  renderDebts();
+  renderDebtSearch();
 
-$('debtName').value = '';
-$('debtPhone').value = '';
-$('debtAmount').value = '';
-$('debtNotes').value = '';
+  $('debtName').value = '';
+  $('debtPhone').value = '';
+  $('debtAmount').value = '';
+  $('debtNotes').value = '';
 
-showToast('تمت إضافة الدين وحفظه في قاعدة البيانات');
-await logActivity('إضافة دين', `${name} — ${formatDebtAmount(amountNumber)} دينار عراقي${notes ? ` — ${notes}` : ''}`);
-$('debtName').focus();
+  showToast('تمت إضافة الدين وحفظه في قاعدة البيانات');
+  await logActivity('إضافة دين', `${name} — ${formatDebtAmount(amountNumber)} دينار عراقي${notes ? ` — ${notes}` : ''}`);
+  $('debtName').focus();
 }
 
 function updateDebtDashboardCount(){
-const el = $('dashboardDebtsCount');
-if(el){
-el.textContent = debts.length;
-}
+  const el = $('dashboardDebtsCount');
+  if(el){
+    el.textContent = debts.length;
+  }
 }
 
 
 function updateTransferNamesList(){
-const list = $('transferNamesList');
-if(!list){
-return;
-}
+  const list = $('transferNamesList');
+  if(!list){
+    return;
+  }
 
-const unique = new Map();
+  const unique = new Map();
 
-rows.forEach(item => {
-const name = cleanText(item.subscriber_name || item.name || '');
-const itemZone = normalizeZone(item.zone);
+  rows.forEach(item => {
+    const name = cleanText(item.subscriber_name || item.name || '');
+    const itemZone = normalizeZone(item.zone);
 
-if(name && !unique.has(`${name}|${itemZone}`)){
-unique.set(`${name}|${itemZone}`, {name,itemZone});
-}
-});
+    if(name && !unique.has(`${name}|${itemZone}`)){
+      unique.set(`${name}|${itemZone}`, {name,itemZone});
+    }
+  });
 
-list.innerHTML = [...unique.values()]
-.sort((a,b) => a.name.localeCompare(b.name,'ar'))
-.map(item => `
-<option value="${esc(item.name)}" label="${esc(item.itemZone)}">${esc(item.itemZone)}</option>
-`)
-.join('');
+  list.innerHTML = [...unique.values()]
+    .sort((a,b) => a.name.localeCompare(b.name,'ar'))
+    .map(item => `
+      <option value="${esc(item.name)}" label="${esc(item.itemZone)}">${esc(item.itemZone)}</option>
+    `)
+    .join('');
 }
 
 function autoSelectTransferZone(){
-const nameInput = $('transferName');
-const zoneInput = $('transferZone');
-if(!nameInput || !zoneInput){
-return;
-}
+  const nameInput = $('transferName');
+  const zoneInput = $('transferZone');
+  if(!nameInput || !zoneInput){
+    return;
+  }
 
-const subscriber = getSubscriberByName(nameInput.value);
-if(subscriber && isValidZone(subscriber.zone)){
-zoneInput.value = normalizeZone(subscriber.zone);
-}
+  const subscriber = getSubscriberByName(nameInput.value);
+  if(subscriber && isValidZone(subscriber.zone)){
+    zoneInput.value = normalizeZone(subscriber.zone);
+  }
 }
 
 function getSubscriberPhoneForTransfer(transfer){
-const subscriber = getSubscriberByName(transfer?.name || '');
-return cleanText(
-transfer?.phone ||
-subscriber?.phone ||
-subscriber?.phone_number ||
-subscriber?.mobile ||
-''
-);
+  const subscriber = getSubscriberByName(transfer?.name || '');
+  return cleanText(
+    transfer?.phone ||
+    subscriber?.phone ||
+    subscriber?.phone_number ||
+    subscriber?.mobile ||
+    ''
+  );
 }
 
 function renderTransfers(){
-const list = $('transfersList');
-const empty = $('transfersEmpty');
-const count = $('transfersCount');
-const total = $('transfersTotal');
+  const list = $('transfersList');
+  const empty = $('transfersEmpty');
+  const count = $('transfersCount');
+  const total = $('transfersTotal');
 
-if(!list || !empty || !count){
-return;
-}
+  if(!list || !empty || !count){
+    return;
+  }
 
-updateTransferNamesList();
+  updateTransferNamesList();
 
-count.textContent =
-`${transfers.length} ${transfers.length === 1 ? 'ترحيل' : 'ترحيلات'}`;
+  count.textContent =
+    `${transfers.length} ${transfers.length === 1 ? 'ترحيل' : 'ترحيلات'}`;
 
-const totalAmount = transfers.reduce(
-(sum,item) => sum + (Number(item.amount) || 0),
-0
-);
+  const totalAmount = transfers.reduce(
+    (sum,item) => sum + (Number(item.amount) || 0),
+    0
+  );
 
-if(total){
-total.textContent =
-`مجموع مبلغ الترحيل: ${formatDebtAmount(totalAmount)} دينار عراقي`;
-}
+  if(total){
+    total.textContent =
+      `مجموع مبلغ الترحيل: ${formatDebtAmount(totalAmount)} دينار عراقي`;
+  }
 
-const totalBottom = $('transfersTotalBottom');
-if(totalBottom){
-totalBottom.textContent =
-`${formatDebtAmount(totalAmount)} دينار عراقي`;
-}
+  const totalBottom = $('transfersTotalBottom');
+  if(totalBottom){
+    totalBottom.textContent =
+      `${formatDebtAmount(totalAmount)} دينار عراقي`;
+  }
 
-if(!transfers.length){
-list.innerHTML = '';
-empty.textContent = 'لا توجد مبالغ ترحيل مضافة حاليًا.';
-empty.classList.remove('hidden');
-return;
-}
+  if(!transfers.length){
+    list.innerHTML = '';
+    empty.textContent = 'لا توجد مبالغ ترحيل مضافة حاليًا.';
+    empty.classList.remove('hidden');
+    return;
+  }
 
-const quickSearch = cleanText(
-$('transfersQuickSearch')?.value || ''
-).toLocaleLowerCase('ar');
+  const quickSearch = cleanText(
+    $('transfersQuickSearch')?.value || ''
+  ).toLocaleLowerCase('ar');
 
-const filtered = transfers
-.map((transfer,index) => ({transfer,index}))
-.filter(({transfer}) => {
-if(!quickSearch){
-return true;
-}
+  const filtered = transfers
+    .map((transfer,index) => ({transfer,index}))
+    .filter(({transfer}) => {
+      if(!quickSearch){
+        return true;
+      }
 
-const text = [
-transfer.name,
-transfer.zone,
-transfer.phone,
-transfer.notes,
-transfer.amount
-].join(' ');
+      const text = [
+        transfer.name,
+        transfer.zone,
+        transfer.phone,
+        transfer.notes,
+        transfer.amount
+      ].join(' ');
 
-return cleanText(text)
-.toLocaleLowerCase('ar')
-.includes(quickSearch);
-});
+      return cleanText(text)
+        .toLocaleLowerCase('ar')
+        .includes(quickSearch);
+    });
 
-if(!filtered.length){
-list.innerHTML = '';
-empty.textContent = 'لا توجد نتيجة مطابقة للبحث.';
-empty.classList.remove('hidden');
-return;
-}
+  if(!filtered.length){
+    list.innerHTML = '';
+    empty.textContent = 'لا توجد نتيجة مطابقة للبحث.';
+    empty.classList.remove('hidden');
+    return;
+  }
 
-empty.classList.add('hidden');
+  empty.classList.add('hidden');
 
-list.innerHTML = filtered.map(({transfer,index}) => {
-const phone = transfer.phone || getSubscriberPhoneForTransfer(transfer) || '';
-return `
-<tr class="transfer-highlight-row">
-<td class="transfer-name-cell">${esc(transfer.name)}</td>
-<td class="transfer-zone-cell">${esc(transfer.zone || 'غير محددة')}</td>
-<td class="transfer-amount-cell">${formatDebtAmount(transfer.amount)} دينار عراقي</td>
-<td class="transfer-phone-cell">${esc(phone || 'غير موجود')}</td>
-<td class="transfer-notes-cell">${esc(transfer.notes || '—')}</td>
-<td>
-<button
-type="button"
-class="transfer-edit-phone-btn"
-data-edit-transfer-phone-index="${index}">
-📞 ${phone ? 'تعديل الرقم' : 'إضافة رقم'}
-</button>
+  list.innerHTML = filtered.map(({transfer,index}) => {
+    const phone = transfer.phone || getSubscriberPhoneForTransfer(transfer) || '';
+    return `
+      <tr class="transfer-highlight-row">
+        <td class="transfer-name-cell">${esc(transfer.name)}</td>
+        <td class="transfer-zone-cell">${esc(transfer.zone || 'غير محددة')}</td>
+        <td class="transfer-amount-cell">${formatDebtAmount(transfer.amount)} دينار عراقي</td>
+        <td class="transfer-phone-cell">${esc(phone || 'غير موجود')}</td>
+        <td class="transfer-notes-cell">${esc(transfer.notes || '—')}</td>
+        <td>
+          <button
+            type="button"
+            class="transfer-edit-phone-btn"
+            data-edit-transfer-phone-index="${index}">
+            📞 ${phone ? 'تعديل الرقم' : 'إضافة رقم'}
+          </button>
 
-<button
-type="button"
-class="transfer-delete-btn"
-data-transfer-index="${index}">
-حذف
-</button>
-</td>
-</tr>
-`;
-}).join('');
+          <button
+            type="button"
+            class="transfer-delete-btn"
+            data-transfer-index="${index}">
+            حذف
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join('');
 }
 
 async function addTransfer(){
-const name = cleanText($('transferName').value);
-const selectedSubscriber = getSubscriberByName(name);
-const selectedZone = normalizeZone(
-selectedSubscriber?.zone || $('transferZone').value
-);
-const amountRaw = cleanText($('transferAmount').value).replace(/,/g,'');
-const phone = cleanText($('transferPhone').value);
-const notes = cleanText($('transferNotes').value);
+  const name = cleanText($('transferName').value);
+  const selectedSubscriber = getSubscriberByName(name);
+  const selectedZone = normalizeZone(
+    selectedSubscriber?.zone || $('transferZone').value
+  );
+  const amountRaw = cleanText($('transferAmount').value).replace(/,/g,'');
+  const phone = cleanText($('transferPhone').value);
+  const notes = cleanText($('transferNotes').value);
 
-if(!name){
-showToast('أدخل اسم المشترك للترحيل');
-return;
-}
+  if(!name){
+    showToast('أدخل اسم المشترك للترحيل');
+    return;
+  }
 
-if(!isValidZone(selectedZone)){
-showToast('اختر المنطقة');
-return;
-}
+  if(!isValidZone(selectedZone)){
+    showToast('اختر المنطقة');
+    return;
+  }
 
-if(!amountRaw || Number(amountRaw) < 0){
-showToast('أدخل مبلغ الترحيل');
-return;
-}
+  if(!amountRaw || Number(amountRaw) < 0){
+    showToast('أدخل مبلغ الترحيل');
+    return;
+  }
 
-const amountNumber = Number(amountRaw);
+  const amountNumber = Number(amountRaw);
 
-if(!Number.isFinite(amountNumber)){
-showToast('مبلغ الترحيل غير صحيح');
-return;
-}
+  if(!Number.isFinite(amountNumber)){
+    showToast('مبلغ الترحيل غير صحيح');
+    return;
+  }
 
-const payload = {
-subscriber_name:name,
-zone:selectedZone,
-amount:amountNumber,
-phone:phone || null,
-notes,
-entry_type:'transfer'
-};
+  const payload = {
+    subscriber_name:name,
+    zone:selectedZone,
+    amount:amountNumber,
+    phone:phone || null,
+    notes,
+    entry_type:'transfer'
+  };
 
-const {error} = await db
-.from('debts')
-.insert(payload);
+  const {error} = await db
+    .from('debts')
+    .insert(payload);
 
-if(error){
-console.error('addTransfer:', error);
-showToast('تعذر حفظ مبلغ الترحيل: ' + (error.message || 'خطأ غير معروف'));
-return;
-}
+  if(error){
+    console.error('addTransfer:', error);
+    showToast('تعذر حفظ مبلغ الترحيل: ' + (error.message || 'خطأ غير معروف'));
+    return;
+  }
 
-await loadDebts();
+  await loadDebts();
 
-$('transferName').value = '';
-$('transferPhone').value = '';
-$('transferAmount').value = '';
-$('transferNotes').value = '';
+  $('transferName').value = '';
+  $('transferPhone').value = '';
+  $('transferAmount').value = '';
+  $('transferNotes').value = '';
 
-renderTransfers();
+  renderTransfers();
 
-showToast('تمت إضافة مبلغ الترحيل وحفظه في قاعدة البيانات');
-await logActivity(
-'إضافة مبلغ ترحيل',
-`${name} — ${formatDebtAmount(amountNumber)} دينار عراقي${notes ? ` — ${notes}` : ''}`
-);
+  showToast('تمت إضافة مبلغ الترحيل وحفظه في قاعدة البيانات');
+  await logActivity(
+    'إضافة مبلغ ترحيل',
+    `${name} — ${formatDebtAmount(amountNumber)} دينار عراقي${notes ? ` — ${notes}` : ''}`
+  );
 
-$('transferName').focus();
+  $('transferName').focus();
 }
 
 async function editTransferPhone(index){
-if(index < 0 || index >= transfers.length){
-return;
-}
+  if(index < 0 || index >= transfers.length){
+    return;
+  }
 
-const transfer = transfers[index];
-const currentPhone = cleanText(
-transfer.phone || getSubscriberPhoneForTransfer(transfer) || ''
-);
+  const transfer = transfers[index];
+  const currentPhone = cleanText(
+    transfer.phone || getSubscriberPhoneForTransfer(transfer) || ''
+  );
 
-const phone = prompt(
-`رقم الهاتف للمشترك: ${transfer.name}\n\nأدخل رقم واتساب أو اتركه فارغًا لحذفه:`,
-currentPhone
-);
+  const phone = prompt(
+    `رقم الهاتف للمشترك: ${transfer.name}\n\nأدخل رقم واتساب أو اتركه فارغًا لحذفه:`,
+    currentPhone
+  );
 
-if(phone === null){
-return;
-}
+  if(phone === null){
+    return;
+  }
 
-const newPhone = cleanText(phone);
+  const newPhone = cleanText(phone);
 
-const {error} = await db
-.from('debts')
-.update({phone:newPhone || null})
-.eq('id',transfer.id)
-.eq('entry_type','transfer');
+  const {error} = await db
+    .from('debts')
+    .update({phone:newPhone || null})
+    .eq('id',transfer.id)
+    .eq('entry_type','transfer');
 
-if(error){
-console.error('editTransferPhone:',error);
-showToast('تعذر حفظ رقم الهاتف: ' + (error.message || 'خطأ غير معروف'));
-return;
-}
+  if(error){
+    console.error('editTransferPhone:',error);
+    showToast('تعذر حفظ رقم الهاتف: ' + (error.message || 'خطأ غير معروف'));
+    return;
+  }
 
-transfer.phone = newPhone;
-renderTransfers();
+  transfer.phone = newPhone;
+  renderTransfers();
 
-showToast(newPhone ? 'تم حفظ رقم هاتف الترحيل' : 'تم حذف رقم هاتف الترحيل');
-await logActivity(
-'تعديل رقم هاتف مبلغ ترحيل',
-`${transfer.name}${newPhone ? ` — ${newPhone}` : ' — تم حذف رقم الهاتف'}`
-);
+  showToast(newPhone ? 'تم حفظ رقم هاتف الترحيل' : 'تم حذف رقم هاتف الترحيل');
+  await logActivity(
+    'تعديل رقم هاتف مبلغ ترحيل',
+    `${transfer.name}${newPhone ? ` — ${newPhone}` : ' — تم حذف رقم الهاتف'}`
+  );
 }
 
 async function deleteTransfer(index){
-if(index < 0 || index >= transfers.length){
-return;
-}
+  if(index < 0 || index >= transfers.length){
+    return;
+  }
 
-const transfer = transfers[index];
-const confirmed = confirm(
-`هل أنت متأكد من حذف مبلغ الترحيل:\n${transfer.name} ؟\n\nالمبلغ: ${formatDebtAmount(transfer.amount)} دينار عراقي`
-);
+  const transfer = transfers[index];
+  const confirmed = confirm(
+    `هل أنت متأكد من حذف مبلغ الترحيل:\n${transfer.name} ؟\n\nالمبلغ: ${formatDebtAmount(transfer.amount)} دينار عراقي`
+  );
 
-if(!confirmed){
-return;
-}
+  if(!confirmed){
+    return;
+  }
 
-const {error} = await db
-.from('debts')
-.delete()
-.eq('id',transfer.id)
-.eq('entry_type','transfer');
+  const {error} = await db
+    .from('debts')
+    .delete()
+    .eq('id',transfer.id)
+    .eq('entry_type','transfer');
 
-if(error){
-console.error('deleteTransfer:',error);
-showToast('تعذر حذف مبلغ الترحيل من قاعدة البيانات');
-return;
-}
+  if(error){
+    console.error('deleteTransfer:',error);
+    showToast('تعذر حذف مبلغ الترحيل من قاعدة البيانات');
+    return;
+  }
 
-transfers.splice(index,1);
-renderTransfers();
+  transfers.splice(index,1);
+  renderTransfers();
 
-showToast('تم حذف مبلغ الترحيل من قاعدة البيانات');
-await logActivity(
-'حذف مبلغ ترحيل',
-`${transfer.name} — ${formatDebtAmount(transfer.amount)} دينار عراقي`
-);
+  showToast('تم حذف مبلغ الترحيل من قاعدة البيانات');
+  await logActivity(
+    'حذف مبلغ ترحيل',
+    `${transfer.name} — ${formatDebtAmount(transfer.amount)} دينار عراقي`
+  );
 }
 
 function renderDebtSearch(){
-const list = $('debtSearchList');
-const empty = $('debtSearchEmpty');
-const count = $('debtSearchCount');
-const input = $('debtSearchInput');
+  const list = $('debtSearchList');
+  const empty = $('debtSearchEmpty');
+  const count = $('debtSearchCount');
+  const input = $('debtSearchInput');
 
-if(!list || !empty || !count || !input){
-return;
-}
+  if(!list || !empty || !count || !input){
+    return;
+  }
 
-const query = cleanText(input.value).toLocaleLowerCase('ar');
+  const query = cleanText(input.value).toLocaleLowerCase('ar');
 
-const results = debts.filter(debt => {
-if(!query){
-return false;
-}
+  const results = debts.filter(debt => {
+    if(!query){
+      return false;
+    }
 
-const text = [
-debt.name,
-debt.zone,
-debt.notes
-].join(' ');
+    const text = [
+      debt.name,
+      debt.zone,
+      debt.notes
+    ].join(' ');
 
-return cleanText(text)
-.toLocaleLowerCase('ar')
-.includes(query);
-});
+    return cleanText(text)
+      .toLocaleLowerCase('ar')
+      .includes(query);
+  });
 
-count.textContent =
-`${results.length} ${results.length === 1 ? 'دين' : 'ديون'}`;
+  count.textContent =
+    `${results.length} ${results.length === 1 ? 'دين' : 'ديون'}`;
 
-if(!query){
-list.innerHTML = '';
-empty.textContent = debts.length
-? 'اكتب اسم المشترك للبحث عن الدين.'
-: 'لا توجد ديون مضافة حاليًا.';
-empty.classList.remove('hidden');
-return;
-}
+  if(!query){
+    list.innerHTML = '';
+    empty.textContent = debts.length
+      ? 'اكتب اسم المشترك للبحث عن الدين.'
+      : 'لا توجد ديون مضافة حاليًا.';
+    empty.classList.remove('hidden');
+    return;
+  }
 
-if(!results.length){
-list.innerHTML = '';
-empty.textContent = 'لا يوجد مشترك عليه دين بهذا الاسم.';
-empty.classList.remove('hidden');
-return;
-}
+  if(!results.length){
+    list.innerHTML = '';
+    empty.textContent = 'لا يوجد مشترك عليه دين بهذا الاسم.';
+    empty.classList.remove('hidden');
+    return;
+  }
 
-empty.classList.add('hidden');
+  empty.classList.add('hidden');
 
-list.innerHTML = results.map(debt => `
-<tr class="debt-highlight-row">
-<td class="debt-name-cell">${esc(debt.name)}</td>
-<td class="debt-zone-cell">${esc(debt.zone || 'غير محددة')}</td>
-<td class="debt-amount-cell">${formatDebtAmount(debt.amount)} دينار عراقي</td>
-<td class="debt-phone-cell">${esc(debt.phone || getSubscriberPhoneForDebt(debt) || 'غير موجود')}</td>
-<td class="debt-notes-cell">${esc(debt.notes || '—')}</td>
-<td>
-<button type="button" class="debt-edit-phone-btn" data-edit-search-debt-name="${esc(debt.name)}">
-📞 ${debt.phone || getSubscriberPhoneForDebt(debt) ? 'تعديل الرقم' : 'إضافة رقم'}
-</button>
-<button type="button" class="debt-whatsapp-btn" data-whatsapp-search-name="${esc(debt.name)}" ${!(debt.phone || getSubscriberPhoneForDebt(debt)) ? 'disabled title="أضف رقم الهاتف أولًا"' : ''}>📱 واتساب</button>
-</td>
-</tr>
-`).join('');
+  list.innerHTML = results.map(debt => `
+    <tr class="debt-highlight-row">
+      <td class="debt-name-cell">${esc(debt.name)}</td>
+      <td class="debt-zone-cell">${esc(debt.zone || 'غير محددة')}</td>
+      <td class="debt-amount-cell">${formatDebtAmount(debt.amount)} دينار عراقي</td>
+      <td class="debt-phone-cell">${esc(debt.phone || getSubscriberPhoneForDebt(debt) || 'غير موجود')}</td>
+      <td class="debt-notes-cell">${esc(debt.notes || '—')}</td>
+      <td>
+        <button type="button" class="debt-edit-phone-btn" data-edit-search-debt-name="${esc(debt.name)}">
+          📞 ${debt.phone || getSubscriberPhoneForDebt(debt) ? 'تعديل الرقم' : 'إضافة رقم'}
+        </button>
+        <button type="button" class="debt-whatsapp-btn" data-whatsapp-search-name="${esc(debt.name)}" ${!(debt.phone || getSubscriberPhoneForDebt(debt)) ? 'disabled title="أضف رقم الهاتف أولًا"' : ''}>📱 واتساب</button>
+      </td>
+    </tr>
+  `).join('');
 }
 
 async function deleteDebt(index){
-if(index < 0 || index >= debts.length){
-return;
-}
+  if(index < 0 || index >= debts.length){
+    return;
+  }
 
-const debt = debts[index];
-const confirmed = confirm(
-`هل أنت متأكد من حذف الدين:\n${debt.name} ؟`
-);
+  const debt = debts[index];
+  const confirmed = confirm(
+    `هل أنت متأكد من حذف الدين:\n${debt.name} ؟`
+  );
 
-if(!confirmed){
-return;
-}
+  if(!confirmed){
+    return;
+  }
 
-const {error} = await db
-.from('debts')
-.delete()
-.eq('id',debt.id);
+  const {error} = await db
+    .from('debts')
+    .delete()
+    .eq('id',debt.id);
 
-if(error){
-console.error('deleteDebt:', error);
-showToast('تعذر حذف الدين من قاعدة البيانات');
-return;
-}
+  if(error){
+    console.error('deleteDebt:', error);
+    showToast('تعذر حذف الدين من قاعدة البيانات');
+    return;
+  }
 
-debts.splice(index,1);
-renderDebts();
-renderDebtSearch();
+  debts.splice(index,1);
+  renderDebts();
+  renderDebtSearch();
 
-showToast('تم حذف الدين من قاعدة البيانات');
-await logActivity('حذف دين', `${debt.name} — ${formatDebtAmount(debt.amount)} دينار عراقي`);
+  showToast('تم حذف الدين من قاعدة البيانات');
+  await logActivity('حذف دين', `${debt.name} — ${formatDebtAmount(debt.amount)} دينار عراقي`);
 }
 
 
@@ -8324,20 +8438,20 @@ $('debtName')
 .addEventListener(
 'input',
 ()=>{
-autoSelectDebtZone();
-const subscriber = getSubscriberByName($('debtName').value);
-if(subscriber && !$('debtPhone').value.trim()){
-$('debtPhone').value = cleanText(subscriber.phone || subscriber.phone_number || subscriber.mobile || '');
-}
+  autoSelectDebtZone();
+  const subscriber = getSubscriberByName($('debtName').value);
+  if(subscriber && !$('debtPhone').value.trim()){
+    $('debtPhone').value = cleanText(subscriber.phone || subscriber.phone_number || subscriber.mobile || '');
+  }
 });
 
 $('debtAmount')
 .addEventListener(
 'keydown',
 event => {
-if(event.key === 'Enter'){
-addDebt();
-}
+  if(event.key === 'Enter'){
+    addDebt();
+  }
 }
 );
 
@@ -8345,9 +8459,9 @@ $('debtNotes')
 .addEventListener(
 'keydown',
 event => {
-if(event.key === 'Enter'){
-addDebt();
-}
+  if(event.key === 'Enter'){
+    addDebt();
+  }
 }
 );
 
@@ -8355,25 +8469,25 @@ $('transferName')
 .addEventListener(
 'input',
 ()=>{
-autoSelectTransferZone();
-const subscriber = getSubscriberByName($('transferName').value);
-if(subscriber && !$('transferPhone').value.trim()){
-$('transferPhone').value = cleanText(
-subscriber.phone ||
-subscriber.phone_number ||
-subscriber.mobile ||
-''
-);
-}
+  autoSelectTransferZone();
+  const subscriber = getSubscriberByName($('transferName').value);
+  if(subscriber && !$('transferPhone').value.trim()){
+    $('transferPhone').value = cleanText(
+      subscriber.phone ||
+      subscriber.phone_number ||
+      subscriber.mobile ||
+      ''
+    );
+  }
 });
 
 $('transferName')
 .addEventListener(
 'keydown',
 event => {
-if(event.key === 'Enter'){
-$('transferAmount').focus();
-}
+  if(event.key === 'Enter'){
+    $('transferAmount').focus();
+  }
 }
 );
 
@@ -8381,9 +8495,9 @@ $('transferAmount')
 .addEventListener(
 'keydown',
 event => {
-if(event.key === 'Enter'){
-addTransfer();
-}
+  if(event.key === 'Enter'){
+    addTransfer();
+  }
 }
 );
 
@@ -8391,9 +8505,9 @@ $('transferNotes')
 .addEventListener(
 'keydown',
 event => {
-if(event.key === 'Enter'){
-addTransfer();
-}
+  if(event.key === 'Enter'){
+    addTransfer();
+  }
 }
 );
 
@@ -8413,9 +8527,9 @@ $('clearTransfersQuickSearch')
 .addEventListener(
 'click',
 ()=>{
-$('transfersQuickSearch').value = '';
-renderTransfers();
-$('transfersQuickSearch').focus();
+  $('transfersQuickSearch').value = '';
+  renderTransfers();
+  $('transfersQuickSearch').focus();
 }
 );
 
@@ -8423,24 +8537,24 @@ $('transfersList')
 .addEventListener(
 'click',
 event => {
-const editButton =
-event.target.closest('[data-edit-transfer-phone-index]');
+  const editButton =
+    event.target.closest('[data-edit-transfer-phone-index]');
 
-if(editButton){
-editTransferPhone(
-Number(editButton.dataset.editTransferPhoneIndex)
-);
-return;
-}
+  if(editButton){
+    editTransferPhone(
+      Number(editButton.dataset.editTransferPhoneIndex)
+    );
+    return;
+  }
 
-const deleteButton =
-event.target.closest('[data-transfer-index]');
+  const deleteButton =
+    event.target.closest('[data-transfer-index]');
 
-if(deleteButton){
-deleteTransfer(
-Number(deleteButton.dataset.transferIndex)
-);
-}
+  if(deleteButton){
+    deleteTransfer(
+      Number(deleteButton.dataset.transferIndex)
+    );
+  }
 });
 
 $('debtsQuickSearch')
@@ -8453,9 +8567,9 @@ $('clearDebtsQuickSearch')
 .addEventListener(
 'click',
 ()=>{
-$('debtsQuickSearch').value = '';
-renderDebts();
-$('debtsQuickSearch').focus();
+  $('debtsQuickSearch').value = '';
+  renderDebts();
+  $('debtsQuickSearch').focus();
 }
 );
 
@@ -8469,9 +8583,9 @@ $('clearDebtSearch')
 .addEventListener(
 'click',
 ()=>{
-$('debtSearchInput').value = '';
-renderDebtSearch();
-$('debtSearchInput').focus();
+  $('debtSearchInput').value = '';
+  renderDebtSearch();
+  $('debtSearchInput').focus();
 }
 );
 
@@ -8479,7 +8593,7 @@ $('dashboardDebtsCard')
 .addEventListener(
 'click',
 ()=>{
-showSection('debtsSection');
+  showSection('debtsSection');
 }
 );
 
@@ -8744,9 +8858,9 @@ $('debtAmount')
 .addEventListener(
 'keydown',
 event => {
-if(event.key === 'Enter'){
-addDebt();
-}
+  if(event.key === 'Enter'){
+    addDebt();
+  }
 }
 );
 
@@ -8754,9 +8868,9 @@ $('debtName')
 .addEventListener(
 'keydown',
 event => {
-if(event.key === 'Enter'){
-$('debtAmount').focus();
-}
+  if(event.key === 'Enter'){
+    $('debtAmount').focus();
+  }
 }
 );
 
@@ -8764,36 +8878,36 @@ $('debtsList')
 .addEventListener(
 'click',
 event => {
-const editPhoneButton = event.target.closest('[data-edit-debt-phone-index]');
-if(editPhoneButton){
-editDebtPhone(Number(editPhoneButton.dataset.editDebtPhoneIndex));
-return;
-}
+  const editPhoneButton = event.target.closest('[data-edit-debt-phone-index]');
+  if(editPhoneButton){
+    editDebtPhone(Number(editPhoneButton.dataset.editDebtPhoneIndex));
+    return;
+  }
 
-const whatsappButton = event.target.closest('[data-whatsapp-debt-index]');
-if(whatsappButton){
-openDebtWhatsApp(Number(whatsappButton.dataset.whatsappDebtIndex));
-return;
-}
+  const whatsappButton = event.target.closest('[data-whatsapp-debt-index]');
+  if(whatsappButton){
+    openDebtWhatsApp(Number(whatsappButton.dataset.whatsappDebtIndex));
+    return;
+  }
 
-const button = event.target.closest('[data-debt-index]');
+  const button = event.target.closest('[data-debt-index]');
 
-if(!button){
-return;
-}
+  if(!button){
+    return;
+  }
 
-deleteDebt(
-Number(button.dataset.debtIndex)
-);
+  deleteDebt(
+    Number(button.dataset.debtIndex)
+  );
 }
 );
 
 document.addEventListener('click',event => {
-const editSearchButton = event.target.closest('[data-edit-search-debt-name]');
-if(!editSearchButton){ return; }
-const name = editSearchButton.dataset.editSearchDebtName || '';
-const index = debts.findIndex(debt => cleanText(debt.name) === cleanText(name));
-if(index >= 0){ editDebtPhone(index); }
+  const editSearchButton = event.target.closest('[data-edit-search-debt-name]');
+  if(!editSearchButton){ return; }
+  const name = editSearchButton.dataset.editSearchDebtName || '';
+  const index = debts.findIndex(debt => cleanText(debt.name) === cleanText(name));
+  if(index >= 0){ editDebtPhone(index); }
 });
 
 $('downloadTemplateBtn')
@@ -8847,7 +8961,7 @@ fillAddSlotSelect
 );
 
 /* =========================
-زر مزامنة FTTH
+   زر مزامنة FTTH
 ========================= */
 
 $('syncFtthBtn')
@@ -8938,83 +9052,83 @@ fillAddFatSelect();
 
 /* ===== تنسيق الديون: التظليل الأحمر والخط الأسود ===== */
 .debt-summary-head{
-display:flex;
-flex-direction:column;
-align-items:flex-end;
-gap:4px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:4px;
 }
 
 .debt-summary-head span{
-font-weight:800;
+  font-weight:800;
 }
 
 #debtsTotal{
-color:#b91c1c !important;
-font-size:12px;
+  color:#b91c1c !important;
+  font-size:12px;
 }
 
 .debt-zone-cell,
 .debt-notes-cell{
-color:#000 !important;
-font-weight:700;
+  color:#000 !important;
+  font-weight:700;
 }
 
 .debt-highlight-row td{
-background:#ff2b2b !important;
-color:#000 !important;
-border-bottom-color:#d00000 !important;
+  background:#ff2b2b !important;
+  color:#000 !important;
+  border-bottom-color:#d00000 !important;
 }
 
 .debt-highlight-row .debt-name-cell,
 .debt-highlight-row .debt-zone-cell,
 .debt-highlight-row .debt-amount-cell,
 .debt-highlight-row .debt-notes-cell{
-color:#000 !important;
-font-weight:800 !important;
+  color:#000 !important;
+  font-weight:800 !important;
 }
 
 .debt-highlight-row .debt-delete-btn{
-color:#000 !important;
-background:#fff !important;
-border:1px solid #000 !important;
+  color:#000 !important;
+  background:#fff !important;
+  border:1px solid #000 !important;
 }
 
 .debt-highlight-row:hover td{
-background:#ff1f1f !important;
+  background:#ff1f1f !important;
 }
 
 .debt-form{
-grid-template-columns:1.7fr 1fr 1.15fr 1.5fr auto !important;
+  grid-template-columns:1.7fr 1fr 1.15fr 1.5fr auto !important;
 }
 
 .debt-form select,
 .debt-form .form-field input{
-width:100%;
-box-sizing:border-box;
+  width:100%;
+  box-sizing:border-box;
 }
 
 @media(max-width:1100px){
-.debt-form{
-grid-template-columns:1fr 1fr !important;
-}
+  .debt-form{
+    grid-template-columns:1fr 1fr !important;
+  }
 
-.debt-add-btn{
-grid-column:span 2;
-}
+  .debt-add-btn{
+    grid-column:span 2;
+  }
 }
 
 @media(max-width:600px){
-.debt-form{
-grid-template-columns:1fr !important;
-}
+  .debt-form{
+    grid-template-columns:1fr !important;
+  }
 
-.debt-add-btn{
-grid-column:auto;
-}
+  .debt-add-btn{
+    grid-column:auto;
+  }
 
-.debt-summary-head{
-align-items:flex-start;
-}
+  .debt-summary-head{
+    align-items:flex-start;
+  }
 }
 
 </style>
@@ -9023,13 +9137,13 @@ align-items:flex-start;
 .stat-card .stat-label,
 .stat-card .stat-value,
 .stat-card .stat-note {
-color: #ffffff !important;
+  color: #ffffff !important;
 }
 .stat-card:nth-child(1) .stat-value,
 .stat-card:nth-child(2) .stat-value,
 .stat-card:nth-child(3) .stat-value,
 .stat-card:nth-child(4) .stat-value {
-color: #ffffff !important;
+  color: #ffffff !important;
 }
 </style>
 
@@ -9037,118 +9151,118 @@ color: #ffffff !important;
 <style id="subscriber-name-box-final">
 /* تغيير المربع المحيط باسم المشترك فقط */
 .slot-card.used .slot-name {
-display:inline-block !important;
-width:fit-content !important;
-max-width:100% !important;
-padding:7px 12px !important;
-margin-top:9px !important;
-border-radius:8px !important;
-background:linear-gradient(135deg,#19d7a0 0%,#0aa66d 55%,#087b55 100%) !important;
-color:#102b55 !important;
-box-sizing:border-box !important;
+  display:inline-block !important;
+  width:fit-content !important;
+  max-width:100% !important;
+  padding:7px 12px !important;
+  margin-top:9px !important;
+  border-radius:8px !important;
+  background:linear-gradient(135deg,#19d7a0 0%,#0aa66d 55%,#087b55 100%) !important;
+  color:#102b55 !important;
+  box-sizing:border-box !important;
 }
 
 /* اسم المشترك يبقى بلونه الأصلي */
 .slot-card.used .slot-name,
 .slot-card.used .slot-name * {
-color:#102b55 !important;
+  color:#102b55 !important;
 }
 </style>
 
 
 <style id="all-subscribers-name-box">
 /* إجمالي المشتركين في المنطقتين:
-تغيير مربع الاسم فقط، مع إبقاء لون الاسم كما هو */
+   تغيير مربع الاسم فقط، مع إبقاء لون الاسم كما هو */
 .all-subscribers-card .all-subscriber-item {
-background: linear-gradient(135deg,#19d7a0 0%,#0aa66d 55%,#087b55 100%) !important;
-border-color: #19d7a0 !important;
+  background: linear-gradient(135deg,#19d7a0 0%,#0aa66d 55%,#087b55 100%) !important;
+  border-color: #19d7a0 !important;
 }
 .all-subscribers-card .all-subscriber-name {
-background: transparent !important;
-color: #111 !important;
-padding: 0 !important;
-display: block !important;
-width: auto !important;
-max-width: none !important;
+  background: transparent !important;
+  color: #111 !important;
+  padding: 0 !important;
+  display: block !important;
+  width: auto !important;
+  max-width: none !important;
 }
 .all-subscribers-card .all-subscriber-name * {
-color: #111 !important;
+  color: #111 !important;
 }
 </style>
 
 
 <style id="fiber-background-final">
 /* =========================================================
-خلفية ألياف ضوئية بيضاء — للواجهة الرئيسية فقط
-لا تغيير على الأيقونات أو الأرقام أو وظائف البرنامج
-========================================================= */
+   خلفية ألياف ضوئية بيضاء — للواجهة الرئيسية فقط
+   لا تغيير على الأيقونات أو الأرقام أو وظائف البرنامج
+   ========================================================= */
 
 .app .main{
-position:relative !important;
-isolation:isolate !important;
-background-color:#ffffff !important;
-background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='g' x='-30%25' y='-30%25' width='160%25' height='160%25'%3E%3CfeGaussianBlur stdDeviation='5' result='b'/%3E%3CfeMerge%3E%3CfeMergeNode in='b'/%3E%3CfeMergeNode in='SourceGraphic'/%3E%3C/feMerge%3E%3C/filter%3E%3ClinearGradient id='f' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23bfe8ff'/%3E%3Cstop offset='.45' stop-color='%2358b7ff'/%3E%3Cstop offset='1' stop-color='%23dff4ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='%23fff'/%3E%3Cg fill='none' stroke='url(%23f)' stroke-linecap='round' opacity='.78' filter='url(%23g)'%3E%3Cpath stroke-width='12' d='M-120 210 C220 20 430 90 650 250 S1120 470 1730 170'/%3E%3Cpath stroke-width='7' d='M-100 255 C220 75 450 120 690 275 S1130 500 1710 205'/%3E%3Cpath stroke-width='4' d='M-90 285 C240 110 470 150 720 305 S1180 515 1700 235'/%3E%3Cpath stroke-width='11' d='M-160 650 C220 470 430 520 700 680 S1200 850 1740 590'/%3E%3Cpath stroke-width='6' d='M-120 700 C250 505 470 555 735 710 S1230 875 1710 635'/%3E%3Cpath stroke-width='3' d='M-80 735 C280 545 500 590 770 745 S1260 890 1690 675'/%3E%3C/g%3E%3Cg fill='%23ffffff' filter='url(%23g)'%3E%3Ccircle cx='320' cy='115' r='7'/%3E%3Ccircle cx='430' cy='165' r='5'/%3E%3Ccircle cx='560' cy='220' r='8'/%3E%3Ccircle cx='820' cy='345' r='6'/%3E%3Ccircle cx='1030' cy='390' r='8'/%3E%3Ccircle cx='180' cy='590' r='6'/%3E%3Ccircle cx='410' cy='545' r='8'/%3E%3Ccircle cx='610' cy='650' r='6'/%3E%3Ccircle cx='930' cy='790' r='8'/%3E%3Ccircle cx='1170' cy='770' r='6'/%3E%3Ccircle cx='1360' cy='670' r='8'/%3E%3C/g%3E%3Cg fill='%2358b7ff' opacity='.55'%3E%3Ccircle cx='350' cy='145' r='3'/%3E%3Ccircle cx='700' cy='290' r='3'/%3E%3Ccircle cx='1120' cy='430' r='3'/%3E%3Ccircle cx='300' cy='600' r='3'/%3E%3Ccircle cx='800' cy='700' r='3'/%3E%3Ccircle cx='1250' cy='735' r='3'/%3E%3C/g%3E%3C/svg%3E") !important;
-background-repeat:no-repeat !important;
-background-position:center top !important;
-background-size:100% 100% !important;
+  position:relative !important;
+  isolation:isolate !important;
+  background-color:#ffffff !important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='g' x='-30%25' y='-30%25' width='160%25' height='160%25'%3E%3CfeGaussianBlur stdDeviation='5' result='b'/%3E%3CfeMerge%3E%3CfeMergeNode in='b'/%3E%3CfeMergeNode in='SourceGraphic'/%3E%3C/feMerge%3E%3C/filter%3E%3ClinearGradient id='f' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23bfe8ff'/%3E%3Cstop offset='.45' stop-color='%2358b7ff'/%3E%3Cstop offset='1' stop-color='%23dff4ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='%23fff'/%3E%3Cg fill='none' stroke='url(%23f)' stroke-linecap='round' opacity='.78' filter='url(%23g)'%3E%3Cpath stroke-width='12' d='M-120 210 C220 20 430 90 650 250 S1120 470 1730 170'/%3E%3Cpath stroke-width='7' d='M-100 255 C220 75 450 120 690 275 S1130 500 1710 205'/%3E%3Cpath stroke-width='4' d='M-90 285 C240 110 470 150 720 305 S1180 515 1700 235'/%3E%3Cpath stroke-width='11' d='M-160 650 C220 470 430 520 700 680 S1200 850 1740 590'/%3E%3Cpath stroke-width='6' d='M-120 700 C250 505 470 555 735 710 S1230 875 1710 635'/%3E%3Cpath stroke-width='3' d='M-80 735 C280 545 500 590 770 745 S1260 890 1690 675'/%3E%3C/g%3E%3Cg fill='%23ffffff' filter='url(%23g)'%3E%3Ccircle cx='320' cy='115' r='7'/%3E%3Ccircle cx='430' cy='165' r='5'/%3E%3Ccircle cx='560' cy='220' r='8'/%3E%3Ccircle cx='820' cy='345' r='6'/%3E%3Ccircle cx='1030' cy='390' r='8'/%3E%3Ccircle cx='180' cy='590' r='6'/%3E%3Ccircle cx='410' cy='545' r='8'/%3E%3Ccircle cx='610' cy='650' r='6'/%3E%3Ccircle cx='930' cy='790' r='8'/%3E%3Ccircle cx='1170' cy='770' r='6'/%3E%3Ccircle cx='1360' cy='670' r='8'/%3E%3C/g%3E%3Cg fill='%2358b7ff' opacity='.55'%3E%3Ccircle cx='350' cy='145' r='3'/%3E%3Ccircle cx='700' cy='290' r='3'/%3E%3Ccircle cx='1120' cy='430' r='3'/%3E%3Ccircle cx='300' cy='600' r='3'/%3E%3Ccircle cx='800' cy='700' r='3'/%3E%3Ccircle cx='1250' cy='735' r='3'/%3E%3C/g%3E%3C/svg%3E") !important;
+  background-repeat:no-repeat !important;
+  background-position:center top !important;
+  background-size:100% 100% !important;
 }
 
 .app .main > *{
-position:relative !important;
-z-index:1 !important;
+  position:relative !important;
+  z-index:1 !important;
 }
 
 /* إبقاء القائمة الجانبية كما هي */
 .app .sidebar{
-position:fixed !important;
-z-index:20 !important;
+  position:fixed !important;
+  z-index:20 !important;
 }
 
 /* ===== رقم الهاتف وواتساب للديون - اختياري ===== */
 .debt-phone-cell{
-direction:ltr;
-text-align:right;
-white-space:nowrap;
+  direction:ltr;
+  text-align:right;
+  white-space:nowrap;
 }
 .debt-edit-phone-btn{
-border:0;
-background:#eef4ff;
-color:#245aa8;
-padding:7px 10px;
-border-radius:7px;
-font-size:10px;
-font-weight:bold;
-margin-left:5px;
-cursor:pointer;
+  border:0;
+  background:#eef4ff;
+  color:#245aa8;
+  padding:7px 10px;
+  border-radius:7px;
+  font-size:10px;
+  font-weight:bold;
+  margin-left:5px;
+  cursor:pointer;
 }
 .debt-edit-phone-btn:hover{ background:#dfeaff; }
 .debt-whatsapp-btn{
-border:0;
-background:#e8f8ef;
-color:#16834b;
-padding:7px 10px;
-border-radius:7px;
-font-size:10px;
-font-weight:bold;
-margin-left:5px;
+  border:0;
+  background:#e8f8ef;
+  color:#16834b;
+  padding:7px 10px;
+  border-radius:7px;
+  font-size:10px;
+  font-weight:bold;
+  margin-left:5px;
 }
 .debt-whatsapp-btn:hover{
-background:#d4f2e2;
+  background:#d4f2e2;
 }
 .debt-whatsapp-btn:disabled{
-opacity:.45;
-cursor:not-allowed;
+  opacity:.45;
+  cursor:not-allowed;
 }
 .debt-form{
-grid-template-columns:1.7fr 1fr 1.15fr 1.2fr 1.5fr auto !important;
+  grid-template-columns:1.7fr 1fr 1.15fr 1.2fr 1.5fr auto !important;
 }
 @media(max-width:1100px){
-.debt-form{ grid-template-columns:1fr 1fr !important; }
-.debt-add-btn{ grid-column:span 2; }
+  .debt-form{ grid-template-columns:1fr 1fr !important; }
+  .debt-add-btn{ grid-column:span 2; }
 }
 @media(max-width:600px){
-.debt-form{ grid-template-columns:1fr !important; }
-.debt-add-btn{ grid-column:auto; }
+  .debt-form{ grid-template-columns:1fr !important; }
+  .debt-add-btn{ grid-column:auto; }
 }
 </style>
 
