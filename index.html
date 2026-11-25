@@ -3048,6 +3048,221 @@ td{
 @media(max-width:700px){.activity-table-wrap{margin-top:12px}.activity-card-title{align-items:flex-start;gap:10px;flex-direction:column}.activity-refresh-btn{width:100%}}
 </style>
 
+
+<style id="debt-transfers-style">
+/* ===== مبالغ الترحيل: نفس بنية الديون مع اللون الأخضر ===== */
+.transfer-section{
+  margin-top:22px;
+}
+
+.transfer-card{
+  border:1px solid #b7e8c7 !important;
+  box-shadow:0 8px 28px rgba(16,185,129,.08) !important;
+}
+
+.transfer-title{
+  color:#087443 !important;
+}
+
+.transfer-subtitle{
+  margin-top:4px;
+  color:#3f7b5b;
+  font-size:12px;
+  font-weight:700;
+}
+
+.transfer-summary-head{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:4px;
+}
+
+.transfer-summary-head span{
+  font-weight:800;
+}
+
+#transfersTotal{
+  color:#087443 !important;
+  font-size:12px;
+}
+
+.transfer-form{
+  display:grid;
+  grid-template-columns:1.7fr 1fr 1.15fr 1.5fr auto;
+  gap:12px;
+  align-items:end;
+  margin-top:14px;
+}
+
+.transfer-form select,
+.transfer-form .form-field input{
+  width:100%;
+  box-sizing:border-box;
+}
+
+.transfer-add-btn{
+  min-height:46px;
+  padding:11px 18px;
+  border:1px solid #0b9b5d;
+  border-radius:10px;
+  background:linear-gradient(135deg,#18b96d,#07834c);
+  color:#fff;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.transfer-add-btn:hover{
+  filter:brightness(1.04);
+}
+
+.transfer-hint{
+  margin-top:10px;
+  padding:9px 12px;
+  border-radius:9px;
+  background:#effcf4;
+  color:#2e6e4b;
+  font-size:12px;
+  font-weight:700;
+}
+
+.transfer-inline-search{
+  display:flex;
+  gap:8px;
+  margin-top:14px;
+}
+
+.transfer-inline-search input{
+  flex:1;
+  min-width:0;
+  padding:11px 13px;
+  border:1px solid #b7ddc5;
+  border-radius:10px;
+  outline:none;
+  background:#fff;
+}
+
+.transfer-inline-search input:focus{
+  border-color:#10a968;
+  box-shadow:0 0 0 3px rgba(16,169,104,.10);
+}
+
+.transfer-inline-search button{
+  border:1px solid #8fc9a6;
+  background:#f0fff5;
+  color:#087443;
+  border-radius:10px;
+  padding:0 16px;
+  font-weight:800;
+}
+
+.transfer-table-wrap{
+  margin-top:18px;
+  overflow:auto;
+  border:1px solid #b7e8c7;
+  border-radius:10px;
+}
+
+.transfer-table{
+  width:100%;
+  min-width:700px;
+  border-collapse:collapse;
+}
+
+.transfer-table th{
+  background:#dff8e8;
+  color:#075d36;
+  padding:11px 9px;
+  border-bottom:1px solid #9bd7b2;
+  font-weight:900;
+}
+
+.transfer-table td{
+  padding:10px 9px;
+  border-bottom:1px solid #a7ddb9;
+  vertical-align:middle;
+}
+
+.transfer-highlight-row td{
+  background:#28c76f !important;
+  color:#102b20 !important;
+  border-bottom-color:#16a85b !important;
+}
+
+.transfer-highlight-row .transfer-name-cell,
+.transfer-highlight-row .transfer-zone-cell,
+.transfer-highlight-row .transfer-amount-cell,
+.transfer-highlight-row .transfer-phone-cell,
+.transfer-highlight-row .transfer-notes-cell{
+  color:#102b20 !important;
+  font-weight:800 !important;
+}
+
+.transfer-highlight-row:hover td{
+  background:#20b965 !important;
+}
+
+.transfer-edit-phone-btn,
+.transfer-delete-btn{
+  margin:2px;
+  padding:7px 9px;
+  border-radius:8px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.transfer-edit-phone-btn{
+  color:#075d36;
+  background:#f1fff6;
+  border:1px solid #138a53;
+}
+
+.transfer-delete-btn{
+  color:#111;
+  background:#fff;
+  border:1px solid #111;
+}
+
+.transfer-empty{
+  padding:18px;
+  text-align:center;
+  color:#4f7d61;
+  font-weight:700;
+}
+
+@media(max-width:1100px){
+  .transfer-form{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .transfer-add-btn{
+    grid-column:span 2;
+  }
+}
+
+@media(max-width:600px){
+  .transfer-form{
+    grid-template-columns:1fr;
+  }
+
+  .transfer-add-btn{
+    grid-column:auto;
+  }
+
+  .transfer-summary-head{
+    align-items:flex-start;
+  }
+
+  .transfer-inline-search{
+    flex-direction:column;
+  }
+
+  .transfer-inline-search button{
+    min-height:42px;
+  }
+}
+</style>
+
 </head>
 
 <body>
@@ -3817,6 +4032,138 @@ class="debts-empty">
 </div>
 
 </div>
+
+
+<section
+id="debtTransfersSection"
+class="transfer-section">
+
+<div class="card transfer-card">
+
+<div class="card-title">
+
+<div>
+<h3 class="transfer-title">
+مبالغ الترحيل
+</h3>
+<div class="transfer-subtitle">
+المبالغ المرحّلة محفوظة في قاعدة البيانات وتظهر على جميع الأجهزة
+</div>
+</div>
+
+<div class="transfer-summary-head">
+<span id="transfersCount">
+0 ترحيل
+</span>
+<span id="transfersTotal">
+مجموع مبلغ الترحيل: 0 دينار عراقي
+</span>
+</div>
+
+</div>
+
+<div class="transfer-form">
+
+<div class="form-field">
+<label>الاسم</label>
+<input
+id="transferName"
+type="text"
+list="transferNamesList"
+autocomplete="off"
+placeholder="اختر من أسماء المشتركين أو اكتب اسمًا جديدًا">
+<datalist id="transferNamesList"></datalist>
+</div>
+
+<div class="form-field">
+<label>المنطقة</label>
+<select id="transferZone">
+<option value="FNS0281-3">FNS0281-3</option>
+<option value="FNS0284-3">FNS0284-3</option>
+</select>
+</div>
+
+<div class="form-field">
+<label>مبلغ الترحيل (دينار عراقي)</label>
+<input
+id="transferAmount"
+type="number"
+min="0"
+step="1"
+inputmode="numeric"
+placeholder="مثال: 35,000">
+</div>
+
+<div class="form-field">
+<label>رقم الهاتف (اختياري)</label>
+<input
+id="transferPhone"
+type="text"
+autocomplete="off"
+inputmode="tel"
+placeholder="رقم واتساب - اختياري">
+</div>
+
+<div class="form-field">
+<label>الملاحظات</label>
+<input
+id="transferNotes"
+type="text"
+autocomplete="off"
+placeholder="ملاحظات اختيارية">
+</div>
+
+<button
+id="addTransferBtn"
+class="transfer-add-btn"
+type="button">
+إضافة مبلغ ترحيل
+</button>
+
+</div>
+
+<div class="transfer-hint">
+يمكنك اختيار اسم من إجمالي المشتركين، وسيتم تحديد المنطقة ورقم الهاتف تلقائيًا عند توفرهما.
+</div>
+
+<div class="transfer-inline-search">
+<input
+id="transfersQuickSearch"
+type="text"
+autocomplete="off"
+placeholder="بحث سريع داخل مبالغ الترحيل بالاسم أو المنطقة أو الهاتف...">
+<button
+id="clearTransfersQuickSearch"
+type="button">
+مسح
+</button>
+</div>
+
+<div class="transfer-table-wrap">
+<table class="transfer-table">
+<thead>
+<tr>
+<th>الاسم</th>
+<th>المنطقة</th>
+<th>مبلغ الترحيل (دينار عراقي)</th>
+<th>رقم الهاتف</th>
+<th>الملاحظات</th>
+<th>الإجراء</th>
+</tr>
+</thead>
+<tbody id="transfersList"></tbody>
+</table>
+
+<div
+id="transfersEmpty"
+class="transfer-empty">
+لا توجد مبالغ ترحيل مضافة حاليًا.
+</div>
+</div>
+
+</div>
+
+</section>
 
 </section>
 
@@ -6606,6 +6953,7 @@ const DEBTS_STORAGE_KEY = 'omar_ftth_debts_v1';
 const DEBTS_MIGRATION_KEY = 'omar_ftth_debts_migrated_to_supabase_v1';
 
 let debts = [];
+let transfers = [];
 
 function formatDebtAmount(value){
   const number = Number(value || 0);
@@ -6670,16 +7018,20 @@ function autoSelectDebtZone(){
 }
 
 async function loadDebts(){
-  const {data, error} = await db
-    .from('debts')
-    .select('*')
-    .order('id',{ascending:true});
+  const [
+    {data, error},
+    {data: transferData, error: transferError}
+  ] = await Promise.all([
+    db.from('debts').select('*').eq('entry_type','debt').order('id',{ascending:true}),
+    db.from('debts').select('*').eq('entry_type','transfer').order('id',{ascending:true})
+  ]);
 
   if(error){
     console.error('loadDebts:', error);
     showToast('تعذر تحميل الديون من قاعدة البيانات');
     debts = [];
     renderDebts();
+    renderTransfers();
     return;
   }
 
@@ -6691,6 +7043,21 @@ async function loadDebts(){
     phone: cleanText(item.phone || ''),
     notes: cleanText(item.notes || '')
   }));
+
+  if(transferError){
+    console.error('loadTransfers:', transferError);
+    transfers = [];
+    showToast('تعذر تحميل مبالغ الترحيل من قاعدة البيانات');
+  }else{
+    transfers = (transferData || []).map(item => ({
+      id: item.id,
+      name: cleanText(item.subscriber_name),
+      zone: normalizeZone(item.zone),
+      amount: Number(item.amount || 0),
+      phone: cleanText(item.phone || ''),
+      notes: cleanText(item.notes || '')
+    }));
+  }
 
   /*
      نقل الديون القديمة المحفوظة محليًا مرة واحدة فقط.
@@ -6726,7 +7093,8 @@ async function loadDebts(){
               zone: isValidZone(debtZone) ? debtZone : ZONES[0],
               amount,
               phone: cleanText(debt.phone || subscriber?.phone || subscriber?.phone_number || ''),
-              notes: cleanText(debt.notes || '')
+              notes: cleanText(debt.notes || ''),
+              entry_type: 'debt'
             };
           })
           .filter(Boolean);
@@ -6762,6 +7130,7 @@ async function loadDebts(){
 
   renderDebts();
   renderDebtSearch();
+  renderTransfers();
 }
 
 function getSubscriberPhoneForDebt(debt){
@@ -6971,7 +7340,8 @@ async function addDebt(){
     zone:selectedZone,
     amount:amountNumber,
     phone:phone || null,
-    notes
+    notes,
+    entry_type:'debt'
   };
 
   /*
@@ -7009,6 +7379,298 @@ function updateDebtDashboardCount(){
   if(el){
     el.textContent = debts.length;
   }
+}
+
+
+function updateTransferNamesList(){
+  const list = $('transferNamesList');
+  if(!list){
+    return;
+  }
+
+  const unique = new Map();
+
+  rows.forEach(item => {
+    const name = cleanText(item.subscriber_name || item.name || '');
+    const itemZone = normalizeZone(item.zone);
+
+    if(name && !unique.has(`${name}|${itemZone}`)){
+      unique.set(`${name}|${itemZone}`, {name,itemZone});
+    }
+  });
+
+  list.innerHTML = [...unique.values()]
+    .sort((a,b) => a.name.localeCompare(b.name,'ar'))
+    .map(item => `
+      <option value="${esc(item.name)}" label="${esc(item.itemZone)}">${esc(item.itemZone)}</option>
+    `)
+    .join('');
+}
+
+function autoSelectTransferZone(){
+  const nameInput = $('transferName');
+  const zoneInput = $('transferZone');
+  if(!nameInput || !zoneInput){
+    return;
+  }
+
+  const subscriber = getSubscriberByName(nameInput.value);
+  if(subscriber && isValidZone(subscriber.zone)){
+    zoneInput.value = normalizeZone(subscriber.zone);
+  }
+}
+
+function getSubscriberPhoneForTransfer(transfer){
+  const subscriber = getSubscriberByName(transfer?.name || '');
+  return cleanText(
+    transfer?.phone ||
+    subscriber?.phone ||
+    subscriber?.phone_number ||
+    subscriber?.mobile ||
+    ''
+  );
+}
+
+function renderTransfers(){
+  const list = $('transfersList');
+  const empty = $('transfersEmpty');
+  const count = $('transfersCount');
+  const total = $('transfersTotal');
+
+  if(!list || !empty || !count){
+    return;
+  }
+
+  updateTransferNamesList();
+
+  count.textContent =
+    `${transfers.length} ${transfers.length === 1 ? 'ترحيل' : 'ترحيلات'}`;
+
+  const totalAmount = transfers.reduce(
+    (sum,item) => sum + (Number(item.amount) || 0),
+    0
+  );
+
+  if(total){
+    total.textContent =
+      `مجموع مبلغ الترحيل: ${formatDebtAmount(totalAmount)} دينار عراقي`;
+  }
+
+  if(!transfers.length){
+    list.innerHTML = '';
+    empty.textContent = 'لا توجد مبالغ ترحيل مضافة حاليًا.';
+    empty.classList.remove('hidden');
+    return;
+  }
+
+  const quickSearch = cleanText(
+    $('transfersQuickSearch')?.value || ''
+  ).toLocaleLowerCase('ar');
+
+  const filtered = transfers
+    .map((transfer,index) => ({transfer,index}))
+    .filter(({transfer}) => {
+      if(!quickSearch){
+        return true;
+      }
+
+      const text = [
+        transfer.name,
+        transfer.zone,
+        transfer.phone,
+        transfer.notes,
+        transfer.amount
+      ].join(' ');
+
+      return cleanText(text)
+        .toLocaleLowerCase('ar')
+        .includes(quickSearch);
+    });
+
+  if(!filtered.length){
+    list.innerHTML = '';
+    empty.textContent = 'لا توجد نتيجة مطابقة للبحث.';
+    empty.classList.remove('hidden');
+    return;
+  }
+
+  empty.classList.add('hidden');
+
+  list.innerHTML = filtered.map(({transfer,index}) => {
+    const phone = transfer.phone || getSubscriberPhoneForTransfer(transfer) || '';
+    return `
+      <tr class="transfer-highlight-row">
+        <td class="transfer-name-cell">${esc(transfer.name)}</td>
+        <td class="transfer-zone-cell">${esc(transfer.zone || 'غير محددة')}</td>
+        <td class="transfer-amount-cell">${formatDebtAmount(transfer.amount)} دينار عراقي</td>
+        <td class="transfer-phone-cell">${esc(phone || 'غير موجود')}</td>
+        <td class="transfer-notes-cell">${esc(transfer.notes || '—')}</td>
+        <td>
+          <button
+            type="button"
+            class="transfer-edit-phone-btn"
+            data-edit-transfer-phone-index="${index}">
+            📞 ${phone ? 'تعديل الرقم' : 'إضافة رقم'}
+          </button>
+
+          <button
+            type="button"
+            class="transfer-delete-btn"
+            data-transfer-index="${index}">
+            حذف
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+async function addTransfer(){
+  const name = cleanText($('transferName').value);
+  const selectedSubscriber = getSubscriberByName(name);
+  const selectedZone = normalizeZone(
+    selectedSubscriber?.zone || $('transferZone').value
+  );
+  const amountRaw = cleanText($('transferAmount').value).replace(/,/g,'');
+  const phone = cleanText($('transferPhone').value);
+  const notes = cleanText($('transferNotes').value);
+
+  if(!name){
+    showToast('أدخل اسم المشترك للترحيل');
+    return;
+  }
+
+  if(!isValidZone(selectedZone)){
+    showToast('اختر المنطقة');
+    return;
+  }
+
+  if(!amountRaw || Number(amountRaw) < 0){
+    showToast('أدخل مبلغ الترحيل');
+    return;
+  }
+
+  const amountNumber = Number(amountRaw);
+
+  if(!Number.isFinite(amountNumber)){
+    showToast('مبلغ الترحيل غير صحيح');
+    return;
+  }
+
+  const payload = {
+    subscriber_name:name,
+    zone:selectedZone,
+    amount:amountNumber,
+    phone:phone || null,
+    notes,
+    entry_type:'transfer'
+  };
+
+  const {error} = await db
+    .from('debts')
+    .insert(payload);
+
+  if(error){
+    console.error('addTransfer:', error);
+    showToast('تعذر حفظ مبلغ الترحيل: ' + (error.message || 'خطأ غير معروف'));
+    return;
+  }
+
+  await loadDebts();
+
+  $('transferName').value = '';
+  $('transferPhone').value = '';
+  $('transferAmount').value = '';
+  $('transferNotes').value = '';
+
+  renderTransfers();
+
+  showToast('تمت إضافة مبلغ الترحيل وحفظه في قاعدة البيانات');
+  await logActivity(
+    'إضافة مبلغ ترحيل',
+    `${name} — ${formatDebtAmount(amountNumber)} دينار عراقي${notes ? ` — ${notes}` : ''}`
+  );
+
+  $('transferName').focus();
+}
+
+async function editTransferPhone(index){
+  if(index < 0 || index >= transfers.length){
+    return;
+  }
+
+  const transfer = transfers[index];
+  const currentPhone = cleanText(
+    transfer.phone || getSubscriberPhoneForTransfer(transfer) || ''
+  );
+
+  const phone = prompt(
+    `رقم الهاتف للمشترك: ${transfer.name}\n\nأدخل رقم واتساب أو اتركه فارغًا لحذفه:`,
+    currentPhone
+  );
+
+  if(phone === null){
+    return;
+  }
+
+  const newPhone = cleanText(phone);
+
+  const {error} = await db
+    .from('debts')
+    .update({phone:newPhone || null})
+    .eq('id',transfer.id)
+    .eq('entry_type','transfer');
+
+  if(error){
+    console.error('editTransferPhone:',error);
+    showToast('تعذر حفظ رقم الهاتف: ' + (error.message || 'خطأ غير معروف'));
+    return;
+  }
+
+  transfer.phone = newPhone;
+  renderTransfers();
+
+  showToast(newPhone ? 'تم حفظ رقم هاتف الترحيل' : 'تم حذف رقم هاتف الترحيل');
+  await logActivity(
+    'تعديل رقم هاتف مبلغ ترحيل',
+    `${transfer.name}${newPhone ? ` — ${newPhone}` : ' — تم حذف رقم الهاتف'}`
+  );
+}
+
+async function deleteTransfer(index){
+  if(index < 0 || index >= transfers.length){
+    return;
+  }
+
+  const transfer = transfers[index];
+  const confirmed = confirm(
+    `هل أنت متأكد من حذف مبلغ الترحيل:\n${transfer.name} ؟\n\nالمبلغ: ${formatDebtAmount(transfer.amount)} دينار عراقي`
+  );
+
+  if(!confirmed){
+    return;
+  }
+
+  const {error} = await db
+    .from('debts')
+    .delete()
+    .eq('id',transfer.id)
+    .eq('entry_type','transfer');
+
+  if(error){
+    console.error('deleteTransfer:',error);
+    showToast('تعذر حذف مبلغ الترحيل من قاعدة البيانات');
+    return;
+  }
+
+  transfers.splice(index,1);
+  renderTransfers();
+
+  showToast('تم حذف مبلغ الترحيل من قاعدة البيانات');
+  await logActivity(
+    'حذف مبلغ ترحيل',
+    `${transfer.name} — ${formatDebtAmount(transfer.amount)} دينار عراقي`
+  );
 }
 
 function renderDebtSearch(){
@@ -7207,6 +7869,98 @@ event => {
   }
 }
 );
+
+$('transferName')
+.addEventListener(
+'input',
+()=>{
+  autoSelectTransferZone();
+  const subscriber = getSubscriberByName($('transferName').value);
+  if(subscriber && !$('transferPhone').value.trim()){
+    $('transferPhone').value = cleanText(
+      subscriber.phone ||
+      subscriber.phone_number ||
+      subscriber.mobile ||
+      ''
+    );
+  }
+});
+
+$('transferName')
+.addEventListener(
+'keydown',
+event => {
+  if(event.key === 'Enter'){
+    $('transferAmount').focus();
+  }
+}
+);
+
+$('transferAmount')
+.addEventListener(
+'keydown',
+event => {
+  if(event.key === 'Enter'){
+    addTransfer();
+  }
+}
+);
+
+$('transferNotes')
+.addEventListener(
+'keydown',
+event => {
+  if(event.key === 'Enter'){
+    addTransfer();
+  }
+}
+);
+
+$('addTransferBtn')
+.addEventListener(
+'click',
+addTransfer
+);
+
+$('transfersQuickSearch')
+.addEventListener(
+'input',
+renderTransfers
+);
+
+$('clearTransfersQuickSearch')
+.addEventListener(
+'click',
+()=>{
+  $('transfersQuickSearch').value = '';
+  renderTransfers();
+  $('transfersQuickSearch').focus();
+}
+);
+
+$('transfersList')
+.addEventListener(
+'click',
+event => {
+  const editButton =
+    event.target.closest('[data-edit-transfer-phone-index]');
+
+  if(editButton){
+    editTransferPhone(
+      Number(editButton.dataset.editTransferPhoneIndex)
+    );
+    return;
+  }
+
+  const deleteButton =
+    event.target.closest('[data-transfer-index]');
+
+  if(deleteButton){
+    deleteTransfer(
+      Number(deleteButton.dataset.transferIndex)
+    );
+  }
+});
 
 $('debtsQuickSearch')
 .addEventListener(
