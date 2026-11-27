@@ -3849,9 +3849,119 @@ table{
 .pdf-buttons-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:4px; }
 @media(max-width:700px){ .pdf-export-btn{ width:100%; } }
 </style>
+
+<style>
+/* =========================================================
+   Modern 2026 SVG icons — visual layer only
+   لا تغيير في الوظائف أو البيانات أو الإعدادات
+========================================================= */
+.menu button,
+.logout-menu{
+  display:flex !important;
+  align-items:center !important;
+  gap:11px !important;
+  justify-content:flex-start !important;
+  direction:rtl !important;
+}
+.menu button span,
+.logout-menu span{
+  flex:1;
+  text-align:right;
+}
+.menu-icon{
+  width:38px;
+  height:38px;
+  flex:0 0 38px;
+  padding:6px;
+  border-radius:11px;
+  background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(31,116,230,.22));
+  border:1px solid rgba(120,198,255,.42);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 4px 10px rgba(0,0,0,.16);
+  filter:drop-shadow(0 2px 2px rgba(0,0,0,.12));
+  transition:transform .2s ease,filter .2s ease,box-shadow .2s ease;
+}
+.menu button:hover .menu-icon,
+.menu button.active .menu-icon,
+.logout-menu:hover .menu-icon{
+  transform:translateY(-1px) scale(1.04);
+  filter:drop-shadow(0 3px 5px rgba(0,126,235,.28));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.38),0 6px 14px rgba(0,126,235,.22);
+}
+.logout-menu .menu-icon{
+  background:linear-gradient(145deg,rgba(255,214,86,.22),rgba(255,255,255,.08));
+  border-color:rgba(255,205,77,.42);
+}
+.action-icon{
+  width:28px;
+  height:28px;
+  vertical-align:middle;
+  margin-left:7px;
+  filter:drop-shadow(0 2px 3px rgba(0,55,130,.22));
+}
+.pdf-export-btn{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:5px !important;
+}
+.summary-icon,
+.summary-chart-icon{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+.summary-svg{
+  width:40px;
+  height:40px;
+  filter:drop-shadow(0 3px 4px rgba(0,50,120,.20));
+}
+.activity-svg{
+  width:30px;
+  height:30px;
+  vertical-align:middle;
+  margin-left:7px;
+  filter:drop-shadow(0 2px 3px rgba(0,50,120,.20));
+}
+.activity-icon{
+  display:inline-flex !important;
+  align-items:center;
+  justify-content:center;
+}
+</style>
+
 </head>
 
 <body>
+
+<!-- =========================================================
+     Modern 2026 SVG Icon System
+     Icons only — no data, settings, functions or layout changes
+========================================================= -->
+<svg class="icon-sprite" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;overflow:hidden">
+  <defs>
+    <linearGradient id="gBlue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#39c8ff"/><stop offset=".48" stop-color="#087ff0"/><stop offset="1" stop-color="#123cae"/></linearGradient>
+    <linearGradient id="gBlue2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".25" stop-color="#9fe6ff"/><stop offset="1" stop-color="#2870df"/></linearGradient>
+    <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff1a6"/><stop offset=".45" stop-color="#ffc928"/><stop offset="1" stop-color="#e77a00"/></linearGradient>
+    <linearGradient id="gGreen" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8cffca"/><stop offset=".45" stop-color="#16c77a"/><stop offset="1" stop-color="#078252"/></linearGradient>
+    <linearGradient id="gRed" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7a7a"/><stop offset=".5" stop-color="#e62d35"/><stop offset="1" stop-color="#a80e19"/></linearGradient>
+    <filter id="iconShadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="2" stdDeviation="2.2" flood-opacity=".28"/></filter>
+    <symbol id="i-home" viewBox="0 0 64 64"><path d="M8 29 32 8l24 21" fill="none" stroke="url(#gBlue)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 27v27h36V27" fill="url(#gBlue2)" stroke="#0b3f9d" stroke-width="3"/><path d="M27 54V39h10v15" fill="#fff" stroke="#0b3f9d" stroke-width="3"/><path d="M27 32h10" stroke="#fff" stroke-width="3" stroke-linecap="round"/></symbol>
+    <symbol id="i-users" viewBox="0 0 64 64"><circle cx="32" cy="20" r="11" fill="url(#gBlue)" stroke="#0a3e9d" stroke-width="3"/><circle cx="13" cy="25" r="7" fill="url(#gBlue2)" stroke="#0a3e9d" stroke-width="2.5"/><circle cx="51" cy="25" r="7" fill="url(#gBlue2)" stroke="#0a3e9d" stroke-width="2.5"/><path d="M14 53c1-13 9-19 18-19s17 6 18 19" fill="url(#gBlue)" stroke="#0a3e9d" stroke-width="3" stroke-linejoin="round"/><path d="M3 53c.5-9 5-14 11-14 4 0 7 2 9 6M61 53c-.5-9-5-14-11-14-4 0-7 2-9 6" fill="none" stroke="#2870df" stroke-width="5" stroke-linecap="round"/></symbol>
+    <symbol id="i-fat" viewBox="0 0 64 64"><rect x="10" y="9" width="44" height="46" rx="9" fill="url(#gBlue2)" stroke="#0a3e9d" stroke-width="3"/><path d="M21 23h22M21 33h22M21 43h14" stroke="#0b4aa9" stroke-width="4" stroke-linecap="round"/><circle cx="45" cy="43" r="5" fill="url(#gGold)" stroke="#a75a00" stroke-width="2"/></symbol>
+    <symbol id="i-search" viewBox="0 0 64 64"><circle cx="27" cy="27" r="18" fill="url(#gBlue2)" stroke="#0a3e9d" stroke-width="4"/><path d="m40 40 15 15" stroke="#0a3e9d" stroke-width="8" stroke-linecap="round"/><path d="m39 39 16 16" stroke="url(#gGold)" stroke-width="3" stroke-linecap="round"/></symbol>
+    <symbol id="i-excel" viewBox="0 0 64 64"><path d="M17 7h27l13 13v37H17z" fill="#fff" stroke="#0a3e9d" stroke-width="3"/><path d="M44 7v14h13" fill="url(#gBlue2)" stroke="#0a3e9d" stroke-width="3"/><rect x="8" y="25" width="28" height="28" rx="5" fill="url(#gGreen)" stroke="#08714b" stroke-width="3"/><path d="m16 33 12 12m0-12L16 45" stroke="#fff" stroke-width="4" stroke-linecap="round"/></symbol>
+    <symbol id="i-debt" viewBox="0 0 64 64"><rect x="7" y="18" width="50" height="36" rx="8" fill="url(#gBlue)" stroke="#0a3e9d" stroke-width="3"/><path d="M13 18V13c0-3 2-5 5-5h24c3 0 5 2 5 5v5" fill="url(#gBlue2)" stroke="#0a3e9d" stroke-width="3"/><circle cx="45" cy="36" r="8" fill="url(#gGold)" stroke="#a75a00" stroke-width="2"/><path d="M45 31v10M41.5 34c1.5-2 6-1 6 1 0 3-6 2-6 5 0 2 4.5 3 6 1" fill="none" stroke="#7c4700" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-transfer" viewBox="0 0 64 64"><path d="M10 23h39l-8-8" fill="none" stroke="url(#gBlue)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M54 41H15l8 8" fill="none" stroke="url(#gGold)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="32" cy="31" rx="9" ry="4" fill="url(#gGold)" stroke="#a75a00" stroke-width="2"/><path d="M23 31v9c0 2 4 4 9 4s9-2 9-4v-9" fill="url(#gGold)" stroke="#a75a00" stroke-width="2"/></symbol>
+    <symbol id="i-activity" viewBox="0 0 64 64"><path d="M8 49V15" stroke="#0a3e9d" stroke-width="4" stroke-linecap="round"/><path d="M8 49h48" stroke="#0a3e9d" stroke-width="4" stroke-linecap="round"/><rect x="16" y="35" width="8" height="10" rx="2" fill="url(#gBlue)"/><rect x="28" y="27" width="8" height="18" rx="2" fill="url(#gBlue2)"/><rect x="40" y="18" width="8" height="27" rx="2" fill="url(#gGold)"/><path d="M13 31c9-3 15-7 21-11 5-3 9-7 16-12" fill="none" stroke="#0b57c9" stroke-width="4" stroke-linecap="round"/><path d="m45 10 7-2-1 7" fill="none" stroke="#e8a300" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-debt-search" viewBox="0 0 64 64"><rect x="8" y="10" width="39" height="44" rx="7" fill="url(#gBlue2)" stroke="#0a3e9d" stroke-width="3"/><path d="M17 22h21M17 30h17M17 38h10" stroke="#0b4aa9" stroke-width="4" stroke-linecap="round"/><circle cx="43" cy="43" r="11" fill="#fff" stroke="#0a3e9d" stroke-width="3"/><path d="m51 51 7 7" stroke="#0a3e9d" stroke-width="5" stroke-linecap="round"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 64 64"><rect x="9" y="8" width="31" height="48" rx="7" fill="url(#gBlue2)" stroke="#0a3e9d" stroke-width="3"/><path d="M35 32h21M47 23l9 9-9 9" fill="none" stroke="url(#gGold)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-pdf" viewBox="0 0 64 64"><path d="M15 6h28l14 14v38H15z" fill="#fff" stroke="#0a3e9d" stroke-width="3"/><path d="M43 6v15h14" fill="url(#gBlue2)" stroke="#0a3e9d" stroke-width="3"/><rect x="9" y="34" width="42" height="16" rx="4" fill="url(#gRed)" stroke="#9d1620" stroke-width="2"/><text x="30" y="46" text-anchor="middle" font-size="11" font-weight="900" fill="#fff">PDF</text></symbol>
+    <symbol id="i-plus" viewBox="0 0 64 64"><circle cx="32" cy="32" r="24" fill="url(#gGreen)" stroke="#08704a" stroke-width="3"/><path d="M32 19v26M19 32h26" stroke="#fff" stroke-width="6" stroke-linecap="round"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 64 64"><path d="m14 49 5-15L43 10l11 11-24 24z" fill="url(#gGold)" stroke="#9a5d00" stroke-width="3"/><path d="m39 14 11 11" stroke="#fff2a5" stroke-width="3"/><path d="M12 52h18" stroke="#0a3e9d" stroke-width="4" stroke-linecap="round"/></symbol>
+    <symbol id="i-delete" viewBox="0 0 64 64"><path d="M16 18h32l-3 38H19z" fill="url(#gRed)" stroke="#8f1019" stroke-width="3"/><path d="M12 14h40M25 14V8h14v6" stroke="#0a3e9d" stroke-width="5" stroke-linecap="round"/><path d="M27 25v21M37 25v21" stroke="#fff" stroke-width="4" stroke-linecap="round"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 64 64"><path d="M6 32s9-18 26-18 26 18 26 18-9 18-26 18S6 32 6 32Z" fill="url(#gBlue2)" stroke="#0a3e9d" stroke-width="3"/><circle cx="32" cy="32" r="9" fill="#fff" stroke="#0a3e9d" stroke-width="3"/><circle cx="32" cy="32" r="4" fill="#0a3e9d"/></symbol>
+  </defs>
+</svg>
 
 <div id="loginPage" class="login-page">
 
@@ -3972,55 +4082,64 @@ class="login-error hidden">
 <button
 data-section="dashboardSection"
 class="menu-btn active">
-الرئيسية
+<svg class="menu-icon" aria-hidden="true"><use href="#i-home"></use></svg>
+<span>الرئيسية</span>
 </button>
 
 <button
 data-section="zonesSection"
 class="menu-btn">
-المناطق
+<svg class="menu-icon" aria-hidden="true"><use href="#i-users"></use></svg>
+<span>المناطق</span>
 </button>
 
 <button
 data-section="fatsSection"
 class="menu-btn">
-قائمة FAT
+<svg class="menu-icon" aria-hidden="true"><use href="#i-fat"></use></svg>
+<span>قائمة FAT</span>
 </button>
 
 <button
 data-section="searchSection"
 class="menu-btn">
-البحث عن مشترك
+<svg class="menu-icon" aria-hidden="true"><use href="#i-search"></use></svg>
+<span>البحث عن مشترك</span>
 </button>
 
 <button
 data-section="excelSection"
 class="menu-btn">
-Excel
+<svg class="menu-icon" aria-hidden="true"><use href="#i-excel"></use></svg>
+<span>Excel</span>
 </button>
 
 <button
 data-section="debtsSection"
 class="menu-btn debt-menu-btn">
-الديون
+<svg class="menu-icon" aria-hidden="true"><use href="#i-debt"></use></svg>
+<span>الديون</span>
 </button>
 
 <button
 data-section="debtSearchSection"
 class="menu-btn debt-search-menu-btn">
-بحث في الدين
+<svg class="menu-icon" aria-hidden="true"><use href="#i-debt-search"></use></svg>
+<span>بحث في الدين</span>
 </button>
 
 <button
 data-section="activitySection"
 class="menu-btn activity-menu-btn">
-سجل النشاط
+<svg class="menu-icon" aria-hidden="true"><use href="#i-activity"></use></svg>
+<span>سجل النشاط</span>
 </button>
 
 <button
 id="logoutBtn"
 class="logout-menu">
-تسجيل الخروج
+<svg class="menu-icon" aria-hidden="true"><use href="#i-logout"></use></svg>
+<span>تسجيل الخروج</span>
 </button>
 
 </nav>
@@ -4618,16 +4737,16 @@ class="debts-empty">
 </div>
 
 <div class="pdf-buttons-row">
-  <button id="exportDebtsPdfBtn" type="button" class="pdf-export-btn debt-pdf-btn">📄 سحب قائمة الديون PDF</button>
+  <button id="exportDebtsPdfBtn" type="button" class="pdf-export-btn debt-pdf-btn"><svg class="action-icon" aria-hidden="true"><use href="#i-pdf"></use></svg><span>سحب قائمة الديون PDF</span></button>
 </div>
 
 <div class="debt-bottom-summary">
-  <div class="summary-icon">💰</div>
+  <div class="summary-icon"><svg class="summary-svg" aria-hidden="true"><use href="#i-debt"></use></svg></div>
   <div style="flex:1;">
     <div class="summary-label">مجموع الديون</div>
     <div id="debtsTotalBottom" class="summary-value">0 دينار عراقي</div>
   </div>
-  <div style="font-size:26px;">📊</div>
+  <div class="summary-chart-icon"><svg class="summary-svg" aria-hidden="true"><use href="#i-activity"></use></svg></div>
 </div>
 
 </div>
@@ -4761,16 +4880,16 @@ class="transfer-empty">
 </div>
 
 <div class="pdf-buttons-row">
-  <button id="exportTransfersPdfBtn" type="button" class="pdf-export-btn transfer-pdf-btn">📄 سحب قائمة الترحيل PDF</button>
+  <button id="exportTransfersPdfBtn" type="button" class="pdf-export-btn transfer-pdf-btn"><svg class="action-icon" aria-hidden="true"><use href="#i-pdf"></use></svg><span>سحب قائمة الترحيل PDF</span></button>
 </div>
 
 <div class="transfer-bottom-summary">
-  <div class="summary-icon">🔄</div>
+  <div class="summary-icon"><svg class="summary-svg" aria-hidden="true"><use href="#i-transfer"></use></svg></div>
   <div style="flex:1;">
     <div class="summary-label">مجموع مبالغ الترحيل</div>
     <div id="transfersTotalBottom" class="summary-value">0 دينار عراقي</div>
   </div>
-  <div style="font-size:26px;">📊</div>
+  <div class="summary-chart-icon"><svg class="summary-svg" aria-hidden="true"><use href="#i-activity"></use></svg></div>
 </div>
 
 </div>
@@ -5273,8 +5392,9 @@ async function logActivity(action,details=''){
 }
 
 function activityIcon(action){
-  const icons={'تسجيل دخول':'🔐','إضافة مشترك':'➕','تعديل مشترك':'✏️','حذف مشترك':'🗑️','إضافة دين':'💰','حذف دين':'🗑️','استيراد Excel':'📥','تصدير Excel':'📤','تسجيل خروج':'🚪'};
-  return icons[action] || '📌';
+  const icons={'تسجيل دخول':'i-debt-search','إضافة مشترك':'i-plus','تعديل مشترك':'i-edit','حذف مشترك':'i-delete','إضافة دين':'i-debt','حذف دين':'i-delete','استيراد Excel':'i-excel','تصدير Excel':'i-pdf','تسجيل خروج':'i-logout'};
+  const id = icons[action] || 'i-activity';
+  return `<svg class="activity-svg" aria-hidden="true"><use href="#${id}"></use></svg>`;
 }
 
 function formatActivityDate(value){
